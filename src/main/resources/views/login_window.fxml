@@ -8,17 +8,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.LoginWindowController">
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/login_style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.LoginWindowController">
    <children>
       <VBox layoutX="225.0" layoutY="263.0" prefHeight="94.0" prefWidth="150.0" stylesheets="@../styles/login_style.css">
          <children>
-            <TextField promptText="username">
+            <TextField fx:id="nameField" promptText="username">
                <VBox.margin>
                   <Insets top="15.0" />
                </VBox.margin>
             </TextField>
-            <TextField layoutX="10.0" layoutY="10.0" promptText="password">
+            <TextField fx:id="passwordField" layoutX="10.0" layoutY="10.0" promptText="password">
                <VBox.margin>
                   <Insets top="15.0" />
                </VBox.margin>
@@ -30,6 +29,6 @@
             <Image url="@../images/wuav2.png" />
          </image>
       </ImageView>
-      <Button layoutX="274.0" layoutY="357.0" mnemonicParsing="false" text="Log In" />
+      <Button layoutX="275.0" layoutY="357.0" mnemonicParsing="false" onAction="#handleLogin" text="Log In" />
    </children>
 </AnchorPane>
