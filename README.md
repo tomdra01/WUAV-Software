@@ -1,2 +1,2 @@
 # Documentation Software for WUAV
-![](/Users/mackbookair/IdeaProjects/Documentation Software for WUAV/src/main/resources/images/gif/wuav.gif)
+![wuav](https://user-images.githubusercontent.com/114875545/233788102-64074661-6f97-422f-b7c2-10619a99ad90.gif)
