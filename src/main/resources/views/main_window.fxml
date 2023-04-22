@@ -7,31 +7,31 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" stylesheets="@../styles/main_style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" stylesheets="@../styles/main_style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.MainWindowController">
    <children>
       <VBox layoutX="14.0" layoutY="36.0" prefHeight="178.0" prefWidth="104.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="36.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="101.0" stylesheets="@../styles/main_style.css" text="Projects">
+            <Button fx:id="button" mnemonicParsing="false" onAction="#handleNewProject" prefHeight="25.0" prefWidth="101.0" stylesheets="@../styles/main_style.css" text="New Project">
                <VBox.margin>
                   <Insets bottom="15.0" />
                </VBox.margin>
             </Button>
-            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="101.0" stylesheets="@../styles/main_style.css" text="Customers">
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleCustomers" prefHeight="25.0" prefWidth="101.0" stylesheets="@../styles/main_style.css" text="Customers">
                <VBox.margin>
                   <Insets bottom="15.0" />
                </VBox.margin>
             </Button>
-            <Button layoutX="10.0" layoutY="35.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" stylesheets="@../styles/main_style.css" text="Reports">
+            <Button layoutX="10.0" layoutY="35.0" mnemonicParsing="false" onAction="#handleReports" prefHeight="25.0" prefWidth="100.0" stylesheets="@../styles/main_style.css" text="Reports">
                <VBox.margin>
                   <Insets bottom="15.0" />
                </VBox.margin>
             </Button>
-            <Button layoutX="10.0" layoutY="60.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" stylesheets="@../styles/main_style.css" text="Settings">
+            <Button layoutX="10.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleSettings" prefHeight="25.0" prefWidth="102.0" stylesheets="@../styles/main_style.css" text="Settings">
                <VBox.margin>
                   <Insets bottom="15.0" />
                </VBox.margin>
             </Button>
-            <Button layoutX="10.0" layoutY="130.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" stylesheets="@../styles/main_style.css" text="Log Out" />
+            <Button layoutX="10.0" layoutY="130.0" mnemonicParsing="false" onAction="#handleLogOut" prefHeight="25.0" prefWidth="102.0" stylesheets="@../styles/main_style.css" text="Log Out" />
          </children>
       </VBox>
       <ImageView fitHeight="221.0" fitWidth="299.0" layoutX="926.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="53.0" AnchorPane.topAnchor="49.0">
