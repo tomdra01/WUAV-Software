@@ -4,6 +4,7 @@ import dk.easv.util.BlurEffectUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -101,7 +102,25 @@ public class MainWindowController {
     }
 
     @FXML
-    private void handleLogOut(ActionEvent actionEvent){
+    private void handleLogOut(ActionEvent actionEvent) {
+        try {
+            Node source = (Node) actionEvent.getSource();
+            Stage currentStage = (Stage) source.getScene().getWindow();
+            currentStage.close();
 
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/login_window.fxml"));
+            Parent createEventParent = fxmlLoader.load();
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Login");
+            stage.setResizable(false);
+            Scene scene = new Scene(createEventParent);
+            stage.setScene(scene);
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
