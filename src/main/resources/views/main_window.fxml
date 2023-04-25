@@ -11,27 +11,27 @@
    <children>
       <VBox layoutX="14.0" layoutY="14.0" prefHeight="178.0" prefWidth="104.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
          <children>
-            <Button fx:id="button" mnemonicParsing="false" onAction="#handleNewProject" prefHeight="25.0" prefWidth="101.0" stylesheets="@../styles/main_style.css" text="New Project">
+            <Button fx:id="button" mnemonicParsing="false" onAction="#newProject" prefHeight="25.0" prefWidth="101.0" stylesheets="@../styles/main_style.css" text="New Project">
                <VBox.margin>
                   <Insets bottom="15.0" />
                </VBox.margin>
             </Button>
-            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleCustomers" prefHeight="25.0" prefWidth="101.0" stylesheets="@../styles/main_style.css" text="Customers">
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#showCustomers" prefHeight="25.0" prefWidth="101.0" stylesheets="@../styles/main_style.css" text="Customers">
                <VBox.margin>
                   <Insets bottom="15.0" />
                </VBox.margin>
             </Button>
-            <Button layoutX="10.0" layoutY="35.0" mnemonicParsing="false" onAction="#handleReports" prefHeight="25.0" prefWidth="100.0" stylesheets="@../styles/main_style.css" text="Reports">
+            <Button layoutX="10.0" layoutY="35.0" mnemonicParsing="false" onAction="#showReports" prefHeight="25.0" prefWidth="100.0" stylesheets="@../styles/main_style.css" text="Reports">
                <VBox.margin>
                   <Insets bottom="15.0" />
                </VBox.margin>
             </Button>
-            <Button layoutX="10.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleSettings" prefHeight="25.0" prefWidth="102.0" stylesheets="@../styles/main_style.css" text="Settings">
+            <Button layoutX="10.0" layoutY="60.0" mnemonicParsing="false" onAction="#openSettings" prefHeight="25.0" prefWidth="102.0" stylesheets="@../styles/main_style.css" text="Settings">
                <VBox.margin>
                   <Insets bottom="15.0" />
                </VBox.margin>
             </Button>
-            <Button layoutX="10.0" layoutY="130.0" mnemonicParsing="false" onAction="#handleLogOut" prefHeight="25.0" prefWidth="102.0" stylesheets="@../styles/main_style.css" text="Log Out" />
+            <Button layoutX="10.0" layoutY="130.0" mnemonicParsing="false" onAction="#logout" prefHeight="25.0" prefWidth="102.0" stylesheets="@../styles/main_style.css" text="Log Out" />
          </children>
       </VBox>
       <ImageView fitHeight="284.0" fitWidth="350.0" layoutX="836.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">

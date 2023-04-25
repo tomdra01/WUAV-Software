@@ -1,39 +1,43 @@
 package dk.easv.gui.controller;
 
+// imports
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
+// java imports
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class LoginWindowController {
+/**
+ *
+ * @author tomdra01, mrtng1
+ */
+public class LoginWindowController implements Initializable {
     @FXML
-    private TextField nameField, passwordField;
-    @FXML
-    private AnchorPane anchorPane;
+    private BorderPane loginPane;
 
-    @FXML
-    private void handleLogin(javafx.event.ActionEvent actionEvent) throws IOException {
-
-        //login method
-
-        String inputUsername = nameField.getText();
-        String inputPassword = passwordField.getText();
-
+    public void login() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/main_window.fxml"));
-        Parent createEventParent = fxmlLoader.load();
+        Parent parent = fxmlLoader.load();
+
         Stage stage = new Stage();
-        Scene scene = new Scene(createEventParent);
+        Scene scene = new Scene(parent);
         stage.setScene(scene);
         stage.setTitle("WUAV");
+
         stage.show();
 
-        Stage currentStage = (Stage) anchorPane.getScene().getWindow();
+        Stage currentStage = (Stage) loginPane.getScene().getWindow();
         currentStage.close();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
     }
 }

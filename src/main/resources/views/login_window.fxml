@@ -1,34 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/login_style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.LoginWindowController">
-   <children>
-      <VBox layoutX="225.0" layoutY="263.0" prefHeight="94.0" prefWidth="150.0" stylesheets="@../styles/login_style.css">
+<BorderPane fx:id="loginPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: f8f8f8;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.LoginWindowController">
+   <bottom>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets left="200.0" right="200.0" />
+         </BorderPane.margin>
          <children>
-            <TextField fx:id="nameField" promptText="username">
+            <JFXTextField focusColor="#e84910" labelFloat="true" promptText="username" unFocusColor="#333333">
                <VBox.margin>
-                  <Insets top="15.0" />
+                  <Insets bottom="40.0" top="10.0" />
                </VBox.margin>
-            </TextField>
-            <TextField fx:id="passwordField" layoutX="10.0" layoutY="10.0" promptText="password">
+            </JFXTextField>
+            <JFXPasswordField focusColor="#e84910" labelFloat="true" promptText="password" unFocusColor="#333333" />
+            <Button mnemonicParsing="false" onAction="#login" stylesheets="@../styles/login_style.css" text="LOGIN">
                <VBox.margin>
-                  <Insets top="15.0" />
+                  <Insets left="70.0" top="30.0" />
                </VBox.margin>
-            </TextField>
+               <effect>
+                  <DropShadow offsetX="5.0" offsetY="5.0">
+                     <color>
+                        <Color red="0.6710526347160339" green="0.6710526347160339" blue="0.6710526347160339" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Button>
          </children>
       </VBox>
-      <ImageView fitHeight="244.0" fitWidth="504.0" layoutX="76.0" pickOnBounds="true" preserveRatio="true">
+   </bottom>
+   <center>
+      <ImageView fitHeight="147.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/wuav2.png" />
+            <Image url="@../images/gif/wuav.gif" />
          </image>
+         <BorderPane.margin>
+            <Insets top="-20.0" />
+         </BorderPane.margin>
       </ImageView>
-      <Button layoutX="275.0" layoutY="357.0" mnemonicParsing="false" onAction="#handleLogin" text="Log In" />
-   </children>
-</AnchorPane>
+   </center>
+</BorderPane>
