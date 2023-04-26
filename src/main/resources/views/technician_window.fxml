@@ -5,30 +5,36 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 
 <BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.TechnicianWindowController">
    <top>
-      <VBox prefHeight="120.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="140.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #333333;" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;">
+            <HBox fx:id="hbox" prefHeight="100.0" prefWidth="1200.0" style="-fx-background-color: #2a2a2a;" />
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;">
                <effect>
-                  <DropShadow height="10.0" radius="7.25">
+                  <DropShadow height="10.0" offsetY="2.0" radius="7.25">
                      <color>
-                        <Color red="0.31578946113586426" green="0.31578946113586426" blue="0.31578946113586426" />
-                     </color></DropShadow>
+                        <Color red="0.7254902124404907" green="0.7254902124404907" blue="0.7254902124404907" />
+                     </color>
+                  </DropShadow>
                </effect>
                <children>
-                  <JFXHamburger fx:id="jfxHamburger" layoutX="21.0" layoutY="20.0" />
+                  <JFXHamburger fx:id="jfxHamburger">
+                     <HBox.margin>
+                        <Insets left="25.0" />
+                     </HBox.margin></JFXHamburger>
                </children>
-            </Pane>
+            </HBox>
          </children>
       </VBox>
    </top>
@@ -48,16 +54,23 @@
          <effect>
             <InnerShadow>
                <color>
-                  <Color red="0.7236841917037964" green="0.7236841917037964" blue="0.7236841917037964" />
+                  <Color red="0.7254902124404907" green="0.7254902124404907" blue="0.7254902124404907" />
                </color>
             </InnerShadow>
          </effect>
       </GridPane>
    </center>
    <bottom>
-      <Label text="© 2023 WUAV a/s. All rights reserved" textFill="#a1a1a1" BorderPane.alignment="CENTER">
+      <Label text="      © 2023 WUAV a/s. All rights reserved" textFill="#a1a1a1" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="5.0" />
-         </BorderPane.margin></Label>
+         </BorderPane.margin>
+         <graphic>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/wuav.png" />
+               </image>
+            </ImageView>
+         </graphic></Label>
    </bottom>
 </BorderPane>

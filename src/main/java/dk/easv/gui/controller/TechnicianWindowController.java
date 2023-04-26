@@ -4,6 +4,8 @@ package dk.easv.gui.controller;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import dk.easv.bll.util.BlurEffectUtil;
+import eu.hansolo.tilesfx.Tile;
+import eu.hansolo.tilesfx.TileBuilder;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,6 +21,7 @@ import javafx.stage.Stage;
 // java imports
 import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
@@ -27,12 +30,15 @@ import java.util.ResourceBundle;
  */
 public class TechnicianWindowController implements Initializable {
     @FXML
+    private HBox hbox;
+    @FXML
     private JFXHamburger jfxHamburger;
     @FXML
     private BorderPane mainPane;
     private final Button createProjectButton = new Button("New project");
     private final Button logOutButton = new Button("Log out");
     private boolean isVBoxAdded;
+    private Tile clockTile;
 
     /**
      * Initializing hamburger menu.
@@ -50,8 +56,8 @@ public class TechnicianWindowController implements Initializable {
             leftVBox.getStylesheets().add("styles/main_style.css");
 
             leftVBox.getChildren().addAll(createProjectButton, logOutButton);
-            VBox.setMargin(createProjectButton, new Insets(50, 20, 20, 50));
-            VBox.setMargin(logOutButton, new Insets(450, 20, 40, 70));
+            VBox.setMargin(createProjectButton, new Insets(60, 20, 0, 50));
+            VBox.setMargin(logOutButton, new Insets(380, 20, 0, 70));
 
             if (isVBoxAdded) {
                 mainPane.setLeft(null);
@@ -109,11 +115,27 @@ public class TechnicianWindowController implements Initializable {
     }
 
     /**
+     * Setting clock widget.
+     */
+    private void setClockTile(){
+        clockTile = TileBuilder.create()
+                .skinType(Tile.SkinType.CLOCK)
+                .dateVisible(true)
+                .locale(Locale.UK)
+                .running(true)
+                .build();
+
+        hbox.getChildren().addAll(clockTile);
+        HBox.setMargin(clockTile, new Insets(-5, 0, 0, 1000));
+    }
+
+    /**
      * Initialize method
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        hamburgerMenu();
-        hamburgerButtons();
+        setClockTile(); //clock
+        hamburgerMenu(); //hamburger
+        hamburgerButtons(); //buttons in hamburger
     }
 }
