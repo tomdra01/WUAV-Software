@@ -23,7 +23,7 @@ public class LoginWindowController implements Initializable {
     private BorderPane loginPane;
 
     public void login() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/main_window.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/technician_window.fxml"));
         Parent parent = fxmlLoader.load();
 
         Stage stage = new Stage();

@@ -1,16 +1,22 @@
 package dk.easv.gui.controller;
 
-import dk.easv.util.BlurEffectUtil;
-import javafx.scene.layout.AnchorPane;
+// imports
+import dk.easv.bll.util.BlurEffectUtil;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+/**
+ *
+ * @author tomdra01, mrtng1
+ */
 public class NewProjectWindowController {
-    private AnchorPane anchorPane;
-    public void setAnchorPane(AnchorPane anchorPane) {
-        this.anchorPane = anchorPane;
+    private BorderPane borderPane;
+
+    public void setAnchorPane(BorderPane borderPane) {
+        this.borderPane = borderPane;
     }
 
     public void setOnCloseRequestHandler(Stage stage) {
-        stage.setOnCloseRequest(event -> BlurEffectUtil.removeBlurEffect(anchorPane));
+        stage.setOnCloseRequest(event -> BlurEffectUtil.removeBlurEffect(borderPane));
     }
 }

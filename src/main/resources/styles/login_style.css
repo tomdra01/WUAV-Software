@@ -1,29 +1,8 @@
-#loginAnchorPane {
-    -fx-background-color: linear-gradient(to left top, #281714, #59221b, #8d2922, #c52e28, #ff2e2e);
-}
-
-.choice-box {
-    -fx-background-color: transparent;
-}
-
-.text-field {
-    -fx-background-color: -fx-control-inner-background;
-    -fx-background-insets: 0, 0 0 1 0;
-    -fx-background-radius: 0;
-    -fx-padding: 0.333333em 0.583333em 0.666667em 0.583333em;
-    -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);
-    -fx-text-fill: -fx-text-inner-color;
-    -fx-border-color: transparent;
-    -fx-border-width: 0 0 1 0;
-}
-
 .button {
     -fx-background-color: white;
-    -fx-background-radius: 30;
 }
 
 .button:hover{
     -fx-background-color: black;
-    -fx-background-radius: 30;
     -fx-text-fill: white;
 }

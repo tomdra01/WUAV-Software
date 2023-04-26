@@ -2,10 +2,9 @@
 
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -14,14 +13,17 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.MainWindowController">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.TechnicianWindowController">
    <top>
       <VBox prefHeight="120.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
          <children>
             <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #333333;" />
             <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;">
                <effect>
-                  <DropShadow height="10.0" radius="7.25" />
+                  <DropShadow height="10.0" radius="7.25">
+                     <color>
+                        <Color red="0.31578946113586426" green="0.31578946113586426" blue="0.31578946113586426" />
+                     </color></DropShadow>
                </effect>
                <children>
                   <JFXHamburger fx:id="jfxHamburger" layoutX="21.0" layoutY="20.0" />
@@ -50,32 +52,12 @@
                </color>
             </InnerShadow>
          </effect>
-         <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
-               <image>
-                  <Image url="@../images/wuav.png" />
-               </image>
-               <GridPane.margin>
-                  <Insets left="150.0" />
-               </GridPane.margin>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
-               <image>
-                  <Image url="@../images/wuav.png" />
-               </image>
-               <GridPane.margin>
-                  <Insets left="150.0" />
-               </GridPane.margin>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <image>
-                  <Image url="@../images/wuav.png" />
-               </image>
-               <GridPane.margin>
-                  <Insets left="150.0" />
-               </GridPane.margin>
-            </ImageView>
-         </children>
       </GridPane>
    </center>
+   <bottom>
+      <Label text="© 2023 WUAV a/s. All rights reserved" textFill="#a1a1a1" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="5.0" />
+         </BorderPane.margin></Label>
+   </bottom>
 </BorderPane>

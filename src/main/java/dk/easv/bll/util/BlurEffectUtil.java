@@ -1,4 +1,4 @@
-package dk.easv.util;
+package dk.easv.bll.util;
 import javafx.scene.Node;
 import javafx.scene.effect.GaussianBlur;
 

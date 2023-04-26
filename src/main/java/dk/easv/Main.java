@@ -12,6 +12,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 
+/**
+ *
+ * @author tomdra01, mrtng1
+ */
 public class Main extends Application {
 
     public static void main(String[] args) {
@@ -20,7 +24,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        URL fxmlUrl = getClass().getResource("/views/test.fxml");
+        URL fxmlUrl = getClass().getResource("/views/technician_window.fxml");
         Parent root = FXMLLoader.load(Objects.requireNonNull(fxmlUrl));
 
         Scene scene = new Scene(root);
