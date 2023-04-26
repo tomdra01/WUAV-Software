@@ -17,7 +17,7 @@ import java.util.Properties;
  */
 public class DatabaseConnector {
     private SQLServerDataSource dataSource;
-    private static String file = "dk/easv/dal/database/database.properties";
+    private static String file = "src/main/java/dk/easv/dal/database/database.properties";
 
     // Constructor
     public DatabaseConnector(){
