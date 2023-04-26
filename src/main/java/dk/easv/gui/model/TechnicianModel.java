@@ -26,7 +26,7 @@ public class TechnicianModel {
     /**
      * Checks if the 2 parameters are valid based on the credentials from the database
      */
-    public boolean isValidAdmin(String inputUsername, String inputPassword) {
+    public boolean isValid(String inputUsername, String inputPassword) {
         return technicians.stream()
                 .anyMatch(technician -> technician.getUsername().equals(inputUsername) && technician.getPassword().equals(inputPassword));
     }

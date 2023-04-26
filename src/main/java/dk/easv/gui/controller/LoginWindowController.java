@@ -3,12 +3,15 @@ package dk.easv.gui.controller;
 // imports
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import dk.easv.bll.util.PopupUtil;
+import dk.easv.gui.model.AdminModel;
 import dk.easv.gui.model.TechnicianModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -29,28 +32,44 @@ public class LoginWindowController implements Initializable {
     @FXML
     private JFXPasswordField passwordField;
     private TechnicianModel technicianModel;
+    private AdminModel adminModel;
     public void login() throws IOException {
         String inputUsername = nameField.getText();
         String inputPassword = passwordField.getText();
-        if (technicianModel.isValidAdmin(inputUsername, inputPassword)) {
+        if (technicianModel.isValid(inputUsername, inputPassword)) {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/technician_window.fxml"));
             Parent parent = fxmlLoader.load();
 
             Stage stage = new Stage();
             Scene scene = new Scene(parent);
             stage.setScene(scene);
-            stage.setTitle("WUAV");
+            stage.setTitle("WUAV - technician");
 
             stage.show();
 
             Stage currentStage = (Stage) loginPane.getScene().getWindow();
             currentStage.close();
         }
-        else System.out.println("wrong login");
+        else if (adminModel.isValid(inputUsername,inputPassword)){
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/technician_window.fxml"));
+            Parent parent = fxmlLoader.load();
+
+            Stage stage = new Stage();
+            Scene scene = new Scene(parent);
+            stage.setScene(scene);
+            stage.setTitle("WUAV - admin");
+
+            stage.show();
+
+            Stage currentStage = (Stage) loginPane.getScene().getWindow();
+            currentStage.close();
+        }
+        else PopupUtil.showAlert("Incorrect login","Incorrect username or password", Alert.AlertType.INFORMATION);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         technicianModel = new TechnicianModel();
+        adminModel = new AdminModel();
     }
 }
