@@ -4,13 +4,23 @@ package dk.easv.be;
  *
  * @author tomdra01, mrtng1
  */
-public class Admin {
+public class User {
+    private int id;
     private String username;
     private String password;
 
-    public Admin(String username, String password) {
+    public User(int id, String username, String password) {
+        this.id = id;
         this.username = username;
         this.password = password;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {
