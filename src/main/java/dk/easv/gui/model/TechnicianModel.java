@@ -1,7 +1,7 @@
 package dk.easv.gui.model;
 
 import dk.easv.be.roles.Technician;
-import dk.easv.bll.TechnicianLogic;
+import dk.easv.bll.logic.TechnicianLogic;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

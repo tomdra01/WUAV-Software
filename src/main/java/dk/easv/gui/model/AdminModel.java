@@ -1,7 +1,7 @@
 package dk.easv.gui.model;
 
 import dk.easv.be.roles.Admin;
-import dk.easv.bll.AdminLogic;
+import dk.easv.bll.logic.AdminLogic;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

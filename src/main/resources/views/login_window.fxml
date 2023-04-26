@@ -25,7 +25,7 @@
                         <Insets right="10.0" top="5.0" />
                      </HBox.margin>
                   </FontAwesomeIconView>
-                  <JFXTextField focusColor="#e84910" labelFloat="true" promptText="username" unFocusColor="#333333" fx:id="nameField">
+                  <JFXTextField fx:id="nameField" focusColor="#e84910" labelFloat="true" promptText="username" unFocusColor="#333333">
                      <HBox.margin>
                         <Insets left="5.0" />
                      </HBox.margin></JFXTextField>
@@ -38,7 +38,7 @@
                         <Insets right="10.0" top="5.0" />
                      </HBox.margin>
                   </FontAwesomeIconView>
-                  <JFXPasswordField focusColor="#e84910" labelFloat="true" prefHeight="26.0" promptText="password" unFocusColor="#333333" fx:id="passwordField">
+                  <JFXPasswordField fx:id="passwordField" focusColor="#e84910" labelFloat="true" prefHeight="26.0" promptText="password" unFocusColor="#333333">
                      <HBox.margin>
                         <Insets left="5.0" />
                      </HBox.margin></JFXPasswordField>
