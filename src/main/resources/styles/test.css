@@ -1,0 +1,3 @@
+#stackPane {
+    -fx-background-color: linear-gradient(to bottom, #firstColor 50%, #secondColor 50%);
+}

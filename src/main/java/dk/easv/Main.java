@@ -20,7 +20,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        URL fxmlUrl = getClass().getResource("/views/main_window.fxml");
+        URL fxmlUrl = getClass().getResource("/views/test.fxml");
         Parent root = FXMLLoader.load(Objects.requireNonNull(fxmlUrl));
 
         Scene scene = new Scene(root);

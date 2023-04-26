@@ -1,13 +1,19 @@
 package dk.easv.gui.controller;
 
 // imports
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import dk.easv.util.BlurEffectUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -22,7 +28,12 @@ import java.util.ResourceBundle;
  */
 public class MainWindowController implements Initializable {
     @FXML
+    private JFXHamburger jfxHamburger;
+    @FXML
+    private BorderPane mainPane;
+    @FXML
     private AnchorPane anchorPane;
+    private boolean isVBoxAdded;
 
     public void newProject() throws IOException {
         BlurEffectUtil.applyBlurEffect(anchorPane,10);
@@ -125,7 +136,34 @@ public class MainWindowController implements Initializable {
         }
     }
 
+    private void hamburgerMenu(){
+        HamburgerSlideCloseTransition transition = new HamburgerSlideCloseTransition(jfxHamburger);
+        transition.setRate(-1);
+        jfxHamburger.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
+            transition.setRate(transition.getRate() * -1);
+            transition.play();
+
+
+            VBox leftVBox = new VBox();
+            Button createProjectButton = new Button("New project");
+            Button logOutButton = new Button("Log out");
+
+            leftVBox.setPrefWidth(170);
+            leftVBox.getChildren().addAll(createProjectButton, logOutButton);
+            VBox.setMargin(createProjectButton, new Insets(20, 20, 20, 20));
+            VBox.setMargin(logOutButton, new Insets(480, 20, 20, 20));
+
+            if (isVBoxAdded) {
+                mainPane.setLeft(null);
+            } else {
+                mainPane.setLeft(leftVBox);
+            }
+            isVBoxAdded = !isVBoxAdded;
+        });
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        hamburgerMenu();
     }
 }
