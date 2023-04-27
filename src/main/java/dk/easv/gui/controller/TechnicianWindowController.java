@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXHamburger;
 import dk.easv.gui.util.BlurEffectUtil;
 import dk.easv.gui.util.ClockUtil;
 import dk.easv.gui.util.HamburgerUtil;
+import dk.easv.gui.util.ViewType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -61,7 +62,7 @@ public class TechnicianWindowController implements Initializable {
         createProjectButton.setOnAction(event -> {
             BlurEffectUtil.applyBlurEffect(mainPane,10);
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/new_project_window.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.NEWPROJECT.getPath()));
                 Parent createEventParent = fxmlLoader.load();
 
                 Stage stage = new Stage();
@@ -85,7 +86,7 @@ public class TechnicianWindowController implements Initializable {
                 Stage currentStage = (Stage) mainPane.getScene().getWindow();
                 currentStage.close();
 
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/login_window.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.LOGIN.getPath()));
                 Parent parent = fxmlLoader.load();
 
                 Stage stage = new Stage();

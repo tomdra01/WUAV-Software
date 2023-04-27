@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXTextField;
 import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.model.AdminModel;
 import dk.easv.gui.model.TechnicianModel;
+import dk.easv.gui.util.ViewType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -43,7 +44,7 @@ public class LoginWindowController implements Initializable {
         String inputPassword = passwordField.getText();
 
         if (technicianModel.isValid(inputUsername, inputPassword)) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/technician_window.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.TECHNICIAN.getPath()));
             Parent parent = fxmlLoader.load();
 
             Stage stage = new Stage();
@@ -57,7 +58,7 @@ public class LoginWindowController implements Initializable {
         }
 
         else if (adminModel.isValid(inputUsername, inputPassword)) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/admin_window.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.ADMIN.getPath()));
             Parent parent = fxmlLoader.load();
 
             Stage stage = new Stage();
