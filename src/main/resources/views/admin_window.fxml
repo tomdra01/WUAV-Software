@@ -50,7 +50,7 @@
             </graphic></Label>
     </bottom>
    <center>
-      <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
+      <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
          <effect>
             <InnerShadow>
                <color>

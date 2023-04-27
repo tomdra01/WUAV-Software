@@ -2,6 +2,7 @@ package dk.easv.dal;
 
 // imports
 import dk.easv.be.roles.Technician;
+import dk.easv.bll.exception.DatabaseException;
 import dk.easv.dal.database.DatabaseConnector;
 
 // java imports
@@ -18,7 +19,6 @@ import java.util.List;
  */
 public class TechnicianDAO {
     private DatabaseConnector databaseConnector;
-
     public TechnicianDAO() {
         databaseConnector = new DatabaseConnector();
     }
@@ -26,7 +26,7 @@ public class TechnicianDAO {
     /**
      * Gets the list of all technicians from the database.
      */
-    public List<Technician> getAllTechnicians() throws SQLException {
+    public List<Technician> readAllTechnicians() throws DatabaseException {
         List<Technician> allTechnicians = new ArrayList<>();
 
         try (Connection con = databaseConnector.getConnection()) {
@@ -47,6 +47,8 @@ public class TechnicianDAO {
                     allTechnicians.add(technician);
                 }
             }
+        } catch(SQLException e){
+            throw new DatabaseException("Couldn't get all admins... Check database connection!", e);
         }
         return allTechnicians;
     }

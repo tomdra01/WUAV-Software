@@ -3,6 +3,7 @@ package dk.easv.gui.controller;
 // imports
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import dk.easv.bll.exception.GUIException;
 import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.model.AdminModel;
 import dk.easv.gui.model.TechnicianModel;
@@ -53,6 +54,9 @@ public class LoginWindowController implements Initializable {
             stage.setTitle("WUAV - technician");
             stage.show();
 
+            TechnicianWindowController technicianWindowController = fxmlLoader.getController();
+            technicianWindowController.setModel(technicianModel);
+
             Stage currentStage = (Stage) loginPane.getScene().getWindow();
             currentStage.close();
         }
@@ -67,10 +71,12 @@ public class LoginWindowController implements Initializable {
             stage.setTitle("WUAV - admin");
             stage.show();
 
+            AdminWindowController adminWindowController = fxmlLoader.getController();
+            adminWindowController.setModel(adminModel, technicianModel);
+
             Stage currentStage = (Stage) loginPane.getScene().getWindow();
             currentStage.close();
         }
-
         else PopupUtil.showAlert("Incorrect login", "Incorrect username or password", Alert.AlertType.WARNING);
     }
 
@@ -80,13 +86,13 @@ public class LoginWindowController implements Initializable {
     public void loginEnter(){
         nameField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
-                try {login();} catch (IOException e) {throw new RuntimeException(e);}
+                try {login();} catch (IOException e) {throw new GUIException("Failed to login", e);}
             }
         });
 
         passwordField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
-                try {login();} catch (IOException e) {throw new RuntimeException(e);}
+                try {login();} catch (IOException e) {throw new GUIException("Failed to login", e);}
             }
         });
     }
@@ -98,7 +104,6 @@ public class LoginWindowController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         technicianModel = new TechnicianModel();
         adminModel = new AdminModel();
-
         loginEnter();
     }
 }

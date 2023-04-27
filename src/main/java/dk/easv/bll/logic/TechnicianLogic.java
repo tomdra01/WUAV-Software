@@ -2,10 +2,10 @@ package dk.easv.bll.logic;
 
 // imports
 import dk.easv.be.roles.Technician;
+import dk.easv.bll.exception.DatabaseException;
 import dk.easv.dal.TechnicianDAO;
 
 // java imports
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -15,7 +15,7 @@ import java.util.List;
 public class TechnicianLogic {
     TechnicianDAO technicianDAO = new TechnicianDAO();
 
-    public List<Technician> getAllTechnicians() throws SQLException {
-        return technicianDAO.getAllTechnicians();
+    public List<Technician> readAllTechnicians() throws DatabaseException {
+        return technicianDAO.readAllTechnicians();
     }
 }
