@@ -57,7 +57,7 @@ public class LoginWindowController implements Initializable {
         }
 
         else if (adminModel.isValid(inputUsername, inputPassword)) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/technician_window.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/admin_window.fxml"));
             Parent parent = fxmlLoader.load();
 
             Stage stage = new Stage();

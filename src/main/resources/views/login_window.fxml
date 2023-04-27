@@ -58,7 +58,7 @@
    <center>
       <ImageView fitHeight="147.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/gif/wuav.gif" />
+            <Image url="@../images/gif/wuav_animation.gif" />
          </image>
          <BorderPane.margin>
             <Insets top="-20.0" />

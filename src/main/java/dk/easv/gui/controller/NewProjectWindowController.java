@@ -1,7 +1,7 @@
 package dk.easv.gui.controller;
 
 // imports
-import dk.easv.bll.util.BlurEffectUtil;
+import dk.easv.gui.util.BlurEffectUtil;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 

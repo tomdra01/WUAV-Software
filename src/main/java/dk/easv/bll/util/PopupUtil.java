@@ -1,10 +1,16 @@
 package dk.easv.bll.util;
 
+// imports
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
+// java imports
 import java.util.Optional;
 
+/**
+ *
+ * @author tomdra01, mrtng1
+ */
 public class PopupUtil {
     public static void showAlert(String title, String message, Alert.AlertType type) {
         Alert alert = new Alert(type);
