@@ -7,6 +7,7 @@ import dk.easv.bll.exception.DatabaseException;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.gui.model.AdminModel;
 import dk.easv.gui.model.TechnicianModel;
+import dk.easv.gui.util.BlurEffectUtil;
 import dk.easv.gui.util.ClockUtil;
 import dk.easv.gui.util.HamburgerUtil;
 import dk.easv.gui.util.ViewType;
@@ -19,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 // java imports
@@ -115,6 +117,34 @@ public class AdminWindowController implements Initializable {
                 throw new GUIException("Failed to logout", e);
             }
         });
+
+        createUserButton.setOnAction(event -> {
+            try {
+                openCreateUser();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+    private void openCreateUser() throws IOException {
+        BlurEffectUtil.applyBlurEffect(mainPane,10);
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/create_user_window.fxml"));
+        Parent createEventParent = fxmlLoader.load();
+
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("Create User");
+        stage.setResizable(false);
+        Scene scene = new Scene(createEventParent);
+        stage.setScene(scene);
+
+        CreateUserWindowController createUserWindowController = fxmlLoader.getController();
+        createUserWindowController.setPane(mainPane);
+        createUserWindowController.setOnCloseRequestHandler(stage);
+
+        stage.show();
     }
 
     /**

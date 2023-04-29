@@ -81,7 +81,7 @@ public class TechnicianWindowController implements Initializable {
                 stage.show();
 
                 NewProjectWindowController newProjectWindowController = fxmlLoader.getController();
-                newProjectWindowController.setAnchorPane(mainPane);
+                newProjectWindowController.setPane(mainPane);
                 newProjectWindowController.setOnCloseRequestHandler(stage);
             } catch (IOException e) {
                 e.printStackTrace();

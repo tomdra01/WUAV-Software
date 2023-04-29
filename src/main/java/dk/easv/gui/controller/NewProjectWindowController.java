@@ -8,7 +8,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -31,7 +30,7 @@ public class NewProjectWindowController implements Initializable {
     private BorderPane borderPane;
     private List<Image> imageHistory = new ArrayList<>();
 
-    public void setAnchorPane(BorderPane borderPane) {
+    public void setPane(BorderPane borderPane) {
         this.borderPane = borderPane;
     }
 
