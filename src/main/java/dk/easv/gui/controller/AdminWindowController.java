@@ -2,7 +2,6 @@ package dk.easv.gui.controller;
 
 // imports
 import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.controls.JFXListView;
 import dk.easv.be.roles.Technician;
 import dk.easv.bll.exception.DatabaseException;
 import dk.easv.bll.exception.GUIException;
@@ -11,6 +10,7 @@ import dk.easv.gui.model.TechnicianModel;
 import dk.easv.gui.util.ClockUtil;
 import dk.easv.gui.util.HamburgerUtil;
 import dk.easv.gui.util.ViewType;
+import io.github.palexdev.materialfx.controls.MFXListView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -86,15 +86,17 @@ public class AdminWindowController implements Initializable {
      * Actions for buttons inside hamburger menu.
      */
     private void hamburgerButtons() {
+        // technician listView
         showTechniciansButton.setOnAction(event -> {
-            JFXListView<Technician> jfxListView = new JFXListView<>();
+            MFXListView<Technician> mfxListView = new MFXListView<>();
 
-            stackPane.getChildren().addAll(jfxListView);
-            StackPane.setMargin(jfxListView, new Insets(20, 200, 20, 200));
+            stackPane.getChildren().addAll(mfxListView);
+            StackPane.setMargin(mfxListView, new Insets(20, 200, 20, 200));
 
-            jfxListView.getItems().addAll(technicianModel.getTechnicians());
+            mfxListView.getItems().addAll(technicianModel.getTechnicians());
         });
 
+        // log out functionality
         logOutButton.setOnAction(event -> {
             try {
                 Stage currentStage = (Stage) mainPane.getScene().getWindow();
@@ -120,8 +122,8 @@ public class AdminWindowController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        hamburgerMenu(); //hamburger
-        hamburgerButtons(); //buttons in hamburger
-        ClockUtil.showWidget(hbox); //clock
+        hamburgerMenu(); // hamburger
+        hamburgerButtons(); // buttons in hamburger
+        ClockUtil.showWidget(hbox); // clock
     }
 }
