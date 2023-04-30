@@ -8,7 +8,8 @@ public enum ViewType {
     LOGIN("/views/login_window.fxml"),
     ADMIN("/views/admin_window.fxml"),
     TECHNICIAN("/views/technician_window.fxml"),
-    NEWPROJECT("/views/new_project_window.fxml");
+    NEW_PROJECT("/views/new_project_window.fxml"),
+    CREATE_USER("/views/create_user_window.fxml");
 
     private String path;
 
@@ -16,7 +17,7 @@ public enum ViewType {
         this.path = path;
     }
 
-    public String getPath() {
+    public String getView() {
         return path;
     }
 }

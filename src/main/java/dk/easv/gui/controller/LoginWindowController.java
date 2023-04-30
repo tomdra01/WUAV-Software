@@ -45,7 +45,7 @@ public class LoginWindowController implements Initializable {
         String inputPassword = passwordField.getText();
 
         if (technicianModel.isValid(inputUsername, inputPassword)) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.TECHNICIAN.getPath()));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.TECHNICIAN.getView()));
             Parent parent = fxmlLoader.load();
 
             Stage stage = new Stage();
@@ -62,7 +62,7 @@ public class LoginWindowController implements Initializable {
         }
 
         else if (adminModel.isValid(inputUsername, inputPassword)) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.ADMIN.getPath()));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.ADMIN.getView()));
             Parent parent = fxmlLoader.load();
 
             Stage stage = new Stage();

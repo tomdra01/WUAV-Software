@@ -44,7 +44,7 @@
             <graphic>
                 <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../images/wuav_logo.png" />
+                        <Image url="@../images/wuav/wuav_logo.png" />
                     </image>
                 </ImageView>
             </graphic></Label>

@@ -35,16 +35,18 @@ import java.util.ResourceBundle;
  * @author tomdra01, mrtng1
  */
 public class AdminWindowController implements Initializable {
+
+    @FXML
+    private BorderPane mainPane;
     @FXML
     private StackPane stackPane;
     @FXML
     private HBox hbox;
     @FXML
     private JFXHamburger jfxHamburger;
-    @FXML
-    private BorderPane mainPane;
     private AdminModel adminModel;
     private TechnicianModel technicianModel;
+
     private final Button createUserButton = new Button("Create user");
     private final Button logOutButton = new Button("Log out");
     private final Button showTechniciansButton = new Button("Show technicians");
@@ -106,7 +108,7 @@ public class AdminWindowController implements Initializable {
                 Stage currentStage = (Stage) mainPane.getScene().getWindow();
                 currentStage.close();
 
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.LOGIN.getPath()));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.LOGIN.getView()));
                 Parent parent = fxmlLoader.load();
 
                 Stage stage = new Stage();
@@ -120,36 +122,30 @@ public class AdminWindowController implements Initializable {
             }
         });
 
+        // create user window
         createUserButton.setOnAction(event -> {
             try {
-                openCreateUser();
+                BlurEffectUtil.applyBlurEffect(mainPane,10);
+
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.CREATE_USER.getView()));
+                Parent createEventParent = fxmlLoader.load();
+
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setTitle("Create User");
+                stage.setResizable(false);
+                Scene scene = new Scene(createEventParent);
+                stage.setScene(scene);
+
+                CreateUserWindowController createUserWindowController = fxmlLoader.getController();
+                createUserWindowController.setModel(technicianModel, new ProjectManagerModel(), new SalesmanModel());
+                createUserWindowController.setPane(mainPane);
+                createUserWindowController.setOnCloseRequestHandler(stage);
+                stage.show();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                throw new GUIException("Failed to open the window", e);
             }
         });
-    }
-
-    private void openCreateUser() throws IOException {
-        BlurEffectUtil.applyBlurEffect(mainPane,10);
-
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/create_user_window.fxml"));
-        Parent createEventParent = fxmlLoader.load();
-
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("Create User");
-        stage.setResizable(false);
-        Scene scene = new Scene(createEventParent);
-        stage.setScene(scene);
-
-        CreateUserWindowController createUserWindowController = fxmlLoader.getController();
-        createUserWindowController.setTechModel(new TechnicianModel());
-        createUserWindowController.setSalModel(new SalesmanModel());
-        createUserWindowController.setPmModel(new ProjectManagerModel());
-        createUserWindowController.setPane(mainPane);
-        createUserWindowController.setOnCloseRequestHandler(stage);
-
-        stage.show();
     }
 
     /**

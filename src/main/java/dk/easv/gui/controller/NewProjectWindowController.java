@@ -42,7 +42,7 @@ public class NewProjectWindowController implements Initializable {
      * Enables user to select from device and draw it on canvas
      */
     private void drawCanvas(){
-        GraphicsContext gc = drawOnCanvas.getGraphicsContext2D(); // get the graphics context of the canvas
+        GraphicsContext gc = drawOnCanvas.getGraphicsContext2D();
 
         projectorButton.setOnAction(event -> { image = new Image("/images/icons/projector.png");});
         screenButton.setOnAction(event -> { image = new Image("/images/icons/screen.png");});
@@ -50,18 +50,20 @@ public class NewProjectWindowController implements Initializable {
         speakersButton.setOnAction(event -> { image = new Image("/images/icons/speakers.png");});
 
         drawOnCanvas.setOnMouseClicked(event -> {
-            if (event.getButton() == MouseButton.PRIMARY) { // detect left click
+            if (event.getButton() == MouseButton.PRIMARY) {
                 double x = event.getX();
                 double y = event.getY();
-                double width = 25; // set the desired width of the image
-                double height = 25; // set the desired height of the image
-                gc.drawImage(image, x, y, width, height); // draw the image of the projector on the canvas at the clicked position
-                imageHistory.add(new Image(image.getUrl(), width, height, true, true)); // add the drawn image to the history list
-                System.out.println(imageHistory);
+                double width = 25;
+                double height = 25;
+                gc.drawImage(image, x, y, width, height);
+                imageHistory.add(new Image(image.getUrl(), width, height, true, true));
             }
         });
     }
 
+    /**
+     * Initialize method
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         drawCanvas();

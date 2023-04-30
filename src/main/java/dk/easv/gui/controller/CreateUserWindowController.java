@@ -1,15 +1,17 @@
 package dk.easv.gui.controller;
 
+// imports
+import com.jfoenix.controls.JFXComboBox;
 import dk.easv.be.roles.ProjectManager;
 import dk.easv.be.roles.Salesman;
 import dk.easv.be.roles.Technician;
-import dk.easv.bll.util.PasswordHasher;
+import dk.easv.bll.exception.GUIException;
+import dk.easv.bll.util.PasswordSecurity;
 import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.model.ProjectManagerModel;
 import dk.easv.gui.model.SalesmanModel;
 import dk.easv.gui.model.TechnicianModel;
 import dk.easv.gui.util.BlurEffectUtil;
-import io.github.palexdev.materialfx.controls.legacy.MFXLegacyComboBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,40 +21,30 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+// java imports
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.util.Base64;
 import java.util.ResourceBundle;
 
 public class CreateUserWindowController implements Initializable {
+
     @FXML
     private BorderPane borderPane;
     @FXML
-    private MFXLegacyComboBox comboBox;
+    private JFXComboBox<String> jfxComboBox;
     @FXML
     private TextField usernameField, passwordField;
     private TechnicianModel technicianModel;
     private SalesmanModel salesmanModel;
     private ProjectManagerModel projectManagerModel;
+    ObservableList<String> userTypes = FXCollections.observableArrayList();
 
-    public void setTechModel(TechnicianModel technicianModel){
+    public void setModel(TechnicianModel technicianModel, ProjectManagerModel projectManagerModel, SalesmanModel salesmanModel) {
         this.technicianModel = technicianModel;
-    }
-    public void setSalModel(SalesmanModel salesmanModel){
-        this.salesmanModel = salesmanModel;
-    }
-    public void setPmModel(ProjectManagerModel projectManagerModel){
         this.projectManagerModel = projectManagerModel;
+        this. salesmanModel = salesmanModel;
     }
 
-    ObservableList<String> userTypes = FXCollections.observableArrayList(
-            "Technician",
-            "Salesman",
-            "Project Manager"
-    );
     public void setPane(BorderPane borderPane) {
         this.borderPane = borderPane;
     }
@@ -60,52 +52,63 @@ public class CreateUserWindowController implements Initializable {
     public void setOnCloseRequestHandler(Stage stage) {
         stage.setOnCloseRequest(event -> BlurEffectUtil.removeBlurEffect(borderPane));
     }
-    @FXML
-    private void submit() {
+
+    /**
+     * Creates a user.
+     */
+    public void createUser() {
+        String userType = jfxComboBox.getValue();
         String username = usernameField.getText();
         String password = passwordField.getText();
-        String hashedPassword = PasswordHasher.hashPassword(password);
-        String userType = (String) comboBox.getValue();
+        String hashedPassword = PasswordSecurity.hashPassword(password);
 
-        System.out.println("username: "+username + "password: " + hashedPassword + " " + userType);
-
-        if(userType=="Technician"){
+        // technician
+        if(userType.equals("Technician")){
             if(!usernameField.getText().isEmpty()) {
                 Technician technician = new Technician(username, hashedPassword);
                 try {
                     technicianModel.createTechnician(technician);
                 } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                    throw new GUIException("Failed to create Technician", e);
                 }
             }
-            else PopupUtil.showAlert("Fields not filled", "Please fill in all the fields", Alert.AlertType.INFORMATION);
+            else PopupUtil.showAlert("Empty fields", "Please fill in all the fields", Alert.AlertType.INFORMATION);
         }
-        else if (userType=="Salesman"){
+
+        // salesman
+        else if (userType.equals("Salesman")){
             if(!usernameField.getText().isEmpty()) {
                 Salesman salesman = new Salesman(username, hashedPassword);
+
                 try {
                     salesmanModel.createSalesman(salesman);
                 } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                    throw new GUIException("Failed to create Salesman", e);
                 }
             }
-            else PopupUtil.showAlert("Fields not filled", "Please fill in all the fields", Alert.AlertType.INFORMATION);
+            else PopupUtil.showAlert("Empty fields", "Please fill in all the fields", Alert.AlertType.INFORMATION);
         }
-        else if(userType=="Project Manager"){
+
+        // project manager
+        else if(userType.equals("Project Manager")){
             if(!usernameField.getText().isEmpty()) {
                 ProjectManager projectManager = new ProjectManager(username, hashedPassword);
                 try {
                     projectManagerModel.createProjectManager(projectManager);
                 } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                    throw new GUIException("Failed to create Project Manager", e);
                 }
             }
-            else PopupUtil.showAlert("Fields not filled", "Please fill in all the fields", Alert.AlertType.INFORMATION);
+            else PopupUtil.showAlert("Empty fields", "Please fill in all the fields", Alert.AlertType.INFORMATION);
         }
     }
 
+    /**
+     * Initialize method
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        comboBox.setItems(userTypes);
+        userTypes.addAll("Technician", "Salesman", "Project Manager");
+        jfxComboBox.setItems(userTypes);
     }
 }

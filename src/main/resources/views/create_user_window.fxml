@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.legacy.MFXLegacyComboBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -9,11 +9,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/main_style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.CreateUserWindowController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/main_style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.CreateUserWindowController">
    <bottom>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#submit" text="Submit">
+            <Button mnemonicParsing="false" onAction="#createUser" text="Submit">
                <HBox.margin>
                   <Insets left="480.0" top="50.0" />
                </HBox.margin>
@@ -36,7 +36,7 @@
                         <Insets right="5.0" />
                      </HBox.margin>
                   </Label>
-                  <MFXLegacyComboBox fx:id="comboBox" lineColor="BLACK" />
+                  <JFXComboBox fx:id="jfxComboBox" focusColor="#e84910" labelFloat="true" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">

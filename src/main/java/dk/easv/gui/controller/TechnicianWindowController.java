@@ -66,10 +66,11 @@ public class TechnicianWindowController implements Initializable {
      * Actions for buttons inside hamburger menu.
      */
     private void hamburgerButtons() {
+        // create new project
         createProjectButton.setOnAction(event -> {
             BlurEffectUtil.applyBlurEffect(mainPane,10);
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.NEWPROJECT.getPath()));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.NEW_PROJECT.getView()));
                 Parent createEventParent = fxmlLoader.load();
 
                 Stage stage = new Stage();
@@ -88,12 +89,13 @@ public class TechnicianWindowController implements Initializable {
             }
         });
 
+        // log out functionality
         logOutButton.setOnAction(event -> {
             try {
                 Stage currentStage = (Stage) mainPane.getScene().getWindow();
                 currentStage.close();
 
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.LOGIN.getPath()));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.LOGIN.getView()));
                 Parent parent = fxmlLoader.load();
 
                 Stage stage = new Stage();
