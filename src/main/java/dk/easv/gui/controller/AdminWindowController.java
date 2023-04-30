@@ -141,6 +141,7 @@ public class AdminWindowController implements Initializable {
         stage.setScene(scene);
 
         CreateUserWindowController createUserWindowController = fxmlLoader.getController();
+        createUserWindowController.setModel(new TechnicianModel());
         createUserWindowController.setPane(mainPane);
         createUserWindowController.setOnCloseRequestHandler(stage);
 

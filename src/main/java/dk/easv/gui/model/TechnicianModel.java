@@ -8,7 +8,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 // java imports
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.Base64;
 
 public class TechnicianModel {
     TechnicianLogic technicianLogic = new TechnicianLogic();
@@ -35,11 +39,29 @@ public class TechnicianModel {
         technicians.addAll(technicianLogic.readAllTechnicians());
     }
 
+    public Technician createTechnician(Technician technician) throws SQLException {
+        Technician t = technicianLogic.createTechnician(technician);
+        technicians.add(t);
+        return t;
+    }
+
+    private String hashPassword(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hash = md.digest(password.getBytes(StandardCharsets.UTF_8));
+            return Base64.getEncoder().encodeToString(hash);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Error hashing password", e);
+        }
+    }
+
     /**
      * Checks if the 2 parameters are valid based on the credentials from the database
      */
     public boolean isValid(String inputUsername, String inputPassword) {
+        String inputPasswordHash = hashPassword(inputPassword);
+
         return technicians.stream()
-                .anyMatch(technician -> technician.getUsername().equals(inputUsername) && technician.getPassword().equals(inputPassword));
+                .anyMatch(technician -> technician.getUsername().equals(inputUsername) && technician.getPassword().equals(inputPasswordHash));
     }
 }

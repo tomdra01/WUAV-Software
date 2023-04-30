@@ -6,10 +6,7 @@ import dk.easv.bll.exception.DatabaseException;
 import dk.easv.dal.database.DatabaseConnector;
 
 // java imports
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,5 +48,21 @@ public class TechnicianDAO {
             throw new DatabaseException("Couldn't get all admins... Check database connection!", e);
         }
         return allTechnicians;
+    }
+
+    public Technician createTechnician(Technician technician) throws SQLException {
+        try (Connection con = databaseConnector.getConnection()) {
+            PreparedStatement pst = con.prepareStatement("INSERT INTO Technician (username, password) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
+            pst.setString(1, technician.getUsername());
+            pst.setString(2, technician.getPassword());
+            pst.execute();
+
+            if (pst.getGeneratedKeys().next()) {
+                int id = pst.getGeneratedKeys().getInt(1);
+                technician.setId(id);
+                return technician;
+            }
+        }
+        throw new RuntimeException("Id not set");
     }
 }

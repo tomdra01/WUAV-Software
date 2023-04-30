@@ -11,4 +11,5 @@ public class Technician extends User {
     public Technician(int id, String username, String password) {
         super(id, username, password);
     }
+    public Technician(String username, String password) {super(username, password);}
 }
