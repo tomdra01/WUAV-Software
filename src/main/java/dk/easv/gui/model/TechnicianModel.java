@@ -4,6 +4,7 @@ package dk.easv.gui.model;
 import dk.easv.be.roles.Technician;
 import dk.easv.bll.exception.DatabaseException;
 import dk.easv.bll.logic.TechnicianLogic;
+import dk.easv.bll.util.PasswordHasher;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -45,21 +46,11 @@ public class TechnicianModel {
         return t;
     }
 
-    private String hashPassword(String password) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] hash = md.digest(password.getBytes(StandardCharsets.UTF_8));
-            return Base64.getEncoder().encodeToString(hash);
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("Error hashing password", e);
-        }
-    }
-
     /**
      * Checks if the 2 parameters are valid based on the credentials from the database
      */
     public boolean isValid(String inputUsername, String inputPassword) {
-        String inputPasswordHash = hashPassword(inputPassword);
+        String inputPasswordHash = PasswordHasher.hashPassword(inputPassword);
 
         return technicians.stream()
                 .anyMatch(technician -> technician.getUsername().equals(inputUsername) && technician.getPassword().equals(inputPasswordHash));

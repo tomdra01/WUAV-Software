@@ -1,7 +1,12 @@
 package dk.easv.gui.controller;
 
+import dk.easv.be.roles.ProjectManager;
+import dk.easv.be.roles.Salesman;
 import dk.easv.be.roles.Technician;
+import dk.easv.bll.util.PasswordHasher;
 import dk.easv.bll.util.PopupUtil;
+import dk.easv.gui.model.ProjectManagerModel;
+import dk.easv.gui.model.SalesmanModel;
 import dk.easv.gui.model.TechnicianModel;
 import dk.easv.gui.util.BlurEffectUtil;
 import io.github.palexdev.materialfx.controls.legacy.MFXLegacyComboBox;
@@ -30,9 +35,17 @@ public class CreateUserWindowController implements Initializable {
     @FXML
     private TextField usernameField, passwordField;
     private TechnicianModel technicianModel;
+    private SalesmanModel salesmanModel;
+    private ProjectManagerModel projectManagerModel;
 
-    public void setModel(TechnicianModel technicianModel){
+    public void setTechModel(TechnicianModel technicianModel){
         this.technicianModel = technicianModel;
+    }
+    public void setSalModel(SalesmanModel salesmanModel){
+        this.salesmanModel = salesmanModel;
+    }
+    public void setPmModel(ProjectManagerModel projectManagerModel){
+        this.projectManagerModel = projectManagerModel;
     }
 
     ObservableList<String> userTypes = FXCollections.observableArrayList(
@@ -51,7 +64,7 @@ public class CreateUserWindowController implements Initializable {
     private void submit() {
         String username = usernameField.getText();
         String password = passwordField.getText();
-        String hashedPassword = hashPassword(password);
+        String hashedPassword = PasswordHasher.hashPassword(password);
         String userType = (String) comboBox.getValue();
 
         System.out.println("username: "+username + "password: " + hashedPassword + " " + userType);
@@ -67,15 +80,27 @@ public class CreateUserWindowController implements Initializable {
             }
             else PopupUtil.showAlert("Fields not filled", "Please fill in all the fields", Alert.AlertType.INFORMATION);
         }
-    }
-
-    private String hashPassword(String password) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] hash = md.digest(password.getBytes(StandardCharsets.UTF_8));
-            return Base64.getEncoder().encodeToString(hash);
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("Error hashing password", e);
+        else if (userType=="Salesman"){
+            if(!usernameField.getText().isEmpty()) {
+                Salesman salesman = new Salesman(username, hashedPassword);
+                try {
+                    salesmanModel.createSalesman(salesman);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            else PopupUtil.showAlert("Fields not filled", "Please fill in all the fields", Alert.AlertType.INFORMATION);
+        }
+        else if(userType=="Project Manager"){
+            if(!usernameField.getText().isEmpty()) {
+                ProjectManager projectManager = new ProjectManager(username, hashedPassword);
+                try {
+                    projectManagerModel.createProjectManager(projectManager);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            else PopupUtil.showAlert("Fields not filled", "Please fill in all the fields", Alert.AlertType.INFORMATION);
         }
     }
 

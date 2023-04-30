@@ -6,6 +6,8 @@ import dk.easv.be.roles.Technician;
 import dk.easv.bll.exception.DatabaseException;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.gui.model.AdminModel;
+import dk.easv.gui.model.ProjectManagerModel;
+import dk.easv.gui.model.SalesmanModel;
 import dk.easv.gui.model.TechnicianModel;
 import dk.easv.gui.util.BlurEffectUtil;
 import dk.easv.gui.util.ClockUtil;
@@ -141,7 +143,9 @@ public class AdminWindowController implements Initializable {
         stage.setScene(scene);
 
         CreateUserWindowController createUserWindowController = fxmlLoader.getController();
-        createUserWindowController.setModel(new TechnicianModel());
+        createUserWindowController.setTechModel(new TechnicianModel());
+        createUserWindowController.setSalModel(new SalesmanModel());
+        createUserWindowController.setPmModel(new ProjectManagerModel());
         createUserWindowController.setPane(mainPane);
         createUserWindowController.setOnCloseRequestHandler(stage);
 

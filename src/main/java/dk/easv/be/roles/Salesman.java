@@ -11,4 +11,5 @@ public class Salesman extends User {
     public Salesman(int id, String username, String password) {
         super(id, username, password);
     }
+    public Salesman(String username, String passwrod) {super (username, passwrod);}
 }
