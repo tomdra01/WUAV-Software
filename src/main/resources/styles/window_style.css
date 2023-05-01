@@ -11,6 +11,9 @@
     -fx-primary-color: #E84910;
     -fx-secondary-color: #E84910;
     -fx-focus-color: -fx-secondary-color;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent #E84910 transparent;
+    -fx-border-width: 0 0 1px 0;
 }
 
 .date-picker .arrow-button {
@@ -40,9 +43,11 @@
     -fx-background-color: -fx-primary-color;
     -fx-text-fill: white;
 }
-.date-picker-popup  {
+.date-picker .date-picker-popup {
     -fx-border-color: transparent;
+    -fx-border-width: 0;
 }
+
 .date-picker-popup .month-year-pane {
     -fx-background-color: -fx-primary-color;
 }
