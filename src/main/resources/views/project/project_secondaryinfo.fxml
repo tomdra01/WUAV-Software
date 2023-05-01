@@ -8,16 +8,19 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styles/window_style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styles/window_style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.NewProjectWindowController">
     <bottom>
         <HBox prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-            <children>
-                <Button mnemonicParsing="false" onAction="#step2" text="Next step">
-                    <HBox.margin>
-                        <Insets left="515.0" top="10.0" />
-                    </HBox.margin>
-                </Button>
-            </children>
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#previousStep" text="Back">
+                <HBox.margin>
+                    <Insets left="15.0" top="10.0" />
+                </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" text="Next step">
+                <HBox.margin>
+                    <Insets left="455.0" top="10.0" />
+                </HBox.margin>
+            </Button>
         </HBox>
     </bottom>
     <center>
@@ -25,18 +28,16 @@
             <BorderPane.margin>
                 <Insets left="150.0" right="150.0" top="80.0" />
             </BorderPane.margin>
-         <children>
-            <JFXTextField fx:id="plocationField" alignment="TOP_CENTER" focusColor="#e84910" promptText="location" unFocusColor="#333333">
-               <VBox.margin>
-                  <Insets left="50.0" right="50.0" top="40.0" />
-               </VBox.margin>
+            <JFXTextField fx:id="plocationField" alignment="TOP_LEFT" focusColor="#e84910" promptText="location" unFocusColor="#333333">
+                <VBox.margin>
+                    <Insets left="50.0" right="50.0" top="40.0" />
+                </VBox.margin>
             </JFXTextField>
             <DatePicker fx:id="plocationDater" prefHeight="26.0" prefWidth="200.0">
-               <VBox.margin>
-                  <Insets left="50.0" top="45.0" />
-               </VBox.margin>
+                <VBox.margin>
+                    <Insets left="50.0" top="45.0" />
+                </VBox.margin>
             </DatePicker>
-         </children>
         </VBox>
     </center>
 </BorderPane>

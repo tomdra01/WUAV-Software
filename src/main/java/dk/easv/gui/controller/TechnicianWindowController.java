@@ -70,7 +70,7 @@ public class TechnicianWindowController implements Initializable {
         createProjectButton.setOnAction(event -> {
             BlurEffectUtil.applyBlurEffect(mainPane,10);
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.NEW_PROJECT.getView()));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP1.getView()));
                 Parent createEventParent = fxmlLoader.load();
 
                 Stage stage = new Stage();
@@ -81,7 +81,7 @@ public class TechnicianWindowController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
 
-                NewProjectWindowController newProjectWindowController = fxmlLoader.getController();
+                NewProjectWindowController  newProjectWindowController = fxmlLoader.getController();
                 newProjectWindowController.setPane(mainPane);
                 newProjectWindowController.setOnCloseRequestHandler(stage);
             } catch (IOException e) {
