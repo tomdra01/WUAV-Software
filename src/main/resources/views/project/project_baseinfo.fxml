@@ -12,7 +12,7 @@
    <bottom>
       <HBox prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="nextButton" mnemonicParsing="false" onAction="#nextStep" text="Next step">
+            <Button fx:id="nextStepBtn1" mnemonicParsing="false" onAction="#nextStep1" text="Next step">
                <HBox.margin>
                   <Insets left="515.0" top="10.0" />
                </HBox.margin>
@@ -26,12 +26,12 @@
             <Insets left="150.0" right="150.0" top="80.0" />
          </BorderPane.margin>
          <children>
-            <JFXTextField fx:id="pnameField" alignment="TOP_LEFT" focusColor="#e84910" promptText="project name" unFocusColor="#333333">
+            <JFXTextField fx:id="pNameField" alignment="TOP_LEFT" focusColor="#e84910" promptText="project name" unFocusColor="#333333">
                <VBox.margin>
                   <Insets left="50.0" right="50.0" top="40.0" />
                </VBox.margin>
             </JFXTextField>
-            <JFXComboBox focusColor="#e84910" prefHeight="26.0" prefWidth="200.0" unFocusColor="#333333">
+            <JFXComboBox fx:id="pBusinessComboBox" focusColor="#e84910" prefHeight="26.0" prefWidth="200.0" unFocusColor="#333333">
                <VBox.margin>
                   <Insets left="50.0" top="45.0" />
                </VBox.margin>

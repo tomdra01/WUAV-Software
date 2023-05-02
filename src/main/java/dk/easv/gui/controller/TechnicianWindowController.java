@@ -75,7 +75,7 @@ public class TechnicianWindowController implements Initializable {
 
                 Stage stage = new Stage();
                 stage.initModality(Modality.APPLICATION_MODAL);
-                stage.setTitle("New Project");
+                stage.setTitle("Step 1");
                 stage.setResizable(false);
                 Scene scene = new Scene(createEventParent);
                 stage.setScene(scene);
