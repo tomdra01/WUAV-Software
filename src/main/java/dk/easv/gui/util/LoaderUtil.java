@@ -12,12 +12,12 @@ import java.util.Objects;
 
 public class LoaderUtil {
 
-    public static void loadFXML(String path, Button button, String title, Scene scene){
+    public static void loadFXML(String path, Button button, String title){
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(LoaderUtil.class.getResource(path)));
             Stage window = (Stage) button.getScene().getWindow();
-            window.setTitle("Step 3");
-            scene = new Scene(root);
+            window.setTitle(title);
+            Scene scene = new Scene(root);
             window.setScene(scene);
         } catch (IOException e) {
             throw new GUIException("Failed to change the window", e);
