@@ -3,6 +3,7 @@ package dk.easv.gui.controller;
 // imports
 import com.jfoenix.controls.JFXHamburger;
 import dk.easv.bll.exception.GUIException;
+import dk.easv.gui.controller.project.ProjectInfoController;
 import dk.easv.gui.model.TechnicianModel;
 import dk.easv.gui.util.BlurEffectUtil;
 import dk.easv.gui.util.ClockUtil;
@@ -81,9 +82,9 @@ public class TechnicianWindowController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
 
-                NewProjectWindowController  newProjectWindowController = fxmlLoader.getController();
-                newProjectWindowController.setPane(mainPane);
-                newProjectWindowController.setOnCloseRequestHandler(stage);
+                ProjectInfoController projectInfoController = fxmlLoader.getController();
+                projectInfoController.setPane(mainPane);
+                projectInfoController.setOnCloseRequestHandler(stage);
             } catch (IOException e) {
                 e.printStackTrace();
             }

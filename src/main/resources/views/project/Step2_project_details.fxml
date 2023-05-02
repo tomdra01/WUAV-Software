@@ -8,15 +8,15 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styles/window_style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.NewProjectWindowController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styles/window_style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.project.ProjectDetailsController">
     <bottom>
         <HBox prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-            <Button fx:id="previousStepBtn2" mnemonicParsing="false" onAction="#previousStep2" text="Back">
+            <Button fx:id="previousStepBtn" mnemonicParsing="false" onAction="#previousStep" text="Back">
                 <HBox.margin>
                     <Insets left="15.0" top="10.0" />
                 </HBox.margin>
             </Button>
-            <Button fx:id="nextStepBtn2" mnemonicParsing="false" onAction="#nextStep2" text="Next step">
+            <Button fx:id="nextStepBtn" mnemonicParsing="false" onAction="#nextStep" text="Next step">
                 <HBox.margin>
                     <Insets left="455.0" top="10.0" />
                 </HBox.margin>
