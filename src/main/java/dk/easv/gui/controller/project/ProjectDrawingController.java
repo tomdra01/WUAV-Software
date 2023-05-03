@@ -2,6 +2,7 @@ package dk.easv.gui.controller.project;
 
 // imports
 import dk.easv.bll.exception.GUIException;
+import dk.easv.bll.util.ImageByteReader;
 import dk.easv.gui.controller.DrawInstallationController;
 import dk.easv.gui.util.ViewType;
 import javafx.fxml.FXML;
@@ -77,8 +78,18 @@ public class ProjectDrawingController implements Initializable {
                 Scene scene = new Scene(root);
                 window.setScene(scene);
 
+                long fileSize = selectedFile.length();
+                System.out.println("File size: " + fileSize);
+
+                ImageByteReader imageByteReader = new ImageByteReader();
+                byte[] imageData = imageByteReader.getImage(selectedFile);
+                System.out.println("Image data length: " + imageData.length);
+                System.out.println(imageData);
+
             } catch (IOException e) {
                 e.printStackTrace();
+            } catch (Exception e) {
+                throw new GUIException("File chooser fail", e);
             }
         }
     }

@@ -66,6 +66,10 @@ public class ProjectPhotosController implements Initializable {
         }
     }
 
+    public void nextStep(){
+
+    }
+
     /**
      * Initialize method
      */
