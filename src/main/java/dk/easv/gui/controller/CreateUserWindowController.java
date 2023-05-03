@@ -9,9 +9,7 @@ import dk.easv.be.roles.Technician;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.bll.util.PasswordSecurity;
 import dk.easv.bll.util.PopupUtil;
-import dk.easv.gui.model.ProjectManagerModel;
-import dk.easv.gui.model.SalesmanModel;
-import dk.easv.gui.model.TechnicianModel;
+import dk.easv.gui.model.UserModel;
 import dk.easv.gui.util.BlurEffectUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -41,15 +39,11 @@ public class CreateUserWindowController implements Initializable {
     private JFXTextField usernameField, passwordField;
     @FXML
     private Button cancelButton;
-    private TechnicianModel technicianModel;
-    private SalesmanModel salesmanModel;
-    private ProjectManagerModel projectManagerModel;
+    private UserModel userModel;
     ObservableList<String> userTypes = FXCollections.observableArrayList();
 
-    public void setModel(TechnicianModel technicianModel, ProjectManagerModel projectManagerModel, SalesmanModel salesmanModel) {
-        this.technicianModel = technicianModel;
-        this.projectManagerModel = projectManagerModel;
-        this. salesmanModel = salesmanModel;
+    public void setModel(UserModel userModel) {
+        this.userModel = userModel;
     }
 
     public void setPane(BorderPane borderPane) {
@@ -75,7 +69,7 @@ public class CreateUserWindowController implements Initializable {
                 if (!usernameField.getText().isEmpty()) {
                     Technician technician = new Technician(username, hashedPassword);
                     try {
-                        technicianModel.createTechnician(technician);
+                        userModel.createTechnician(technician);
                         closeWindow();
                     } catch (SQLException e) {
                         throw new GUIException("Failed to create Technician", e);
@@ -90,7 +84,7 @@ public class CreateUserWindowController implements Initializable {
                     Salesman salesman = new Salesman(username, hashedPassword);
 
                     try {
-                        salesmanModel.createSalesman(salesman);
+                        userModel.createSalesman(salesman);
                         closeWindow();
                     } catch (SQLException e) {
                         throw new GUIException("Failed to create Salesman", e);
@@ -104,7 +98,7 @@ public class CreateUserWindowController implements Initializable {
                 if (!usernameField.getText().isEmpty()) {
                     ProjectManager projectManager = new ProjectManager(username, hashedPassword);
                     try {
-                        projectManagerModel.createProjectManager(projectManager);
+                        userModel.createProjectManager(projectManager);
                         closeWindow();
                     } catch (SQLException e) {
                         throw new GUIException("Failed to create Project Manager", e);

@@ -5,10 +5,7 @@ import com.jfoenix.controls.JFXHamburger;
 import dk.easv.be.roles.Technician;
 import dk.easv.bll.exception.DatabaseException;
 import dk.easv.bll.exception.GUIException;
-import dk.easv.gui.model.AdminModel;
-import dk.easv.gui.model.ProjectManagerModel;
-import dk.easv.gui.model.SalesmanModel;
-import dk.easv.gui.model.TechnicianModel;
+import dk.easv.gui.model.UserModel;
 import dk.easv.gui.util.BlurEffectUtil;
 import dk.easv.gui.util.ClockUtil;
 import dk.easv.gui.util.HamburgerUtil;
@@ -44,21 +41,18 @@ public class AdminWindowController implements Initializable {
     private HBox hbox;
     @FXML
     private JFXHamburger jfxHamburger;
-    private AdminModel adminModel;
-    private TechnicianModel technicianModel;
-
+    private UserModel userModel;
     private final Button createUserButton = new Button("Create user");
     private final Button logOutButton = new Button("Log out");
     private final Button showTechniciansButton = new Button("Show technicians");
     private final Button showCustomersButton = new Button("Show customers");
     private final Button showLogButton = new Button("See log");
 
-    public void setModel(AdminModel adminModel, TechnicianModel technicianModel) {
-        this.adminModel = adminModel;
-        this.technicianModel = technicianModel;
+    public void setModel(UserModel userModel) {
+        this.userModel = userModel;
 
         try {
-            technicianModel.loadTechnicians();
+            userModel.loadTechnicians();
         } catch (DatabaseException e) {
             throw new GUIException("Failed while loading technicians", e);
         }
@@ -99,7 +93,7 @@ public class AdminWindowController implements Initializable {
             stackPane.getChildren().addAll(mfxListView);
             StackPane.setMargin(mfxListView, new Insets(20, 200, 20, 200));
 
-            mfxListView.getItems().addAll(technicianModel.getTechnicians());
+            mfxListView.getItems().addAll(userModel.getTechnicians());
         });
 
         // log out functionality
@@ -138,7 +132,7 @@ public class AdminWindowController implements Initializable {
                 stage.setScene(scene);
 
                 CreateUserWindowController createUserWindowController = fxmlLoader.getController();
-                createUserWindowController.setModel(technicianModel, new ProjectManagerModel(), new SalesmanModel());
+                createUserWindowController.setModel(userModel);
                 createUserWindowController.setPane(mainPane);
                 createUserWindowController.setOnCloseRequestHandler(stage);
                 stage.show();

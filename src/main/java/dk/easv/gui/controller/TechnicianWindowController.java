@@ -4,7 +4,7 @@ package dk.easv.gui.controller;
 import com.jfoenix.controls.JFXHamburger;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.gui.controller.project.ProjectInfoController;
-import dk.easv.gui.model.TechnicianModel;
+import dk.easv.gui.model.UserModel;
 import dk.easv.gui.util.BlurEffectUtil;
 import dk.easv.gui.util.ClockUtil;
 import dk.easv.gui.util.HamburgerUtil;
@@ -36,12 +36,12 @@ public class TechnicianWindowController implements Initializable {
     private JFXHamburger jfxHamburger;
     @FXML
     private BorderPane mainPane;
-    private TechnicianModel technicianModel;
+    private UserModel userModel;
     private final Button createProjectButton = new Button("New project");
     private final Button logOutButton = new Button("Log out");
 
-    public void setModel(TechnicianModel technicianModel) {
-        this.technicianModel = technicianModel;
+    public void setModel(UserModel userModel) {
+        this.userModel= userModel;
     }
 
     /**

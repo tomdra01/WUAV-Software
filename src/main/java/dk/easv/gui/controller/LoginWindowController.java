@@ -5,8 +5,7 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.bll.util.PopupUtil;
-import dk.easv.gui.model.AdminModel;
-import dk.easv.gui.model.TechnicianModel;
+import dk.easv.gui.model.UserModel;
 import dk.easv.gui.util.ViewType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,8 +33,7 @@ public class LoginWindowController implements Initializable {
     private JFXTextField nameField;
     @FXML
     private JFXPasswordField passwordField;
-    private TechnicianModel technicianModel;
-    private AdminModel adminModel;
+    private UserModel userModel;
 
     /**
      * Allows user to login.
@@ -44,7 +42,7 @@ public class LoginWindowController implements Initializable {
         String inputUsername = nameField.getText();
         String inputPassword = passwordField.getText();
 
-        if (technicianModel.isValid(inputUsername, inputPassword)) {
+        if (userModel.isValidTechnician(inputUsername, inputPassword)) {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.TECHNICIAN.getView()));
             Parent parent = fxmlLoader.load();
 
@@ -55,13 +53,13 @@ public class LoginWindowController implements Initializable {
             stage.show();
 
             TechnicianWindowController technicianWindowController = fxmlLoader.getController();
-            technicianWindowController.setModel(technicianModel);
+            technicianWindowController.setModel(userModel);
 
             Stage currentStage = (Stage) loginPane.getScene().getWindow();
             currentStage.close();
         }
 
-        else if (adminModel.isValid(inputUsername, inputPassword)) {
+        else if (userModel.isValidAdmin(inputUsername, inputPassword)) {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.ADMIN.getView()));
             Parent parent = fxmlLoader.load();
 
@@ -72,7 +70,7 @@ public class LoginWindowController implements Initializable {
             stage.show();
 
             AdminWindowController adminWindowController = fxmlLoader.getController();
-            adminWindowController.setModel(adminModel, technicianModel);
+            adminWindowController.setModel(userModel);
 
             Stage currentStage = (Stage) loginPane.getScene().getWindow();
             currentStage.close();
@@ -102,8 +100,7 @@ public class LoginWindowController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        technicianModel = new TechnicianModel();
-        adminModel = new AdminModel();
+        userModel = new UserModel();
         loginEnter();
     }
 }
