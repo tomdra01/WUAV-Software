@@ -7,6 +7,10 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ *
+ * @author tomdra01, mrtng1
+ */
 public class ProjectInstallationController implements Initializable {
 
     /**

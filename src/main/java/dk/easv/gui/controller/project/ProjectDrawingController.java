@@ -48,11 +48,12 @@ public class ProjectDrawingController implements Initializable {
             Scene scene = new Scene(root);
             window.setScene(scene);
         } catch (IOException e) {
-            throw new GUIException("Failed to change the window", e);
+            throw new GUIException("Failed to proceed to Step 2", e);
         }
     }
 
     public void importDrawing() {
+        
     }
 
     public void createDrawing() {

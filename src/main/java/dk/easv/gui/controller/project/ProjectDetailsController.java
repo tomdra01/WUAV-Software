@@ -1,5 +1,6 @@
 package dk.easv.gui.controller.project;
 
+// imports
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.gui.util.ViewType;
@@ -13,11 +14,16 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+// java imports
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+/**
+ *
+ * @author tomdra01, mrtng1
+ */
 public class ProjectDetailsController implements Initializable {
     @FXML private Button nextStepBtn;
     @FXML private Button previousStepBtn;
@@ -37,6 +43,23 @@ public class ProjectDetailsController implements Initializable {
         pDatePicker.setValue(projectDate);
     }
 
+    public void nextStep() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP3.getView()));
+            Parent root = loader.load();
+
+            ProjectDrawingController projectDrawingController = loader.getController();
+            projectDrawingController.setFields(projectName, businessType, projectLocation, projectDate);
+
+            Stage window = (Stage) nextStepBtn.getScene().getWindow();
+            window.setTitle("Step 3");
+            Scene scene = new Scene(root);
+            window.setScene(scene);
+        } catch (IOException e) {
+            throw new GUIException("Failed to proceed to Step 3", e);
+        }
+    }
+
     public void previousStep() {
         projectLocation = pLocationField.getText();
         projectDate = pDatePicker.getValue();
@@ -53,27 +76,13 @@ public class ProjectDetailsController implements Initializable {
             Scene scene = new Scene(root);
             window.setScene(scene);
         } catch (IOException e) {
-            throw new GUIException("Failed to change the window", e);
+            throw new GUIException("Failed to proceed to Step 1", e);
         }
     }
 
-    public void nextStep() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP3.getView()));
-            Parent root = loader.load();
-
-            ProjectDrawingController projectDrawingController = loader.getController();
-            projectDrawingController.setFields(projectName, businessType, projectLocation, projectDate);
-
-            Stage window = (Stage) nextStepBtn.getScene().getWindow();
-            window.setTitle("Step 3");
-            Scene scene = new Scene(root);
-            window.setScene(scene);
-        } catch (IOException e) {
-            throw new GUIException("Failed to change the window", e);
-        }
-    }
-
+    /**
+     * Initialize method
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     }
