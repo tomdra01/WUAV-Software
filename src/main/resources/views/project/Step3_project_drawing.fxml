@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styles/window_style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.project.ProjectDrawingController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styles/window_style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.project.ProjectDrawingController">
     <bottom>
         <HBox prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
@@ -30,7 +30,7 @@
                   <Image url="@../../images/wuav/Digital-skiltning.png" />
                </image>
             </ImageView>
-            <Button layoutX="113.0" layoutY="232.0" mnemonicParsing="false" onAction="#importDrawing" stylesheets="@../../styles/login_style.css" text="Import " />
+            <Button fx:id="importBtn" layoutX="113.0" layoutY="232.0" mnemonicParsing="false" onAction="#importDrawing" stylesheets="@../../styles/login_style.css" text="Import " />
          </children>
          <BorderPane.margin>
             <Insets bottom="5.0" left="20.0" right="5.0" top="20.0" />

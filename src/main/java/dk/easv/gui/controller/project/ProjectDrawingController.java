@@ -10,9 +10,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 // java imports
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -23,7 +25,7 @@ import java.util.ResourceBundle;
  * @author tomdra01, mrtng1
  */
 public class ProjectDrawingController implements Initializable {
-    @FXML private Button previousStepBtn;
+    @FXML private Button previousStepBtn, importBtn;
      private String projectName, businessType, projectLocation;
     private LocalDate projectDate;
 
@@ -53,7 +55,35 @@ public class ProjectDrawingController implements Initializable {
     }
 
     public void importDrawing() {
-        
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select image");
+
+        // Set the filter for the file chooser to only accept PNG, JPG, and JPEG files
+        FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.jpeg", "*.png");
+        fileChooser.getExtensionFilters().add(imageFilter);
+
+        // Open the file chooser dialog and store the selected file
+        Stage stage = (Stage) importBtn.getScene().getWindow();
+        File selectedFile = fileChooser.showOpenDialog(stage);
+
+        if (selectedFile != null) {
+            try {
+                // Load the new view using FXMLLoader
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP4.getView()));
+                Parent root = loader.load();
+
+                ProjectInstallationController projectInstallationController = loader.getController();
+                projectInstallationController.setFields(projectName, businessType, projectLocation, projectDate);
+
+                Stage window = (Stage) importBtn.getScene().getWindow();
+                window.setTitle("Step ..");
+                Scene scene = new Scene(root);
+                window.setScene(scene);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void createDrawing() {

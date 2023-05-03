@@ -12,7 +12,8 @@ public enum ViewType {
     DRAW_INSTALLATION("/views/draw_installation_window.fxml"),
     PROJECT_STEP1("/views/project/Step1_project_info.fxml"),
     PROJECT_STEP2("/views/project/Step2_project_details.fxml"),
-    PROJECT_STEP3("/views/project/Step3_project_drawing.fxml");
+    PROJECT_STEP3("/views/project/Step3_project_drawing.fxml"),
+    PROJECT_STEP4("/views/project/Step4_project_installation.fxml");
     private final String path;
 
     private ViewType(String path) {
