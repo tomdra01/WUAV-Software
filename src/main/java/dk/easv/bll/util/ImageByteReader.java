@@ -9,7 +9,7 @@ import java.io.InputStream;
 
 public class ImageByteReader {
     private byte[] imageData;
-    public byte[] getImage(File selectedFile) throws Exception {
+    public byte[] readImage(File selectedFile) throws Exception {
         if (selectedFile != null) {
             imageData = readBytesFromFile(selectedFile);
         }

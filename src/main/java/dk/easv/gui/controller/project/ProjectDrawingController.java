@@ -82,7 +82,7 @@ public class ProjectDrawingController implements Initializable {
                 System.out.println("File size: " + fileSize);
 
                 ImageByteReader imageByteReader = new ImageByteReader();
-                byte[] imageData = imageByteReader.getImage(selectedFile);
+                byte[] imageData = imageByteReader.readImage(selectedFile);
                 System.out.println("Image data length: " + imageData.length);
                 System.out.println(imageData);
 
