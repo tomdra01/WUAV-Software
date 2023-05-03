@@ -13,7 +13,8 @@ public enum ViewType {
     PROJECT_STEP1("/views/project/Step1_project_info.fxml"),
     PROJECT_STEP2("/views/project/Step2_project_details.fxml"),
     PROJECT_STEP3("/views/project/Step3_project_drawing.fxml"),
-    PROJECT_STEP4("/views/project/Step4_project_installation.fxml");
+    PROJECT_STEP4("/views/project/Step4_project_installation.fxml"),
+    PROJECT_STEP5("/views/project/Step5_project_photos.fxml");
     private final String path;
 
     private ViewType(String path) {

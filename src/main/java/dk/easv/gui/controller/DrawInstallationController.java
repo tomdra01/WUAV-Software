@@ -1,19 +1,27 @@
 package dk.easv.gui.controller;
 
 // imports
+import dk.easv.bll.exception.GUIException;
+import dk.easv.gui.controller.project.ProjectInstallationController;
+import dk.easv.gui.util.ViewType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
+import javafx.stage.Stage;
 
 // java imports
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -72,6 +80,20 @@ public class DrawInstallationController implements Initializable {
     }
 
     public void nextStep() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP4.getView()));
+            Parent root = loader.load();
+
+            ProjectInstallationController projectInstallationController = loader.getController();
+            projectInstallationController.setFields(projectName, businessType, projectLocation, projectDate);
+
+            Stage window = (Stage) previousStepBtn.getScene().getWindow();
+            window.setTitle("Step 5");
+            Scene scene = new Scene(root);
+            window.setScene(scene);
+        } catch (IOException e) {
+            throw new GUIException("Failed to change the window", e);
+        }
     }
 
     /**

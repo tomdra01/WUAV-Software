@@ -58,17 +58,14 @@ public class ProjectDrawingController implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select image");
 
-        // Set the filter for the file chooser to only accept PNG, JPG, and JPEG files
         FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.jpeg", "*.png");
         fileChooser.getExtensionFilters().add(imageFilter);
 
-        // Open the file chooser dialog and store the selected file
         Stage stage = (Stage) importBtn.getScene().getWindow();
         File selectedFile = fileChooser.showOpenDialog(stage);
 
         if (selectedFile != null) {
             try {
-                // Load the new view using FXMLLoader
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP4.getView()));
                 Parent root = loader.load();
 
@@ -95,7 +92,7 @@ public class ProjectDrawingController implements Initializable {
             drawInstallationController.setFields(projectName, businessType, projectLocation, projectDate);
 
             Stage window = (Stage) previousStepBtn.getScene().getWindow();
-            window.setTitle("Step 2");
+            window.setTitle("Step 4");
             Scene scene = new Scene(root);
             window.setScene(scene);
         } catch (IOException e) {
