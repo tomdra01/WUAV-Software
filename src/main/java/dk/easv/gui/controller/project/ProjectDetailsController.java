@@ -31,16 +31,17 @@ public class ProjectDetailsController implements Initializable {
     @FXML private JFXTextField pLocationField;
     @FXML private DatePicker pDatePicker;
     @FXML private BorderPane currentPane;
-    private String projectName, businessType, projectLocation;
+    private String projectName, businessType, projectLocation, projectText;
     private LocalDate projectDate;
     private ProjectModel projectModel;
 
 
-    public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate) {
+    public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate, String projectText) {
         this.projectName = projectName;
         this.businessType = businessType;
         this.projectLocation = projectLocation;
         this.projectDate = projectDate;
+        this.projectText = projectText;
 
         pLocationField.setText(projectLocation);
         pDatePicker.setValue(projectDate);
@@ -58,7 +59,7 @@ public class ProjectDetailsController implements Initializable {
             Parent root = loader.load();
 
             ProjectDrawingController projectDrawingController = loader.getController();
-            projectDrawingController.setFields(projectName, businessType, projectLocation, projectDate);
+            projectDrawingController.setFields(projectName, businessType, projectLocation, projectDate, projectText);
             projectDrawingController.setModel(projectModel);
 
             Stage window = (Stage) nextStepBtn.getScene().getWindow();
@@ -79,7 +80,7 @@ public class ProjectDetailsController implements Initializable {
             Parent root = loader.load();
 
             ProjectInfoController projectInfoController = loader.getController();
-            projectInfoController.setFields(projectName, businessType, projectLocation, projectDate);
+            projectInfoController.setFields(projectName, businessType, projectLocation, projectDate, projectText);
 
             Stage window = (Stage) previousStepBtn.getScene().getWindow();
             window.setTitle("Step 1");

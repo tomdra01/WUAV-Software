@@ -28,16 +28,17 @@ import java.util.ResourceBundle;
  */
 public class ProjectDrawingController implements Initializable {
     @FXML private Button previousStepBtn, importBtn;
-     private String projectName, businessType, projectLocation;
+     private String projectName, businessType, projectLocation, projectText;
     private LocalDate projectDate;
     private ProjectModel projectModel;
 
 
-    public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate) {
+    public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate, String projectText) {
         this.projectName = projectName;
         this.businessType = businessType;
         this.projectLocation = projectLocation;
         this.projectDate = projectDate;
+        this.projectText = projectText;
     }
     public void setModel(ProjectModel projectModel) {
         this.projectModel = projectModel;
@@ -50,7 +51,7 @@ public class ProjectDrawingController implements Initializable {
             Parent root = loader.load();
 
             ProjectDetailsController projectDetailsController = loader.getController();
-            projectDetailsController.setFields(projectName, businessType, projectLocation, projectDate);
+            projectDetailsController.setFields(projectName, businessType, projectLocation, projectDate, projectText);
 
             Stage window = (Stage) previousStepBtn.getScene().getWindow();
             window.setTitle("Step 2");
@@ -77,7 +78,7 @@ public class ProjectDrawingController implements Initializable {
                 Parent root = loader.load();
 
                 ProjectDescriptionController projectDescriptionController = loader.getController();
-                projectDescriptionController.setFields(projectName, businessType, projectLocation, projectDate);
+                projectDescriptionController.setFields(projectName, businessType, projectLocation, projectDate, projectText);
                 projectDescriptionController.setModel(projectModel);
 
                 Stage window = (Stage) importBtn.getScene().getWindow();
@@ -107,7 +108,7 @@ public class ProjectDrawingController implements Initializable {
             Parent root = loader.load();
 
             DrawInstallationController drawInstallationController = loader.getController();
-            drawInstallationController.setFields(projectName, businessType, projectLocation, projectDate);
+            drawInstallationController.setFields(projectName, businessType, projectLocation, projectDate, projectText);
             drawInstallationController.setModel(projectModel);
 
             Stage window = (Stage) previousStepBtn.getScene().getWindow();

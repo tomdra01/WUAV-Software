@@ -41,26 +41,26 @@ public class ProjectFinalController implements Initializable {
     private Label nameLabel, locationLabel, dateLabel, customerTypeLabel;
     @FXML
     private BorderPane borderPane;
-    private String projectName, businessType, projectLocation;
+    private String projectName, businessType, projectLocation, projectText;
     private LocalDate projectDate;
     private ProjectModel projectModel;
-
-    private String projectText = "project text";
 
     public void setModel(ProjectModel projectModel) {
         this.projectModel = projectModel;
     }
 
-    public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate) {
+    public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate, String projectText) {
         this.projectName = projectName;
         this.businessType = businessType;
         this.projectLocation = projectLocation;
         this.projectDate = projectDate;
+        this.projectText = projectText;
 
         System.out.println("Project name: " +projectName
                 +"\nBusiness type: " +businessType
                 +"\nProject location: " +projectLocation
                 +"\nProject date: " +projectDate
+                +"\nProject text: " +projectText
         );
     }
 

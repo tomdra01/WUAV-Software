@@ -32,7 +32,7 @@ public class ProjectInfoController implements Initializable {
     @FXML private JFXTextField pNameField;
     @FXML private JFXComboBox<String> pBusinessComboBox;
     private BorderPane borderPane;
-    private String projectName, businessType, projectLocation;
+    private String projectName, businessType, projectLocation, projectText;
     private LocalDate projectDate;
     private ProjectModel projectModel;
 
@@ -48,11 +48,12 @@ public class ProjectInfoController implements Initializable {
         stage.setOnCloseRequest(event -> BlurEffectUtil.removeBlurEffect(borderPane));
     }
 
-    public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate) {
+    public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate, String projectText) {
         this.projectName = projectName;
         this.businessType = businessType;
         this.projectLocation = projectLocation;
         this.projectDate = projectDate;
+        this.projectText = projectText;
 
         // holding items when you go step back
         pNameField.setText(projectName);
@@ -68,7 +69,7 @@ public class ProjectInfoController implements Initializable {
             Parent root = loader.load();
 
             ProjectDetailsController projectDetailsController = loader.getController();
-            projectDetailsController.setFields(projectName, businessType, projectLocation, projectDate);
+            projectDetailsController.setFields(projectName, businessType, projectLocation, projectDate, projectText);
             projectDetailsController.setModel(projectModel);
 
             Stage window = (Stage) nextStepBtn.getScene().getWindow();

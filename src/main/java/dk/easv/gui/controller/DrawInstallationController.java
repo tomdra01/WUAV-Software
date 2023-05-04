@@ -34,17 +34,18 @@ public class DrawInstallationController implements Initializable {
     @FXML private ScrollPane scrollPane;
     @FXML private Canvas canvas;
     @FXML private Button projectorButton, screenButton, tabletButton, speakersButton, nextStepBtn, previousStepBtn;
-    private String projectName, businessType, projectLocation;
+    private String projectName, businessType, projectLocation, projectText;
     private LocalDate projectDate;
     private Image image;
     private final ObservableList<Image> imageHistory = FXCollections.observableArrayList();
     private ProjectModel projectModel;
 
-    public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate) {
+    public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate, String projectText) {
         this.projectName = projectName;
         this.businessType = businessType;
         this.projectLocation = projectLocation;
         this.projectDate = projectDate;
+        this.projectText = projectText;
 
     }
 
@@ -86,7 +87,7 @@ public class DrawInstallationController implements Initializable {
             Parent root = loader.load();
 
             ProjectDescriptionController projectDescriptionController = loader.getController();
-            projectDescriptionController.setFields(projectName, businessType, projectLocation, projectDate);
+            projectDescriptionController.setFields(projectName, businessType, projectLocation, projectDate, projectText);
             projectDescriptionController.setModel(projectModel);
 
             Stage window = (Stage) previousStepBtn.getScene().getWindow();
