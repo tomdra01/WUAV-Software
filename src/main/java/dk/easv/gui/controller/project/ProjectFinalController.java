@@ -4,7 +4,6 @@ package dk.easv.gui.controller.project;
 import dk.easv.be.Project;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.gui.model.ProjectModel;
-import dk.easv.gui.model.UserModel;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

@@ -7,6 +7,7 @@ import dk.easv.be.roles.Salesman;
 import dk.easv.be.roles.Technician;
 import dk.easv.bll.exception.DatabaseException;
 import dk.easv.dal.database.DatabaseConnector;
+import dk.easv.dal.interfaces.IUserDao;
 
 // java imports
 import java.sql.*;
@@ -17,7 +18,7 @@ import java.util.List;
  *
  * @author tomdra01, mrtng1
  */
-public class UserDAO {
+public class UserDAO implements IUserDao {
     private DatabaseConnector databaseConnector;
     public UserDAO() {
         databaseConnector = new DatabaseConnector();

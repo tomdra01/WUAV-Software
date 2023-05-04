@@ -7,6 +7,7 @@ import dk.easv.be.roles.Salesman;
 import dk.easv.be.roles.Technician;
 import dk.easv.bll.exception.DatabaseException;
 import dk.easv.dal.UserDAO;
+import dk.easv.dal.interfaces.IUserDao;
 
 // java imports
 import java.sql.SQLException;
@@ -18,7 +19,47 @@ import java.util.List;
  */
 public class UserLogic {
 
-    UserDAO userDao = new UserDAO();
+    IUserDao userDao = new UserDAO();
+
+        /**
+        @Override
+        public List<Admin> readAllAdmins() throws DatabaseException {
+            return null;
+        }
+
+        @Override
+        public List<Technician> readAllTechnicians() throws DatabaseException {
+            return null;
+        }
+
+        @Override
+        public Technician createTechnician(Technician technician) throws SQLException {
+            return null;
+        }
+
+        @Override
+        public List<ProjectManager> readAllProjectManagers() throws DatabaseException {
+            return null;
+        }
+
+        @Override
+        public ProjectManager createProjectManager(ProjectManager projectManager) throws SQLException {
+            return null;
+        }
+
+        @Override
+        public List<Salesman> readAllSalesmen() throws DatabaseException {
+            return null;
+        }
+
+        @Override
+        public Salesman createSalesman(Salesman salesman) throws SQLException {
+            return null;
+        }
+    };
+
+        */
+
 
     // ADMIN
     public List<Admin> readAllAdmins() throws DatabaseException {

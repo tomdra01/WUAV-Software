@@ -1,10 +1,9 @@
 package dk.easv.dal;
 
 import dk.easv.be.Project;
-import dk.easv.be.roles.Admin;
-import dk.easv.be.roles.Technician;
 import dk.easv.bll.exception.DatabaseException;
 import dk.easv.dal.database.DatabaseConnector;
+import dk.easv.dal.interfaces.IProjectDAO;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,7 +13,7 @@ import java.util.List;
  *
  * @author tomdra01, mrtng1
  */
-public class ProjectDAO {
+public class ProjectDAO implements IProjectDAO {
     private DatabaseConnector databaseConnector;
     public ProjectDAO() {
         databaseConnector = new DatabaseConnector();
