@@ -3,6 +3,7 @@ package dk.easv.gui.controller;
 // imports
 import dk.easv.bll.exception.GUIException;
 import dk.easv.gui.controller.project.ProjectDescriptionController;
+import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.ViewType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,7 +37,8 @@ public class DrawInstallationController implements Initializable {
     private String projectName, businessType, projectLocation;
     private LocalDate projectDate;
     private Image image;
-    private final ObservableList<Image> imageHistory = FXCollections.observableArrayList();;
+    private final ObservableList<Image> imageHistory = FXCollections.observableArrayList();
+    private ProjectModel projectModel;
 
     public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate) {
         this.projectName = projectName;
@@ -44,6 +46,10 @@ public class DrawInstallationController implements Initializable {
         this.projectLocation = projectLocation;
         this.projectDate = projectDate;
 
+    }
+
+    public void setModel(ProjectModel projectModel) {
+        this.projectModel = projectModel;
     }
 
     /**
@@ -81,6 +87,7 @@ public class DrawInstallationController implements Initializable {
 
             ProjectDescriptionController projectDescriptionController = loader.getController();
             projectDescriptionController.setFields(projectName, businessType, projectLocation, projectDate);
+            projectDescriptionController.setModel(projectModel);
 
             Stage window = (Stage) previousStepBtn.getScene().getWindow();
             window.setTitle("Step 4");

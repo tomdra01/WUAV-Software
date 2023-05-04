@@ -4,6 +4,7 @@ package dk.easv.gui.controller;
 import com.jfoenix.controls.JFXHamburger;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.gui.controller.project.ProjectInfoController;
+import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.model.UserModel;
 import dk.easv.gui.util.BlurEffectUtil;
 import dk.easv.gui.util.ClockUtil;
@@ -39,6 +40,8 @@ public class TechnicianWindowController implements Initializable {
     private UserModel userModel;
     private final Button createProjectButton = new Button("New project");
     private final Button logOutButton = new Button("Log out");
+    private ProjectModel projectModel;
+
 
     public void setModel(UserModel userModel) {
         this.userModel= userModel;
@@ -85,6 +88,8 @@ public class TechnicianWindowController implements Initializable {
                 ProjectInfoController projectInfoController = fxmlLoader.getController();
                 projectInfoController.setPane(mainPane);
                 projectInfoController.setOnCloseRequestHandler(stage);
+                projectInfoController.setModel(projectModel);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -116,6 +121,7 @@ public class TechnicianWindowController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        projectModel = new ProjectModel();
         ClockUtil.showWidget(hbox);//clock
         hamburgerMenu(); //hamburger
         hamburgerButtons(); //buttons in hamburger

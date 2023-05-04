@@ -4,6 +4,7 @@ package dk.easv.gui.controller.project;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.bll.exception.GUIException;
+import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.BlurEffectUtil;
 import dk.easv.gui.util.ViewType;
 import javafx.collections.FXCollections;
@@ -33,6 +34,11 @@ public class ProjectInfoController implements Initializable {
     private BorderPane borderPane;
     private String projectName, businessType, projectLocation;
     private LocalDate projectDate;
+    private ProjectModel projectModel;
+
+    public void setModel(ProjectModel projectModel) {
+        this.projectModel = projectModel;
+    }
 
     public void setPane(BorderPane borderPane) {
         this.borderPane = borderPane;
@@ -63,6 +69,7 @@ public class ProjectInfoController implements Initializable {
 
             ProjectDetailsController projectDetailsController = loader.getController();
             projectDetailsController.setFields(projectName, businessType, projectLocation, projectDate);
+            projectDetailsController.setModel(projectModel);
 
             Stage window = (Stage) nextStepBtn.getScene().getWindow();
             window.setTitle("Step 2");

@@ -1,6 +1,10 @@
 package dk.easv.gui.controller.project;
 
 // imports
+import dk.easv.be.Project;
+import dk.easv.bll.exception.GUIException;
+import dk.easv.gui.model.ProjectModel;
+import dk.easv.gui.model.UserModel;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,6 +29,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -38,6 +43,13 @@ public class ProjectFinalController implements Initializable {
     private BorderPane borderPane;
     private String projectName, businessType, projectLocation;
     private LocalDate projectDate;
+    private ProjectModel projectModel;
+
+    private String projectText = "project text";
+
+    public void setModel(ProjectModel projectModel) {
+        this.projectModel = projectModel;
+    }
 
     public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate) {
         this.projectName = projectName;
@@ -53,6 +65,11 @@ public class ProjectFinalController implements Initializable {
     }
 
     public void print() throws IOException {
+        Project project = new Project(projectName, businessType, projectLocation, projectDate, projectText);
+        try {
+            projectModel.createProject(project);
+        } catch (SQLException e) {throw new GUIException("Failed creating a project ",e);}
+
         printBtn.setVisible(false);
 
         Scene scene = borderPane.getScene();

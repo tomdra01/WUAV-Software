@@ -2,6 +2,7 @@ package dk.easv.gui.controller.project;
 
 // imports
 import dk.easv.bll.exception.GUIException;
+import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.ViewType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,6 +33,11 @@ public class ProjectPhotosController implements Initializable {
     private Image image1, image2, image3;
     private String projectName, businessType, projectLocation;
     private LocalDate projectDate;
+    private ProjectModel projectModel;
+
+    public void setModel(ProjectModel projectModel) {
+        this.projectModel = projectModel;
+    }
 
     public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate) {
         this.projectName = projectName;
@@ -51,6 +57,7 @@ public class ProjectPhotosController implements Initializable {
 
             ProjectFinalController projectFinalController = loader.getController();
             projectFinalController.setFields(projectName, businessType, projectLocation, projectDate);
+            projectFinalController.setModel(projectModel);
 
             Stage window = (Stage) nextBtn.getScene().getWindow();
             window.setTitle("Step 6");

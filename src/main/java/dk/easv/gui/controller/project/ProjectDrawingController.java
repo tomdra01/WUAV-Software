@@ -4,6 +4,7 @@ package dk.easv.gui.controller.project;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.bll.util.ImageByteReader;
 import dk.easv.gui.controller.DrawInstallationController;
+import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.ViewType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +30,7 @@ public class ProjectDrawingController implements Initializable {
     @FXML private Button previousStepBtn, importBtn;
      private String projectName, businessType, projectLocation;
     private LocalDate projectDate;
+    private ProjectModel projectModel;
 
 
     public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate) {
@@ -37,6 +39,10 @@ public class ProjectDrawingController implements Initializable {
         this.projectLocation = projectLocation;
         this.projectDate = projectDate;
     }
+    public void setModel(ProjectModel projectModel) {
+        this.projectModel = projectModel;
+    }
+
 
     public void previousStep() {
         try {
@@ -72,6 +78,7 @@ public class ProjectDrawingController implements Initializable {
 
                 ProjectDescriptionController projectDescriptionController = loader.getController();
                 projectDescriptionController.setFields(projectName, businessType, projectLocation, projectDate);
+                projectDescriptionController.setModel(projectModel);
 
                 Stage window = (Stage) importBtn.getScene().getWindow();
                 window.setTitle("Step ..");
@@ -101,6 +108,7 @@ public class ProjectDrawingController implements Initializable {
 
             DrawInstallationController drawInstallationController = loader.getController();
             drawInstallationController.setFields(projectName, businessType, projectLocation, projectDate);
+            drawInstallationController.setModel(projectModel);
 
             Stage window = (Stage) previousStepBtn.getScene().getWindow();
             window.setTitle("Drawing");
