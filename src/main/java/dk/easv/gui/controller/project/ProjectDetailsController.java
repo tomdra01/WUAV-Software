@@ -44,6 +44,9 @@ public class ProjectDetailsController implements Initializable {
     }
 
     public void nextStep() {
+        projectLocation = pLocationField.getText();
+        projectDate = pDatePicker.getValue();
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP3.getView()));
             Parent root = loader.load();

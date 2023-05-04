@@ -70,8 +70,8 @@ public class ProjectDrawingController implements Initializable {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP4.getView()));
                 Parent root = loader.load();
 
-                ProjectInstallationController projectInstallationController = loader.getController();
-                projectInstallationController.setFields(projectName, businessType, projectLocation, projectDate);
+                ProjectDescriptionController projectDescriptionController = loader.getController();
+                projectDescriptionController.setFields(projectName, businessType, projectLocation, projectDate);
 
                 Stage window = (Stage) importBtn.getScene().getWindow();
                 window.setTitle("Step ..");
@@ -103,7 +103,7 @@ public class ProjectDrawingController implements Initializable {
             drawInstallationController.setFields(projectName, businessType, projectLocation, projectDate);
 
             Stage window = (Stage) previousStepBtn.getScene().getWindow();
-            window.setTitle("Step 4");
+            window.setTitle("Drawing");
             Scene scene = new Scene(root);
             window.setScene(scene);
         } catch (IOException e) {

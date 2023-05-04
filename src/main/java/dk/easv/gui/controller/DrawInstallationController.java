@@ -2,14 +2,13 @@ package dk.easv.gui.controller;
 
 // imports
 import dk.easv.bll.exception.GUIException;
-import dk.easv.gui.controller.project.ProjectInstallationController;
+import dk.easv.gui.controller.project.ProjectDescriptionController;
 import dk.easv.gui.util.ViewType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -45,11 +44,6 @@ public class DrawInstallationController implements Initializable {
         this.projectLocation = projectLocation;
         this.projectDate = projectDate;
 
-        System.out.println("Project name: " +projectName
-                +"\nBusiness type: " +businessType
-                +"\nProject location: " +projectLocation
-                +"\nProject date: " +projectDate
-        );
     }
 
     /**
@@ -77,6 +71,7 @@ public class DrawInstallationController implements Initializable {
     }
 
     public void previousStep() {
+
     }
 
     public void nextStep() {
@@ -84,11 +79,11 @@ public class DrawInstallationController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP4.getView()));
             Parent root = loader.load();
 
-            ProjectInstallationController projectInstallationController = loader.getController();
-            projectInstallationController.setFields(projectName, businessType, projectLocation, projectDate);
+            ProjectDescriptionController projectDescriptionController = loader.getController();
+            projectDescriptionController.setFields(projectName, businessType, projectLocation, projectDate);
 
             Stage window = (Stage) previousStepBtn.getScene().getWindow();
-            window.setTitle("Step 5");
+            window.setTitle("Step 4");
             Scene scene = new Scene(root);
             window.setScene(scene);
         } catch (IOException e) {

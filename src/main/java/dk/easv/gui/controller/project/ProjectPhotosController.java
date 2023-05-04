@@ -27,50 +27,21 @@ import java.util.ResourceBundle;
  * @author tomdra01, mrtng1
  */
 public class ProjectPhotosController implements Initializable {
+    @FXML private Button addBtn, nextBtn;
+    @FXML private ImageView imgSelected1, imgSelected2, imgSelected3;
+    private Image image1, image2, image3;
     private String projectName, businessType, projectLocation;
-    private int columnIndex = 0, rowIndex = 0;
     private LocalDate projectDate;
-    @FXML
-    private Button addBtn, nextBtn;
-    @FXML
-    private GridPane gridPane;
+
     public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate) {
         this.projectName = projectName;
         this.businessType = businessType;
         this.projectLocation = projectLocation;
         this.projectDate = projectDate;
-
-        System.out.println("Project name: " +projectName
-                +"\nBusiness type: " +businessType
-                +"\nProject location: " +projectLocation
-                +"\nProject date: " +projectDate
-        );
     }
 
     public void addImage(){
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select an Image");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif")
-        );
 
-        File selectedFile = fileChooser.showOpenDialog(gridPane.getScene().getWindow());
-
-        if (selectedFile != null) {
-            Image image = new Image(selectedFile.toURI().toString());
-            ImageView imageView = new ImageView(image);
-
-            imageView.setFitWidth(100);
-            imageView.setPreserveRatio(true);
-
-            gridPane.add(imageView, columnIndex, rowIndex);
-
-            columnIndex++;
-            if (columnIndex >= gridPane.getColumnCount()) {
-                columnIndex = 0;
-                rowIndex++;
-            }
-        }
     }
 
     public void nextStep(){
@@ -82,7 +53,7 @@ public class ProjectPhotosController implements Initializable {
             projectFinalController.setFields(projectName, businessType, projectLocation, projectDate);
 
             Stage window = (Stage) nextBtn.getScene().getWindow();
-            window.setTitle("Step xxx");
+            window.setTitle("Step 6");
             Scene scene = new Scene(root);
             window.setScene(scene);
         } catch (IOException e) {

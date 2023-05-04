@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.project.ProjectInstallationController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.project.ProjectDescriptionController">
     <bottom>
         <HBox prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
@@ -19,6 +19,9 @@
         </HBox>
     </bottom>
    <center>
-      <JFXTextArea fx:id="textArea" focusColor="#e84910" prefWidth="571.0" BorderPane.alignment="CENTER" />
+      <JFXTextArea fx:id="textArea" focusColor="#e84910" prefWidth="571.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+         </BorderPane.margin></JFXTextArea>
    </center>
 </BorderPane>

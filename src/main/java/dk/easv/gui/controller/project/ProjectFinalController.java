@@ -1,6 +1,6 @@
 package dk.easv.gui.controller.project;
 
-import dk.easv.gui.util.BlurEffectUtil;
+// imports
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,6 +17,7 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
+// java imports
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -28,14 +29,15 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class ProjectFinalController implements Initializable {
-    private String projectName, businessType, projectLocation;
-    private LocalDate projectDate;
+
     @FXML
     private Button printBtn;
     @FXML
     private Label nameLabel, locationLabel, dateLabel, customerTypeLabel;
     @FXML
     private BorderPane borderPane;
+    private String projectName, businessType, projectLocation;
+    private LocalDate projectDate;
 
     public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate) {
         this.projectName = projectName;
@@ -96,12 +98,10 @@ public class ProjectFinalController implements Initializable {
 
             Stage stage = (Stage) borderPane.getScene().getWindow();
             stage.close();
-            //BlurEffectUtil.removeBlurEffect();
         }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        nameLabel.setText("Project name: "+projectName);
     }
 }
