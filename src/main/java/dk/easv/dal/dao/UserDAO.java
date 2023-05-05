@@ -1,4 +1,4 @@
-package dk.easv.dal;
+package dk.easv.dal.dao;
 
 // imports
 import dk.easv.be.roles.Admin;
@@ -7,7 +7,7 @@ import dk.easv.be.roles.Salesman;
 import dk.easv.be.roles.Technician;
 import dk.easv.bll.exception.DatabaseException;
 import dk.easv.dal.database.DatabaseConnector;
-import dk.easv.dal.interfaces.IUserDao;
+import dk.easv.dal.dao.interfaces.IUserDao;
 
 // java imports
 import java.sql.*;

@@ -1,10 +1,10 @@
-package dk.easv.dal;
+package dk.easv.dal.dao;
 
 // imports
 import dk.easv.be.Project;
 import dk.easv.bll.exception.DatabaseException;
 import dk.easv.dal.database.DatabaseConnector;
-import dk.easv.dal.interfaces.IProjectDAO;
+import dk.easv.dal.dao.interfaces.IProjectDAO;
 
 // java imports
 import java.sql.*;

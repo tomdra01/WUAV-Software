@@ -6,8 +6,9 @@ import dk.easv.be.roles.ProjectManager;
 import dk.easv.be.roles.Salesman;
 import dk.easv.be.roles.Technician;
 import dk.easv.bll.exception.DatabaseException;
-import dk.easv.dal.UserDAO;
-import dk.easv.dal.interfaces.IUserDao;
+import dk.easv.dal.DAOFactory;
+import dk.easv.dal.DataAccessObjects;
+import dk.easv.dal.dao.interfaces.IUserDao;
 
 // java imports
 import java.sql.SQLException;
@@ -18,8 +19,7 @@ import java.util.List;
  * @author tomdra01, mrtng1
  */
 public class UserLogic {
-
-    IUserDao userDao = new UserDAO();
+    IUserDao userDao = (IUserDao) DAOFactory.getDAO(DataAccessObjects.USER_DAO);
 
     // ADMIN
     public List<Admin> readAllAdmins() throws DatabaseException {
