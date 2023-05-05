@@ -12,12 +12,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 // java imports
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;

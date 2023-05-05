@@ -55,12 +55,10 @@ public class ProjectFinalController implements Initializable {
         this.projectDate = projectDate;
         this.projectText = projectText;
 
-        System.out.println("Project name: " +projectName
-                +"\nBusiness type: " +businessType
-                +"\nProject location: " +projectLocation
-                +"\nProject date: " +projectDate
-                +"\nProject text: " +projectText
-        );
+        nameLabel.setText("Project name: "+projectName);
+        locationLabel.setText("Location: "+projectLocation);
+        dateLabel.setText("Date: "+ String.valueOf(projectDate));
+        customerTypeLabel.setText("Business type: "+businessType);
     }
 
     public void print() throws IOException {
@@ -95,7 +93,7 @@ public class ProjectFinalController implements Initializable {
 
         String name = nameLabel.getText();
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialFileName("Project "+ name + ".pdf");
+        fileChooser.setInitialFileName("project_"+ name + ".pdf");
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF files (*.pdf)", "*.pdf");
         fileChooser.getExtensionFilters().add(extFilter);
         Stage primaryStage = (Stage) borderPane.getScene().getWindow();
@@ -112,8 +110,8 @@ public class ProjectFinalController implements Initializable {
                 }
             }
 
-            Stage stage = (Stage) borderPane.getScene().getWindow();
-            stage.close();
+            //Stage stage = (Stage) borderPane.getScene().getWindow();
+            //stage.close();
         }
     }
 
