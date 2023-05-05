@@ -2,6 +2,7 @@ package dk.easv.gui.controller;
 
 // imports
 import com.jfoenix.controls.JFXHamburger;
+import dk.easv.be.Project;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.gui.controller.project.ProjectInfoController;
 import dk.easv.gui.model.ProjectModel;
@@ -18,6 +19,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -25,6 +27,7 @@ import javafx.stage.Stage;
 // java imports
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -118,6 +121,28 @@ public class TechnicianWindowController implements Initializable {
         });
     }
 
+    private void showProjects(){
+        List<Project> projects = projectModel.getProjects();
+        int limit = 15;
+        int counter = 0;
+
+        for (Project project : projects) {
+            if (counter == limit) {
+                break;
+            }
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_CARD.getView()));
+                AnchorPane root = loader.load();
+
+                projectsHbox.getChildren().add(root);
+                projectsHbox.setMargin(root, new Insets(0, 5, 0, 5));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            counter++;
+        }
+    }
+
     /**
      * Initialize method
      */
@@ -127,5 +152,6 @@ public class TechnicianWindowController implements Initializable {
         ClockUtil.showWidget(hbox);//clock
         hamburgerMenu(); //hamburger
         hamburgerButtons(); //buttons in hamburger
+        showProjects();
     }
 }
