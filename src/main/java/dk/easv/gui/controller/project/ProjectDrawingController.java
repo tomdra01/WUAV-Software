@@ -16,8 +16,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 // java imports
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -28,22 +27,23 @@ import java.util.ResourceBundle;
  */
 public class ProjectDrawingController implements Initializable {
     @FXML private Button previousStepBtn, importBtn;
-     private String projectName, businessType, projectLocation, projectText;
+    private String projectName, businessType, projectLocation, projectDescription;
     private LocalDate projectDate;
+    private byte[] projectDrawing;
     private ProjectModel projectModel;
 
-
-    public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate, String projectText) {
+    public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate, byte[] projectDrawing, String projectDescription) {
         this.projectName = projectName;
         this.businessType = businessType;
         this.projectLocation = projectLocation;
         this.projectDate = projectDate;
-        this.projectText = projectText;
+        this.projectDrawing = projectDrawing;
+        this.projectDescription = projectDescription;
     }
+
     public void setModel(ProjectModel projectModel) {
         this.projectModel = projectModel;
     }
-
 
     public void previousStep() {
         try {
@@ -51,7 +51,7 @@ public class ProjectDrawingController implements Initializable {
             Parent root = loader.load();
 
             ProjectDetailsController projectDetailsController = loader.getController();
-            projectDetailsController.setFields(projectName, businessType, projectLocation, projectDate, projectText);
+            projectDetailsController.setFields(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
 
             Stage window = (Stage) previousStepBtn.getScene().getWindow();
             window.setTitle("Step 2");
@@ -74,26 +74,22 @@ public class ProjectDrawingController implements Initializable {
 
         if (selectedFile != null) {
             try {
+                long fileSize = selectedFile.length();
+                System.out.println("File size: " + fileSize);
+
+                projectDrawing = readBytesFromFile(selectedFile);
+
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP4.getView()));
                 Parent root = loader.load();
 
                 ProjectDescriptionController projectDescriptionController = loader.getController();
-                projectDescriptionController.setFields(projectName, businessType, projectLocation, projectDate, projectText);
+                projectDescriptionController.setFields(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
                 projectDescriptionController.setModel(projectModel);
 
                 Stage window = (Stage) importBtn.getScene().getWindow();
-                window.setTitle("Step ..");
+                window.setTitle("Step 4");
                 Scene scene = new Scene(root);
                 window.setScene(scene);
-
-                long fileSize = selectedFile.length();
-                System.out.println("File size: " + fileSize);
-
-                ImageByteReader imageByteReader = new ImageByteReader();
-                byte[] imageData = imageByteReader.readImage(selectedFile);
-                System.out.println("Image data length: " + imageData.length);
-                System.out.println(imageData);
-
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (Exception e) {
@@ -108,7 +104,7 @@ public class ProjectDrawingController implements Initializable {
             Parent root = loader.load();
 
             DrawInstallationController drawInstallationController = loader.getController();
-            drawInstallationController.setFields(projectName, businessType, projectLocation, projectDate, projectText);
+            drawInstallationController.setFields(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
             drawInstallationController.setModel(projectModel);
 
             Stage window = (Stage) previousStepBtn.getScene().getWindow();
@@ -118,6 +114,23 @@ public class ProjectDrawingController implements Initializable {
         } catch (IOException e) {
             throw new GUIException("Failed to change the window", e);
         }
+    }
+
+    /**
+     * Read Bytes From File - reads the bytes from selected file
+     */
+    private static byte[] readBytesFromFile(File file) throws Exception {
+        InputStream is = new FileInputStream(file);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = is.read(buffer)) != -1) {
+            bos.write(buffer, 0, bytesRead);
+        }
+
+        is.close();
+        bos.close();
+        return bos.toByteArray();
     }
 
     /**

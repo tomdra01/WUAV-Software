@@ -1,30 +1,39 @@
 package dk.easv.be;
 
+// imports
 import java.time.LocalDate;
+import java.util.Arrays;
 
+/**
+ *
+ * @author tomdra01, mrtng1
+ */
 public class Project {
     private int id;
     private String name;
     private String businessType;
     private String location;
-    private LocalDate projectDate;
-    private String projectText;
+    private LocalDate date;
+    private byte[] drawing;
+    private String description;
 
-    public Project(int id, String name, String businessType, String location, LocalDate projectDate, String projectText) {
+    public Project(int id, String name, String businessType, String location, LocalDate date, byte[] drawing, String description) {
         this.id = id;
         this.name = name;
         this.businessType = businessType;
         this.location = location;
-        this.projectDate = projectDate;
-        this.projectText = projectText;
+        this.date = date;
+        this.drawing = drawing;
+        this.description = description;
     }
 
-    public Project(String name, String businessType, String location, LocalDate projectDate, String projectText) {
+    public Project(String name, String businessType, String location, LocalDate date, byte[] drawing, String description) {
         this.name = name;
         this.businessType = businessType;
         this.location = location;
-        this.projectDate = projectDate;
-        this.projectText = projectText;
+        this.date = date;
+        this.drawing = drawing;
+        this.description = description;
     }
 
     public int getId() {
@@ -47,7 +56,7 @@ public class Project {
         return businessType;
     }
 
-    public void setBusinessTypeType(String businessType) {
+    public void setBusinessType(String businessType) {
         this.businessType = businessType;
     }
 
@@ -59,19 +68,40 @@ public class Project {
         this.location = location;
     }
 
-    public LocalDate getProjectDate() {
-        return projectDate;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setProjectDate(LocalDate projectDate) {
-        this.projectDate = projectDate;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
-    public String getProjectText() {
-        return projectText;
+    public byte[] getDrawing() {
+        return drawing;
     }
 
-    public void setProjectText(String projectText) {
-        this.projectText = projectText;
+    public void setDrawing(byte[] drawing) {
+        this.drawing = drawing;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", businessType='" + businessType + '\'' +
+                ", location='" + location + '\'' +
+                ", date=" + date +
+                ", drawing=" + Arrays.toString(drawing) +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

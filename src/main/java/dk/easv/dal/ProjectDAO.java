@@ -1,10 +1,12 @@
 package dk.easv.dal;
 
+// imports
 import dk.easv.be.Project;
 import dk.easv.bll.exception.DatabaseException;
 import dk.easv.dal.database.DatabaseConnector;
 import dk.easv.dal.interfaces.IProjectDAO;
 
+// java imports
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,8 +41,9 @@ public class ProjectDAO implements IProjectDAO {
                             resultSet.getString("name"),
                             resultSet.getString("businessType"),
                             resultSet.getString("location"),
-                            resultSet.getDate("projectDate").toLocalDate(),
-                            resultSet.getString("projectText")
+                            resultSet.getDate("date").toLocalDate(),
+                            resultSet.getBytes("drawing"),
+                            resultSet.getString("description")
                     );
 
                     allProjects.add(project);
@@ -55,12 +58,13 @@ public class ProjectDAO implements IProjectDAO {
 
     public Project createProject(Project project) throws SQLException {
         try (Connection con = databaseConnector.getConnection()) {
-            PreparedStatement pst = con.prepareStatement("INSERT INTO Project (name, businessType, location, projectDate, projectText) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement pst = con.prepareStatement("INSERT INTO Project (name, businessType, location, date, drawing, description) VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             pst.setString(1, project.getName());
             pst.setString(2, project.getBusinessType());
             pst.setString(3, project.getLocation());
-            pst.setDate(4, Date.valueOf(project.getProjectDate()));
-            pst.setString(5, project.getProjectText());
+            pst.setDate(4, Date.valueOf(project.getDate()));
+            pst.setBytes(5, project.getDrawing());
+            pst.setString(6, project.getDescription());
             pst.execute();
 
             if (pst.getGeneratedKeys().next()) {

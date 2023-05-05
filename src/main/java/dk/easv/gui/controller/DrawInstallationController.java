@@ -34,19 +34,20 @@ public class DrawInstallationController implements Initializable {
     @FXML private ScrollPane scrollPane;
     @FXML private Canvas canvas;
     @FXML private Button projectorButton, screenButton, tabletButton, speakersButton, nextStepBtn, previousStepBtn;
-    private String projectName, businessType, projectLocation, projectText;
+    private String projectName, businessType, projectLocation, projectDescription;
     private LocalDate projectDate;
+    private byte[] projectDrawing;
     private Image image;
     private final ObservableList<Image> imageHistory = FXCollections.observableArrayList();
     private ProjectModel projectModel;
 
-    public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate, String projectText) {
+    public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate, byte[] projectDrawing, String projectDescription) {
         this.projectName = projectName;
         this.businessType = businessType;
         this.projectLocation = projectLocation;
         this.projectDate = projectDate;
-        this.projectText = projectText;
-
+        this.projectDrawing = projectDrawing;
+        this.projectDescription = projectDescription;
     }
 
     public void setModel(ProjectModel projectModel) {
@@ -78,7 +79,6 @@ public class DrawInstallationController implements Initializable {
     }
 
     public void previousStep() {
-
     }
 
     public void nextStep() {
@@ -87,7 +87,7 @@ public class DrawInstallationController implements Initializable {
             Parent root = loader.load();
 
             ProjectDescriptionController projectDescriptionController = loader.getController();
-            projectDescriptionController.setFields(projectName, businessType, projectLocation, projectDate, projectText);
+            projectDescriptionController.setFields(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
             projectDescriptionController.setModel(projectModel);
 
             Stage window = (Stage) previousStepBtn.getScene().getWindow();

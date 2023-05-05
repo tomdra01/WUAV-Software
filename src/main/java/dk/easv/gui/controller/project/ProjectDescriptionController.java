@@ -26,30 +26,33 @@ import java.util.ResourceBundle;
 public class ProjectDescriptionController implements Initializable {
     @FXML private JFXTextArea textArea;
     @FXML private Button nextBtn;
-    private String projectName, businessType, projectLocation, projectText;
+    private String projectName, businessType, projectLocation, projectDescription;
     private LocalDate projectDate;
+    private byte[] projectDrawing;
     private ProjectModel projectModel;
 
     public void setModel(ProjectModel projectModel) {
         this.projectModel = projectModel;
     }
-    public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate, String projectText) {
+
+    public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate, byte[] projectDrawing, String projectDescription) {
         this.projectName = projectName;
         this.businessType = businessType;
         this.projectLocation = projectLocation;
         this.projectDate = projectDate;
-        this.projectText = projectText;
+        this.projectDrawing = projectDrawing;
+        this.projectDescription = projectDescription;
     }
 
     public void nextStep() {
         try {
-            projectText = textArea.getText();
+            projectDescription = textArea.getText();
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP5.getView()));
             Parent root = loader.load();
 
             ProjectPhotosController projectPhotosController = loader.getController();
-            projectPhotosController.setFields(projectName, businessType, projectLocation, projectDate, projectText);
+            projectPhotosController.setFields(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
             projectPhotosController.setModel(projectModel);
 
             Stage window = (Stage) nextBtn.getScene().getWindow();
@@ -60,6 +63,7 @@ public class ProjectDescriptionController implements Initializable {
             throw new GUIException("Failed to change the window", e);
         }
     }
+
     /**
      * Initialize method
      */

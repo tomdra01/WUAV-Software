@@ -32,8 +32,9 @@ public class ProjectInfoController implements Initializable {
     @FXML private JFXTextField pNameField;
     @FXML private JFXComboBox<String> pBusinessComboBox;
     private BorderPane borderPane;
-    private String projectName, businessType, projectLocation, projectText;
+    private String projectName, businessType, projectLocation, projectDescription;
     private LocalDate projectDate;
+    private byte[] projectDrawing;
     private ProjectModel projectModel;
 
     public void setModel(ProjectModel projectModel) {
@@ -48,12 +49,13 @@ public class ProjectInfoController implements Initializable {
         stage.setOnCloseRequest(event -> BlurEffectUtil.removeBlurEffect(borderPane));
     }
 
-    public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate, String projectText) {
+    public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate, byte[] projectDrawing, String projectDescription) {
         this.projectName = projectName;
         this.businessType = businessType;
         this.projectLocation = projectLocation;
         this.projectDate = projectDate;
-        this.projectText = projectText;
+        this.projectDrawing = projectDrawing;
+        this.projectDescription = projectDescription;
 
         // holding items when you go step back
         pNameField.setText(projectName);
@@ -69,7 +71,7 @@ public class ProjectInfoController implements Initializable {
             Parent root = loader.load();
 
             ProjectDetailsController projectDetailsController = loader.getController();
-            projectDetailsController.setFields(projectName, businessType, projectLocation, projectDate, projectText);
+            projectDetailsController.setFields(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
             projectDetailsController.setModel(projectModel);
 
             Stage window = (Stage) nextStepBtn.getScene().getWindow();

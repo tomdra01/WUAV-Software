@@ -40,29 +40,32 @@ public class ProjectFinalController implements Initializable {
     private Label nameLabel, locationLabel, dateLabel, customerTypeLabel;
     @FXML
     private BorderPane borderPane;
-    private String projectName, businessType, projectLocation, projectText;
+    private String projectName, businessType, projectLocation, projectDescription;
     private LocalDate projectDate;
+    private byte[] projectDrawing;
     private ProjectModel projectModel;
 
     public void setModel(ProjectModel projectModel) {
         this.projectModel = projectModel;
     }
 
-    public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate, String projectText) {
+    public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate, byte[] projectDrawing, String projectDescription) {
         this.projectName = projectName;
         this.businessType = businessType;
         this.projectLocation = projectLocation;
         this.projectDate = projectDate;
-        this.projectText = projectText;
+        this.projectDrawing = projectDrawing;
+        this.projectDescription = projectDescription;
 
         nameLabel.setText("Project name: "+projectName);
         locationLabel.setText("Location: "+projectLocation);
-        dateLabel.setText("Date: "+ String.valueOf(projectDate));
+        dateLabel.setText("Date: "+ projectDate);
         customerTypeLabel.setText("Business type: "+businessType);
+        System.out.println(projectDrawing);
     }
 
     public void print() throws IOException {
-        Project project = new Project(projectName, businessType, projectLocation, projectDate, projectText);
+        Project project = new Project(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
         try {
             projectModel.createProject(project);
         } catch (SQLException e) {throw new GUIException("Failed creating a project ",e);}
@@ -109,9 +112,6 @@ public class ProjectFinalController implements Initializable {
                     desktop.open(outputFile);
                 }
             }
-
-            //Stage stage = (Stage) borderPane.getScene().getWindow();
-            //stage.close();
         }
     }
 

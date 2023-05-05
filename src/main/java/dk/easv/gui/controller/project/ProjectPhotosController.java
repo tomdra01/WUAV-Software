@@ -28,20 +28,22 @@ public class ProjectPhotosController implements Initializable {
     @FXML private Button addBtn, nextBtn;
     @FXML private ImageView imgSelected1, imgSelected2, imgSelected3;
     private Image image1, image2, image3;
-    private String projectName, businessType, projectLocation, projectText;
+    private String projectName, businessType, projectLocation, projectDescription;
     private LocalDate projectDate;
+    private byte[] projectDrawing;
     private ProjectModel projectModel;
 
     public void setModel(ProjectModel projectModel) {
         this.projectModel = projectModel;
     }
 
-    public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate, String projectText) {
+    public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate, byte[] projectDrawing, String projectDescription) {
         this.projectName = projectName;
         this.businessType = businessType;
         this.projectLocation = projectLocation;
         this.projectDate = projectDate;
-        this.projectText = projectText;
+        this.projectDrawing = projectDrawing;
+        this.projectDescription = projectDescription;
     }
 
     public void addImage(){
@@ -54,7 +56,7 @@ public class ProjectPhotosController implements Initializable {
             Parent root = loader.load();
 
             ProjectFinalController projectFinalController = loader.getController();
-            projectFinalController.setFields(projectName, businessType, projectLocation, projectDate, projectText);
+            projectFinalController.setFields(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
             projectFinalController.setModel(projectModel);
 
             Stage window = (Stage) nextBtn.getScene().getWindow();

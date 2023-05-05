@@ -18,13 +18,14 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 // java imports
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -35,19 +36,16 @@ import java.util.ResourceBundle;
  * @author tomdra01, mrtng1
  */
 public class TechnicianWindowController implements Initializable {
+    @FXML private BorderPane mainPane;
+    @FXML private HBox hbox;
     @FXML private HBox projectsHbox;
-    @FXML private ScrollPane scrollPane;
-    @FXML
-    private HBox hbox;
-    @FXML
-    private JFXHamburger jfxHamburger;
-    @FXML
-    private BorderPane mainPane;
-    private UserModel userModel;
-    private ProjectModel projectModel;
+    @FXML private JFXHamburger jfxHamburger;
     private final Button createProjectButton = new Button("New project");
     private final Button logOutButton = new Button("Log out");
+    private UserModel userModel;
+    private ProjectModel projectModel;
 
+    // set model
     public void setModel(UserModel userModel) {
         this.userModel= userModel;
     }
@@ -121,9 +119,12 @@ public class TechnicianWindowController implements Initializable {
         });
     }
 
-    private void showProjects(){
+    /**
+     * Generating all projects.
+     */
+    private void projectShowcase(){
         List<Project> projects = projectModel.getProjects();
-        int limit = 15;
+        int limit = 10;
         int counter = 0;
 
         for (Project project : projects) {
@@ -134,10 +135,19 @@ public class TechnicianWindowController implements Initializable {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_CARD.getView()));
                 AnchorPane root = loader.load();
 
-                projectsHbox.getChildren().add(root);
-                projectsHbox.setMargin(root, new Insets(0, 10, 0, 0));
+                ProjectTemplateController projectTemplateController = loader.getController();
+
+                // setting the image
+                ByteArrayInputStream inputStream = new ByteArrayInputStream(project.getDrawing());
+                Image image = new Image(inputStream);
+                ImageView projectImg = projectTemplateController.getProjectImg();
+                projectImg.setImage(image);
+
+                HBox hbox = new HBox(root);
+                projectsHbox.getChildren().add(hbox);
+                HBox.setMargin(hbox, new Insets(0, 10, 0, 0));
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new GUIException("Failed to show all of the projects", e);
             }
             counter++;
         }
@@ -152,6 +162,6 @@ public class TechnicianWindowController implements Initializable {
         ClockUtil.showWidget(hbox);//clock
         hamburgerMenu(); //hamburger
         hamburgerButtons(); //buttons in hamburger
-        showProjects();
+        projectShowcase(); // showcase of all projects
     }
 }
