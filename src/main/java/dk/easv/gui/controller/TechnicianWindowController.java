@@ -135,7 +135,7 @@ public class TechnicianWindowController implements Initializable {
                 AnchorPane root = loader.load();
 
                 projectsHbox.getChildren().add(root);
-                projectsHbox.setMargin(root, new Insets(0, 5, 0, 5));
+                projectsHbox.setMargin(root, new Insets(0, 10, 0, 0));
             } catch (IOException e) {
                 e.printStackTrace();
             }
