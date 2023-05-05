@@ -17,6 +17,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -31,6 +32,8 @@ import java.util.ResourceBundle;
  * @author tomdra01, mrtng1
  */
 public class TechnicianWindowController implements Initializable {
+    @FXML private HBox projectsHbox;
+    @FXML private ScrollPane scrollPane;
     @FXML
     private HBox hbox;
     @FXML
@@ -38,10 +41,9 @@ public class TechnicianWindowController implements Initializable {
     @FXML
     private BorderPane mainPane;
     private UserModel userModel;
+    private ProjectModel projectModel;
     private final Button createProjectButton = new Button("New project");
     private final Button logOutButton = new Button("Log out");
-    private ProjectModel projectModel;
-
 
     public void setModel(UserModel userModel) {
         this.userModel= userModel;

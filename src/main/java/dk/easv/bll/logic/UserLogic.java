@@ -21,46 +21,6 @@ public class UserLogic {
 
     IUserDao userDao = new UserDAO();
 
-        /**
-        @Override
-        public List<Admin> readAllAdmins() throws DatabaseException {
-            return null;
-        }
-
-        @Override
-        public List<Technician> readAllTechnicians() throws DatabaseException {
-            return null;
-        }
-
-        @Override
-        public Technician createTechnician(Technician technician) throws SQLException {
-            return null;
-        }
-
-        @Override
-        public List<ProjectManager> readAllProjectManagers() throws DatabaseException {
-            return null;
-        }
-
-        @Override
-        public ProjectManager createProjectManager(ProjectManager projectManager) throws SQLException {
-            return null;
-        }
-
-        @Override
-        public List<Salesman> readAllSalesmen() throws DatabaseException {
-            return null;
-        }
-
-        @Override
-        public Salesman createSalesman(Salesman salesman) throws SQLException {
-            return null;
-        }
-    };
-
-        */
-
-
     // ADMIN
     public List<Admin> readAllAdmins() throws DatabaseException {
         return userDao.readAllAdmins();
