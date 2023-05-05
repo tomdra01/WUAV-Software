@@ -30,7 +30,7 @@ public class ProjectModel {
         projects.addAll(projectLogic.readAllProjects());
     }
 
-    public Project createProject(Project project) throws SQLException {
+    public Project createProject(Project project) throws Exception {
         Project p = projectLogic.createProject(project);
         projects.add(p);
         return p;

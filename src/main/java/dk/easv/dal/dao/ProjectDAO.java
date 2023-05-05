@@ -24,7 +24,7 @@ public class ProjectDAO implements IProjectDAO {
     /**
      * Gets the list of all projects from the database.
      */
-    public List<Project> readAllProjects() throws DatabaseException {
+    public List<Project> readAllProjects() throws Exception {
         List<Project> allProjects = new ArrayList<>();
 
         try (Connection con = databaseConnector.getConnection()) {
@@ -50,13 +50,10 @@ public class ProjectDAO implements IProjectDAO {
                 }
             }
         }
-        catch(SQLException e){
-            throw new DatabaseException("Couldn't get all projects... Check the database connection!", e);
-        }
         return allProjects;
     }
 
-    public Project createProject(Project project) throws SQLException {
+    public Project createProject(Project project) throws Exception {
         try (Connection con = databaseConnector.getConnection()) {
             PreparedStatement pst = con.prepareStatement("INSERT INTO Project (name, businessType, location, date, drawing, description) VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             pst.setString(1, project.getName());

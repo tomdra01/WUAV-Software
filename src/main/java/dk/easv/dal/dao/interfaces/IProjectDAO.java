@@ -14,6 +14,6 @@ import java.util.List;
  * @author tomdra01, mrtng1
  */
 public interface IProjectDAO extends IDataAccess {
-    List<Project> readAllProjects() throws DatabaseException;
-    Project createProject(Project project) throws SQLException;
+    List<Project> readAllProjects() throws Exception;
+    Project createProject(Project project) throws Exception;
 }

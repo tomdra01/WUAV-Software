@@ -1,6 +1,7 @@
 package dk.easv.dal.dao;
 
 // imports
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dk.easv.be.roles.Admin;
 import dk.easv.be.roles.ProjectManager;
 import dk.easv.be.roles.Salesman;
@@ -19,13 +20,14 @@ import java.util.List;
  * @author tomdra01, mrtng1
  */
 public class UserDAO implements IUserDao {
-    private DatabaseConnector databaseConnector;
+    private final DatabaseConnector databaseConnector;
     public UserDAO() {
         databaseConnector = new DatabaseConnector();
     }
 
     /**
      * Gets the list of all admins from the database.
+     * @throws DatabaseException handles SQLException.
      */
     public List<Admin> readAllAdmins() throws DatabaseException {
         List<Admin> allAdmins = new ArrayList<>();
@@ -50,13 +52,14 @@ public class UserDAO implements IUserDao {
             }
         }
         catch(SQLException e){
-            throw new DatabaseException("Couldn't get all admins... Check database connection!", e);
+            throw new DatabaseException("Failed to get all admins", e);
         }
         return allAdmins;
     }
 
     /**
      * Gets the list of all technicians from the database.
+     * @throws DatabaseException handles SQLException.
      */
     public List<Technician> readAllTechnicians() throws DatabaseException {
         List<Technician> allTechnicians = new ArrayList<>();
@@ -80,12 +83,17 @@ public class UserDAO implements IUserDao {
                 }
             }
         } catch(SQLException e){
-            throw new DatabaseException("Couldn't get all admins... Check database connection!", e);
+            throw new DatabaseException("Failed to get all technicians", e);
         }
         return allTechnicians;
     }
 
-    public Technician createTechnician(Technician technician) throws SQLException {
+    /**
+     * Creates technician in the database.
+     * @param technician sends object "Technician" as a parameter.
+     * @throws DatabaseException handles SQLException.
+     */
+    public Technician createTechnician(Technician technician) throws DatabaseException {
         try (Connection con = databaseConnector.getConnection()) {
             PreparedStatement pst = con.prepareStatement("INSERT INTO Technician (username, password) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
             pst.setString(1, technician.getUsername());
@@ -97,12 +105,18 @@ public class UserDAO implements IUserDao {
                 technician.setId(id);
                 return technician;
             }
+            throw new DatabaseException("Id not set");
+
+        } catch (SQLServerException e) {
+            throw new DatabaseException("Failed to connect to the server", e);
+        } catch (SQLException e) {
+            throw new DatabaseException("Failed to create technician", e);
         }
-        throw new RuntimeException("Id not set");
     }
 
     /**
-     * Gets the list of all technicians from the database.
+     * Gets the list of all project managers from the database.
+     * @throws DatabaseException handles SQLException.
      */
     public List<ProjectManager> readAllProjectManagers() throws DatabaseException {
         List<ProjectManager> allProjectManagers = new ArrayList<>();
@@ -126,12 +140,17 @@ public class UserDAO implements IUserDao {
                 }
             }
         } catch(SQLException e){
-            throw new DatabaseException("Couldn't get all admins... Check database connection!", e);
+            throw new DatabaseException("Failed to get all project managers", e);
         }
         return allProjectManagers;
     }
 
-    public ProjectManager createProjectManager(ProjectManager projectManager) throws SQLException {
+    /**
+     * Creates project manager in the database.
+     * @param projectManager sends object "ProjectManager" as a parameter.
+     * @throws DatabaseException handles SQLException.
+     */
+    public ProjectManager createProjectManager(ProjectManager projectManager) throws DatabaseException {
         try (Connection con = databaseConnector.getConnection()) {
             PreparedStatement pst = con.prepareStatement("INSERT INTO ProjectManager (username, password) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
             pst.setString(1, projectManager.getUsername());
@@ -143,12 +162,18 @@ public class UserDAO implements IUserDao {
                 projectManager.setId(id);
                 return projectManager;
             }
+            throw new DatabaseException("Id not set");
+
+        } catch (SQLServerException e) {
+            throw new DatabaseException("Failed to connect to the server", e);
+        } catch (SQLException e) {
+            throw new DatabaseException("Failed to create project manager", e);
         }
-        throw new RuntimeException("Id not set");
     }
 
     /**
-     * Gets the list of all technicians from the database.
+     * Gets the list of all salesmen from the database.
+     * @throws DatabaseException handles SQLException.
      */
     public List<Salesman> readAllSalesmen() throws DatabaseException {
         List<Salesman> allSalesmen = new ArrayList<>();
@@ -172,12 +197,17 @@ public class UserDAO implements IUserDao {
                 }
             }
         } catch(SQLException e){
-            throw new DatabaseException("Couldn't get all admins... Check database connection!", e);
+            throw new DatabaseException("Failed to get all technicians", e);
         }
         return allSalesmen;
     }
 
-    public Salesman createSalesman(Salesman salesman) throws SQLException {
+    /**
+     * Creates salesman in the database.
+     * @param salesman sends object "Salesman" as a parameter.
+     * @throws DatabaseException handles SQLException.
+     */
+    public Salesman createSalesman(Salesman salesman) throws DatabaseException {
         try (Connection con = databaseConnector.getConnection()) {
             PreparedStatement pst = con.prepareStatement("INSERT INTO Salesman (username, password) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
             pst.setString(1, salesman.getUsername());
@@ -189,7 +219,12 @@ public class UserDAO implements IUserDao {
                 salesman.setId(id);
                 return salesman;
             }
+            throw new RuntimeException("Id not set");
+
+        } catch (SQLServerException e) {
+            throw new DatabaseException("Failed to connect to the server", e);
+        } catch (SQLException e) {
+            throw new DatabaseException("Failed to create salesman", e);
         }
-        throw new RuntimeException("Id not set");
     }
 }

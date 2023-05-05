@@ -66,9 +66,12 @@ public class ProjectFinalController implements Initializable {
 
     public void print() throws IOException {
         Project project = new Project(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
+
         try {
             projectModel.createProject(project);
-        } catch (SQLException e) {throw new GUIException("Failed creating a project ",e);}
+        } catch (Exception e) {
+            throw new GUIException("Failed creating a project ",e);
+        }
 
         printBtn.setVisible(false);
 

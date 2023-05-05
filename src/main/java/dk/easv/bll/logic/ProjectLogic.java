@@ -19,10 +19,18 @@ public class ProjectLogic {
     IProjectDAO projectDAO = (IProjectDAO) DAOFactory.getDAO(DataAccessObjects.PROJECT_DAO);
 
     public List<Project> readAllProjects() throws DatabaseException {
-        return projectDAO.readAllProjects();
+        try {
+            return projectDAO.readAllProjects();
+        } catch (Exception e) {
+            throw new DatabaseException("Failed to get all of the projects", e);
+        }
     }
 
-    public Project createProject(Project project) throws SQLException {
-        return projectDAO.createProject(project);
+    public Project createProject(Project project) throws DatabaseException {
+        try {
+            return projectDAO.createProject(project);
+        } catch (Exception e) {
+            throw new DatabaseException("Failed to create Project", e);
+        }
     }
 }
