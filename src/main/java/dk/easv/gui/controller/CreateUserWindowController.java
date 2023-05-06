@@ -30,15 +30,10 @@ import java.util.ResourceBundle;
  * @author tomdra01, mrtng1
  */
 public class CreateUserWindowController implements Initializable {
-
-    @FXML
-    private BorderPane currentNode, borderPane;
-    @FXML
-    private JFXComboBox<String> jfxComboBox;
-    @FXML
-    private JFXTextField usernameField, passwordField;
-    @FXML
-    private Button cancelButton;
+    @FXML private BorderPane currentNode, borderPane;
+    @FXML private JFXComboBox<String> jfxComboBox;
+    @FXML private JFXTextField usernameField, passwordField;
+    @FXML private Button cancelButton;
     private UserModel userModel;
     ObservableList<String> userTypes = FXCollections.observableArrayList();
 
@@ -123,8 +118,6 @@ public class CreateUserWindowController implements Initializable {
         userTypes.addAll("Technician", "Salesman", "Project Manager");
         jfxComboBox.setItems(userTypes);
 
-        cancelButton.setOnAction(event -> {
-            closeWindow();
-        });
+        cancelButton.setOnAction(event -> closeWindow());
     }
 }

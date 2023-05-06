@@ -3,7 +3,6 @@ package dk.easv.gui.controller.project;
 // imports
 import dk.easv.bll.exception.GUIException;
 import dk.easv.bll.util.ImageByteReader;
-import dk.easv.gui.controller.DrawInstallationController;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.ViewType;
 import javafx.fxml.FXML;
@@ -25,14 +24,18 @@ import java.util.ResourceBundle;
  *
  * @author tomdra01, mrtng1
  */
-public class ProjectDrawingController implements Initializable {
+public class ProjectStep3Controller implements Initializable {
     @FXML private Button previousStepBtn, importBtn;
     private String projectName, businessType, projectLocation, projectDescription;
     private LocalDate projectDate;
     private byte[] projectDrawing;
     private ProjectModel projectModel;
 
-    public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate, byte[] projectDrawing, String projectDescription) {
+    public void setModel(ProjectModel projectModel) {
+        this.projectModel = projectModel;
+    }
+
+    public void setProject(String projectName, String businessType, String projectLocation, LocalDate projectDate, byte[] projectDrawing, String projectDescription) {
         this.projectName = projectName;
         this.businessType = businessType;
         this.projectLocation = projectLocation;
@@ -41,32 +44,11 @@ public class ProjectDrawingController implements Initializable {
         this.projectDescription = projectDescription;
     }
 
-    public void setModel(ProjectModel projectModel) {
-        this.projectModel = projectModel;
-    }
-
-    public void previousStep() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP2.getView()));
-            Parent root = loader.load();
-
-            ProjectDetailsController projectDetailsController = loader.getController();
-            projectDetailsController.setFields(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
-
-            Stage window = (Stage) previousStepBtn.getScene().getWindow();
-            window.setTitle("Step 2");
-            Scene scene = new Scene(root);
-            window.setScene(scene);
-        } catch (IOException e) {
-            throw new GUIException("Failed to proceed to Step 2", e);
-        }
-    }
-
     public void importDrawing() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select image");
 
-        FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.jpeg", "*.png");
+        FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("image file formats", "*.jpg", "*.jpeg", "*.png");
         fileChooser.getExtensionFilters().add(imageFilter);
 
         Stage stage = (Stage) importBtn.getScene().getWindow();
@@ -74,17 +56,14 @@ public class ProjectDrawingController implements Initializable {
 
         if (selectedFile != null) {
             try {
-                long fileSize = selectedFile.length();
-                System.out.println("File size: " + fileSize);
-
-                projectDrawing = readBytesFromFile(selectedFile);
+                projectDrawing = ImageByteReader.readImage(selectedFile);
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP4.getView()));
                 Parent root = loader.load();
 
-                ProjectDescriptionController projectDescriptionController = loader.getController();
-                projectDescriptionController.setFields(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
-                projectDescriptionController.setModel(projectModel);
+                ProjectStep4Controller projectStep4 = loader.getController();
+                projectStep4.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
+                projectStep4.setModel(projectModel);
 
                 Stage window = (Stage) importBtn.getScene().getWindow();
                 window.setTitle("Step 4");
@@ -104,7 +83,7 @@ public class ProjectDrawingController implements Initializable {
             Parent root = loader.load();
 
             DrawInstallationController drawInstallationController = loader.getController();
-            drawInstallationController.setFields(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
+            drawInstallationController.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
             drawInstallationController.setModel(projectModel);
 
             Stage window = (Stage) previousStepBtn.getScene().getWindow();
@@ -116,21 +95,21 @@ public class ProjectDrawingController implements Initializable {
         }
     }
 
-    /**
-     * Read Bytes From File - reads the bytes from selected file
-     */
-    private static byte[] readBytesFromFile(File file) throws Exception {
-        InputStream is = new FileInputStream(file);
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
-        int bytesRead;
-        while ((bytesRead = is.read(buffer)) != -1) {
-            bos.write(buffer, 0, bytesRead);
-        }
+    public void previousStep() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP2.getView()));
+            Parent root = loader.load();
 
-        is.close();
-        bos.close();
-        return bos.toByteArray();
+            ProjectStep2Controller projectStep2 = loader.getController();
+            projectStep2.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
+
+            Stage window = (Stage) previousStepBtn.getScene().getWindow();
+            window.setTitle("Step 2");
+            Scene scene = new Scene(root);
+            window.setScene(scene);
+        } catch (IOException e) {
+            throw new GUIException("Failed to proceed to Step 2", e);
+        }
     }
 
     /**

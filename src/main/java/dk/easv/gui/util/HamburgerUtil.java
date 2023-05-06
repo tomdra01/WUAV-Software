@@ -14,9 +14,10 @@ import javafx.scene.layout.VBox;
  */
 public class HamburgerUtil {
     private static boolean isMenuOpen;
+    private static HamburgerSlideCloseTransition transition;
 
-    public static void showHamburger(JFXHamburger hamburgerButton, VBox menuItems, BorderPane borderPane){
-        HamburgerSlideCloseTransition transition = new HamburgerSlideCloseTransition(hamburgerButton);
+    public static void showHamburger(JFXHamburger hamburgerButton, VBox menuItems, BorderPane borderPane) {
+        transition = new HamburgerSlideCloseTransition(hamburgerButton);
         transition.setRate(-1);
 
         hamburgerButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
@@ -31,5 +32,11 @@ public class HamburgerUtil {
             }
             isMenuOpen = !isMenuOpen;
         });
+    }
+
+    public static void setDefaultHamburger() {
+        isMenuOpen = false;
+        transition.setRate(-1);
+        transition.play();
     }
 }

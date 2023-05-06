@@ -28,18 +28,17 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class ProjectFinalController implements Initializable {
-
-    @FXML
-    private Button printBtn;
-    @FXML
-    private Label nameLabel, locationLabel, dateLabel, customerTypeLabel;
-    @FXML
-    private BorderPane borderPane;
+/**
+ *
+ * @author tomdra01, mrtng1
+ */
+public class ProjectStepFinalController implements Initializable {
+    @FXML private Button printBtn;
+    @FXML private Label nameLabel, locationLabel, dateLabel, customerTypeLabel;
+    @FXML private BorderPane borderPane;
     private String projectName, businessType, projectLocation, projectDescription;
     private LocalDate projectDate;
     private byte[] projectDrawing;
@@ -49,7 +48,7 @@ public class ProjectFinalController implements Initializable {
         this.projectModel = projectModel;
     }
 
-    public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate, byte[] projectDrawing, String projectDescription) {
+    public void setProject(String projectName, String businessType, String projectLocation, LocalDate projectDate, byte[] projectDrawing, String projectDescription) {
         this.projectName = projectName;
         this.businessType = businessType;
         this.projectLocation = projectLocation;
@@ -118,6 +117,9 @@ public class ProjectFinalController implements Initializable {
         }
     }
 
+    /**
+     * Initialize method
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     }

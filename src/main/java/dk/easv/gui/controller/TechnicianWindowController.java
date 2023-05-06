@@ -4,7 +4,7 @@ package dk.easv.gui.controller;
 import com.jfoenix.controls.JFXHamburger;
 import dk.easv.be.Project;
 import dk.easv.bll.exception.GUIException;
-import dk.easv.gui.controller.project.ProjectInfoController;
+import dk.easv.gui.controller.project.ProjectStep1Controller;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.model.UserModel;
 import dk.easv.gui.util.BlurEffectUtil;
@@ -88,10 +88,10 @@ public class TechnicianWindowController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
 
-                ProjectInfoController projectInfoController = fxmlLoader.getController();
-                projectInfoController.setPane(mainPane);
-                projectInfoController.setOnCloseRequestHandler(stage);
-                projectInfoController.setModel(projectModel);
+                ProjectStep1Controller projectStep1 = fxmlLoader.getController();
+                projectStep1.setPane(mainPane);
+                projectStep1.setOnCloseRequestHandler(stage);
+                projectStep1.setModel(projectModel);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -100,6 +100,7 @@ public class TechnicianWindowController implements Initializable {
 
         // log out functionality
         logOutButton.setOnAction(event -> {
+            HamburgerUtil.setDefaultHamburger();
             try {
                 Stage currentStage = (Stage) mainPane.getScene().getWindow();
                 currentStage.close();

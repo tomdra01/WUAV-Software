@@ -10,7 +10,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -24,10 +23,8 @@ import java.util.ResourceBundle;
  *
  * @author tomdra01, mrtng1
  */
-public class ProjectPhotosController implements Initializable {
-    @FXML private Button addBtn, nextBtn;
-    @FXML private ImageView imgSelected1, imgSelected2, imgSelected3;
-    private Image image1, image2, image3;
+public class ProjectStep5Controller implements Initializable {
+    @FXML private Button nextStepBtn, previousStepBtn, addImagesBtn;
     private String projectName, businessType, projectLocation, projectDescription;
     private LocalDate projectDate;
     private byte[] projectDrawing;
@@ -37,7 +34,7 @@ public class ProjectPhotosController implements Initializable {
         this.projectModel = projectModel;
     }
 
-    public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate, byte[] projectDrawing, String projectDescription) {
+    public void setProject(String projectName, String businessType, String projectLocation, LocalDate projectDate, byte[] projectDrawing, String projectDescription) {
         this.projectName = projectName;
         this.businessType = businessType;
         this.projectLocation = projectLocation;
@@ -46,7 +43,7 @@ public class ProjectPhotosController implements Initializable {
         this.projectDescription = projectDescription;
     }
 
-    public void addImage(){
+    public void addImages(){
 
     }
 
@@ -55,12 +52,30 @@ public class ProjectPhotosController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP6.getView()));
             Parent root = loader.load();
 
-            ProjectFinalController projectFinalController = loader.getController();
-            projectFinalController.setFields(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
-            projectFinalController.setModel(projectModel);
+            ProjectStepFinalController projectStepFinalController = loader.getController();
+            projectStepFinalController.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
+            projectStepFinalController.setModel(projectModel);
 
-            Stage window = (Stage) nextBtn.getScene().getWindow();
+            Stage window = (Stage) nextStepBtn.getScene().getWindow();
             window.setTitle("Step 6");
+            Scene scene = new Scene(root);
+            window.setScene(scene);
+        } catch (IOException e) {
+            throw new GUIException("Failed to change the window", e);
+        }
+    }
+
+    public void previousStep() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP4.getView()));
+            Parent root = loader.load();
+
+            ProjectStep4Controller projectStep4 = loader.getController();
+            projectStep4.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
+            projectStep4.setModel(projectModel);
+
+            Stage window = (Stage) previousStepBtn.getScene().getWindow();
+            window.setTitle("Step 4");
             Scene scene = new Scene(root);
             window.setScene(scene);
         } catch (IOException e) {

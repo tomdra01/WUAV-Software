@@ -16,24 +16,21 @@
 <BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.AdminWindowController">
     <top>
         <VBox prefHeight="140.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
-            <children>
-                <HBox fx:id="hbox" prefHeight="100.0" prefWidth="1200.0" style="-fx-background-color: #2a2a2a;" />
-                <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;">
-                    <effect>
-                        <DropShadow height="10.0" offsetY="2.0" radius="7.25">
-                            <color>
-                                <Color red="0.7254902124404907" green="0.7254902124404907" blue="0.7254902124404907" />
-                            </color>
-                        </DropShadow>
-                    </effect>
-                    <children>
-                        <JFXHamburger fx:id="jfxHamburger">
-                            <HBox.margin>
-                                <Insets left="25.0" />
-                            </HBox.margin></JFXHamburger>
-                    </children>
-                </HBox>
-            </children>
+            <HBox fx:id="hbox" prefHeight="100.0" prefWidth="1200.0" style="-fx-background-color: #2a2a2a;"/>
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;">
+                <effect>
+                    <DropShadow height="10.0" offsetY="2.0" radius="7.25">
+                        <color>
+                            <Color red="0.7254902124404907" green="0.7254902124404907" blue="0.7254902124404907"/>
+                        </color>
+                    </DropShadow>
+                </effect>
+                <JFXHamburger fx:id="jfxHamburger">
+                    <HBox.margin>
+                        <Insets left="25.0"/>
+                    </HBox.margin>
+                </JFXHamburger>
+            </HBox>
         </VBox>
     </top>
     <bottom>
@@ -43,9 +40,7 @@
             </BorderPane.margin>
             <graphic>
                 <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../images/wuav/wuav_logo.png" />
-                    </image>
+                    <Image url="@../images/wuav/wuav_logo.png"/>
                 </ImageView>
             </graphic></Label>
     </bottom>

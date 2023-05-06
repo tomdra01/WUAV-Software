@@ -32,21 +32,16 @@ import java.util.ResourceBundle;
  * @author tomdra01, mrtng1
  */
 public class AdminWindowController implements Initializable {
-
-    @FXML
-    private BorderPane mainPane;
-    @FXML
-    private StackPane stackPane;
-    @FXML
-    private HBox hbox;
-    @FXML
-    private JFXHamburger jfxHamburger;
-    private UserModel userModel;
+    @FXML private BorderPane mainPane;
+    @FXML private StackPane stackPane;
+    @FXML private HBox hbox;
+    @FXML private JFXHamburger jfxHamburger;
     private final Button createUserButton = new Button("Create user");
     private final Button logOutButton = new Button("Log out");
     private final Button showTechniciansButton = new Button("Show technicians");
     private final Button showCustomersButton = new Button("Show customers");
     private final Button showLogButton = new Button("See log");
+    private UserModel userModel;
 
     public void setModel(UserModel userModel) {
         this.userModel = userModel;
@@ -98,6 +93,8 @@ public class AdminWindowController implements Initializable {
 
         // log out functionality
         logOutButton.setOnAction(event -> {
+            HamburgerUtil.setDefaultHamburger();
+
             try {
                 Stage currentStage = (Stage) mainPane.getScene().getWindow();
                 currentStage.close();

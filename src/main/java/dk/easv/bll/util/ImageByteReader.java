@@ -11,8 +11,8 @@ import java.io.InputStream;
  * @author tomdra01, mrtng1
  */
 public class ImageByteReader {
-    private byte[] imageData;
-    public byte[] readImage(File selectedFile) throws Exception {
+    private static byte[] imageData;
+    public static byte[] readImage(File selectedFile) throws Exception {
         if (selectedFile != null) {
             imageData = readBytesFromFile(selectedFile);
         }

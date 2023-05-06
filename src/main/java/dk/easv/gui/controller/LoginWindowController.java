@@ -5,7 +5,6 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.bll.util.PopupUtil;
-import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.model.UserModel;
 import dk.easv.gui.util.ViewType;
 import javafx.fxml.FXML;
@@ -28,12 +27,9 @@ import java.util.ResourceBundle;
  * @author tomdra01, mrtng1
  */
 public class LoginWindowController implements Initializable {
-    @FXML
-    private BorderPane loginPane;
-    @FXML
-    private JFXTextField nameField;
-    @FXML
-    private JFXPasswordField passwordField;
+    @FXML private BorderPane loginPane;
+    @FXML private JFXTextField nameField;
+    @FXML private JFXPasswordField passwordField;
     private UserModel userModel;
 
     /**

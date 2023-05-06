@@ -12,7 +12,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 // java imports
@@ -25,19 +24,20 @@ import java.util.ResourceBundle;
  *
  * @author tomdra01, mrtng1
  */
-public class ProjectDetailsController implements Initializable {
-    @FXML private Button nextStepBtn;
-    @FXML private Button previousStepBtn;
+public class ProjectStep2Controller implements Initializable {
+    @FXML private Button nextStepBtn, previousStepBtn;
     @FXML private JFXTextField pLocationField;
     @FXML private DatePicker pDatePicker;
-    @FXML private BorderPane currentPane;
     private String projectName, businessType, projectLocation, ProjectDescription;
     private LocalDate projectDate;
     private byte[] projectDrawing;
     private ProjectModel projectModel;
 
+    public void setModel(ProjectModel projectModel) {
+        this.projectModel = projectModel;
+    }
 
-    public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate, byte[] projectDrawing, String projectDescription) {
+    public void setProject(String projectName, String businessType, String projectLocation, LocalDate projectDate, byte[] projectDrawing, String projectDescription) {
         this.projectName = projectName;
         this.businessType = businessType;
         this.projectLocation = projectLocation;
@@ -49,9 +49,6 @@ public class ProjectDetailsController implements Initializable {
         pDatePicker.setValue(projectDate);
     }
 
-    public void setModel(ProjectModel projectModel) {
-        this.projectModel = projectModel;
-    }
     public void nextStep() {
         projectLocation = pLocationField.getText();
         projectDate = pDatePicker.getValue();
@@ -60,9 +57,9 @@ public class ProjectDetailsController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP3.getView()));
             Parent root = loader.load();
 
-            ProjectDrawingController projectDrawingController = loader.getController();
-            projectDrawingController.setFields(projectName, businessType, projectLocation, projectDate, projectDrawing, ProjectDescription);
-            projectDrawingController.setModel(projectModel);
+            ProjectStep3Controller projectStep3 = loader.getController();
+            projectStep3.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, ProjectDescription);
+            projectStep3.setModel(projectModel);
 
             Stage window = (Stage) nextStepBtn.getScene().getWindow();
             window.setTitle("Step 3");
@@ -81,8 +78,8 @@ public class ProjectDetailsController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP1.getView()));
             Parent root = loader.load();
 
-            ProjectInfoController projectInfoController = loader.getController();
-            projectInfoController.setFields(projectName, businessType, projectLocation, projectDate, projectDrawing, ProjectDescription);
+            ProjectStep1Controller projectStep1 = loader.getController();
+            projectStep1.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, ProjectDescription);
 
             Stage window = (Stage) previousStepBtn.getScene().getWindow();
             window.setTitle("Step 1");

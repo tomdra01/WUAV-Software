@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
  *
  * @author tomdra01, mrtng1
  */
-public class ProjectInfoController implements Initializable {
+public class ProjectStep1Controller implements Initializable {
     @FXML private Button nextStepBtn;
     @FXML private JFXTextField pNameField;
     @FXML private JFXComboBox<String> pBusinessComboBox;
@@ -49,7 +49,7 @@ public class ProjectInfoController implements Initializable {
         stage.setOnCloseRequest(event -> BlurEffectUtil.removeBlurEffect(borderPane));
     }
 
-    public void setFields(String projectName, String businessType, String projectLocation, LocalDate projectDate, byte[] projectDrawing, String projectDescription) {
+    public void setProject(String projectName, String businessType, String projectLocation, LocalDate projectDate, byte[] projectDrawing, String projectDescription) {
         this.projectName = projectName;
         this.businessType = businessType;
         this.projectLocation = projectLocation;
@@ -70,9 +70,9 @@ public class ProjectInfoController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP2.getView()));
             Parent root = loader.load();
 
-            ProjectDetailsController projectDetailsController = loader.getController();
-            projectDetailsController.setFields(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
-            projectDetailsController.setModel(projectModel);
+            ProjectStep2Controller projectStep2 = loader.getController();
+            projectStep2.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
+            projectStep2.setModel(projectModel);
 
             Stage window = (Stage) nextStepBtn.getScene().getWindow();
             window.setTitle("Step 2");
