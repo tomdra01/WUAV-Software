@@ -1,12 +1,15 @@
 package dk.easv.bll.util;
 
-import javafx.stage.FileChooser;
-
+// java imports
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
+/**
+ *
+ * @author tomdra01, mrtng1
+ */
 public class ImageByteReader {
     private byte[] imageData;
     public byte[] readImage(File selectedFile) throws Exception {

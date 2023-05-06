@@ -37,7 +37,7 @@ public class DatabaseConnector {
     }
 
     // Properties
-    private static Properties getConnectionDetails(){
+    public static Properties getConnectionDetails(){
         Properties properties = new Properties();
 
         try {
