@@ -11,12 +11,12 @@
         <HBox prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <Button fx:id="previousStepBtn" mnemonicParsing="false" onAction="#previousStep" text="Back">
                 <HBox.margin>
-                    <Insets left="15.0" top="10.0"/>
+                    <Insets left="15.0" top="10.0" />
                 </HBox.margin>
             </Button>
             <Button fx:id="nextStepBtn" mnemonicParsing="false" onAction="#nextStep" text="Next step">
                 <HBox.margin>
-                    <Insets left="455.0" top="10.0"/>
+                    <Insets left="455.0" top="10.0" />
                 </HBox.margin>
             </Button>
         </HBox>
@@ -24,21 +24,21 @@
    <center>
        <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
            <BorderPane.margin>
-               <Insets bottom="20.0" left="50.0" right="50.0" top="30.0"/>
+               <Insets bottom="20.0" left="50.0" right="50.0" top="30.0" />
            </BorderPane.margin>
-           <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+           <ImageView fx:id="imageView1" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true">
               <HBox.margin>
-                  <Insets left="10.0" top="10.0"/>
+                  <Insets left="10.0" top="10.0" />
               </HBox.margin>
            </ImageView>
-           <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+           <ImageView fx:id="imageView2" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true">
               <HBox.margin>
-                  <Insets left="15.0" top="10.0"/>
+                  <Insets left="15.0" top="10.0" />
               </HBox.margin>
            </ImageView>
-           <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+           <ImageView fx:id="imageView3" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true">
               <HBox.margin>
-                  <Insets left="15.0" top="10.0"/>
+                  <Insets left="15.0" top="10.0" />
               </HBox.margin>
            </ImageView>
        </HBox>
