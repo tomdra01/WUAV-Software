@@ -144,6 +144,12 @@ public class TechnicianWindowController implements Initializable {
                 ImageView projectImg = projectTemplateController.getProjectImg();
                 projectImg.setImage(image);
 
+                //setting project details
+                projectTemplateController.getNameLabel().setText(project.getName());
+                projectTemplateController.getLocationLabel().setText(project.getLocation());
+                projectTemplateController.getDateLabel().setText(String.valueOf(project.getDate()));
+                projectTemplateController.getTextLabel().setText(project.getDescription());
+
                 HBox hbox = new HBox(root);
                 projectsHbox.getChildren().add(hbox);
                 HBox.setMargin(hbox, new Insets(0, 10, 0, 0));
