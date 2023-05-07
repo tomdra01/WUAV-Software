@@ -36,4 +36,7 @@ public class ProjectModel {
         return p;
     }
 
+    public void insertImages(Project project, byte[] imageData) throws SQLException {
+        projectLogic.insertImages(project, imageData);
+    }
 }

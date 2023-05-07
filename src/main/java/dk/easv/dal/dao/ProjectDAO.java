@@ -53,6 +53,10 @@ public class ProjectDAO implements IProjectDAO {
         return allProjects;
     }
 
+    /**
+     * Creates project in the database.
+     * @param project sends object "Project" as a parameter.
+     */
     public Project createProject(Project project) throws Exception {
         try (Connection con = databaseConnector.getConnection()) {
             PreparedStatement pst = con.prepareStatement("INSERT INTO Project (name, businessType, location, date, drawing, description) VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
@@ -71,5 +75,19 @@ public class ProjectDAO implements IProjectDAO {
             }
         }
         throw new RuntimeException("Id not set");
+    }
+
+    /**
+     * Inserts images according to specific project
+     * @param project sends object "Project" as a parameter.
+     * @param imageData sends image bytes.
+     */
+    public void insertImages(Project project, byte[] imageData) throws SQLException {
+        try (Connection con = databaseConnector.getConnection()) {
+            PreparedStatement pst = con.prepareStatement("INSERT INTO ProjectPhotos(project_id, imageData) VALUES(?, ?)", Statement.RETURN_GENERATED_KEYS);
+            pst.setInt(1, project.getId());
+            pst.setBytes(2, imageData);
+            pst.executeUpdate();
+        }
     }
 }

@@ -35,7 +35,7 @@ public class ProjectStep5Controller implements Initializable {
     private String projectName, businessType, projectLocation, projectDescription;
     private LocalDate projectDate;
     private byte[] projectDrawing;
-    private byte[] projectImg1, projectImg2, projectImg3;
+    private byte[] projectPhoto1, projectPhoto2, projectPhoto3;
     private ProjectModel projectModel;
 
     public void setModel(ProjectModel projectModel) {
@@ -78,20 +78,20 @@ public class ProjectStep5Controller implements Initializable {
                 switch (i) {
                     case 0 -> {
                         imageView1.setImage(image);
-                        projectImg1 = ImageByteReader.readImage(file);
-                        filesize = projectImg1.length;
+                        projectPhoto1 = ImageByteReader.readImage(file);
+                        filesize = projectPhoto1.length;
                         System.out.println(filesize);
                     }
                     case 1 -> {
                         imageView2.setImage(image);
-                        projectImg2 = ImageByteReader.readImage(file);
-                        filesize = projectImg2.length;
+                        projectPhoto2 = ImageByteReader.readImage(file);
+                        filesize = projectPhoto2.length;
                         System.out.println(filesize);
                     }
                     case 2 -> {
                         imageView3.setImage(image);
-                        projectImg3 = ImageByteReader.readImage(file);
-                        filesize = projectImg3.length;
+                        projectPhoto3 = ImageByteReader.readImage(file);
+                        filesize = projectPhoto3.length;
                         System.out.println(filesize);
                     }
                 }
@@ -108,6 +108,7 @@ public class ProjectStep5Controller implements Initializable {
 
             ProjectStepFinalController projectStepFinalController = loader.getController();
             projectStepFinalController.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
+            projectStepFinalController.setPhotos(projectPhoto1, projectPhoto2, projectPhoto3);
             projectStepFinalController.setModel(projectModel);
 
             Stage window = (Stage) nextStepBtn.getScene().getWindow();

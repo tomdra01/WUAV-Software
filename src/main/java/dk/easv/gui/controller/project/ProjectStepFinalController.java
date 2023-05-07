@@ -28,6 +28,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -42,6 +43,7 @@ public class ProjectStepFinalController implements Initializable {
     private String projectName, businessType, projectLocation, projectDescription;
     private LocalDate projectDate;
     private byte[] projectDrawing;
+    private byte[] projectPhoto1, projectPhoto2, projectPhoto3;
     private ProjectModel projectModel;
 
     public void setModel(ProjectModel projectModel) {
@@ -63,6 +65,12 @@ public class ProjectStepFinalController implements Initializable {
         System.out.println(projectDrawing);
     }
 
+    public void setPhotos(byte[] projectPhoto1, byte[] projectPhoto2, byte[] projectPhoto3) {
+        this.projectPhoto1 = projectPhoto1;
+        this.projectPhoto2 = projectPhoto2;
+        this.projectPhoto3 = projectPhoto3;
+    }
+
     public void print() throws IOException {
         Project project = new Project(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
 
@@ -70,6 +78,16 @@ public class ProjectStepFinalController implements Initializable {
             projectModel.createProject(project);
         } catch (Exception e) {
             throw new GUIException("Failed creating a project ",e);
+        }
+
+        byte[][] imagesArray = { projectPhoto1, projectPhoto2, projectPhoto3 };
+
+        for (byte[] image : imagesArray) {
+            try {
+                projectModel.insertImages(project, image);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         printBtn.setVisible(false);

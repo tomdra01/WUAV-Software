@@ -8,7 +8,10 @@ import dk.easv.dal.DataAccessObjects;
 import dk.easv.dal.dao.interfaces.IProjectDAO;
 
 // java imports
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 /**
@@ -32,5 +35,9 @@ public class ProjectLogic {
         } catch (Exception e) {
             throw new DatabaseException("Failed to create Project", e);
         }
+    }
+
+    public void insertImages(Project project, byte[] imageData) throws SQLException {
+        projectDAO.insertImages(project, imageData);
     }
 }
