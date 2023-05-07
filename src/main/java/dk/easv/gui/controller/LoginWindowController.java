@@ -72,6 +72,40 @@ public class LoginWindowController implements Initializable {
             Stage currentStage = (Stage) loginPane.getScene().getWindow();
             currentStage.close();
         }
+
+        else if (userModel.isValidProjectManager(inputUsername, inputPassword)) {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_MANAGER.getView()));
+            Parent parent = fxmlLoader.load();
+
+            Stage stage = new Stage();
+            Scene scene = new Scene(parent);
+            stage.setScene(scene);
+            stage.setTitle("WUAV - project manager");
+            stage.show();
+
+            ProjectManagerWindowController projectManagerWindowController = fxmlLoader.getController();
+            projectManagerWindowController.setModel(userModel);
+
+            Stage currentStage = (Stage) loginPane.getScene().getWindow();
+            currentStage.close();
+        }
+
+        else if (userModel.isValidSalesman(inputUsername, inputPassword)) {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.SALESMAN.getView()));
+            Parent parent = fxmlLoader.load();
+
+            Stage stage = new Stage();
+            Scene scene = new Scene(parent);
+            stage.setScene(scene);
+            stage.setTitle("WUAV - salesman");
+            stage.show();
+
+            SalesmanWindowController salesmanWindowController = fxmlLoader.getController();
+            salesmanWindowController.setModel(userModel);
+
+            Stage currentStage = (Stage) loginPane.getScene().getWindow();
+            currentStage.close();
+        }
         else PopupUtil.showAlert("Incorrect login", "Incorrect username or password", Alert.AlertType.WARNING);
     }
 

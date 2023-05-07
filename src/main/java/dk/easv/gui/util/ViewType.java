@@ -8,6 +8,8 @@ public enum ViewType {
     LOGIN("/views/login_window.fxml"),
     ADMIN("/views/admin_window.fxml"),
     TECHNICIAN("/views/technician_window.fxml"),
+    PROJECT_MANAGER("/views/projectmanager_window.fxml"),
+    SALESMAN("/views/salesman_window.fxml"),
     CREATE_USER("/views/create_user_window.fxml"),
     DRAW_INSTALLATION("/views/project/draw_installation_window.fxml"),
     PROJECT_STEP1("/views/project/project_step1_window.fxml"),
@@ -17,6 +19,7 @@ public enum ViewType {
     PROJECT_STEP5("/views/project/project_step5_window.fxml"),
     PROJECT_STEP6("/views/project/project_stepfinal_window.fxml"),
     PROJECT_CARD("/views/project_template.fxml");
+
     private final String path;
 
     private ViewType(String path) {
