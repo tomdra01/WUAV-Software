@@ -33,7 +33,7 @@
                     <Insets left="50.0" right="50.0" top="40.0" />
                 </VBox.margin>
             </JFXTextField>
-            <DatePicker fx:id="pDatePicker" prefHeight="26.0" prefWidth="200.0">
+            <DatePicker fx:id="pDatePicker" prefHeight="26.0" prefWidth="200.0" stylesheets="@../../styles/datepicker_style.css">
                 <VBox.margin>
                     <Insets left="50.0" top="45.0" />
                 </VBox.margin>
