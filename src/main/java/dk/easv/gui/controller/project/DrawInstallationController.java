@@ -36,9 +36,15 @@ public class DrawInstallationController implements Initializable {
     private String projectName, businessType, projectLocation, projectDescription;
     private LocalDate projectDate;
     private byte[] projectDrawing;
+    private byte[] projectPhoto1, projectPhoto2, projectPhoto3;
+    private Image img1, img2, img3;
     private Image image;
     private final ObservableList<Image> imageHistory = FXCollections.observableArrayList();
     private ProjectModel projectModel;
+
+    public void setModel(ProjectModel projectModel) {
+        this.projectModel = projectModel;
+    }
 
     public void setProject(String projectName, String businessType, String projectLocation, LocalDate projectDate, byte[] projectDrawing, String projectDescription) {
         this.projectName = projectName;
@@ -49,8 +55,13 @@ public class DrawInstallationController implements Initializable {
         this.projectDescription = projectDescription;
     }
 
-    public void setModel(ProjectModel projectModel) {
-        this.projectModel = projectModel;
+    public void setImages(Image img1, Image img2, Image img3, byte[] projectPhoto1, byte[] projectPhoto2, byte[] projectPhoto3){
+        this.img1 = img1;
+        this.img2 = img2;
+        this.img3 = img3;
+        this.projectPhoto1 = projectPhoto1;
+        this.projectPhoto2 = projectPhoto2;
+        this.projectPhoto3 = projectPhoto3;
     }
 
     /**
@@ -84,6 +95,7 @@ public class DrawInstallationController implements Initializable {
 
             ProjectStep4Controller projectStep4 = loader.getController();
             projectStep4.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
+            projectStep4.setImages(img1, img2, img3, projectPhoto1, projectPhoto2, projectPhoto3);
             projectStep4.setModel(projectModel);
 
             Stage window = (Stage) nextStepBtn.getScene().getWindow();
@@ -97,11 +109,12 @@ public class DrawInstallationController implements Initializable {
 
     public void previousStep() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP4.getView()));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP3.getView()));
             Parent root = loader.load();
 
             ProjectStep3Controller projectStep3 = loader.getController();
             projectStep3.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
+            projectStep3.setImages(img1, img2, img3, projectPhoto1, projectPhoto2, projectPhoto3);
             projectStep3.setModel(projectModel);
 
             Stage window = (Stage) previousStepBtn.getScene().getWindow();

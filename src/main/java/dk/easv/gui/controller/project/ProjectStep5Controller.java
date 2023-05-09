@@ -36,6 +36,7 @@ public class ProjectStep5Controller implements Initializable {
     private LocalDate projectDate;
     private byte[] projectDrawing;
     private byte[] projectPhoto1, projectPhoto2, projectPhoto3;
+    private Image img1, img2, img3;
     private ProjectModel projectModel;
 
     public void setModel(ProjectModel projectModel) {
@@ -49,6 +50,19 @@ public class ProjectStep5Controller implements Initializable {
         this.projectDate = projectDate;
         this.projectDrawing = projectDrawing;
         this.projectDescription = projectDescription;
+    }
+
+    public void setImages(Image img1, Image img2, Image img3, byte[] projectPhoto1, byte[] projectPhoto2, byte[] projectPhoto3){
+        this.img1 = img1;
+        this.img2 = img2;
+        this.img3 = img3;
+        this.projectPhoto1 = projectPhoto1;
+        this.projectPhoto2 = projectPhoto2;
+        this.projectPhoto3 = projectPhoto3;
+
+        imageView1.setImage(img1);
+        imageView2.setImage(img2);
+        imageView3.setImage(img3);
     }
 
     public void addImages() throws Exception {
@@ -78,18 +92,21 @@ public class ProjectStep5Controller implements Initializable {
                 switch (i) {
                     case 0 -> {
                         imageView1.setImage(image);
+                        img1 = image;
                         projectPhoto1 = ImageByteReader.readImage(file);
                         filesize = projectPhoto1.length;
                         System.out.println(filesize);
                     }
                     case 1 -> {
                         imageView2.setImage(image);
+                        img2 = image;
                         projectPhoto2 = ImageByteReader.readImage(file);
                         filesize = projectPhoto2.length;
                         System.out.println(filesize);
                     }
                     case 2 -> {
                         imageView3.setImage(image);
+                        img3 = image;
                         projectPhoto3 = ImageByteReader.readImage(file);
                         filesize = projectPhoto3.length;
                         System.out.println(filesize);
@@ -108,7 +125,7 @@ public class ProjectStep5Controller implements Initializable {
 
             ProjectStepFinalController projectStepFinalController = loader.getController();
             projectStepFinalController.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
-            projectStepFinalController.setPhotos(projectPhoto1, projectPhoto2, projectPhoto3);
+            projectStepFinalController.setImages(projectPhoto1, projectPhoto2, projectPhoto3);
             projectStepFinalController.setModel(projectModel);
 
             Stage window = (Stage) nextStepBtn.getScene().getWindow();
@@ -127,6 +144,7 @@ public class ProjectStep5Controller implements Initializable {
 
             ProjectStep4Controller projectStep4 = loader.getController();
             projectStep4.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
+            projectStep4.setImages(img1, img2, img3, projectPhoto1, projectPhoto2, projectPhoto3);
             projectStep4.setModel(projectModel);
 
             Stage window = (Stage) previousStepBtn.getScene().getWindow();

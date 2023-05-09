@@ -5,6 +5,8 @@ import com.jfoenix.controls.JFXHamburger;
 import dk.easv.be.roles.Technician;
 import dk.easv.bll.exception.DatabaseException;
 import dk.easv.bll.exception.GUIException;
+import dk.easv.gui.controller.project.ProjectStep1Controller;
+import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.model.UserModel;
 import dk.easv.gui.util.BlurEffectUtil;
 import dk.easv.gui.util.ClockUtil;
@@ -36,12 +38,14 @@ public class AdminWindowController implements Initializable {
     @FXML private StackPane stackPane;
     @FXML private HBox hbox;
     @FXML private JFXHamburger jfxHamburger;
+    private  final  Button createProjectButton = new Button("New project");
     private final Button createUserButton = new Button("Create user");
     private final Button logOutButton = new Button("Log out");
     private final Button showTechniciansButton = new Button("Show technicians");
     private final Button showCustomersButton = new Button("Show customers");
     private final Button showLogButton = new Button("See log");
     private UserModel userModel;
+    private ProjectModel projectModel;
 
     public void setModel(UserModel userModel) {
         this.userModel = userModel;
@@ -61,18 +65,20 @@ public class AdminWindowController implements Initializable {
         leftVBox.setPrefWidth(160);
         leftVBox.getStylesheets().add("styles/main_style.css");
 
+        createProjectButton.setMaxWidth(200);
         createUserButton.setMaxWidth(200);
         showTechniciansButton.setMaxWidth(200);
         showCustomersButton.setMaxWidth(200);
         showLogButton.setMaxWidth(200);
         logOutButton.setMaxWidth(200);
 
-        leftVBox.getChildren().addAll(createUserButton, showTechniciansButton, showCustomersButton, showLogButton, logOutButton);
-        VBox.setMargin(createUserButton, new Insets(60, 20, 0, 20));
+        leftVBox.getChildren().addAll(createProjectButton, createUserButton, showTechniciansButton, showCustomersButton, showLogButton, logOutButton);
+        VBox.setMargin(createProjectButton, new Insets(60, 20, 0, 20));
+        VBox.setMargin(createUserButton, new Insets(20, 20, 0, 20));
         VBox.setMargin(showTechniciansButton, new Insets(20, 20, 0, 20));
         VBox.setMargin(showCustomersButton, new Insets(20, 20, 0, 20));
         VBox.setMargin(showLogButton, new Insets(20, 20, 0, 20));
-        VBox.setMargin(logOutButton, new Insets(240, 20, 0, 20));
+        VBox.setMargin(logOutButton, new Insets(190, 20, 0, 20));
 
         HamburgerUtil.showHamburger(jfxHamburger, leftVBox, mainPane);
     }
@@ -81,6 +87,31 @@ public class AdminWindowController implements Initializable {
      * Actions for buttons inside hamburger menu.
      */
     private void hamburgerButtons() {
+        // create new project
+        createProjectButton.setOnAction(event -> {
+            BlurEffectUtil.applyBlurEffect(mainPane,10);
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP1.getView()));
+                Parent createEventParent = fxmlLoader.load();
+
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setTitle("Step 1");
+                stage.setResizable(false);
+                Scene scene = new Scene(createEventParent);
+                stage.setScene(scene);
+                stage.show();
+
+                ProjectStep1Controller projectStep1 = fxmlLoader.getController();
+                projectStep1.setPane(mainPane);
+                projectStep1.setOnCloseRequestHandler(stage);
+                projectStep1.setModel(projectModel);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
         // technician listView
         showTechniciansButton.setOnAction(event -> {
             MFXListView<Technician> mfxListView = new MFXListView<>();
@@ -144,6 +175,7 @@ public class AdminWindowController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        projectModel = new ProjectModel();
         hamburgerMenu(); // hamburger
         hamburgerButtons(); // buttons in hamburger
         ClockUtil.showWidget(hbox); // clock

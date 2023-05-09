@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -29,6 +30,8 @@ public class ProjectStep3Controller implements Initializable {
     private String projectName, businessType, projectLocation, projectDescription;
     private LocalDate projectDate;
     private byte[] projectDrawing;
+    private byte[] projectPhoto1, projectPhoto2, projectPhoto3;
+    private Image img1, img2, img3;
     private ProjectModel projectModel;
 
     public void setModel(ProjectModel projectModel) {
@@ -42,6 +45,15 @@ public class ProjectStep3Controller implements Initializable {
         this.projectDate = projectDate;
         this.projectDrawing = projectDrawing;
         this.projectDescription = projectDescription;
+    }
+
+    public void setImages(Image img1, Image img2, Image img3, byte[] projectPhoto1, byte[] projectPhoto2, byte[] projectPhoto3){
+        this.img1 = img1;
+        this.img2 = img2;
+        this.img3 = img3;
+        this.projectPhoto1 = projectPhoto1;
+        this.projectPhoto2 = projectPhoto2;
+        this.projectPhoto3 = projectPhoto3;
     }
 
     public void importDrawing() {
@@ -63,6 +75,7 @@ public class ProjectStep3Controller implements Initializable {
 
                 ProjectStep4Controller projectStep4 = loader.getController();
                 projectStep4.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
+                projectStep4.setImages(img1, img2, img3, projectPhoto1, projectPhoto2, projectPhoto3);
                 projectStep4.setModel(projectModel);
 
                 Stage window = (Stage) importBtn.getScene().getWindow();
@@ -84,6 +97,7 @@ public class ProjectStep3Controller implements Initializable {
 
             DrawInstallationController drawInstallationController = loader.getController();
             drawInstallationController.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
+            drawInstallationController.setImages(img1, img2, img3, projectPhoto1, projectPhoto2, projectPhoto3);
             drawInstallationController.setModel(projectModel);
 
             Stage window = (Stage) previousStepBtn.getScene().getWindow();
@@ -102,6 +116,8 @@ public class ProjectStep3Controller implements Initializable {
 
             ProjectStep2Controller projectStep2 = loader.getController();
             projectStep2.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
+            projectStep2.setImages(img1, img2, img3, projectPhoto1, projectPhoto2, projectPhoto3);
+            projectStep2.setModel(projectModel);
 
             Stage window = (Stage) previousStepBtn.getScene().getWindow();
             window.setTitle("Step 2");

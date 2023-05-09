@@ -65,7 +65,7 @@ public class ProjectStepFinalController implements Initializable {
         System.out.println(projectDrawing);
     }
 
-    public void setPhotos(byte[] projectPhoto1, byte[] projectPhoto2, byte[] projectPhoto3) {
+    public void setImages(byte[] projectPhoto1, byte[] projectPhoto2, byte[] projectPhoto3) {
         this.projectPhoto1 = projectPhoto1;
         this.projectPhoto2 = projectPhoto2;
         this.projectPhoto3 = projectPhoto3;
