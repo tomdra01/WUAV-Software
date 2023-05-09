@@ -10,12 +10,12 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styles/window_style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.project.ProjectStep3Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styles/window_style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.project.ProjectStep3Controller">
     <bottom>
        <HBox prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
           <Button fx:id="previousStepBtn" mnemonicParsing="false" onAction="#previousStep" text="Back">
              <HBox.margin>
-                <Insets left="15.0" top="10.0"/>
+                <Insets left="15.0" top="10.0" />
              </HBox.margin>
           </Button>
        </HBox>
@@ -23,37 +23,33 @@
    <left>
       <Pane prefHeight="350.0" prefWidth="280.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
          <BorderPane.margin>
-            <Insets bottom="5.0" left="20.0" right="5.0" top="20.0"/>
+            <Insets bottom="5.0" left="20.0" right="5.0" top="20.0" />
          </BorderPane.margin>
-         <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="65.0" layoutY="51.0" pickOnBounds="true"
-                    preserveRatio="true">
-            <Image url="@../../images/wuav/Digital-skiltning.png"/>
+         <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="65.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../../images/wuav/Digital-skiltning.png" />
          </ImageView>
-         <Button fx:id="importBtn" layoutX="113.0" layoutY="232.0" mnemonicParsing="false" onAction="#importDrawing"
-                 stylesheets="@../../styles/login_style.css" text="Import "/>
+         <Button fx:id="importBtn" layoutX="113.0" layoutY="232.0" mnemonicParsing="false" onAction="#importDrawing" stylesheets="@../../styles/login_style.css" text="Import " />
       </Pane>
    </left>
    <right>
       <Pane prefHeight="350.0" prefWidth="280.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
          <BorderPane.margin>
-            <Insets bottom="5.0" left="5.0" right="20.0" top="20.0"/>
+            <Insets bottom="5.0" left="5.0" right="20.0" top="20.0" />
          </BorderPane.margin>
-         <ImageView fitHeight="93.0" fitWidth="91.0" layoutX="90.0" layoutY="76.0" pickOnBounds="true"
-                    preserveRatio="true">
-            <Image url="@../../images/wuav/wuav_create.png"/>
+         <ImageView fitHeight="93.0" fitWidth="91.0" layoutX="90.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../../images/wuav/wuav_create.png" />
          </ImageView>
-         <Button layoutX="107.0" layoutY="232.0" mnemonicParsing="false" onAction="#createDrawing"
-                 stylesheets="@../../styles/login_style.css" text="Design"/>
+         <Button layoutX="107.0" layoutY="232.0" mnemonicParsing="false" onAction="#createDrawing" stylesheets="@../../styles/login_style.css" text="Design" />
       </Pane>
    </right>
    <top>
       <Label text="IMPORT OR CREATE DRAWING" textFill="#a1a1a1" BorderPane.alignment="CENTER">
-         <font>
-            <Font size="14.0" />
-         </font>
          <BorderPane.margin>
             <Insets top="20.0" />
          </BorderPane.margin>
+         <font>
+            <Font name="Arial" size="13.0" />
+         </font>
       </Label>
    </top>
 </BorderPane>
