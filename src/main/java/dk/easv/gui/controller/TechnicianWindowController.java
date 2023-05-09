@@ -1,7 +1,9 @@
 package dk.easv.gui.controller;
 
 // imports
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.Project;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.gui.controller.project.ProjectStep1Controller;
@@ -11,6 +13,7 @@ import dk.easv.gui.util.BlurEffectUtil;
 import dk.easv.gui.util.ClockUtil;
 import dk.easv.gui.util.HamburgerUtil;
 import dk.easv.gui.util.ViewType;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -30,6 +33,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -40,6 +44,8 @@ public class TechnicianWindowController implements Initializable {
     @FXML private HBox hbox;
     @FXML private HBox projectsHbox;
     @FXML private JFXHamburger jfxHamburger;
+    @FXML private JFXComboBox filterComboBox;
+    @FXML private JFXTextField searchBar;
     private final Button createProjectButton = new Button("New project");
     private final Button logOutButton = new Button("Log out");
     private UserModel userModel;
@@ -123,12 +129,20 @@ public class TechnicianWindowController implements Initializable {
     /**
      * Generating all projects.
      */
-    private void projectShowcase(){
-        List<Project> projects = projectModel.getProjects();
+    private void refreshProjects() {
+        projectsHbox.getChildren().clear();
+
+        String selectedFilter = String.valueOf(filterComboBox.getValue());
+        String searchText = searchBar.getText().toLowerCase();
+        List<Project> filteredProjects = projectModel.getProjects().stream()
+                .filter(project -> (selectedFilter == null || "All".equals(selectedFilter) || project.getBusinessType().equals(selectedFilter)) &&
+                        (searchText.isEmpty() || project.getName().toLowerCase().contains(searchText) || project.getLocation().toLowerCase().contains(searchText)))
+                .collect(Collectors.toList());
+
         int limit = 10;
         int counter = 0;
 
-        for (Project project : projects) {
+        for (Project project : filteredProjects) {
             if (counter == limit) {
                 break;
             }
@@ -154,11 +168,13 @@ public class TechnicianWindowController implements Initializable {
                 projectsHbox.getChildren().add(hbox);
                 HBox.setMargin(hbox, new Insets(0, 10, 0, 0));
             } catch (IOException e) {
-                throw new GUIException("Failed to show all of the projects", e);
+                throw new GUIException("Failed to show filtered projects", e);
             }
             counter++;
         }
     }
+
+
 
     /**
      * Initialize method
@@ -166,9 +182,20 @@ public class TechnicianWindowController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         projectModel = new ProjectModel();
-        ClockUtil.showWidget(hbox);//clock
+        ClockUtil.showWidget(hbox); //clock
         hamburgerMenu(); //hamburger
         hamburgerButtons(); //buttons in hamburger
-        projectShowcase(); // showcase of all projects
+
+        filterComboBox.setItems(FXCollections.observableArrayList("All", "Consumer", "Corporate & Government"));
+        filterComboBox.setValue("All");
+        refreshProjects(); // showcase of all projects based on the filter
+
+        filterComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            refreshProjects();
+        });
+
+        searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+            refreshProjects();
+        });
     }
 }
