@@ -163,6 +163,7 @@ public class TechnicianWindowController implements Initializable {
                 projectTemplateController.getLocationLabel().setText(project.getLocation());
                 projectTemplateController.getDateLabel().setText(String.valueOf(project.getDate()));
                 projectTemplateController.getTextLabel().setText(project.getDescription());
+                projectTemplateController.setMainPane(mainPane);
 
                 HBox hbox = new HBox(root);
                 projectsHbox.getChildren().add(hbox);

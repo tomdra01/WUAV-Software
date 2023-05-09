@@ -18,7 +18,8 @@ public enum ViewType {
     PROJECT_STEP4("/views/project/project_step4_window.fxml"),
     PROJECT_STEP5("/views/project/project_step5_window.fxml"),
     PROJECT_STEP6("/views/project/project_stepfinal_window.fxml"),
-    PROJECT_CARD("/views/project_template.fxml");
+    PROJECT_CARD("/views/project_template.fxml"),
+    INSPECT_PROJECT("/views/inspect_project.fxml");
 
     private final String path;
 

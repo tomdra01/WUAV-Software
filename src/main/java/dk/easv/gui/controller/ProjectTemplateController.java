@@ -1,12 +1,22 @@
 package dk.easv.gui.controller;
 
 // imports
+import dk.easv.gui.util.BlurEffectUtil;
+import dk.easv.gui.util.ViewType;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 // java imports
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -17,6 +27,8 @@ import java.util.ResourceBundle;
 public class ProjectTemplateController implements Initializable {
     @FXML private ImageView projectImg;
     @FXML private Label nameLabel, dateLabel, locationLabel, textLabel;
+    @FXML private Button openButton;
+    @FXML private BorderPane mainPane;
 
     public ImageView getProjectImg() {
         return projectImg;
@@ -25,6 +37,30 @@ public class ProjectTemplateController implements Initializable {
     public Label getLocationLabel() {return locationLabel;}
     public Label getDateLabel() {return dateLabel;}
     public Label getTextLabel() {return textLabel;}
+    public void setMainPane(BorderPane mainPane){this.mainPane=mainPane;}
+
+    public void openProject(){
+        BlurEffectUtil.applyBlurEffect(mainPane,10);
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.INSPECT_PROJECT.getView()));
+            Parent createEventParent = fxmlLoader.load();
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Inspect project");
+            stage.setResizable(false);
+            Scene scene = new Scene(createEventParent);
+            stage.setScene(scene);
+            stage.show();
+
+            InspectProjectController inspectProjectController = fxmlLoader.getController();
+            inspectProjectController.setPane(mainPane);
+            inspectProjectController.setOnCloseRequestHandler(stage);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Initialize method
