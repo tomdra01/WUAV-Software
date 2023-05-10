@@ -1,35 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXHamburger?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.effect.InnerShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.AdminWindowController">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.AdminWindowController">
     <top>
         <VBox prefHeight="140.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
-            <HBox fx:id="hbox" prefHeight="100.0" prefWidth="1200.0" style="-fx-background-color: #2a2a2a;"/>
+            <HBox fx:id="hbox" prefHeight="100.0" prefWidth="1200.0" style="-fx-background-color: #2a2a2a;" />
             <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;">
                 <effect>
                     <DropShadow height="10.0" offsetY="2.0" radius="7.25">
                         <color>
-                            <Color red="0.7254902124404907" green="0.7254902124404907" blue="0.7254902124404907"/>
+                            <Color red="0.7254902124404907" green="0.7254902124404907" blue="0.7254902124404907" />
                         </color>
                     </DropShadow>
                 </effect>
-                <JFXHamburger fx:id="jfxHamburger">
+                <JFXHamburger fx:id="jfxHamburger" prefHeight="70.0" prefWidth="68.0">
                     <HBox.margin>
-                        <Insets left="25.0"/>
+                        <Insets left="25.0" />
                     </HBox.margin>
                 </JFXHamburger>
+                <Label prefHeight="17.0" prefWidth="124.0" text="Customer type:">
+                    <HBox.margin>
+                        <Insets left="700.0" right="25.0" top="25.0" />
+                    </HBox.margin>
+                </Label>
+                <JFXComboBox fx:id="filterComboBox" focusColor="#e84910" prefHeight="25.0" prefWidth="109.0">
+                    <HBox.margin>
+                        <Insets top="25.0" />
+                    </HBox.margin>
+                </JFXComboBox>
+                <JFXTextField fx:id="searchBar" focusColor="#e84910" minWidth="177.0" prefHeight="25.0" prefWidth="136.0" promptText="Search">
+                    <HBox.margin>
+                        <Insets left="75.0" right="25.0" top="25.0" />
+                    </HBox.margin>
+                </JFXTextField>
             </HBox>
         </VBox>
     </top>
@@ -40,12 +50,15 @@
             </BorderPane.margin>
             <graphic>
                 <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="@../images/wuav/wuav_logo.png"/>
+                    <Image url="@../images/wuav/wuav_logo.png" />
                 </ImageView>
             </graphic></Label>
     </bottom>
     <center>
-        <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
+        <ScrollPane hbarPolicy="ALWAYS" prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/scrollpane_style.css" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+            </BorderPane.margin>
             <effect>
                 <InnerShadow>
                     <color>
@@ -53,9 +66,10 @@
                     </color>
                 </InnerShadow>
             </effect>
-            <BorderPane.margin>
-                <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
-            </BorderPane.margin>
-        </StackPane>
+            <padding>
+                <Insets left="10.0" top="25.0" />
+            </padding>
+            <HBox fx:id="projectsHbox" prefHeight="400.0" prefWidth="1080.0" />
+        </ScrollPane>
     </center>
 </BorderPane>

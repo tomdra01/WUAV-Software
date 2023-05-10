@@ -42,6 +42,8 @@ public class AdminWindowController implements Initializable {
     @FXML private StackPane stackPane;
     @FXML private HBox hbox, projectsHbox;
     @FXML private JFXHamburger jfxHamburger;
+    @FXML private JFXComboBox filterComboBox;
+    @FXML private JFXTextField searchBar;
     private  final  Button createProjectButton = new Button("New project");
     private final Button createUserButton = new Button("Create user");
     private final Button logOutButton = new Button("Log out");
@@ -186,5 +188,16 @@ public class AdminWindowController implements Initializable {
         hamburgerButtons(); // buttons in hamburger
         ClockUtil.showWidget(hbox); // clock
 
+        filterComboBox.setItems(FXCollections.observableArrayList("All", "Consumer", "Corporate & Government"));
+        filterComboBox.setValue("All");
+        projectDisplay.refresh(projectsHbox, filterComboBox, searchBar, projectModel, mainPane); // showcase of all projects based on the filter
+
+        filterComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            projectDisplay.refresh(projectsHbox, filterComboBox, searchBar, projectModel, mainPane);
+        });
+
+        searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+            projectDisplay.refresh(projectsHbox, filterComboBox, searchBar, projectModel, mainPane);
+        });
     }
 }
