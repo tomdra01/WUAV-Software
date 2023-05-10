@@ -24,7 +24,7 @@
             <VBox.margin>
                <Insets top="5.0" />
             </VBox.margin></Label>
-         <Label fx:id="textLabel" alignment="TOP_CENTER" layoutX="10.0" layoutY="44.0" prefHeight="153.0" prefWidth="111.0" text="text">
+         <Label fx:id="textLabel" alignment="TOP_CENTER" layoutX="10.0" layoutY="44.0" prefHeight="94.0" prefWidth="268.0" text="text">
             <VBox.margin>
                <Insets top="10.0" />
             </VBox.margin></Label>

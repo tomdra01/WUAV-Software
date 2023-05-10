@@ -18,6 +18,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 // java imports
@@ -41,6 +42,16 @@ public class ProjectStep1Controller implements Initializable {
     private byte[] projectPhoto1, projectPhoto2, projectPhoto3;
     private Image img1, img2, img3;
     private ProjectModel projectModel;
+    private HBox projectHbox;
+    private JFXComboBox filterComboBox;
+    private JFXTextField searchBar;
+    private BorderPane mainPane;
+    public void setMainPage(HBox projectHbox, JFXComboBox filterComboBox, JFXTextField searchBar, BorderPane mainPane){
+        this.projectHbox=projectHbox;
+        this.filterComboBox=filterComboBox;
+        this.searchBar=searchBar;
+        this.mainPane=mainPane;
+    }
 
     public void setModel(ProjectModel projectModel) {
         this.projectModel = projectModel;
@@ -89,6 +100,7 @@ public class ProjectStep1Controller implements Initializable {
                 projectStep2.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
                 projectStep2.setImages(img1, img2, img3, projectPhoto1, projectPhoto2, projectPhoto3);
                 projectStep2.setModel(projectModel);
+                projectStep2.setMainPage(projectHbox, filterComboBox, searchBar, mainPane);
 
                 Stage window = (Stage) nextStepBtn.getScene().getWindow();
                 window.setTitle("Step 2");

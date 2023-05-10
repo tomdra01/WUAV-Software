@@ -1,9 +1,13 @@
 package dk.easv.gui.controller.project;
 
 // imports
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.Project;
 import dk.easv.bll.exception.GUIException;
+import dk.easv.bll.logic.ProjectDisplay;
 import dk.easv.gui.model.ProjectModel;
+import dk.easv.gui.util.BlurEffectUtil;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -45,6 +50,17 @@ public class ProjectStepFinalController implements Initializable {
     private byte[] projectDrawing;
     private byte[] projectPhoto1, projectPhoto2, projectPhoto3;
     private ProjectModel projectModel;
+    private ProjectDisplay projectDisplay;
+    private HBox projectHbox;
+    private JFXComboBox filterComboBox;
+    private JFXTextField searchBar;
+    private BorderPane mainPane;
+    public void setMainPage(HBox projectHbox, JFXComboBox filterComboBox, JFXTextField searchBar, BorderPane mainPane){
+        this.projectHbox=projectHbox;
+        this.filterComboBox=filterComboBox;
+        this.searchBar=searchBar;
+        this.mainPane=mainPane;
+    }
 
     public void setModel(ProjectModel projectModel) {
         this.projectModel = projectModel;
@@ -114,9 +130,8 @@ public class ProjectStepFinalController implements Initializable {
         contentStream.drawImage(xImage, 0, 0, pdfWidth, pdfHeight);
         contentStream.close();
 
-        String name = nameLabel.getText();
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialFileName("project_"+ name + ".pdf");
+        fileChooser.setInitialFileName("project_"+ projectName);
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF files (*.pdf)", "*.pdf");
         fileChooser.getExtensionFilters().add(extFilter);
         Stage primaryStage = (Stage) borderPane.getScene().getWindow();
@@ -133,6 +148,10 @@ public class ProjectStepFinalController implements Initializable {
                 }
             }
         }
+        Stage stage = (Stage) printBtn.getScene().getWindow();
+        stage.close();
+        projectDisplay.refresh(projectHbox, filterComboBox, searchBar, projectModel, mainPane);
+        BlurEffectUtil.removeBlurEffect(mainPane);
     }
 
     /**
@@ -140,5 +159,6 @@ public class ProjectStepFinalController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        projectDisplay = new ProjectDisplay();
     }
 }

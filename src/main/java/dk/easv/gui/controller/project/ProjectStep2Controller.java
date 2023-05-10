@@ -1,6 +1,7 @@
 package dk.easv.gui.controller.project;
 
 // imports
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.bll.util.PopupUtil;
@@ -15,6 +16,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 // java imports
@@ -37,6 +40,16 @@ public class ProjectStep2Controller implements Initializable {
     private byte[] projectPhoto1, projectPhoto2, projectPhoto3;
     private Image img1, img2, img3;
     private ProjectModel projectModel;
+    private HBox projectHbox;
+    private JFXComboBox filterComboBox;
+    private JFXTextField searchBar;
+    private BorderPane mainPane;
+    public void setMainPage(HBox projectHbox, JFXComboBox filterComboBox, JFXTextField searchBar, BorderPane mainPane){
+        this.projectHbox=projectHbox;
+        this.filterComboBox=filterComboBox;
+        this.searchBar=searchBar;
+        this.mainPane=mainPane;
+    }
 
     public void setModel(ProjectModel projectModel) {
         this.projectModel = projectModel;
@@ -76,6 +89,7 @@ public class ProjectStep2Controller implements Initializable {
                 projectStep3.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, ProjectDescription);
                 projectStep3.setImages(img1, img2, img3, projectPhoto1, projectPhoto2, projectPhoto3);
                 projectStep3.setModel(projectModel);
+                projectStep3.setMainPage(projectHbox, filterComboBox, searchBar, mainPane);
 
                 Stage window = (Stage) nextStepBtn.getScene().getWindow();
                 window.setTitle("Step 3");
@@ -100,6 +114,7 @@ public class ProjectStep2Controller implements Initializable {
             projectStep1.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, ProjectDescription);
             projectStep1.setImages(img1, img2, img3, projectPhoto1, projectPhoto2, projectPhoto3);
             projectStep1.setModel(projectModel);
+            projectStep1.setMainPage(projectHbox, filterComboBox, searchBar, mainPane);
 
             Stage window = (Stage) previousStepBtn.getScene().getWindow();
             window.setTitle("Step 1");
