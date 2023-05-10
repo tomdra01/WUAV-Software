@@ -3,6 +3,7 @@ package dk.easv.gui.controller.project;
 // imports
 import com.jfoenix.controls.JFXTextArea;
 import dk.easv.bll.exception.GUIException;
+import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.ViewType;
 import javafx.event.ActionEvent;
@@ -11,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -60,24 +62,27 @@ public class ProjectStep4Controller implements Initializable {
     }
 
     public void nextStep() {
-        try {
-            projectDescription = textArea.getText();
+        projectDescription = textArea.getText();
+        if(projectDescription != null && !projectDescription.isEmpty()) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP5.getView()));
+                Parent root = loader.load();
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP5.getView()));
-            Parent root = loader.load();
+                ProjectStep5Controller projectStep5 = loader.getController();
+                projectStep5.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
+                projectStep5.setImages(img1, img2, img3, projectPhoto1, projectPhoto2, projectPhoto3);
+                projectStep5.setModel(projectModel);
 
-            ProjectStep5Controller projectStep5 = loader.getController();
-            projectStep5.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
-            projectStep5.setImages(img1, img2, img3, projectPhoto1, projectPhoto2, projectPhoto3);
-            projectStep5.setModel(projectModel);
-
-            Stage window = (Stage) nextStepBtn.getScene().getWindow();
-            window.setTitle("Step 5");
-            Scene scene = new Scene(root);
-            window.setScene(scene);
-        } catch (IOException e) {
-            throw new GUIException("Failed to change the window", e);
+                Stage window = (Stage) nextStepBtn.getScene().getWindow();
+                window.setTitle("Step 5");
+                Scene scene = new Scene(root);
+                window.setScene(scene);
+            } catch (IOException e) {
+                throw new GUIException("Failed to change the window", e);
+            }
         }
+
+        else PopupUtil.showAlert("Fields empty", "Please fill out the project description", Alert.AlertType.INFORMATION);
     }
 
     public void previousStep() {

@@ -4,6 +4,7 @@ package dk.easv.gui.controller.project;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.bll.exception.GUIException;
+import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.BlurEffectUtil;
 import dk.easv.gui.util.ViewType;
@@ -13,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
@@ -78,22 +80,25 @@ public class ProjectStep1Controller implements Initializable {
         projectName = pNameField.getText();
         businessType = pBusinessComboBox.getValue();
 
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP2.getView()));
-            Parent root = loader.load();
+        if(projectName != null && !projectName.isEmpty() && businessType != null && !businessType.isEmpty()) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP2.getView()));
+                Parent root = loader.load();
 
-            ProjectStep2Controller projectStep2 = loader.getController();
-            projectStep2.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
-            projectStep2.setImages(img1, img2, img3, projectPhoto1, projectPhoto2, projectPhoto3);
-            projectStep2.setModel(projectModel);
+                ProjectStep2Controller projectStep2 = loader.getController();
+                projectStep2.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
+                projectStep2.setImages(img1, img2, img3, projectPhoto1, projectPhoto2, projectPhoto3);
+                projectStep2.setModel(projectModel);
 
-            Stage window = (Stage) nextStepBtn.getScene().getWindow();
-            window.setTitle("Step 2");
-            Scene scene = new Scene(root);
-            window.setScene(scene);
-        } catch (IOException e) {
-            throw new GUIException("Failed to proceed to Step 2", e);
+                Stage window = (Stage) nextStepBtn.getScene().getWindow();
+                window.setTitle("Step 2");
+                Scene scene = new Scene(root);
+                window.setScene(scene);
+            } catch (IOException e) {
+                throw new GUIException("Failed to proceed to Step 2", e);
+            }
         }
+        else PopupUtil.showAlert("Fields empty", "Please fill out all the fields", Alert.AlertType.INFORMATION);
     }
 
     /**

@@ -3,6 +3,7 @@ package dk.easv.gui.controller.project;
 // imports
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.bll.exception.GUIException;
+import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.ViewType;
 import javafx.fxml.FXML;
@@ -10,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.image.Image;
@@ -65,22 +67,25 @@ public class ProjectStep2Controller implements Initializable {
         projectLocation = pLocationField.getText();
         projectDate = pDatePicker.getValue();
 
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP3.getView()));
-            Parent root = loader.load();
+        if (projectLocation != null && !projectLocation.isEmpty() && projectDate != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP3.getView()));
+                Parent root = loader.load();
 
-            ProjectStep3Controller projectStep3 = loader.getController();
-            projectStep3.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, ProjectDescription);
-            projectStep3.setImages(img1, img2, img3, projectPhoto1, projectPhoto2, projectPhoto3);
-            projectStep3.setModel(projectModel);
+                ProjectStep3Controller projectStep3 = loader.getController();
+                projectStep3.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, ProjectDescription);
+                projectStep3.setImages(img1, img2, img3, projectPhoto1, projectPhoto2, projectPhoto3);
+                projectStep3.setModel(projectModel);
 
-            Stage window = (Stage) nextStepBtn.getScene().getWindow();
-            window.setTitle("Step 3");
-            Scene scene = new Scene(root);
-            window.setScene(scene);
-        } catch (IOException e) {
-            throw new GUIException("Failed to proceed to Step 3", e);
+                Stage window = (Stage) nextStepBtn.getScene().getWindow();
+                window.setTitle("Step 3");
+                Scene scene = new Scene(root);
+                window.setScene(scene);
+            } catch (IOException e) {
+                throw new GUIException("Failed to proceed to Step 3", e);
+            }
         }
+        else PopupUtil.showAlert("Fields empty", "Please fill out all the fields", Alert.AlertType.INFORMATION);
     }
 
     public void previousStep() {
