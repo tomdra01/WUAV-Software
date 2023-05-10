@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ProjectDisplay {
-    public void refresh(HBox projectsHbox, JFXComboBox filterComboBox, JFXTextField searchBar, ProjectModel projectModel, BorderPane mainPane){
+    public void refresh(HBox projectsHbox, JFXComboBox filterComboBox, JFXTextField searchBar, ProjectModel projectModel, BorderPane mainPane) {
         projectsHbox.getChildren().clear();
 
         String selectedFilter = String.valueOf(filterComboBox.getValue());
@@ -40,6 +40,10 @@ public class ProjectDisplay {
             }
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_CARD.getView()));
+                loader.setControllerFactory(clazz -> {
+                    ProjectTemplateController controller = new ProjectTemplateController(project);
+                    return controller;
+                });
                 AnchorPane root = loader.load();
 
                 ProjectTemplateController projectTemplateController = loader.getController();
@@ -56,6 +60,7 @@ public class ProjectDisplay {
                 projectTemplateController.getDateLabel().setText(String.valueOf(project.getDate()));
                 projectTemplateController.getTextLabel().setText(project.getDescription());
                 projectTemplateController.setMainPane(mainPane);
+                projectTemplateController.setModel(projectModel);
 
                 HBox hbox = new HBox(root);
                 projectsHbox.getChildren().add(hbox);

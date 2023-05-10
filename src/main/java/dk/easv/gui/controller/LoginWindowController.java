@@ -3,6 +3,7 @@ package dk.easv.gui.controller;
 // imports
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import dk.easv.be.roles.Admin;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.model.UserModel;

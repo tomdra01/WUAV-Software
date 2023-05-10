@@ -1,6 +1,8 @@
 package dk.easv.gui.controller;
 
 // imports
+import dk.easv.be.Project;
+import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.BlurEffectUtil;
 import dk.easv.gui.util.ViewType;
 import javafx.fxml.FXML;
@@ -29,6 +31,8 @@ public class ProjectTemplateController implements Initializable {
     @FXML private Label nameLabel, dateLabel, locationLabel, textLabel;
     @FXML private Button openButton;
     @FXML private BorderPane mainPane;
+    private Project project;
+    private ProjectModel projectModel;
 
     public ImageView getProjectImg() {
         return projectImg;
@@ -38,6 +42,16 @@ public class ProjectTemplateController implements Initializable {
     public Label getDateLabel() {return dateLabel;}
     public Label getTextLabel() {return textLabel;}
     public void setMainPane(BorderPane mainPane){this.mainPane=mainPane;}
+    public void setModel(ProjectModel projectModel){
+        this.projectModel=projectModel;
+    }
+    public ProjectTemplateController(){
+
+    }
+
+    public ProjectTemplateController(Project project){
+        this.project=project;
+    }
 
     public void openProject(){
         BlurEffectUtil.applyBlurEffect(mainPane,10);
@@ -56,6 +70,8 @@ public class ProjectTemplateController implements Initializable {
             InspectProjectController inspectProjectController = fxmlLoader.getController();
             inspectProjectController.setPane(mainPane);
             inspectProjectController.setOnCloseRequestHandler(stage);
+            inspectProjectController.setProject(project);
+            inspectProjectController.setModel(projectModel);
 
         } catch (IOException e) {
             e.printStackTrace();

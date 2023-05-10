@@ -4,7 +4,6 @@ package dk.easv.gui.controller;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
-import dk.easv.be.Project;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.bll.logic.ProjectDisplay;
 import dk.easv.gui.controller.project.ProjectStep1Controller;

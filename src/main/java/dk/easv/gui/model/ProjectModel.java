@@ -36,6 +36,10 @@ public class ProjectModel {
         return p;
     }
 
+    public void deleteProject(Project project) throws Exception {
+        projectLogic.deleteProject(project);
+    }
+
     public void insertImages(Project project, byte[] imageData) throws SQLException {
         projectLogic.insertImages(project, imageData);
     }

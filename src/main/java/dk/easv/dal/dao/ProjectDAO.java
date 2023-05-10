@@ -2,7 +2,6 @@ package dk.easv.dal.dao;
 
 // imports
 import dk.easv.be.Project;
-import dk.easv.bll.exception.DatabaseException;
 import dk.easv.dal.database.DatabaseConnector;
 import dk.easv.dal.dao.interfaces.IProjectDAO;
 
@@ -75,6 +74,21 @@ public class ProjectDAO implements IProjectDAO {
             }
         }
         throw new RuntimeException("Id not set");
+    }
+
+    public void deleteProject(Project project) throws SQLException {
+        try (Connection con = databaseConnector.getConnection()) {
+            PreparedStatement pstEventCustomer = con.prepareStatement("DELETE FROM Project WHERE id = ?");
+            pstEventCustomer.setInt(1, project.getId());
+            pstEventCustomer.executeUpdate();
+
+            con.commit();
+        } catch (SQLException e) {
+            try (Connection con = databaseConnector.getConnection()) {
+                con.rollback();
+            }
+            throw e;
+        }
     }
 
     /**

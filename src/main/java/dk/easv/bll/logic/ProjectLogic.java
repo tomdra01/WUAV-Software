@@ -37,6 +37,14 @@ public class ProjectLogic {
         }
     }
 
+    public void deleteProject(Project project) throws DatabaseException {
+        try {
+            projectDAO.deleteProject(project);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void insertImages(Project project, byte[] imageData) throws SQLException {
         projectDAO.insertImages(project, imageData);
     }
