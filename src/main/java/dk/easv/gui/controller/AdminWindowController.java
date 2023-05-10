@@ -1,10 +1,13 @@
 package dk.easv.gui.controller;
 
 // imports
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.roles.Technician;
 import dk.easv.bll.exception.DatabaseException;
 import dk.easv.bll.exception.GUIException;
+import dk.easv.bll.logic.ProjectDisplay;
 import dk.easv.gui.controller.project.ProjectStep1Controller;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.model.UserModel;
@@ -13,6 +16,7 @@ import dk.easv.gui.util.ClockUtil;
 import dk.easv.gui.util.HamburgerUtil;
 import dk.easv.gui.util.ViewType;
 import io.github.palexdev.materialfx.controls.MFXListView;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -36,7 +40,7 @@ import java.util.ResourceBundle;
 public class AdminWindowController implements Initializable {
     @FXML private BorderPane mainPane;
     @FXML private StackPane stackPane;
-    @FXML private HBox hbox;
+    @FXML private HBox hbox, projectsHbox;
     @FXML private JFXHamburger jfxHamburger;
     private  final  Button createProjectButton = new Button("New project");
     private final Button createUserButton = new Button("Create user");
@@ -46,6 +50,7 @@ public class AdminWindowController implements Initializable {
     private final Button showLogButton = new Button("See log");
     private UserModel userModel;
     private ProjectModel projectModel;
+    private ProjectDisplay projectDisplay;
 
     public void setModel(UserModel userModel) {
         this.userModel = userModel;
@@ -175,9 +180,11 @@ public class AdminWindowController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        projectDisplay = new ProjectDisplay();
         projectModel = new ProjectModel();
         hamburgerMenu(); // hamburger
         hamburgerButtons(); // buttons in hamburger
         ClockUtil.showWidget(hbox); // clock
+
     }
 }

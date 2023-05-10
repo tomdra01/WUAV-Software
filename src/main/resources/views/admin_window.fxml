@@ -44,18 +44,18 @@
                 </ImageView>
             </graphic></Label>
     </bottom>
-   <center>
-      <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
-         <effect>
-            <InnerShadow>
-               <color>
-                  <Color red="0.7254902124404907" green="0.7254902124404907" blue="0.7254902124404907" />
-               </color>
-            </InnerShadow>
-         </effect>
-         <BorderPane.margin>
-            <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
-         </BorderPane.margin>
-      </StackPane>
-   </center>
+    <center>
+        <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
+            <effect>
+                <InnerShadow>
+                    <color>
+                        <Color red="0.7254902124404907" green="0.7254902124404907" blue="0.7254902124404907" />
+                    </color>
+                </InnerShadow>
+            </effect>
+            <BorderPane.margin>
+                <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+            </BorderPane.margin>
+        </StackPane>
+    </center>
 </BorderPane>
