@@ -94,6 +94,7 @@ public class TechnicianWindowController implements Initializable {
                 projectStep1.setPane(mainPane);
                 projectStep1.setOnCloseRequestHandler(stage);
                 projectStep1.setModel(projectModel);
+                projectStep1.setMainPage(projectsHbox, filterComboBox, searchBar, mainPane);
 
             } catch (IOException e) {
                 e.printStackTrace();
