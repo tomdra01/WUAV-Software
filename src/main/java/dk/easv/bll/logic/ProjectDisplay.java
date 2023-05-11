@@ -1,5 +1,6 @@
 package dk.easv.bll.logic;
 
+// imports
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.Project;
@@ -15,13 +16,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
+// java imports
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
+/**
+ *
+ * @author tomdra01, mrtng1
+ */
 public class ProjectDisplay {
-    public void refresh(HBox projectsHbox, JFXComboBox filterComboBox, JFXTextField searchBar, ProjectModel projectModel, BorderPane mainPane) {
+    public void refresh(HBox projectsHbox, JFXComboBox<String> filterComboBox, JFXTextField searchBar, ProjectModel projectModel, BorderPane mainPane) {
         projectsHbox.getChildren().clear();
 
         String selectedFilter = String.valueOf(filterComboBox.getValue());
@@ -29,7 +34,7 @@ public class ProjectDisplay {
         List<Project> filteredProjects = projectModel.getProjects().stream()
                 .filter(project -> (selectedFilter == null || "All".equals(selectedFilter) || project.getBusinessType().equals(selectedFilter)) &&
                         (searchText.isEmpty() || project.getName().toLowerCase().contains(searchText) || project.getLocation().toLowerCase().contains(searchText)))
-                .collect(Collectors.toList());
+                .toList();
 
         int limit = 10;
         int counter = 0;
@@ -40,10 +45,7 @@ public class ProjectDisplay {
             }
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_CARD.getView()));
-                loader.setControllerFactory(clazz -> {
-                    ProjectTemplateController controller = new ProjectTemplateController(project);
-                    return controller;
-                });
+                loader.setControllerFactory(clazz -> new ProjectTemplateController(project));
                 AnchorPane root = loader.load();
 
                 ProjectTemplateController projectTemplateController = loader.getController();

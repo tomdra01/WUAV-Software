@@ -37,21 +37,25 @@ public class ProjectTemplateController implements Initializable {
     public ImageView getProjectImg() {
         return projectImg;
     }
+
     public Label getNameLabel() {return nameLabel;}
+
     public Label getLocationLabel() {return locationLabel;}
+
     public Label getDateLabel() {return dateLabel;}
+
     public Label getTextLabel() {return textLabel;}
+
     public void setMainPane(BorderPane mainPane){this.mainPane=mainPane;}
     public void setModel(ProjectModel projectModel){
         this.projectModel=projectModel;
-    }
-    public ProjectTemplateController(){
-
     }
 
     public ProjectTemplateController(Project project){
         this.project=project;
     }
+
+
 
     public void openProject(){
         BlurEffectUtil.applyBlurEffect(mainPane,10);

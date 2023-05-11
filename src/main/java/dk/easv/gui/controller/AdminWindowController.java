@@ -4,7 +4,6 @@ package dk.easv.gui.controller;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
-import dk.easv.be.roles.Technician;
 import dk.easv.bll.exception.DatabaseException;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.bll.logic.ProjectDisplay;
@@ -15,7 +14,6 @@ import dk.easv.gui.util.BlurEffectUtil;
 import dk.easv.gui.util.ClockUtil;
 import dk.easv.gui.util.HamburgerUtil;
 import dk.easv.gui.util.ViewType;
-import io.github.palexdev.materialfx.controls.MFXListView;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,10 +37,9 @@ import java.util.ResourceBundle;
  */
 public class AdminWindowController implements Initializable {
     @FXML private BorderPane mainPane;
-    @FXML private StackPane stackPane;
     @FXML private HBox hbox, projectsHbox;
     @FXML private JFXHamburger jfxHamburger;
-    @FXML private JFXComboBox filterComboBox;
+    @FXML private JFXComboBox<String> filterComboBox;
     @FXML private JFXTextField searchBar;
     private  final  Button createProjectButton = new Button("New project");
     private final Button createUserButton = new Button("Create user");
@@ -122,12 +119,7 @@ public class AdminWindowController implements Initializable {
 
         // technician listView
         showTechniciansButton.setOnAction(event -> {
-            MFXListView<Technician> mfxListView = new MFXListView<>();
 
-            stackPane.getChildren().addAll(mfxListView);
-            StackPane.setMargin(mfxListView, new Insets(20, 200, 20, 200));
-
-            mfxListView.getItems().addAll(userModel.getTechnicians());
         });
 
         // log out functionality
@@ -178,6 +170,20 @@ public class AdminWindowController implements Initializable {
         });
     }
 
+    private void searchFilter(){
+        filterComboBox.setItems(FXCollections.observableArrayList("All", "Consumer", "Corporate & Government"));
+        filterComboBox.setValue("All");
+
+        // showcase of all projects based on the filter
+        projectDisplay.refresh(projectsHbox, filterComboBox, searchBar, projectModel, mainPane);
+
+        filterComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)
+                -> projectDisplay.refresh(projectsHbox, filterComboBox, searchBar, projectModel, mainPane));
+
+        searchBar.textProperty().addListener((observable, oldValue, newValue) ->
+                projectDisplay.refresh(projectsHbox, filterComboBox, searchBar, projectModel, mainPane));
+    }
+
     /**
      * Initialize method
      */
@@ -185,20 +191,9 @@ public class AdminWindowController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         projectDisplay = new ProjectDisplay();
         projectModel = new ProjectModel();
+        searchFilter(); // search + filter
         hamburgerMenu(); // hamburger
         hamburgerButtons(); // buttons in hamburger
         ClockUtil.showWidget(hbox); // clock
-
-        filterComboBox.setItems(FXCollections.observableArrayList("All", "Consumer", "Corporate & Government"));
-        filterComboBox.setValue("All");
-        projectDisplay.refresh(projectsHbox, filterComboBox, searchBar, projectModel, mainPane); // showcase of all projects based on the filter
-
-        filterComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            projectDisplay.refresh(projectsHbox, filterComboBox, searchBar, projectModel, mainPane);
-        });
-
-        searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
-            projectDisplay.refresh(projectsHbox, filterComboBox, searchBar, projectModel, mainPane);
-        });
     }
 }

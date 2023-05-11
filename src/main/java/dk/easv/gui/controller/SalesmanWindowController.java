@@ -32,7 +32,7 @@ import java.util.ResourceBundle;
 public class SalesmanWindowController implements Initializable {
     @FXML
     private BorderPane mainPane;
-    @FXML private HBox hbox, projectsHbox;
+    @FXML private HBox hbox;
     @FXML private JFXHamburger jfxHamburger;
     private final Button logOutButton = new Button("Log out");
     private UserModel userModel;

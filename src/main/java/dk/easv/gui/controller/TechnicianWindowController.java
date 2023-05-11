@@ -39,7 +39,7 @@ public class TechnicianWindowController implements Initializable {
     @FXML private HBox hbox;
     @FXML private HBox projectsHbox;
     @FXML private JFXHamburger jfxHamburger;
-    @FXML private JFXComboBox filterComboBox;
+    @FXML private JFXComboBox<String> filterComboBox;
     @FXML private JFXTextField searchBar;
     private final Button createProjectButton = new Button("New project");
     private final Button logOutButton = new Button("Log out");
@@ -122,6 +122,20 @@ public class TechnicianWindowController implements Initializable {
         });
     }
 
+    private void searchFilter(){
+        filterComboBox.setItems(FXCollections.observableArrayList("All", "Consumer", "Corporate & Government"));
+        filterComboBox.setValue("All");
+        projectDisplay.refresh(projectsHbox, filterComboBox, searchBar, projectModel, mainPane); // showcase of all projects based on the filter
+
+        // showcase of all projects based on the filter
+        projectDisplay.refresh(projectsHbox, filterComboBox, searchBar, projectModel, mainPane);
+
+        filterComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)
+                -> projectDisplay.refresh(projectsHbox, filterComboBox, searchBar, projectModel, mainPane));
+
+        searchBar.textProperty().addListener((observable, oldValue, newValue) ->
+                projectDisplay.refresh(projectsHbox, filterComboBox, searchBar, projectModel, mainPane));
+    }
 
     /**
      * Initialize method
@@ -130,20 +144,9 @@ public class TechnicianWindowController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         projectDisplay = new ProjectDisplay();
         projectModel = new ProjectModel();
+        searchFilter(); // search + filter
         ClockUtil.showWidget(hbox); //clock
         hamburgerMenu(); //hamburger
         hamburgerButtons(); //buttons in hamburger
-
-        filterComboBox.setItems(FXCollections.observableArrayList("All", "Consumer", "Corporate & Government"));
-        filterComboBox.setValue("All");
-        projectDisplay.refresh(projectsHbox, filterComboBox, searchBar, projectModel, mainPane); // showcase of all projects based on the filter
-
-        filterComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            projectDisplay.refresh(projectsHbox, filterComboBox, searchBar, projectModel, mainPane);
-        });
-
-        searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
-            projectDisplay.refresh(projectsHbox, filterComboBox, searchBar, projectModel, mainPane);
-        });
     }
 }
