@@ -23,6 +23,6 @@ public class ClockUtil {
                 .build();
 
         hbox.getChildren().addAll(clockTile);
-        HBox.setMargin(clockTile, new Insets(-5, 0, 0, 1000));
+        HBox.setMargin(clockTile, new Insets(-5, 0, 0, 995));
     }
 }

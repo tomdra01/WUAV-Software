@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -8,27 +9,31 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="400.0" maxWidth="353.5" minHeight="400.0" minWidth="353.5" prefHeight="400.0" prefWidth="353.5" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.ProjectTemplateController">
+<AnchorPane maxHeight="400.0" maxWidth="353.5" minHeight="400.0" minWidth="353.5" prefHeight="400.0" prefWidth="353.5" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.ProjectTemplateController">
    <ImageView fx:id="projectImg" fitHeight="180.0" fitWidth="354.0" pickOnBounds="true" />
    <VBox alignment="TOP_CENTER" layoutY="186.0" prefHeight="173.0" prefWidth="353.0">
-      <children>
-         <Label fx:id="nameLabel" text="Name" textAlignment="CENTER">
-            <font>
-               <Font name="System Bold" size="16.0" />
-            </font></Label>
-         <Label fx:id="locationLabel" layoutX="10.0" layoutY="10.0" text="Location">
-            <VBox.margin>
-               <Insets top="5.0" />
-            </VBox.margin></Label>
-         <Label fx:id="dateLabel" layoutX="10.0" layoutY="27.0" text="Date">
-            <VBox.margin>
-               <Insets top="5.0" />
-            </VBox.margin></Label>
-         <Label fx:id="textLabel" alignment="TOP_CENTER" layoutX="10.0" layoutY="44.0" prefHeight="94.0" prefWidth="268.0" text="text">
-            <VBox.margin>
-               <Insets top="10.0" />
-            </VBox.margin></Label>
-      </children>
+      <Label fx:id="nameLabel" text="Name" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="16.0"/>
+         </font>
+      </Label>
+      <Label fx:id="locationLabel" layoutX="10.0" layoutY="10.0" text="Location">
+         <VBox.margin>
+            <Insets top="5.0"/>
+         </VBox.margin>
+      </Label>
+      <Label fx:id="dateLabel" layoutX="10.0" layoutY="27.0" text="Date">
+         <VBox.margin>
+            <Insets top="5.0"/>
+         </VBox.margin>
+      </Label>
+      <Label fx:id="textLabel" alignment="TOP_CENTER" layoutX="10.0" layoutY="44.0" prefHeight="94.0" prefWidth="268.0"
+             text="text">
+         <VBox.margin>
+            <Insets top="10.0"/>
+         </VBox.margin>
+      </Label>
    </VBox>
-   <Button fx:id="openButton" layoutX="288.0" layoutY="359.0" mnemonicParsing="false" onAction="#openProject" stylesheets="@../styles/main_style.css" text="Open" />
+   <Button layoutX="288.0" layoutY="359.0" mnemonicParsing="false" onAction="#openProject" stylesheets="@../styles/main_style.css" text="Open" />
+   <JFXCheckBox fx:id="approvedProject" layoutX="14.0" layoutY="363.0" text="Approved" unCheckedColor="#a1a1a1" />
 </AnchorPane>

@@ -1,6 +1,7 @@
 package dk.easv.gui.controller;
 
 // imports
+import com.jfoenix.controls.JFXCheckBox;
 import dk.easv.be.Project;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.BlurEffectUtil;
@@ -27,9 +28,10 @@ import java.util.ResourceBundle;
  * @author tomdra01, mrtng1
  */
 public class ProjectTemplateController implements Initializable {
+
     @FXML private ImageView projectImg;
     @FXML private Label nameLabel, dateLabel, locationLabel, textLabel;
-    @FXML private Button openButton;
+    @FXML private JFXCheckBox approvedProject;
     @FXML private BorderPane mainPane;
     private Project project;
     private ProjectModel projectModel;
@@ -87,5 +89,6 @@ public class ProjectTemplateController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        approvedProject.setSelected(true);
     }
 }

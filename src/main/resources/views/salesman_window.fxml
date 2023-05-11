@@ -43,17 +43,16 @@
             </graphic></Label>
     </bottom>
    <center>
-      <ImageView fitHeight="779.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
-         <image>
-            <Image url="@../images/wuav/wuav_poster.png" />
-         </image>
-         <effect>
-            <DropShadow>
-               <color>
-                  <Color red="0.7254902124404907" green="0.7254902124404907" blue="0.7254902124404907" />
-               </color>
-            </DropShadow>
-         </effect>
-      </ImageView>
+       <ImageView fitHeight="779.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="true"
+                  BorderPane.alignment="CENTER">
+           <effect>
+               <DropShadow>
+                   <color>
+                       <Color red="0.7254902124404907" green="0.7254902124404907" blue="0.7254902124404907"/>
+                   </color>
+               </DropShadow>
+           </effect>
+           <Image url="@../images/wuav/wuav_poster.png"/>
+       </ImageView>
    </center>
 </BorderPane>
