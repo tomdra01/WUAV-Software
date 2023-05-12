@@ -4,7 +4,6 @@ package dk.easv.gui.controller;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
-import dk.easv.bll.exception.DatabaseException;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.bll.logic.ProjectDisplay;
 import dk.easv.gui.controller.project.ProjectStep1Controller;
@@ -53,12 +52,6 @@ public class AdminWindowController implements Initializable {
 
     public void setModel(UserModel userModel) {
         this.userModel = userModel;
-
-        try {
-            userModel.loadTechnicians();
-        } catch (DatabaseException e) {
-            throw new GUIException("Failed while loading technicians", e);
-        }
     }
 
     /**

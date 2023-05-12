@@ -3,7 +3,6 @@ package dk.easv.gui.controller;
 // imports
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import dk.easv.be.roles.Admin;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.model.UserModel;
@@ -33,81 +32,70 @@ public class LoginWindowController implements Initializable {
     @FXML private JFXPasswordField passwordField;
     private UserModel userModel;
 
-    /**
-     * Allows user to login.
-     */
     public void login() throws IOException {
         String inputUsername = nameField.getText();
         String inputPassword = passwordField.getText();
 
-        if (userModel.isValidTechnician(inputUsername, inputPassword)) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.TECHNICIAN.getView()));
-            Parent parent = fxmlLoader.load();
+        String userRole = userModel.getUserRole(inputUsername);
 
-            Stage stage = new Stage();
-            Scene scene = new Scene(parent);
-            stage.setScene(scene);
-            stage.setTitle("WUAV - technician");
-            stage.show();
+        if (userRole != null && userModel.isValidUser(inputUsername, inputPassword, userRole)) {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            Parent parent;
+            Stage stage;
+            Scene scene;
+            String windowTitle = "WUAV - " + userRole;
 
-            TechnicianWindowController technicianWindowController = fxmlLoader.getController();
-            technicianWindowController.setModel(userModel);
-
+            switch (userRole) {
+                case "Admin" -> {
+                    fxmlLoader.setLocation(getClass().getResource(ViewType.ADMIN.getView()));
+                    parent = fxmlLoader.load();
+                    stage = new Stage();
+                    scene = new Scene(parent);
+                    stage.setScene(scene);
+                    stage.setTitle(windowTitle);
+                    stage.show();
+                    AdminWindowController adminWindowController = fxmlLoader.getController();
+                    adminWindowController.setModel(userModel);
+                }
+                case "Technician" -> {
+                    fxmlLoader.setLocation(getClass().getResource(ViewType.TECHNICIAN.getView()));
+                    parent = fxmlLoader.load();
+                    stage = new Stage();
+                    scene = new Scene(parent);
+                    stage.setScene(scene);
+                    stage.setTitle(windowTitle);
+                    stage.show();
+                    TechnicianWindowController technicianWindowController = fxmlLoader.getController();
+                    technicianWindowController.setModel(userModel);
+                }
+                case "Project Manager" -> {
+                    fxmlLoader.setLocation(getClass().getResource(ViewType.PROJECT_MANAGER.getView()));
+                    parent = fxmlLoader.load();
+                    stage = new Stage();
+                    scene = new Scene(parent);
+                    stage.setScene(scene);
+                    stage.setTitle(windowTitle);
+                    stage.show();
+                    ProjectManagerWindowController projectManagerWindowController = fxmlLoader.getController();
+                    projectManagerWindowController.setModel(userModel);
+                }
+                case "Salesman" -> {
+                    fxmlLoader.setLocation(getClass().getResource(ViewType.SALESMAN.getView()));
+                    parent = fxmlLoader.load();
+                    stage = new Stage();
+                    scene = new Scene(parent);
+                    stage.setScene(scene);
+                    stage.setTitle(windowTitle);
+                    stage.show();
+                    SalesmanWindowController salesmanWindowController = fxmlLoader.getController();
+                    salesmanWindowController.setModel(userModel);
+                }
+            }
             Stage currentStage = (Stage) loginPane.getScene().getWindow();
             currentStage.close();
+        } else {
+            PopupUtil.showAlert("Incorrect login", "Incorrect username or password", Alert.AlertType.WARNING);
         }
-
-        else if (userModel.isValidAdmin(inputUsername, inputPassword)) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.ADMIN.getView()));
-            Parent parent = fxmlLoader.load();
-
-            Stage stage = new Stage();
-            Scene scene = new Scene(parent);
-            stage.setScene(scene);
-            stage.setTitle("WUAV - admin");
-            stage.show();
-
-            AdminWindowController adminWindowController = fxmlLoader.getController();
-            adminWindowController.setModel(userModel);
-
-            Stage currentStage = (Stage) loginPane.getScene().getWindow();
-            currentStage.close();
-        }
-
-        else if (userModel.isValidProjectManager(inputUsername, inputPassword)) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_MANAGER.getView()));
-            Parent parent = fxmlLoader.load();
-
-            Stage stage = new Stage();
-            Scene scene = new Scene(parent);
-            stage.setScene(scene);
-            stage.setTitle("WUAV - project manager");
-            stage.show();
-
-            ProjectManagerWindowController projectManagerWindowController = fxmlLoader.getController();
-            projectManagerWindowController.setModel(userModel);
-
-            Stage currentStage = (Stage) loginPane.getScene().getWindow();
-            currentStage.close();
-        }
-
-        else if (userModel.isValidSalesman(inputUsername, inputPassword)) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.SALESMAN.getView()));
-            Parent parent = fxmlLoader.load();
-
-            Stage stage = new Stage();
-            Scene scene = new Scene(parent);
-            stage.setScene(scene);
-            stage.setTitle("WUAV - salesman");
-            stage.show();
-
-            SalesmanWindowController salesmanWindowController = fxmlLoader.getController();
-            salesmanWindowController.setModel(userModel);
-
-            Stage currentStage = (Stage) loginPane.getScene().getWindow();
-            currentStage.close();
-        }
-        else PopupUtil.showAlert("Incorrect login", "Incorrect username or password", Alert.AlertType.WARNING);
     }
 
     /**

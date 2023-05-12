@@ -3,9 +3,8 @@ package dk.easv.gui.controller;
 // imports
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import dk.easv.be.roles.ProjectManager;
-import dk.easv.be.roles.Salesman;
-import dk.easv.be.roles.Technician;
+import dk.easv.be.User;
+import dk.easv.bll.exception.DatabaseException;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.bll.util.PasswordSecurity;
 import dk.easv.bll.util.PopupUtil;
@@ -22,7 +21,6 @@ import javafx.stage.Stage;
 
 // java imports
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 /**
@@ -58,49 +56,16 @@ public class CreateUserWindowController implements Initializable {
         String password = passwordField.getText();
         String hashedPassword = PasswordSecurity.hashPassword(password);
 
-        switch (userType) {
-            // technician
-            case "Technician" -> {
-                if (!usernameField.getText().isEmpty()) {
-                    Technician technician = new Technician(username, hashedPassword);
-                    try {
-                        userModel.createTechnician(technician);
-                        closeWindow();
-                    } catch (SQLException e) {
-                        throw new GUIException("Failed to create Technician", e);
-                    }
-                } else
-                    PopupUtil.showAlert("Empty fields", "Please fill in all the fields", Alert.AlertType.INFORMATION);
-            }
+        if (!usernameField.getText().isEmpty()) {
+            User user = new User(username, hashedPassword, userType);
 
-            // salesman
-            case "Salesman" -> {
-                if (!usernameField.getText().isEmpty()) {
-                    Salesman salesman = new Salesman(username, hashedPassword);
-
-                    try {
-                        userModel.createSalesman(salesman);
-                        closeWindow();
-                    } catch (SQLException e) {
-                        throw new GUIException("Failed to create Salesman", e);
-                    }
-                } else
-                    PopupUtil.showAlert("Empty fields", "Please fill in all the fields", Alert.AlertType.INFORMATION);
+            try {
+                userModel.createUser(user);
+            } catch (DatabaseException e) {
+                throw new GUIException("Failed to create user in GUI", e);
             }
-
-            // project manager
-            case "Project Manager" -> {
-                if (!usernameField.getText().isEmpty()) {
-                    ProjectManager projectManager = new ProjectManager(username, hashedPassword);
-                    try {
-                        userModel.createProjectManager(projectManager);
-                        closeWindow();
-                    } catch (SQLException e) {
-                        throw new GUIException("Failed to create Project Manager", e);
-                    }
-                } else
-                    PopupUtil.showAlert("Empty fields", "Please fill in all the fields", Alert.AlertType.INFORMATION);
-            }
+        } else {
+            PopupUtil.showAlert("Empty fields", "Please fill in all the fields", Alert.AlertType.INFORMATION);
         }
     }
 

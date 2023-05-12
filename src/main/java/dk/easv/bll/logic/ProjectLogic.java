@@ -2,7 +2,6 @@ package dk.easv.bll.logic;
 
 // imports
 import dk.easv.be.Project;
-import dk.easv.be.roles.Technician;
 import dk.easv.bll.exception.DatabaseException;
 import dk.easv.dal.DAOFactory;
 import dk.easv.dal.DataAccessObjects;
@@ -34,7 +33,10 @@ public class ProjectLogic {
         projectDAO.insertImages(project, imageData);
     }
 
-    public void technicianProject(Technician technician, Project project) throws Exception {
-        projectDAO.technicianProject(technician, project);
-    }
+    /**
+     *public void technicianProject(Technician technician, Project project) throws Exception {
+     *         projectDAO.technicianProject(technician, project);
+     *     }
+     * @author tomdra01, mrtng1
+     */
 }
