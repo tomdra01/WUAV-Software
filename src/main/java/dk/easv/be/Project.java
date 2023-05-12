@@ -2,7 +2,6 @@ package dk.easv.be;
 
 // imports
 import java.time.LocalDate;
-import java.util.Arrays;
 
 /**
  *
@@ -16,8 +15,9 @@ public class Project {
     private LocalDate date;
     private byte[] drawing;
     private String description;
+    private boolean approved;
 
-    public Project(int id, String name, String businessType, String location, LocalDate date, byte[] drawing, String description) {
+    public Project(int id, String name, String businessType, String location, LocalDate date, byte[] drawing, String description, boolean approved) {
         this.id = id;
         this.name = name;
         this.businessType = businessType;
@@ -25,15 +25,17 @@ public class Project {
         this.date = date;
         this.drawing = drawing;
         this.description = description;
+        this.approved = approved;
     }
 
-    public Project(String name, String businessType, String location, LocalDate date, byte[] drawing, String description) {
+    public Project(String name, String businessType, String location, LocalDate date, byte[] drawing, String description, boolean approved) {
         this.name = name;
         this.businessType = businessType;
         this.location = location;
         this.date = date;
         this.drawing = drawing;
         this.description = description;
+        this.approved = approved;
     }
 
     public int getId() {
@@ -92,16 +94,11 @@ public class Project {
         this.description = description;
     }
 
-    @Override
-    public String toString() {
-        return "Project{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", businessType='" + businessType + '\'' +
-                ", location='" + location + '\'' +
-                ", date=" + date +
-                ", drawing=" + Arrays.toString(drawing) +
-                ", description='" + description + '\'' +
-                '}';
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
     }
 }

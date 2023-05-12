@@ -48,6 +48,10 @@ public class ProjectTemplateController implements Initializable {
 
     public Label getTextLabel() {return textLabel;}
 
+    public JFXCheckBox getApprovedProject() {
+        return approvedProject;
+    }
+
     public void setMainPane(BorderPane mainPane){this.mainPane=mainPane;}
     public void setModel(ProjectModel projectModel){
         this.projectModel=projectModel;

@@ -21,6 +21,7 @@ public class InspectProjectController implements Initializable {
     @FXML private Button deleteButton;
     private BorderPane borderPane;
     private ProjectModel projectModel;
+    private ProjectDisplay projectDisplay;
     private Project project;
 
     public void setProject(Project project){
@@ -55,6 +56,5 @@ public class InspectProjectController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
     }
 }

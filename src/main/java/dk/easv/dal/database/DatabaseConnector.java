@@ -6,7 +6,6 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 
 // java imports
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.Properties;
@@ -16,8 +15,8 @@ import java.util.Properties;
  * @author tomdra01, mrtng1
  */
 public class DatabaseConnector {
-    private SQLServerDataSource dataSource;
-    private static String file = "src/main/java/dk/easv/dal/database/database.properties";
+    private final SQLServerDataSource dataSource;
+    private static final String file = "src/main/java/dk/easv/dal/database/database.properties";
 
     // Constructor
     public DatabaseConnector(){
@@ -43,8 +42,6 @@ public class DatabaseConnector {
         try {
             FileInputStream sr = new FileInputStream(file);
             properties.load(sr);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

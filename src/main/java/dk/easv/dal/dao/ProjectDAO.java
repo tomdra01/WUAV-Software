@@ -2,6 +2,8 @@ package dk.easv.dal.dao;
 
 // imports
 import dk.easv.be.Project;
+import dk.easv.be.roles.Technician;
+import dk.easv.bll.exception.DatabaseException;
 import dk.easv.dal.database.DatabaseConnector;
 import dk.easv.dal.dao.interfaces.IProjectDAO;
 
@@ -22,8 +24,9 @@ public class ProjectDAO implements IProjectDAO {
 
     /**
      * Gets the list of all projects from the database.
+     * @throws DatabaseException to handles SQLException.
      */
-    public List<Project> readAllProjects() throws Exception {
+    public List<Project> readAllProjects() throws DatabaseException {
         List<Project> allProjects = new ArrayList<>();
 
         try (Connection con = databaseConnector.getConnection()) {
@@ -42,12 +45,15 @@ public class ProjectDAO implements IProjectDAO {
                             resultSet.getString("location"),
                             resultSet.getDate("date").toLocalDate(),
                             resultSet.getBytes("drawing"),
-                            resultSet.getString("description")
+                            resultSet.getString("description"),
+                            resultSet.getBoolean("approved")
                     );
 
                     allProjects.add(project);
                 }
             }
+        } catch (SQLException e) {
+            throw new DatabaseException("Failed to get all projects", e);
         }
         return allProjects;
     }
@@ -55,16 +61,18 @@ public class ProjectDAO implements IProjectDAO {
     /**
      * Creates project in the database.
      * @param project sends object "Project" as a parameter.
+     * @throws DatabaseException to handles SQLException.
      */
-    public Project createProject(Project project) throws Exception {
+    public Project createProject(Project project) throws DatabaseException {
         try (Connection con = databaseConnector.getConnection()) {
-            PreparedStatement pst = con.prepareStatement("INSERT INTO Project (name, businessType, location, date, drawing, description) VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement pst = con.prepareStatement("INSERT INTO Project (name, businessType, location, date, drawing, description, approved) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             pst.setString(1, project.getName());
             pst.setString(2, project.getBusinessType());
             pst.setString(3, project.getLocation());
             pst.setDate(4, Date.valueOf(project.getDate()));
             pst.setBytes(5, project.getDrawing());
             pst.setString(6, project.getDescription());
+            pst.setBoolean(7, project.isApproved());
             pst.execute();
 
             if (pst.getGeneratedKeys().next()) {
@@ -72,11 +80,20 @@ public class ProjectDAO implements IProjectDAO {
                 project.setId(id);
                 return project;
             }
+            throw new RuntimeException("Id not set");
+
+        } catch (SQLException e) {
+            throw new DatabaseException("Failed to create the project", e);
         }
-        throw new RuntimeException("Id not set");
+
     }
 
-    public void deleteProject(Project project) throws SQLException {
+    /**
+     * Deletes the project
+     * @param project sends object "Project" as a parameter.
+     * @throws DatabaseException to handles SQLException.
+     */
+    public void deleteProject(Project project) throws DatabaseException {
         try (Connection con = databaseConnector.getConnection()) {
             PreparedStatement pstEventCustomer = con.prepareStatement("DELETE FROM Project WHERE id = ?");
             pstEventCustomer.setInt(1, project.getId());
@@ -84,24 +101,42 @@ public class ProjectDAO implements IProjectDAO {
 
             con.commit();
         } catch (SQLException e) {
-            try (Connection con = databaseConnector.getConnection()) {
-                con.rollback();
-            }
-            throw e;
+            throw new DatabaseException("Failed to delete the project", e);
         }
     }
 
     /**
-     * Inserts images according to specific project
+     * Inserts images according to specific project.
      * @param project sends object "Project" as a parameter.
      * @param imageData sends image bytes.
+     * @throws DatabaseException to handles SQLException.
      */
-    public void insertImages(Project project, byte[] imageData) throws SQLException {
+    public void insertImages(Project project, byte[] imageData) throws DatabaseException {
         try (Connection con = databaseConnector.getConnection()) {
             PreparedStatement pst = con.prepareStatement("INSERT INTO ProjectPhotos(project_id, imageData) VALUES(?, ?)", Statement.RETURN_GENERATED_KEYS);
             pst.setInt(1, project.getId());
             pst.setBytes(2, imageData);
             pst.executeUpdate();
+        } catch (SQLException e) {
+            throw new DatabaseException("Failed to insert images", e);
+        }
+    }
+
+    /**
+     * Assigns technician to the project.
+     * @param technician sends object "Technician" as a parameter.
+     * @param project sends object "Project" as a parameter.
+     * @throws DatabaseException to handles SQLException.
+     */
+    public void technicianProject(Technician technician, Project project) throws DatabaseException {
+        try (Connection con = databaseConnector.getConnection()) {
+            PreparedStatement pst = con.prepareStatement("INSERT INTO TechnicianProject(technician_id, project_id) VALUES(?, ?)", Statement.RETURN_GENERATED_KEYS);
+            pst.setInt(1, technician.getId());
+            pst.setInt(2, project.getId());
+            pst.executeUpdate();
+            con.commit();
+        } catch (SQLException e) {
+            throw new DatabaseException("Failed to assign technician to the project", e);
         }
     }
 }

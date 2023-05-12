@@ -61,6 +61,7 @@ public class ProjectDisplay {
                 projectTemplateController.getLocationLabel().setText(project.getLocation());
                 projectTemplateController.getDateLabel().setText(String.valueOf(project.getDate()));
                 projectTemplateController.getTextLabel().setText(project.getDescription());
+                projectTemplateController.getApprovedProject().setSelected(project.isApproved());
                 projectTemplateController.setMainPane(mainPane);
                 projectTemplateController.setModel(projectModel);
 

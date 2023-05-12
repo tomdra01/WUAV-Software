@@ -1,19 +1,20 @@
 package dk.easv.gui.model;
 
+// imports
 import dk.easv.be.Project;
-import dk.easv.be.roles.Admin;
 import dk.easv.be.roles.Technician;
 import dk.easv.bll.exception.DatabaseException;
 import dk.easv.bll.logic.ProjectLogic;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.SQLException;
-
+/**
+ *
+ * @author tomdra01, mrtng1
+ */
 public class ProjectModel {
     ProjectLogic projectLogic = new ProjectLogic();
-
-    private ObservableList<Project> projects = FXCollections.observableArrayList();
+    private final ObservableList<Project> projects = FXCollections.observableArrayList();
     public ObservableList<Project> getProjects() {
         return projects;
     }
@@ -21,16 +22,16 @@ public class ProjectModel {
     public ProjectModel() {
         try {
             projects.addAll(projectLogic.readAllProjects());
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
-    public void loadProjects() throws DatabaseException {
+    public void loadProjects() throws Exception {
         projects.clear();
         projects.addAll(projectLogic.readAllProjects());
     }
 
-    public Project createProject(Project project) throws Exception {
+    public Project createProject(Project project) throws DatabaseException {
         Project p = projectLogic.createProject(project);
         projects.add(p);
         return p;
@@ -40,7 +41,11 @@ public class ProjectModel {
         projectLogic.deleteProject(project);
     }
 
-    public void insertImages(Project project, byte[] imageData) throws SQLException {
+    public void insertImages(Project project, byte[] imageData) throws Exception {
         projectLogic.insertImages(project, imageData);
+    }
+
+    public void technicianProject(Technician technician, Project project) throws Exception {
+        projectLogic.technicianProject(technician, project);
     }
 }

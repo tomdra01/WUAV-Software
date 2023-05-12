@@ -4,6 +4,7 @@ package dk.easv.gui.controller.project;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.Project;
+import dk.easv.bll.exception.DatabaseException;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.bll.logic.ProjectDisplay;
 import dk.easv.gui.model.ProjectModel;
@@ -52,18 +53,19 @@ public class ProjectStepFinalController implements Initializable {
     private ProjectModel projectModel;
     private ProjectDisplay projectDisplay;
     private HBox projectHbox;
-    private JFXComboBox filterComboBox;
+    private JFXComboBox<String> filterComboBox;
     private JFXTextField searchBar;
     private BorderPane mainPane;
-    public void setMainPage(HBox projectHbox, JFXComboBox filterComboBox, JFXTextField searchBar, BorderPane mainPane){
-        this.projectHbox=projectHbox;
-        this.filterComboBox=filterComboBox;
-        this.searchBar=searchBar;
-        this.mainPane=mainPane;
-    }
 
     public void setModel(ProjectModel projectModel) {
         this.projectModel = projectModel;
+    }
+
+    public void setMainPage(HBox projectHbox, JFXComboBox<String> filterComboBox, JFXTextField searchBar, BorderPane mainPane){
+        this.projectHbox = projectHbox;
+        this.filterComboBox = filterComboBox;
+        this.searchBar = searchBar;
+        this.mainPane = mainPane;
     }
 
     public void setProject(String projectName, String businessType, String projectLocation, LocalDate projectDate, byte[] projectDrawing, String projectDescription) {
@@ -88,11 +90,11 @@ public class ProjectStepFinalController implements Initializable {
     }
 
     public void print() throws IOException {
-        Project project = new Project(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
+        Project project = new Project(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription, true);
 
         try {
             projectModel.createProject(project);
-        } catch (Exception e) {
+        } catch (DatabaseException e) {
             throw new GUIException("Failed creating a project ",e);
         }
 
@@ -101,7 +103,7 @@ public class ProjectStepFinalController implements Initializable {
         for (byte[] image : imagesArray) {
             try {
                 projectModel.insertImages(project, image);
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }

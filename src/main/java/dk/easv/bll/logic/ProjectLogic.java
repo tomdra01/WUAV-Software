@@ -2,16 +2,13 @@ package dk.easv.bll.logic;
 
 // imports
 import dk.easv.be.Project;
+import dk.easv.be.roles.Technician;
 import dk.easv.bll.exception.DatabaseException;
 import dk.easv.dal.DAOFactory;
 import dk.easv.dal.DataAccessObjects;
 import dk.easv.dal.dao.interfaces.IProjectDAO;
 
 // java imports
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
 /**
@@ -21,31 +18,23 @@ import java.util.List;
 public class ProjectLogic {
     IProjectDAO projectDAO = (IProjectDAO) DAOFactory.getDAO(DataAccessObjects.PROJECT_DAO);
 
-    public List<Project> readAllProjects() throws DatabaseException {
-        try {
-            return projectDAO.readAllProjects();
-        } catch (Exception e) {
-            throw new DatabaseException("Failed to get all of the projects", e);
-        }
+    public List<Project> readAllProjects() throws Exception {
+        return projectDAO.readAllProjects();
     }
 
     public Project createProject(Project project) throws DatabaseException {
-        try {
-            return projectDAO.createProject(project);
-        } catch (Exception e) {
-            throw new DatabaseException("Failed to create Project", e);
-        }
+        return projectDAO.createProject(project);
     }
 
-    public void deleteProject(Project project) throws DatabaseException {
-        try {
-            projectDAO.deleteProject(project);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public void deleteProject(Project project) throws Exception {
+        projectDAO.deleteProject(project);
     }
 
-    public void insertImages(Project project, byte[] imageData) throws SQLException {
+    public void insertImages(Project project, byte[] imageData) throws Exception {
         projectDAO.insertImages(project, imageData);
+    }
+
+    public void technicianProject(Technician technician, Project project) throws Exception {
+        projectDAO.technicianProject(technician, project);
     }
 }
