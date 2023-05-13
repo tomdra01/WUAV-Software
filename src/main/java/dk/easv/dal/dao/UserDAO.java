@@ -1,8 +1,6 @@
 package dk.easv.dal.dao;
 
 // imports
-import com.microsoft.sqlserver.jdbc.SQLServerException;
-import dk.easv.be.Project;
 import dk.easv.be.User;
 import dk.easv.bll.exception.DatabaseException;
 import dk.easv.dal.database.DatabaseConnector;
@@ -24,7 +22,6 @@ public class UserDAO implements IUserDao {
     }
 
 
-    // TODO: 12/05/2023
     public List<User> readUsers() throws DatabaseException {
         List<User> allUsers = new ArrayList<>();
 
@@ -53,7 +50,6 @@ public class UserDAO implements IUserDao {
         return allUsers;
     }
 
-    // TODO: 12/05/2023
     public User createUser(User user) throws DatabaseException {
         try (Connection con = databaseConnector.getConnection()) {
             PreparedStatement pst = con.prepareStatement("INSERT INTO [User] (username, password, role) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);

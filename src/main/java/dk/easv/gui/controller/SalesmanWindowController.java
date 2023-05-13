@@ -2,6 +2,7 @@ package dk.easv.gui.controller;
 
 // imports
 import com.jfoenix.controls.JFXHamburger;
+import dk.easv.be.User;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.model.UserModel;
@@ -35,11 +36,16 @@ public class SalesmanWindowController implements Initializable {
     @FXML private HBox hbox;
     @FXML private JFXHamburger jfxHamburger;
     private final Button logOutButton = new Button("Log out");
+    private User user;
     private UserModel userModel;
     private ProjectModel projectModel;
 
     public void setModel(UserModel userModel) {
         this.userModel = userModel;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     /**

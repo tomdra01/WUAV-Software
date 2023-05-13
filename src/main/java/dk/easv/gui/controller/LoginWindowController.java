@@ -3,6 +3,7 @@ package dk.easv.gui.controller;
 // imports
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import dk.easv.be.User;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.model.UserModel;
@@ -38,7 +39,8 @@ public class LoginWindowController implements Initializable {
 
         String userRole = userModel.getUserRole(inputUsername);
 
-        if (userRole != null && userModel.isValidUser(inputUsername, inputPassword, userRole)) {
+        User user = userModel.isValidUser(inputUsername, inputPassword, userRole);
+        if (user != null) {
             FXMLLoader fxmlLoader = new FXMLLoader();
             Parent parent;
             Stage stage;
@@ -56,6 +58,7 @@ public class LoginWindowController implements Initializable {
                     stage.show();
                     AdminWindowController adminWindowController = fxmlLoader.getController();
                     adminWindowController.setModel(userModel);
+                    adminWindowController.setUser(user);
                 }
                 case "Technician" -> {
                     fxmlLoader.setLocation(getClass().getResource(ViewType.TECHNICIAN.getView()));
@@ -67,6 +70,7 @@ public class LoginWindowController implements Initializable {
                     stage.show();
                     TechnicianWindowController technicianWindowController = fxmlLoader.getController();
                     technicianWindowController.setModel(userModel);
+                    technicianWindowController.setUser(user);
                 }
                 case "Project Manager" -> {
                     fxmlLoader.setLocation(getClass().getResource(ViewType.PROJECT_MANAGER.getView()));
@@ -78,6 +82,7 @@ public class LoginWindowController implements Initializable {
                     stage.show();
                     ProjectManagerWindowController projectManagerWindowController = fxmlLoader.getController();
                     projectManagerWindowController.setModel(userModel);
+                    projectManagerWindowController.setUser(user);
                 }
                 case "Salesman" -> {
                     fxmlLoader.setLocation(getClass().getResource(ViewType.SALESMAN.getView()));
@@ -89,6 +94,7 @@ public class LoginWindowController implements Initializable {
                     stage.show();
                     SalesmanWindowController salesmanWindowController = fxmlLoader.getController();
                     salesmanWindowController.setModel(userModel);
+                    salesmanWindowController.setUser(user);
                 }
             }
             Stage currentStage = (Stage) loginPane.getScene().getWindow();

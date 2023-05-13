@@ -32,19 +32,17 @@ public class UserModel {
         return u; // Return the created user
     }
 
-    public boolean isValidUser(String inputUsername, String inputPassword, String inputRole) {
-        // Hash the input password for comparison
+    public User isValidUser(String inputUsername, String inputPassword, String inputRole) {
         String inputPasswordHash = PasswordSecurity.hashPassword(inputPassword);
 
-        // Check if a user with the given credentials exists
         for (User user : users) {
             if (user.getUsername().equals(inputUsername)
                     && user.getPassword().equals(inputPasswordHash)
                     && user.getRole().equals(inputRole)) {
-                return true; // User with matching credentials found
+                return user;
             }
         }
-        return false; // No user with matching credentials found
+        return null;
     }
 
     public String getUserRole(String inputUsername) {

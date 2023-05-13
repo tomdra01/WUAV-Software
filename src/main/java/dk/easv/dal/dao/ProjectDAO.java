@@ -2,6 +2,7 @@ package dk.easv.dal.dao;
 
 // imports
 import dk.easv.be.Project;
+import dk.easv.be.User;
 import dk.easv.bll.exception.DatabaseException;
 import dk.easv.dal.database.DatabaseConnector;
 import dk.easv.dal.dao.interfaces.IProjectDAO;
@@ -123,14 +124,14 @@ public class ProjectDAO implements IProjectDAO {
 
     /**
      * Assigns technician to the project.
-     * @param technician sends object "Technician" as a parameter.
+     * @param user sends object "User" as a parameter.
      * @param project sends object "Project" as a parameter.
      * @throws DatabaseException to handles SQLException.
-
-    public void technicianProject(Technician technician, Project project) throws DatabaseException {
+     */
+    public void technicianProject(User user, Project project) throws DatabaseException {
         try (Connection con = databaseConnector.getConnection()) {
             PreparedStatement pst = con.prepareStatement("INSERT INTO TechnicianProject(technician_id, project_id) VALUES(?, ?)", Statement.RETURN_GENERATED_KEYS);
-            pst.setInt(1, technician.getId());
+            pst.setInt(1, user.getId());
             pst.setInt(2, project.getId());
             pst.executeUpdate();
             con.commit();
@@ -138,5 +139,4 @@ public class ProjectDAO implements IProjectDAO {
             throw new DatabaseException("Failed to assign technician to the project", e);
         }
     }
-    */
 }

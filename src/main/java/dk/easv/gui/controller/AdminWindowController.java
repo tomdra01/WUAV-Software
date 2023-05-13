@@ -4,6 +4,7 @@ package dk.easv.gui.controller;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
+import dk.easv.be.User;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.bll.logic.ProjectDisplay;
 import dk.easv.gui.controller.project.ProjectStep1Controller;
@@ -46,12 +47,17 @@ public class AdminWindowController implements Initializable {
     private final Button showTechniciansButton = new Button("Show technicians");
     private final Button showCustomersButton = new Button("Show customers");
     private final Button showLogButton = new Button("See log");
+    private User user;
     private UserModel userModel;
     private ProjectModel projectModel;
     private ProjectDisplay projectDisplay;
 
     public void setModel(UserModel userModel) {
         this.userModel = userModel;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     /**
@@ -189,4 +195,6 @@ public class AdminWindowController implements Initializable {
         hamburgerButtons(); // buttons in hamburger
         ClockUtil.showWidget(hbox); // clock
     }
+
+
 }

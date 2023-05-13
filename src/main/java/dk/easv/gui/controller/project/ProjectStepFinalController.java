@@ -4,6 +4,7 @@ package dk.easv.gui.controller.project;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.Project;
+import dk.easv.be.User;
 import dk.easv.bll.exception.DatabaseException;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.bll.logic.ProjectDisplay;
@@ -36,6 +37,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 /**
@@ -56,9 +58,14 @@ public class ProjectStepFinalController implements Initializable {
     private JFXComboBox<String> filterComboBox;
     private JFXTextField searchBar;
     private BorderPane mainPane;
+    private User user;
 
     public void setModel(ProjectModel projectModel) {
         this.projectModel = projectModel;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void setMainPage(HBox projectHbox, JFXComboBox<String> filterComboBox, JFXTextField searchBar, BorderPane mainPane){
@@ -75,12 +82,6 @@ public class ProjectStepFinalController implements Initializable {
         this.projectDate = projectDate;
         this.projectDrawing = projectDrawing;
         this.projectDescription = projectDescription;
-
-        nameLabel.setText("Project name: "+projectName);
-        locationLabel.setText("Location: "+projectLocation);
-        dateLabel.setText("Date: "+ projectDate);
-        customerTypeLabel.setText("Business type: "+businessType);
-        System.out.println(projectDrawing);
     }
 
     public void setImages(byte[] projectPhoto1, byte[] projectPhoto2, byte[] projectPhoto3) {
@@ -96,6 +97,12 @@ public class ProjectStepFinalController implements Initializable {
             projectModel.createProject(project);
         } catch (DatabaseException e) {
             throw new GUIException("Failed creating a project ",e);
+        }
+
+        try {
+            projectModel.technicianProject(user, project);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
         byte[][] imagesArray = { projectPhoto1, projectPhoto2, projectPhoto3 };

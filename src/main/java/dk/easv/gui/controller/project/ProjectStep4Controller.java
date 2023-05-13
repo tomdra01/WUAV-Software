@@ -4,6 +4,7 @@ package dk.easv.gui.controller.project;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import dk.easv.be.User;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.model.ProjectModel;
@@ -41,10 +42,12 @@ public class ProjectStep4Controller implements Initializable {
     private Image img1, img2, img3;
     private ProjectModel projectModel;
     private HBox projectHbox;
-    private JFXComboBox filterComboBox;
+    private JFXComboBox<String> filterComboBox;
     private JFXTextField searchBar;
     private BorderPane mainPane;
-    public void setMainPage(HBox projectHbox, JFXComboBox filterComboBox, JFXTextField searchBar, BorderPane mainPane){
+    private User user;
+
+    public void setMainPage(HBox projectHbox, JFXComboBox<String> filterComboBox, JFXTextField searchBar, BorderPane mainPane){
         this.projectHbox=projectHbox;
         this.filterComboBox=filterComboBox;
         this.searchBar=searchBar;
@@ -53,6 +56,10 @@ public class ProjectStep4Controller implements Initializable {
 
     public void setModel(ProjectModel projectModel) {
         this.projectModel = projectModel;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void setProject(String projectName, String businessType, String projectLocation, LocalDate projectDate, byte[] projectDrawing, String projectDescription) {
@@ -86,6 +93,7 @@ public class ProjectStep4Controller implements Initializable {
                 projectStep5.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
                 projectStep5.setImages(img1, img2, img3, projectPhoto1, projectPhoto2, projectPhoto3);
                 projectStep5.setModel(projectModel);
+                projectStep5.setUser(user);
                 projectStep5.setMainPage(projectHbox, filterComboBox, searchBar, mainPane);
 
                 Stage window = (Stage) nextStepBtn.getScene().getWindow();
@@ -111,6 +119,7 @@ public class ProjectStep4Controller implements Initializable {
             projectStep3.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
             projectStep3.setImages(img1, img2, img3, projectPhoto1, projectPhoto2, projectPhoto3);
             projectStep3.setModel(projectModel);
+            projectStep3.setUser(user);
 
             Stage window = (Stage) previousStepBtn.getScene().getWindow();
             window.setTitle("Step 3");

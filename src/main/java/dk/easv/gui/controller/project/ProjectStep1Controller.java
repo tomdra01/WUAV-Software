@@ -3,6 +3,7 @@ package dk.easv.gui.controller.project;
 // imports
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import dk.easv.be.User;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.model.ProjectModel;
@@ -43,18 +44,24 @@ public class ProjectStep1Controller implements Initializable {
     private Image img1, img2, img3;
     private ProjectModel projectModel;
     private HBox projectHbox;
-    private JFXComboBox filterComboBox;
+    private JFXComboBox<String> filterComboBox;
     private JFXTextField searchBar;
     private BorderPane mainPane;
-    public void setMainPage(HBox projectHbox, JFXComboBox filterComboBox, JFXTextField searchBar, BorderPane mainPane){
-        this.projectHbox=projectHbox;
-        this.filterComboBox=filterComboBox;
-        this.searchBar=searchBar;
-        this.mainPane=mainPane;
+    private User user;
+
+    public void setMainPage(HBox projectHbox, JFXComboBox<String> filterComboBox, JFXTextField searchBar, BorderPane mainPane){
+        this.projectHbox = projectHbox;
+        this.filterComboBox = filterComboBox;
+        this.searchBar = searchBar;
+        this.mainPane = mainPane;
     }
 
     public void setModel(ProjectModel projectModel) {
         this.projectModel = projectModel;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void setPane(BorderPane borderPane) {
@@ -100,6 +107,7 @@ public class ProjectStep1Controller implements Initializable {
                 projectStep2.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
                 projectStep2.setImages(img1, img2, img3, projectPhoto1, projectPhoto2, projectPhoto3);
                 projectStep2.setModel(projectModel);
+                projectStep2.setUser(user);
                 projectStep2.setMainPage(projectHbox, filterComboBox, searchBar, mainPane);
 
                 Stage window = (Stage) nextStepBtn.getScene().getWindow();

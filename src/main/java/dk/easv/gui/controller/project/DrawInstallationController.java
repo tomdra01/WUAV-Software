@@ -3,6 +3,7 @@ package dk.easv.gui.controller.project;
 // imports
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import dk.easv.be.User;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.ViewType;
@@ -46,18 +47,24 @@ public class DrawInstallationController implements Initializable {
     private final ObservableList<Image> imageHistory = FXCollections.observableArrayList();
     private ProjectModel projectModel;
     private HBox projectHbox;
-    private JFXComboBox filterComboBox;
+    private JFXComboBox<String> filterComboBox;
     private JFXTextField searchBar;
     private BorderPane mainPane;
-    public void setMainPage(HBox projectHbox, JFXComboBox filterComboBox, JFXTextField searchBar, BorderPane borderPane){
+    private User user;
+
+    public void setMainPage(HBox projectHbox, JFXComboBox<String> filterComboBox, JFXTextField searchBar, BorderPane borderPane){
         this.projectHbox=projectHbox;
         this.filterComboBox=filterComboBox;
-        this.searchBar=searchBar;
-        this.mainPane=mainPane;
+        this.searchBar = searchBar;
+        this.mainPane = borderPane;
     }
 
     public void setModel(ProjectModel projectModel) {
         this.projectModel = projectModel;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void setProject(String projectName, String businessType, String projectLocation, LocalDate projectDate, byte[] projectDrawing, String projectDescription) {
@@ -111,6 +118,7 @@ public class DrawInstallationController implements Initializable {
             projectStep4.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
             projectStep4.setImages(img1, img2, img3, projectPhoto1, projectPhoto2, projectPhoto3);
             projectStep4.setModel(projectModel);
+            projectStep4.setUser(user);
             projectStep4.setMainPage(projectHbox, filterComboBox, searchBar, mainPane);
 
             Stage window = (Stage) nextStepBtn.getScene().getWindow();
@@ -131,6 +139,7 @@ public class DrawInstallationController implements Initializable {
             projectStep3.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
             projectStep3.setImages(img1, img2, img3, projectPhoto1, projectPhoto2, projectPhoto3);
             projectStep3.setModel(projectModel);
+            projectStep3.setUser(user);
 
             Stage window = (Stage) previousStepBtn.getScene().getWindow();
             window.setTitle("Step 3");

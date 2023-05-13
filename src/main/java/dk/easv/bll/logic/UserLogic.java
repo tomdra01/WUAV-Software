@@ -2,7 +2,6 @@ package dk.easv.bll.logic;
 
 // imports
 import dk.easv.be.User;
-
 import dk.easv.bll.exception.DatabaseException;
 import dk.easv.dal.DAOFactory;
 import dk.easv.dal.DataAccessObjects;

@@ -2,6 +2,7 @@ package dk.easv.gui.model;
 
 // imports
 import dk.easv.be.Project;
+import dk.easv.be.User;
 import dk.easv.bll.exception.DatabaseException;
 import dk.easv.bll.logic.ProjectLogic;
 import javafx.collections.FXCollections;
@@ -44,12 +45,7 @@ public class ProjectModel {
         projectLogic.insertImages(project, imageData);
     }
 
-    /**
-     *
-     * @author tomdra01, mrtng1
-
-    public void technicianProject(Technician technician, Project project) throws Exception {
-        projectLogic.technicianProject(technician, project);
+    public void technicianProject(User user, Project project) throws Exception {
+        projectLogic.technicianProject(user, project);
     }
-     */
 }
