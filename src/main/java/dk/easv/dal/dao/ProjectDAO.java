@@ -1,6 +1,7 @@
 package dk.easv.dal.dao;
 
 // imports
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dk.easv.be.Project;
 import dk.easv.be.User;
 import dk.easv.bll.exception.DatabaseException;
@@ -9,6 +10,7 @@ import dk.easv.dal.dao.interfaces.IProjectDAO;
 
 // java imports
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,6 +58,42 @@ public class ProjectDAO implements IProjectDAO {
             throw new DatabaseException("Failed to get all projects", e);
         }
         return allProjects;
+    }
+
+    /**
+     * Gets the list of all projects from the database.
+     * @throws DatabaseException to handles SQLException.
+     */
+    public List<Project> readTechnicianProjects(User user) throws DatabaseException {
+        List<Project> tProjects = new ArrayList<>();
+
+        try (Connection con = databaseConnector.getConnection()) {
+            String sql = "SELECT * FROM Project INNER JOIN TechnicianProject ON Project.id = TechnicianProject.project_id " +
+                         "INNER JOIN [User] ON [TechnicianProject].technician_id = [User].id WHERE TechnicianProject.technician_id = ?";
+
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setInt(1, user.getId());
+
+            ResultSet resultSet = pst.executeQuery();
+            while (resultSet.next()) {
+
+                Project project = new Project(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("businessType"),
+                        resultSet.getString("location"),
+                        resultSet.getDate("date").toLocalDate(),
+                        resultSet.getBytes("drawing"),
+                        resultSet.getString("description"),
+                        resultSet.getBoolean("approved")
+                );
+
+                tProjects.add(project);
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Failed to get technician projects", e);
+        }
+        return tProjects;
     }
 
     /**

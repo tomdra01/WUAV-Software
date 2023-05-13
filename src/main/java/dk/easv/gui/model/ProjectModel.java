@@ -15,26 +15,32 @@ import javafx.collections.ObservableList;
 public class ProjectModel {
     ProjectLogic projectLogic = new ProjectLogic();
     private final ObservableList<Project> projects = FXCollections.observableArrayList();
+    private final ObservableList<Project> technicianProjects = FXCollections.observableArrayList();
+
     public ObservableList<Project> getProjects() {
         return projects;
     }
 
     public ProjectModel() {
-        try {
-            projects.addAll(projectLogic.readAllProjects());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
+
     public void loadProjects() throws Exception {
         projects.clear();
         projects.addAll(projectLogic.readAllProjects());
     }
 
-    public Project createProject(Project project) throws DatabaseException {
+    public void loadTechnicianProjects(User user) throws DatabaseException {
+        technicianProjects.clear();
+        technicianProjects.addAll(projectLogic.readTechnicianProjects(user));
+    }
+
+    public ObservableList<Project> getTechnicianProjects() {
+        return technicianProjects;
+    }
+
+    public void createProject(Project project) throws DatabaseException {
         Project p = projectLogic.createProject(project);
         projects.add(p);
-        return p;
     }
 
     public void deleteProject(Project project) throws Exception {

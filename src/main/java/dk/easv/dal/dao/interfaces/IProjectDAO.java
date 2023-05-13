@@ -15,6 +15,7 @@ import java.util.List;
  */
 public interface IProjectDAO extends IDataAccess {
     List<Project> readAllProjects() throws DatabaseException;
+    List<Project> readTechnicianProjects(User user) throws DatabaseException;
     Project createProject(Project project) throws DatabaseException;
     void insertImages(Project project, byte[] imageData) throws DatabaseException;
     void deleteProject(Project project) throws DatabaseException;

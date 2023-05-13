@@ -22,6 +22,10 @@ public class ProjectLogic {
         return projectDAO.readAllProjects();
     }
 
+    public List<Project> readTechnicianProjects(User user) throws DatabaseException {
+        return projectDAO.readTechnicianProjects(user);
+    }
+
     public Project createProject(Project project) throws DatabaseException {
         return projectDAO.createProject(project);
     }

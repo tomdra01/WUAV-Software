@@ -7,7 +7,7 @@ import dk.easv.be.Project;
 import dk.easv.be.User;
 import dk.easv.bll.exception.DatabaseException;
 import dk.easv.bll.exception.GUIException;
-import dk.easv.bll.logic.ProjectDisplay;
+import dk.easv.gui.util.ProjectDisplay;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.BlurEffectUtil;
 import javafx.embed.swing.SwingFXUtils;
@@ -35,9 +35,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 
 /**
@@ -159,7 +157,7 @@ public class ProjectStepFinalController implements Initializable {
         }
         Stage stage = (Stage) printBtn.getScene().getWindow();
         stage.close();
-        projectDisplay.refresh(projectHbox, filterComboBox, searchBar, projectModel, mainPane);
+        projectDisplay.showTechnicianProjects(projectHbox, filterComboBox, searchBar, projectModel, mainPane, user);
         BlurEffectUtil.removeBlurEffect(mainPane);
     }
 

@@ -6,7 +6,7 @@ import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
 import dk.easv.bll.exception.GUIException;
-import dk.easv.bll.logic.ProjectDisplay;
+import dk.easv.gui.util.ProjectDisplay;
 import dk.easv.gui.controller.project.ProjectStep1Controller;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.model.UserModel;
@@ -57,6 +57,7 @@ public class TechnicianWindowController implements Initializable {
     // set user
     public void setUser(User user) {
         this.user = user;
+        projectInit();
     }
 
     /**
@@ -131,20 +132,22 @@ public class TechnicianWindowController implements Initializable {
         });
     }
 
-    private void searchFilter(){
+
+    private void projectInit() {
         filterComboBox.setItems(FXCollections.observableArrayList("All", "Consumer", "Corporate & Government"));
         filterComboBox.setValue("All");
-        projectDisplay.refresh(projectsHbox, filterComboBox, searchBar, projectModel, mainPane); // showcase of all projects based on the filter
 
         // showcase of all projects based on the filter
-        projectDisplay.refresh(projectsHbox, filterComboBox, searchBar, projectModel, mainPane);
+        projectDisplay.showTechnicianProjects(projectsHbox, filterComboBox, searchBar, projectModel, mainPane , user);
 
         filterComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)
-                -> projectDisplay.refresh(projectsHbox, filterComboBox, searchBar, projectModel, mainPane));
+                -> projectDisplay.showTechnicianProjects(projectsHbox, filterComboBox, searchBar, projectModel, mainPane , user));
 
-        searchBar.textProperty().addListener((observable, oldValue, newValue) ->
-                projectDisplay.refresh(projectsHbox, filterComboBox, searchBar, projectModel, mainPane));
+
+        searchBar.textProperty().addListener((observable, oldValue, newValue)
+                -> projectDisplay.showTechnicianProjects(projectsHbox, filterComboBox, searchBar, projectModel, mainPane , user));
     }
+
 
     /**
      * Initialize method
@@ -153,7 +156,7 @@ public class TechnicianWindowController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         projectDisplay = new ProjectDisplay();
         projectModel = new ProjectModel();
-        searchFilter(); // search + filter
+        //searchFilter(); // search + filter
         ClockUtil.showWidget(hbox); //clock
         hamburgerMenu(); //hamburger
         hamburgerButtons(); //buttons in hamburger

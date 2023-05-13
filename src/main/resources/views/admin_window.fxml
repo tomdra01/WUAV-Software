@@ -27,14 +27,14 @@
                         </color>
                     </DropShadow>
                 </effect>
-                <JFXHamburger fx:id="jfxHamburger" prefHeight="70.0" prefWidth="68.0">
+                <JFXHamburger fx:id="jfxHamburger" prefHeight="44.0" prefWidth="25.5">
                     <HBox.margin>
                         <Insets left="25.0" />
                     </HBox.margin>
                 </JFXHamburger>
                 <Label prefHeight="17.0" prefWidth="85.0" text="Customer type:">
                     <HBox.margin>
-                        <Insets left="570.0" top="30.0" />
+                        <Insets left="610.0" top="30.0" />
                     </HBox.margin>
                 </Label>
                 <JFXComboBox fx:id="filterComboBox" focusColor="#e84910" labelFloat="true" prefHeight="26.0" prefWidth="190.0">

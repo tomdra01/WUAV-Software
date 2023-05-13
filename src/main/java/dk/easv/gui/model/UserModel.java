@@ -24,12 +24,10 @@ public class UserModel {
         }
     }
 
-
-    public User createUser(User user) throws DatabaseException {
+    public void createUser(User user) throws DatabaseException {
         // Create a new user and add them to the system
         User u = userLogic.createUser(user);
         users.add(u);
-        return u; // Return the created user
     }
 
     public User isValidUser(String inputUsername, String inputPassword, String inputRole) {
