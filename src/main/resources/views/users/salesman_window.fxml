@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.AdminWindowController">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.users.SalesmanWindowController">
     <top>
         <VBox prefHeight="140.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
             <HBox fx:id="hbox" prefHeight="100.0" prefWidth="1200.0" style="-fx-background-color: #2a2a2a;" />
@@ -57,12 +57,12 @@
             </BorderPane.margin>
             <graphic>
                 <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="@../images/wuav/wuav_logo.png" />
+                    <Image url="@../../images/wuav/wuav_logo.png" />
                 </ImageView>
             </graphic></Label>
     </bottom>
     <center>
-        <ScrollPane hbarPolicy="ALWAYS" prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/scrollpane_style.css" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
+        <ScrollPane hbarPolicy="ALWAYS" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../styles/scrollpane_style.css" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
             <BorderPane.margin>
                 <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
             </BorderPane.margin>

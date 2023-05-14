@@ -1,4 +1,4 @@
-package dk.easv.gui.controller;
+package dk.easv.gui.controller.users;
 
 // imports
 import com.jfoenix.controls.JFXComboBox;
@@ -54,7 +54,7 @@ public class TechnicianWindowController implements Initializable {
         this.userModel= userModel;
     }
 
-    // set user
+    // set users
     public void setUser(User user) {
         this.user = user;
         projectInit();

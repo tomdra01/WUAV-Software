@@ -6,10 +6,10 @@ package dk.easv.gui.util;
  */
 public enum ViewType {
     LOGIN("/views/login_window.fxml"),
-    ADMIN("/views/admin_window.fxml"),
-    TECHNICIAN("/views/technician_window.fxml"),
-    PROJECT_MANAGER("/views/projectmanager_window.fxml"),
-    SALESMAN("/views/salesman_window.fxml"),
+    ADMIN("/views/users/admin_window.fxml"),
+    TECHNICIAN("/views/users/technician_window.fxml"),
+    PROJECT_MANAGER("/views/users/projectmanager_window.fxml"),
+    SALESMAN("/views/users/salesman_window.fxml"),
     CREATE_USER("/views/create_user_window.fxml"),
     DRAW_INSTALLATION("/views/project/draw_installation_window.fxml"),
     PROJECT_STEP1("/views/project/project_step1_window.fxml"),

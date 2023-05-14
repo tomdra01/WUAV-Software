@@ -6,6 +6,10 @@ import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.bll.util.PopupUtil;
+import dk.easv.gui.controller.users.AdminWindowController;
+import dk.easv.gui.controller.users.ProjectManagerWindowController;
+import dk.easv.gui.controller.users.SalesmanWindowController;
+import dk.easv.gui.controller.users.TechnicianWindowController;
 import dk.easv.gui.model.UserModel;
 import dk.easv.gui.util.ViewType;
 import javafx.fxml.FXML;
@@ -105,7 +109,7 @@ public class LoginWindowController implements Initializable {
     }
 
     /**
-     * Allows user to login by pressing "Enter".
+     * Allows users to login by pressing "Enter".
      */
     public void loginEnter(){
         nameField.setOnKeyPressed(event -> {

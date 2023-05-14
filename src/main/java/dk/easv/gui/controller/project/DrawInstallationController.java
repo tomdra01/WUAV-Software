@@ -86,7 +86,7 @@ public class DrawInstallationController implements Initializable {
     }
 
     /**
-     * Enables user to select from device and draw it on canvas
+     * Enables users to select from device and draw it on canvas
      */
     private void drawCanvas(){
         GraphicsContext gc = canvas.getGraphicsContext2D();

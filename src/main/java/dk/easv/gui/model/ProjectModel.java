@@ -21,7 +21,7 @@ public class ProjectModel {
     public ObservableList<Project> getProjects() {
         return projects;
     }
-
+    
     public ObservableList<Project> getTechnicianProjects() {
         return technicianProjects;
     }

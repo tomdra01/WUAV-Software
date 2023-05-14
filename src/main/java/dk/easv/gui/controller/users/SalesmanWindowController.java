@@ -1,4 +1,4 @@
-package dk.easv.gui.controller;
+package dk.easv.gui.controller.users;
 
 // imports
 import com.jfoenix.controls.JFXComboBox;

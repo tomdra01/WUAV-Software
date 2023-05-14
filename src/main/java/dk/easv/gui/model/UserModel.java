@@ -25,7 +25,7 @@ public class UserModel {
     }
 
     public void createUser(User user) throws DatabaseException {
-        // Create a new user and add them to the system
+        // Create a new users and add them to the system
         User u = userLogic.createUser(user);
         users.add(u);
     }
@@ -44,12 +44,12 @@ public class UserModel {
     }
 
     public String getUserRole(String inputUsername) {
-        // Retrieve the role of a user with the given username
+        // Retrieve the role of a users with the given username
         for (User user : users) {
             if (user.getUsername().equals(inputUsername)) {
-                return user.getRole(); // Return the role of the user
+                return user.getRole(); // Return the role of the users
             }
         }
-        return null; // No user with the given username found
+        return null; // No users with the given username found
     }
 }

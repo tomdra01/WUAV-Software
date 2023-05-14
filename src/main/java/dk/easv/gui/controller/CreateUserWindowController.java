@@ -48,7 +48,7 @@ public class CreateUserWindowController implements Initializable {
     }
 
     /**
-     * Creates a user.
+     * Creates a users.
      */
     public void createUser() {
         String userType = jfxComboBox.getValue();
@@ -62,7 +62,7 @@ public class CreateUserWindowController implements Initializable {
             try {
                 userModel.createUser(user);
             } catch (DatabaseException e) {
-                throw new GUIException("Failed to create user in GUI", e);
+                throw new GUIException("Failed to create users in GUI", e);
             }
         } else {
             PopupUtil.showAlert("Empty fields", "Please fill in all the fields", Alert.AlertType.INFORMATION);

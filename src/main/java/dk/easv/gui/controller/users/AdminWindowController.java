@@ -1,4 +1,4 @@
-package dk.easv.gui.controller;
+package dk.easv.gui.controller.users;
 
 // imports
 import com.jfoenix.controls.JFXComboBox;
@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
 import dk.easv.bll.exception.GUIException;
+import dk.easv.gui.controller.CreateUserWindowController;
 import dk.easv.gui.util.ProjectDisplay;
 import dk.easv.gui.controller.project.ProjectStep1Controller;
 import dk.easv.gui.model.ProjectModel;
@@ -42,7 +43,7 @@ public class AdminWindowController implements Initializable {
     @FXML private JFXComboBox<String> filterComboBox;
     @FXML private JFXTextField searchBar;
     private  final  Button createProjectButton = new Button("New project");
-    private final Button createUserButton = new Button("Create user");
+    private final Button createUserButton = new Button("Create users");
     private final Button logOutButton = new Button("Log out");
     private final Button showTechniciansButton = new Button("Show technicians");
     private final Button showCustomersButton = new Button("Show customers");
@@ -58,7 +59,7 @@ public class AdminWindowController implements Initializable {
 
     public void setUser(User user) {
         this.user = user;
-        System.out.println("Admin user" + user);
+        System.out.println("Admin users" + user);
     }
 
     /**
@@ -145,7 +146,7 @@ public class AdminWindowController implements Initializable {
             }
         });
 
-        // create user window
+        // create users window
         createUserButton.setOnAction(event -> {
             try {
                 BlurEffectUtil.applyBlurEffect(mainPane,10);
