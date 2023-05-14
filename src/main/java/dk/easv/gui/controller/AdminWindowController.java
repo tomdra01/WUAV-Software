@@ -176,13 +176,13 @@ public class AdminWindowController implements Initializable {
         filterComboBox.setValue("All");
 
         // showcase of all projects based on the filter
-        projectDisplay.refresh(projectsHbox, filterComboBox, searchBar, projectModel, mainPane);
+        projectDisplay.showAllProjects(projectsHbox, filterComboBox, searchBar, projectModel, mainPane);
 
         filterComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)
-                -> projectDisplay.refresh(projectsHbox, filterComboBox, searchBar, projectModel, mainPane));
+                -> projectDisplay.showAllProjects(projectsHbox, filterComboBox, searchBar, projectModel, mainPane));
 
         searchBar.textProperty().addListener((observable, oldValue, newValue) ->
-                projectDisplay.refresh(projectsHbox, filterComboBox, searchBar, projectModel, mainPane));
+                projectDisplay.showAllProjects(projectsHbox, filterComboBox, searchBar, projectModel, mainPane));
     }
 
     /**

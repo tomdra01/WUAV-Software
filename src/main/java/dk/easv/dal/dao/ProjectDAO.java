@@ -32,7 +32,7 @@ public class ProjectDAO implements IProjectDAO {
         List<Project> allProjects = new ArrayList<>();
 
         try (Connection con = databaseConnector.getConnection()) {
-            String sql = "SELECT * FROM Project;";
+            String sql = "SELECT * FROM [Project]";
             Statement statement = con.createStatement();
 
             if (statement.execute(sql)) {
@@ -65,11 +65,11 @@ public class ProjectDAO implements IProjectDAO {
      * @throws DatabaseException to handles SQLException.
      */
     public List<Project> readTechnicianProjects(User user) throws DatabaseException {
-        List<Project> tProjects = new ArrayList<>();
+        List<Project> technicianProjects = new ArrayList<>();
 
         try (Connection con = databaseConnector.getConnection()) {
-            String sql = "SELECT * FROM Project INNER JOIN TechnicianProject ON Project.id = TechnicianProject.project_id " +
-                         "INNER JOIN [User] ON [TechnicianProject].technician_id = [User].id WHERE TechnicianProject.technician_id = ?";
+            String sql = "SELECT * FROM [Project] INNER JOIN [TechnicianProject] ON Project.id = [TechnicianProject].project_id " +
+                         "INNER JOIN [User] ON [TechnicianProject].technician_id = [User].id WHERE [TechnicianProject].technician_id = ?";
 
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setInt(1, user.getId());
@@ -88,13 +88,50 @@ public class ProjectDAO implements IProjectDAO {
                         resultSet.getBoolean("approved")
                 );
 
-                tProjects.add(project);
+                technicianProjects.add(project);
             }
         } catch (SQLException e) {
             throw new DatabaseException("Failed to get technician projects", e);
         }
-        return tProjects;
+        return technicianProjects;
     }
+
+    /**
+     * Gets the list of all projects from the database.
+     * @throws DatabaseException to handles SQLException.
+     */
+    public List<Project> readSalesmanProjects() throws DatabaseException {
+        List<Project> approvedProjects = new ArrayList<>();
+
+        try (Connection con = databaseConnector.getConnection()) {
+            String sql = "SELECT * FROM [Project] WHERE approved = 1";
+            Statement statement = con.createStatement();
+
+            if (statement.execute(sql)) {
+                ResultSet resultSet = statement.getResultSet();
+
+                while (resultSet.next()) {
+
+                    Project project = new Project(
+                            resultSet.getInt("id"),
+                            resultSet.getString("name"),
+                            resultSet.getString("businessType"),
+                            resultSet.getString("location"),
+                            resultSet.getDate("date").toLocalDate(),
+                            resultSet.getBytes("drawing"),
+                            resultSet.getString("description"),
+                            resultSet.getBoolean("approved")
+                    );
+
+                    approvedProjects.add(project);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Failed to get all projects", e);
+        }
+        return approvedProjects;
+    }
+
 
     /**
      * Creates project in the database.
@@ -133,9 +170,13 @@ public class ProjectDAO implements IProjectDAO {
      */
     public void deleteProject(Project project) throws DatabaseException {
         try (Connection con = databaseConnector.getConnection()) {
-            PreparedStatement pstEventCustomer = con.prepareStatement("DELETE FROM Project WHERE id = ?");
-            pstEventCustomer.setInt(1, project.getId());
-            pstEventCustomer.executeUpdate();
+            PreparedStatement pstDeleteProject = con.prepareStatement("DELETE FROM [Project] WHERE id = ?");
+            pstDeleteProject.setInt(1, project.getId());
+            pstDeleteProject.executeUpdate();
+
+            PreparedStatement pstDeleteTechnicianProject = con.prepareStatement("DELETE FROM [TechnicianProject] WHERE project_id = ?");
+            pstDeleteTechnicianProject.setInt(1, project.getId());
+            pstDeleteTechnicianProject.executeUpdate();
 
             con.commit();
         } catch (SQLException e) {
@@ -175,6 +216,21 @@ public class ProjectDAO implements IProjectDAO {
             con.commit();
         } catch (SQLException e) {
             throw new DatabaseException("Failed to assign technician to the project", e);
+        }
+    }
+
+    public void updateApprovalStatus(Project project) throws DatabaseException {
+        try (Connection con = databaseConnector.getConnection()) {
+            PreparedStatement pst = con.prepareStatement("UPDATE Project SET approved = ? WHERE id = ?");
+            pst.setBoolean(1, project.isApproved());
+            pst.setInt(2, project.getId());
+            int rowsAffected = pst.executeUpdate();
+
+            if (rowsAffected == 0) {
+                throw new RuntimeException("Project not found");
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Failed to update the approval status", e);
         }
     }
 }

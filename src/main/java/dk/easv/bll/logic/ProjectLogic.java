@@ -26,6 +26,10 @@ public class ProjectLogic {
         return projectDAO.readTechnicianProjects(user);
     }
 
+    public List<Project> readSalesmanProjects() throws DatabaseException {
+        return projectDAO.readSalesmanProjects();
+    }
+
     public Project createProject(Project project) throws DatabaseException {
         return projectDAO.createProject(project);
     }
@@ -39,6 +43,10 @@ public class ProjectLogic {
     }
 
     public void technicianProject(User user, Project project) throws Exception {
-              projectDAO.technicianProject(user, project);
+        projectDAO.technicianProject(user, project);
+    }
+
+    public void updateApprovalStatus(Project project) throws DatabaseException {
+        projectDAO.updateApprovalStatus(project);
     }
 }

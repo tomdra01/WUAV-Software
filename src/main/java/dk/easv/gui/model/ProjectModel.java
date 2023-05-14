@@ -16,12 +16,18 @@ public class ProjectModel {
     ProjectLogic projectLogic = new ProjectLogic();
     private final ObservableList<Project> projects = FXCollections.observableArrayList();
     private final ObservableList<Project> technicianProjects = FXCollections.observableArrayList();
+    private final ObservableList<Project> salesmenProjects = FXCollections.observableArrayList();
 
     public ObservableList<Project> getProjects() {
         return projects;
     }
 
-    public ProjectModel() {
+    public ObservableList<Project> getTechnicianProjects() {
+        return technicianProjects;
+    }
+
+    public ObservableList<Project> getSalesmenProjects() {
+        return salesmenProjects;
     }
 
     public void loadProjects() throws Exception {
@@ -34,8 +40,9 @@ public class ProjectModel {
         technicianProjects.addAll(projectLogic.readTechnicianProjects(user));
     }
 
-    public ObservableList<Project> getTechnicianProjects() {
-        return technicianProjects;
+    public void loadSalesmenProjects() throws DatabaseException {
+        salesmenProjects.clear();
+        salesmenProjects.addAll(projectLogic.readSalesmanProjects());
     }
 
     public void createProject(Project project) throws DatabaseException {
@@ -53,5 +60,9 @@ public class ProjectModel {
 
     public void technicianProject(User user, Project project) throws Exception {
         projectLogic.technicianProject(user, project);
+    }
+
+    public void updateApprovalStatus(Project project) throws DatabaseException {
+        projectLogic.updateApprovalStatus(project);
     }
 }

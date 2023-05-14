@@ -29,18 +29,13 @@ import java.util.List;
 public class ProjectDisplay {
     private List<Project> projects;
 
-    public void refresh(HBox projectsHbox, JFXComboBox<String> filterComboBox, JFXTextField searchBar, ProjectModel projectModel, BorderPane mainPane) {
-        projectsHbox.getChildren().clear();
+    public void showAllProjects(HBox projectsHbox, JFXComboBox<String> filterComboBox, JFXTextField searchBar, ProjectModel projectModel, BorderPane mainPane) {
+        clearProjectsHbox(projectsHbox);
 
-        try {projectModel.loadProjects();} catch (Exception e) {throw new RuntimeException(e);}
+        loadProjects(projectModel);
         projects = projectModel.getProjects();
 
-        String selectedFilter = String.valueOf(filterComboBox.getValue());
-        String searchText = searchBar.getText().toLowerCase();
-        List<Project> filteredProjects = projects.stream()
-                .filter(project -> (selectedFilter == null || "All".equals(selectedFilter) || project.getBusinessType().equals(selectedFilter)) &&
-                        (searchText.isEmpty() || project.getName().toLowerCase().contains(searchText) || project.getLocation().toLowerCase().contains(searchText)))
-                .toList();
+        List<Project> filteredProjects = filterProjects(filterComboBox, searchBar, projects);
 
         int limit = 10;
         int counter = 0;
@@ -50,29 +45,48 @@ public class ProjectDisplay {
                 break;
             }
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_CARD.getView()));
-                loader.setControllerFactory(clazz -> new ProjectTemplateController(project));
+                FXMLLoader loader = createLoader(ViewType.PROJECT_CARD.getView(), project);
                 AnchorPane root = loader.load();
 
                 ProjectTemplateController projectTemplateController = loader.getController();
-
-                // setting the image
-                ByteArrayInputStream inputStream = new ByteArrayInputStream(project.getDrawing());
-                Image image = new Image(inputStream);
-                ImageView projectImg = projectTemplateController.getProjectImg();
-                projectImg.setImage(image);
-
-                //setting project details
-                projectTemplateController.getNameLabel().setText(project.getName());
-                projectTemplateController.getLocationLabel().setText(project.getLocation());
-                projectTemplateController.getDateLabel().setText(String.valueOf(project.getDate()));
-                projectTemplateController.getTextLabel().setText(project.getDescription());
-                projectTemplateController.getApprovedProject().setSelected(project.isApproved());
-                projectTemplateController.setMainPane(mainPane);
-                projectTemplateController.setModel(projectModel);
+                setProjectDetails(projectTemplateController, project, mainPane, projectModel);
+                projectTemplateController.getApprovedProject().setVisible(true);
 
                 HBox hbox = new HBox(root);
-                projectsHbox.getChildren().add(hbox);
+                addProjectToProjectsHbox(projectsHbox, hbox);
+                HBox.setMargin(hbox, new Insets(0, 10, 0, 0));
+            } catch (IOException e) {
+                throw new GUIException("Failed to show filtered projects", e);
+            }
+            counter++;
+        }
+    }
+
+    public void showSalesmanProjects(HBox projectsHbox, JFXComboBox<String> filterComboBox, JFXTextField searchBar, ProjectModel projectModel, BorderPane mainPane) {
+        clearProjectsHbox(projectsHbox);
+
+        loadSalesmanProjects(projectModel);
+        projects = projectModel.getSalesmenProjects();
+
+        List<Project> filteredProjects = filterProjects(filterComboBox, searchBar, projects);
+
+        int limit = 10;
+        int counter = 0;
+
+        for (Project project : filteredProjects) {
+            if (counter == limit) {
+                break;
+            }
+            try {
+                FXMLLoader loader = createLoader(ViewType.PROJECT_CARD.getView(), project);
+                AnchorPane root = loader.load();
+
+                ProjectTemplateController projectTemplateController = loader.getController();
+                setProjectDetails(projectTemplateController, project, mainPane, projectModel);
+                projectTemplateController.getApprovedProject().setVisible(false);
+
+                HBox hbox = new HBox(root);
+                addProjectToProjectsHbox(projectsHbox, hbox);
                 HBox.setMargin(hbox, new Insets(0, 10, 0, 0));
             } catch (IOException e) {
                 throw new GUIException("Failed to show filtered projects", e);
@@ -82,17 +96,12 @@ public class ProjectDisplay {
     }
 
     public void showTechnicianProjects(HBox projectsHbox, JFXComboBox<String> filterComboBox, JFXTextField searchBar, ProjectModel projectModel, BorderPane mainPane, User user) {
-        projectsHbox.getChildren().clear();
+        clearProjectsHbox(projectsHbox);
 
-        try {projectModel.loadTechnicianProjects(user);} catch (DatabaseException e) {throw new RuntimeException(e);}
+        loadTechnicianProjects(projectModel, user);
         projects = projectModel.getTechnicianProjects();
 
-        String selectedFilter = String.valueOf(filterComboBox.getValue());
-        String searchText = searchBar.getText().toLowerCase();
-        List<Project> filteredProjects = projects.stream()
-                .filter(project -> (selectedFilter == null || "All".equals(selectedFilter) || project.getBusinessType().equals(selectedFilter)) &&
-                        (searchText.isEmpty() || project.getName().toLowerCase().contains(searchText) || project.getLocation().toLowerCase().contains(searchText)))
-                .toList();
+        List<Project> filteredProjects = filterProjects(filterComboBox, searchBar, projects);
 
         int limit = 10;
         int counter = 0;
@@ -102,34 +111,91 @@ public class ProjectDisplay {
                 break;
             }
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_CARD.getView()));
-                loader.setControllerFactory(clazz -> new ProjectTemplateController(project));
+                FXMLLoader loader = createLoader(ViewType.PROJECT_CARD.getView(), project);
                 AnchorPane root = loader.load();
 
                 ProjectTemplateController projectTemplateController = loader.getController();
-
-                // setting the image
-                ByteArrayInputStream inputStream = new ByteArrayInputStream(project.getDrawing());
-                Image image = new Image(inputStream);
-                ImageView projectImg = projectTemplateController.getProjectImg();
-                projectImg.setImage(image);
-
-                //setting project details
-                projectTemplateController.getNameLabel().setText(project.getName());
-                projectTemplateController.getLocationLabel().setText(project.getLocation());
-                projectTemplateController.getDateLabel().setText(String.valueOf(project.getDate()));
-                projectTemplateController.getTextLabel().setText(project.getDescription());
-                projectTemplateController.getApprovedProject().setSelected(project.isApproved());
-                projectTemplateController.setMainPane(mainPane);
-                projectTemplateController.setModel(projectModel);
+                setProjectDetails(projectTemplateController, project, mainPane, projectModel);
+                projectTemplateController.getApprovedProject().setVisible(false);
 
                 HBox hbox = new HBox(root);
-                projectsHbox.getChildren().add(hbox);
+                addProjectToProjectsHbox(projectsHbox, hbox);
                 HBox.setMargin(hbox, new Insets(0, 10, 0, 0));
             } catch (IOException e) {
                 throw new GUIException("Failed to show filtered projects", e);
             }
             counter++;
         }
+    }
+
+    private void clearProjectsHbox(HBox projectsHbox) {
+        projectsHbox.getChildren().clear();
+    }
+
+    private void loadProjects(ProjectModel projectModel) {
+        try {
+            projectModel.loadProjects();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void loadTechnicianProjects(ProjectModel projectModel, User user) {
+        try {
+            projectModel.loadTechnicianProjects(user);
+        } catch (DatabaseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void loadSalesmanProjects(ProjectModel projectModel) {
+        try {
+            projectModel.loadSalesmenProjects();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    private List<Project> filterProjects(JFXComboBox<String> filterComboBox, JFXTextField searchBar, List<Project> projects) {
+        String selectedFilter = String.valueOf(filterComboBox.getValue());
+        String searchText = searchBar.getText().toLowerCase();
+        return projects.stream()
+                .filter(project -> (selectedFilter == null || "All".equals(selectedFilter) || project.getBusinessType().equals(selectedFilter)) &&
+                        (searchText.isEmpty() || project.getName().toLowerCase().contains(searchText) || project.getLocation().toLowerCase().contains(searchText)))
+                .toList();
+    }
+
+    private FXMLLoader createLoader(String viewType, Project project) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(viewType));
+        loader.setControllerFactory(clazz -> new ProjectTemplateController(project));
+        return loader;
+    }
+
+    private void setProjectDetails(ProjectTemplateController projectTemplateController, Project project, BorderPane mainPane, ProjectModel projectModel) {
+        // setting the image
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(project.getDrawing());
+        Image image = new Image(inputStream);
+        ImageView projectImg = projectTemplateController.getProjectImg();
+        projectImg.setImage(image);
+
+        // setting project details
+        projectTemplateController.getNameLabel().setText(project.getName());
+        projectTemplateController.getLocationLabel().setText(project.getLocation());
+        projectTemplateController.getDateLabel().setText(String.valueOf(project.getDate()));
+        projectTemplateController.getTextLabel().setText(project.getDescription());
+        projectTemplateController.getApprovedProject().setSelected(project.isApproved());
+
+        projectTemplateController.getApprovedProject().setOnAction(event -> {
+            project.setApproved(projectTemplateController.getApprovedProject().isSelected());
+            try {projectModel.updateApprovalStatus(project);} catch (DatabaseException e) {throw new RuntimeException(e);}
+        });
+
+        projectTemplateController.setMainPane(mainPane);
+        projectTemplateController.setModel(projectModel);
+    }
+
+    private void addProjectToProjectsHbox(HBox projectsHbox, HBox hbox) {
+        projectsHbox.getChildren().add(hbox);
     }
 }

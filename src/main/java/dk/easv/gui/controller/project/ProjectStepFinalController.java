@@ -89,7 +89,7 @@ public class ProjectStepFinalController implements Initializable {
     }
 
     public void print() throws IOException {
-        Project project = new Project(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription, true);
+        Project project = new Project(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription, false);
 
         try {
             projectModel.createProject(project);
