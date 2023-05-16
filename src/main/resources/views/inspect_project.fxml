@@ -28,8 +28,9 @@
    <left>
       <VBox prefHeight="360.0" prefWidth="169.0" BorderPane.alignment="CENTER">
          <children>
-            <JFXTextField fx:id="nameField" />
-            <JFXTextField fx:id="locationField" layoutX="10.0" layoutY="10.0" />
+            <JFXTextField fx:id="nameField" promptText="name" />
+            <JFXTextField fx:id="locationField" layoutX="10.0" layoutY="10.0" promptText="location" />
+            <JFXComboBox fx:id="businessType" />
          </children>
       </VBox>
    </left>
