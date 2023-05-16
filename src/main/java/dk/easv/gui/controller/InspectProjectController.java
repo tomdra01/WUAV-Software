@@ -1,6 +1,7 @@
 package dk.easv.gui.controller;
 
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.Project;
 import dk.easv.be.User;
@@ -15,10 +16,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DatePicker;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -26,6 +30,8 @@ public class InspectProjectController implements Initializable {
     @FXML private Button deleteButton, editButton;
     @FXML private JFXTextField nameField, locationField;
     @FXML private JFXComboBox<String> businessType;
+    @FXML private DatePicker dateField;
+    @FXML private JFXTextArea descTextField;
     private BorderPane borderPane;
     private ProjectModel projectModel;
     private ProjectDisplay projectDisplay;
@@ -33,10 +39,14 @@ public class InspectProjectController implements Initializable {
 
     public void setProject(Project project){
         this.project=project;
+
+        //set default values
         businessType.setItems(FXCollections.observableArrayList("Consumer", "Corporate & Government"));
         businessType.setValue(project.getBusinessType());
         nameField.setText(project.getName());
         locationField.setText(project.getLocation());
+        dateField.setValue(project.getDate());
+        descTextField.setText(project.getDescription());
     }
     public void setModel(ProjectModel projectModel){
         this.projectModel=projectModel;
@@ -68,15 +78,19 @@ public class InspectProjectController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
     }
 
-    public void editProject(ActionEvent actionEvent) {
+    public void editProject() {
         try {
             String newName = nameField.getText();
             String newLocation = locationField.getText();
             String newBusinessType = businessType.getValue();
+            LocalDate newDate = dateField.getValue();
+            String newDescription = descTextField.getText();
 
             project.setName(newName);
             project.setLocation(newLocation);
             project.setBusinessType(newBusinessType);
+            project.setDate(newDate);
+            project.setDescription(newDescription);
 
             projectModel.updateProject(project);
         } catch (DatabaseException e) {

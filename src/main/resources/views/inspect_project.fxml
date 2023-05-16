@@ -26,12 +26,32 @@
       </HBox>
    </bottom>
    <left>
-      <VBox prefHeight="360.0" prefWidth="169.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="360.0" prefWidth="196.0" BorderPane.alignment="CENTER">
          <children>
-            <JFXTextField fx:id="nameField" promptText="name" />
-            <JFXTextField fx:id="locationField" layoutX="10.0" layoutY="10.0" promptText="location" />
-            <JFXComboBox fx:id="businessType" />
+            <JFXTextField fx:id="nameField" focusColor="#e84910" promptText="name">
+               <VBox.margin>
+                  <Insets left="10.0" right="75.0" top="25.0" />
+               </VBox.margin></JFXTextField>
+            <JFXTextField fx:id="locationField" focusColor="#e84910" layoutX="10.0" layoutY="10.0" promptText="location">
+               <VBox.margin>
+                  <Insets left="10.0" right="75.0" top="15.0" />
+               </VBox.margin></JFXTextField>
+            <JFXComboBox fx:id="businessType" focusColor="#e84910" prefHeight="25.0" prefWidth="125.0">
+               <VBox.margin>
+                  <Insets left="10.0" top="15.0" />
+               </VBox.margin></JFXComboBox>
+            <DatePicker fx:id="dateField">
+               <VBox.margin>
+                  <Insets left="10.0" right="75.0" top="15.0" />
+               </VBox.margin></DatePicker>
+            <JFXTextArea fx:id="descTextField" focusColor="#e84910">
+               <VBox.margin>
+                  <Insets bottom="25.0" left="10.0" top="15.0" />
+               </VBox.margin></JFXTextArea>
          </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
       </VBox>
    </left>
 </BorderPane>
