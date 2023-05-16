@@ -117,6 +117,27 @@ public class DrawInstallationController implements Initializable {
             }
         });
 
+        canvas.setOnMouseDragged(event -> {
+            if (event.getButton() == MouseButton.SECONDARY) {
+                if (!imageHistory.isEmpty()) {
+                    Point2D mousePosition = new Point2D(event.getX(), event.getY());
+
+                    for (ImagePosition imagePosition : imageHistory) {
+                        // If the mouse is within the bounds of the image
+                        if (mousePosition.getX() >= imagePosition.getX() && mousePosition.getX() <= imagePosition.getX() + imagePosition.getWidth()
+                                && mousePosition.getY() >= imagePosition.getY() && mousePosition.getY() <= imagePosition.getY() + imagePosition.getHeight()) {
+                            // Update the image's position to the current mouse position
+                            imagePosition.setX(mousePosition.getX() - imagePosition.getWidth() / 2);
+                            imagePosition.setY(mousePosition.getY() - imagePosition.getHeight() / 2);
+                        }
+                    }
+
+                    // Redraw the canvas and lines
+                    connectImagesWithLines(gc);
+                }
+            }
+        });
+
         stepBackBtn.setOnAction(event -> stepBack(gc));
     }
 
@@ -137,11 +158,11 @@ public class DrawInstallationController implements Initializable {
             gc.drawImage(image, x, y, width, height);
         }
 
-        if (imagePositions.size() > 1) {
-            Point2D startPoint = imagePositions.get(0);
+        if (imageHistory.size() > 1) {
+            Point2D startPoint = new Point2D(imageHistory.get(0).getX() + imageHistory.get(0).getWidth() / 2, imageHistory.get(0).getY() + imageHistory.get(0).getHeight() / 2);
 
-            for (int i = 1; i < imagePositions.size(); i++) {
-                Point2D endPoint = imagePositions.get(i);
+            for (int i = 1; i < imageHistory.size(); i++) {
+                Point2D endPoint = new Point2D(imageHistory.get(i).getX() + imageHistory.get(i).getWidth() / 2, imageHistory.get(i).getY() + imageHistory.get(i).getHeight() / 2);
                 gc.strokeLine(startPoint.getX(), startPoint.getY(), endPoint.getX(), endPoint.getY());
                 startPoint = endPoint;
             }

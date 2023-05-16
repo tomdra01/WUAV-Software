@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -32,6 +33,7 @@ public class InspectProjectController implements Initializable {
     @FXML private JFXComboBox<String> businessType;
     @FXML private DatePicker dateField;
     @FXML private JFXTextArea descTextField;
+    @FXML private ImageView image1, image2, image3;
     private BorderPane borderPane;
     private ProjectModel projectModel;
     private ProjectDisplay projectDisplay;
@@ -76,6 +78,7 @@ public class InspectProjectController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        projectDisplay = new ProjectDisplay();
     }
 
     public void editProject() {
