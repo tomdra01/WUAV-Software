@@ -6,12 +6,12 @@ import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.gui.model.ProjectModel;
+import dk.easv.gui.util.ImagePosition;
 import dk.easv.gui.util.ViewType;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -22,35 +22,41 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 // java imports
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Stack;
 
 /**
  *
  * @author tomdra01, mrtng1
  */
 public class DrawInstallationController implements Initializable {
+    @FXML private BorderPane currentPane;
     @FXML private ScrollPane scrollPane;
     @FXML private Canvas canvas;
-    @FXML private Button projectorButton, screenButton, tabletButton, speakersButton, nextStepBtn, previousStepBtn;
+    @FXML private Button projectorButton, screenButton, tabletButton, speakersButton, nextStepBtn, previousStepBtn, stepBackBtn;
     private String projectName, businessType, projectLocation, projectDescription;
     private LocalDate projectDate;
     private byte[] projectDrawing;
     private byte[] projectPhoto1, projectPhoto2, projectPhoto3;
     private Image img1, img2, img3;
     private Image image;
-    private final ObservableList<Image> imageHistory = FXCollections.observableArrayList();
+    private final Stack<ImagePosition> imageHistory = new Stack<>();
     private ProjectModel projectModel;
     private HBox projectHbox;
     private JFXComboBox<String> filterComboBox;
     private JFXTextField searchBar;
     private BorderPane mainPane;
     private User user;
+    private final List<Point2D> imagePositions = new ArrayList<>();
 
     public void setMainPage(HBox projectHbox, JFXComboBox<String> filterComboBox, JFXTextField searchBar, BorderPane borderPane){
         this.projectHbox=projectHbox;
@@ -85,28 +91,71 @@ public class DrawInstallationController implements Initializable {
         this.projectPhoto3 = projectPhoto3;
     }
 
-    /**
-     * Enables users to select from device and draw it on canvas
-     */
-    private void drawCanvas(){
+    private void drawCanvas() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        projectorButton.setOnAction(event -> { image = new Image("/images/icons/projector.png");});
-        screenButton.setOnAction(event -> { image = new Image("/images/icons/screen.png");});
-        tabletButton.setOnAction(event -> { image = new Image("/images/icons/tablet.png");});
-        speakersButton.setOnAction(event -> { image = new Image("/images/icons/speakers.png");});
+        projectorButton.setOnAction(event -> {image = new Image("/images/icons/projector.png");});
+        screenButton.setOnAction(event -> {image = new Image("/images/icons/screen.png");});
+        tabletButton.setOnAction(event -> {image = new Image("/images/icons/tablet.png");});
+        speakersButton.setOnAction(event -> {image = new Image("/images/icons/speakers.png");});
 
         canvas.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
-                canvas.requestFocus(); // Request focus on the canvas to remove focus from the scroll pane
+                canvas.requestFocus();
                 double x = event.getX();
                 double y = event.getY();
                 double width = 25;
                 double height = 25;
                 gc.drawImage(image, x, y, width, height);
-                imageHistory.add(new Image(image.getUrl(), width, height, true, true));
+
+                imageHistory.push(new ImagePosition(image, x, y, width, height));
+
+                imagePositions.add(new Point2D(x + width / 2, y + height / 2));
+
+                // Connect the images with lines
+                connectImagesWithLines(gc);
             }
         });
+
+        stepBackBtn.setOnAction(event -> stepBack(gc));
+    }
+
+    private void connectImagesWithLines(GraphicsContext gc) {
+        gc.setStroke(Color.BLACK);
+        gc.setLineWidth(1.0);
+
+        // Clear canvas
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
+        // Draw lines
+        for (ImagePosition imagePosition : imageHistory) {
+            Image image = imagePosition.getImage();
+            double x = imagePosition.getX();
+            double y = imagePosition.getY();
+            double width = imagePosition.getWidth();
+            double height = imagePosition.getHeight();
+            gc.drawImage(image, x, y, width, height);
+        }
+
+        if (imagePositions.size() > 1) {
+            Point2D startPoint = imagePositions.get(0);
+
+            for (int i = 1; i < imagePositions.size(); i++) {
+                Point2D endPoint = imagePositions.get(i);
+                gc.strokeLine(startPoint.getX(), startPoint.getY(), endPoint.getX(), endPoint.getY());
+                startPoint = endPoint;
+            }
+        }
+    }
+
+    private void stepBack(GraphicsContext gc) {
+        if (!imageHistory.isEmpty()) {
+            imageHistory.pop();
+            imagePositions.remove(imagePositions.size() - 1);
+
+            // Redraw the canvas and lines
+            connectImagesWithLines(gc);
+        }
     }
 
     public void nextStep() {
