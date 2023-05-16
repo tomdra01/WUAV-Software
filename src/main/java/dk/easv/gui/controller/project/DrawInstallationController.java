@@ -8,6 +8,7 @@ import dk.easv.bll.exception.GUIException;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.ImagePosition;
 import dk.easv.gui.util.ViewType;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -57,6 +58,7 @@ public class DrawInstallationController implements Initializable {
     private BorderPane mainPane;
     private User user;
     private final List<Point2D> imagePositions = new ArrayList<>();
+    SimpleBooleanProperty isDragOperation = new SimpleBooleanProperty(false);
 
     public void setMainPage(HBox projectHbox, JFXComboBox<String> filterComboBox, JFXTextField searchBar, BorderPane borderPane){
         this.projectHbox=projectHbox;
@@ -99,26 +101,13 @@ public class DrawInstallationController implements Initializable {
         tabletButton.setOnAction(event -> {image = new Image("/images/icons/tablet.png");});
         speakersButton.setOnAction(event -> {image = new Image("/images/icons/speakers.png");});
 
-        canvas.setOnMouseClicked(event -> {
-            if (event.getButton() == MouseButton.PRIMARY) {
-                canvas.requestFocus();
-                double x = event.getX();
-                double y = event.getY();
-                double width = 25;
-                double height = 25;
-                gc.drawImage(image, x, y, width, height);
-
-                imageHistory.push(new ImagePosition(image, x, y, width, height));
-
-                imagePositions.add(new Point2D(x + width / 2, y + height / 2));
-
-                // Connect the images with lines
-                connectImagesWithLines(gc);
-            }
+        canvas.setOnMousePressed(event -> {
+            isDragOperation.set(false);
         });
 
         canvas.setOnMouseDragged(event -> {
-            if (event.getButton() == MouseButton.SECONDARY) {
+            if (event.getButton() == MouseButton.PRIMARY) {
+                isDragOperation.set(true);
                 if (!imageHistory.isEmpty()) {
                     Point2D mousePosition = new Point2D(event.getX(), event.getY());
 
@@ -135,6 +124,24 @@ public class DrawInstallationController implements Initializable {
                     // Redraw the canvas and lines
                     connectImagesWithLines(gc);
                 }
+            }
+        });
+
+        canvas.setOnMouseReleased(event -> {
+            if (event.getButton() == MouseButton.PRIMARY && !isDragOperation.get()) {
+                canvas.requestFocus();
+                double x = event.getX();
+                double y = event.getY();
+                double width = 25;
+                double height = 25;
+                gc.drawImage(image, x, y, width, height);
+
+                imageHistory.push(new ImagePosition(image, x, y, width, height));
+
+                imagePositions.add(new Point2D(x + width / 2, y + height / 2));
+
+                // Connect the images with lines
+                connectImagesWithLines(gc);
             }
         });
 
