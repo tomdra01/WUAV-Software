@@ -28,6 +28,11 @@ import java.util.List;
  */
 public class ProjectDisplay {
     private List<Project> projects;
+    private User user;
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public void showAllProjects(HBox projectsHbox, JFXComboBox<String> filterComboBox, JFXTextField searchBar, ProjectModel projectModel, BorderPane mainPane) {
         clearProjectsHbox(projectsHbox);

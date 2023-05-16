@@ -1,14 +1,18 @@
 package dk.easv.gui.controller.users;
 
 // imports
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
 import dk.easv.bll.exception.GUIException;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.model.UserModel;
 import dk.easv.gui.util.ClockUtil;
 import dk.easv.gui.util.HamburgerUtil;
+import dk.easv.gui.util.ProjectDisplay;
 import dk.easv.gui.util.ViewType;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -34,11 +38,14 @@ public class ProjectManagerWindowController implements Initializable {
     @FXML private BorderPane mainPane;
     @FXML private HBox hbox, projectsHbox;
     @FXML private JFXHamburger jfxHamburger;
+    @FXML private JFXComboBox<String> filterComboBox;
+    @FXML private JFXTextField searchBar;
     private final Button editButton = new Button("Edit project");
     private final Button logOutButton = new Button("Log out");
     private User user;
     private UserModel userModel;
     private ProjectModel projectModel;
+    private ProjectDisplay projectDisplay;
 
     public void setModel(UserModel userModel) {
         this.userModel = userModel;
@@ -93,14 +100,30 @@ public class ProjectManagerWindowController implements Initializable {
         });
     }
 
+    private void searchFilter(){
+        filterComboBox.setItems(FXCollections.observableArrayList("All", "Consumer", "Corporate & Government"));
+        filterComboBox.setValue("All");
+
+        // showcase of all projects based on the filter
+        projectDisplay.showAllProjects(projectsHbox, filterComboBox, searchBar, projectModel, mainPane);
+
+        filterComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)
+                -> projectDisplay.showAllProjects(projectsHbox, filterComboBox, searchBar, projectModel, mainPane));
+
+        searchBar.textProperty().addListener((observable, oldValue, newValue) ->
+                projectDisplay.showAllProjects(projectsHbox, filterComboBox, searchBar, projectModel, mainPane));
+    }
+
     /**
      * Initialize method
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        projectDisplay = new ProjectDisplay();
         projectModel = new ProjectModel();
         ClockUtil.showWidget(hbox);//clock
         hamburgerMenu(); //hamburger
         hamburgerButtons(); //buttons in hamburger
+        searchFilter();
     }
 }

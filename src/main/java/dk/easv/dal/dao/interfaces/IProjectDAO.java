@@ -22,4 +22,5 @@ public interface IProjectDAO extends IDataAccess {
     void deleteProject(Project project) throws DatabaseException;
     void technicianProject(User user, Project project) throws DatabaseException;
     void updateApprovalStatus(Project project) throws DatabaseException;
+    void updateProject(Project project) throws DatabaseException;
 }

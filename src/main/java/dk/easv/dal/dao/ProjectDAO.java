@@ -233,4 +233,29 @@ public class ProjectDAO implements IProjectDAO {
             throw new DatabaseException("Failed to update the approval status", e);
         }
     }
+
+    /**
+     * Updates a project in the database.
+     * @param project sends object "Project" as a parameter.
+     * @throws DatabaseException to handles SQLException.
+     */
+    public void updateProject(Project project) throws DatabaseException {
+        try (Connection con = databaseConnector.getConnection()) {
+            PreparedStatement pst = con.prepareStatement("UPDATE Project SET name = ?, businessType = ?, location = ?, date = ?, drawing = ?, description = ? WHERE id = ?");
+            pst.setString(1, project.getName());
+            pst.setString(2, project.getBusinessType());
+            pst.setString(3, project.getLocation());
+            pst.setDate(4, Date.valueOf(project.getDate()));
+            pst.setBytes(5, project.getDrawing());
+            pst.setString(6, project.getDescription());
+            pst.setInt(7, project.getId());
+            int rowsAffected = pst.executeUpdate();
+
+            if (rowsAffected == 0) {
+                throw new RuntimeException("Project not found");
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Failed to update the project", e);
+        }
+    }
 }

@@ -49,4 +49,8 @@ public class ProjectLogic {
     public void updateApprovalStatus(Project project) throws DatabaseException {
         projectDAO.updateApprovalStatus(project);
     }
+
+    public void updateProject(Project project) throws DatabaseException {
+        projectDAO.updateProject(project);
+    }
 }

@@ -65,4 +65,8 @@ public class ProjectModel {
     public void updateApprovalStatus(Project project) throws DatabaseException {
         projectLogic.updateApprovalStatus(project);
     }
+
+    public void updateProject(Project project) throws DatabaseException {
+        projectLogic.updateProject(project);
+    }
 }
