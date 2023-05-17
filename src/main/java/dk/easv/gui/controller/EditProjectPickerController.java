@@ -2,6 +2,7 @@ package dk.easv.gui.controller;
 
 import com.jfoenix.controls.JFXComboBox;
 import dk.easv.be.Project;
+import dk.easv.bll.util.ProjectListCell;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.BlurEffectUtil;
 import dk.easv.gui.util.ViewType;
@@ -35,15 +36,26 @@ public class EditProjectPickerController implements Initializable {
 
         projectComboBox.setCellFactory(lv -> new ProjectListCell());
         projectComboBox.setButtonCell(projectComboBox.getCellFactory().call(null));
-        editSelectedProject();
-    }
 
-    private class ProjectListCell extends ListCell<Project> {
-        @Override
-        protected void updateItem(Project project, boolean empty) {
-            super.updateItem(project, empty);
-            setText(empty ? "" : project.getName());
-        }
+        projectComboBox.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.EDIT_PROJECT.getView()));
+                Parent root = loader.load();
+
+                Project selectedProject = projectComboBox.getValue();
+
+                EditProjectController editProjectController = loader.getController();
+                editProjectController.setProject(selectedProject);
+                editProjectController.setProjectModel(projectModel);
+
+                Stage window = (Stage) projectComboBox.getScene().getWindow();
+                window.setTitle("Editing");
+                Scene scene = new Scene(root);
+                window.setScene(scene);
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to open editing for this project", e);
+            }
+        });
     }
 
     public void setPane(BorderPane borderPane) {
