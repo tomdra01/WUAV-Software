@@ -59,6 +59,7 @@ public class DrawInstallationController implements Initializable {
     private User user;
     private final List<Point2D> imagePositions = new ArrayList<>();
     private final List<List<Point2D>> linePoints = new ArrayList<>();
+    private final Stack<String> actions = new Stack<>();
     SimpleBooleanProperty isDragOperation = new SimpleBooleanProperty(false);
 
     public void setMainPage(HBox projectHbox, JFXComboBox<String> filterComboBox, JFXTextField searchBar, BorderPane borderPane){
@@ -138,8 +139,8 @@ public class DrawInstallationController implements Initializable {
                 gc.drawImage(image, x, y, width, height);
 
                 imageHistory.push(new ImagePosition(image, x, y, width, height));
-
                 imagePositions.add(new Point2D(x + width / 2, y + height / 2));
+                actions.push("image");  // Add an "image" action
             } else if (event.getButton() == MouseButton.SECONDARY) {
                 double x = event.getX();
                 double y = event.getY();
@@ -151,6 +152,20 @@ public class DrawInstallationController implements Initializable {
                     }
                     linePoints.get(linePoints.size() - 1).add(new Point2D(nearestImage.getX() + nearestImage.getWidth() / 2, nearestImage.getY() + nearestImage.getHeight() / 2));
                     connectImagesWithLines(gc);
+                    actions.push("line");  // Add a "line" action
+                }
+            }
+        });
+
+        canvas.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.MIDDLE) {
+                double x = event.getX();
+                double y = event.getY();
+                Point2D clickedPoint = new Point2D(x, y);
+                List<Point2D> nearestLine = findNearestLine(clickedPoint);
+                if (nearestLine != null) {
+                    linePoints.remove(nearestLine);
+                    connectImagesWithLines(canvas.getGraphicsContext2D());
                 }
             }
         });
@@ -171,6 +186,33 @@ public class DrawInstallationController implements Initializable {
             }
         }
         return nearestImage;
+    }
+
+    private List<Point2D> findNearestLine(Point2D point) {
+        List<Point2D> nearestLine = null;
+        double minDistance = Double.MAX_VALUE;
+        for (List<Point2D> line : linePoints) {
+            if (line.size() == 2) {
+                Point2D startPoint = line.get(0);
+                Point2D endPoint = line.get(1);
+                double distance = calculatePointToLineDistance(startPoint, endPoint, point);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    nearestLine = line;
+                }
+            }
+        }
+        return minDistance < 10 ? nearestLine : null;  // Only return the line if the distance is less than 10
+    }
+
+    private double calculatePointToLineDistance(Point2D startPoint, Point2D endPoint, Point2D point) {
+        double dx = endPoint.getX() - startPoint.getX();
+        double dy = endPoint.getY() - startPoint.getY();
+        double lineLengthSquared = dx * dx + dy * dy;
+        if (lineLengthSquared == 0) return point.distance(startPoint);
+        double t = ((point.getX() - startPoint.getX()) * dx + (point.getY() - startPoint.getY()) * dy) / lineLengthSquared;
+        t = Math.max(0, Math.min(1, t));
+        return point.distance(startPoint.getX() + t * dx, startPoint.getY() + t * dy);
     }
 
     private void connectImagesWithLines(GraphicsContext gc) {
@@ -200,14 +242,24 @@ public class DrawInstallationController implements Initializable {
     }
 
     private void stepBack(GraphicsContext gc) {
-        if (!imageHistory.isEmpty()) {
-            imageHistory.pop();
-            imagePositions.remove(imagePositions.size() - 1);
-
-            // Redraw the canvas and lines
-            connectImagesWithLines(gc);
+        if (!actions.isEmpty()) {
+            String lastAction = actions.pop();
+            if (lastAction.equals("image")) {
+                if (!imageHistory.isEmpty()) {
+                    imageHistory.pop();
+                    imagePositions.remove(imagePositions.size() - 1);
+                }
+            } else if (lastAction.equals("line")) {
+                if (!linePoints.isEmpty()) {
+                    linePoints.remove(linePoints.size() - 1);
+                }
+            }
         }
+
+        // Redraw the canvas and lines
+        connectImagesWithLines(gc);
     }
+    
 
     public void nextStep() {
         try {
