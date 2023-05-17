@@ -6,14 +6,14 @@ import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.Project;
 import dk.easv.be.User;
 import dk.easv.bll.exception.DatabaseException;
-import dk.easv.bll.exception.GUIException;
+import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.util.ProjectDisplay;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.BlurEffectUtil;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.WritableImage;
@@ -29,13 +29,12 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 // java imports
 import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
@@ -94,15 +93,24 @@ public class ProjectStepFinalController implements Initializable {
         try {
             projectModel.createProject(project);
         } catch (DatabaseException e) {
-            throw new GUIException("Failed creating a project ",e);
+            PopupUtil.showAlert("Something went wrong ", e.getMessage(), Alert.AlertType.ERROR);
+            e.printStackTrace();
         }
 
-        try {
-            projectModel.technicianProject(user, project);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        if (Objects.equals(user.getRole(), "Technician")){
+            try {
+                projectModel.technicianProject(user, project);
+            } catch (DatabaseException e) {
+                e.printStackTrace();
+                PopupUtil.showAlert("Something went wrong", e.getMessage(), Alert.AlertType.ERROR);
+            }
+            projectDisplay.showTechnicianProjects(projectHbox, filterComboBox, searchBar, projectModel, mainPane, user);
+        }
+        else if (Objects.equals(user.getRole(), "Admin")){
+            projectDisplay.showAllProjects(projectHbox, filterComboBox, searchBar, projectModel, mainPane);
         }
 
+        /**
         byte[][] imagesArray = { projectPhoto1, projectPhoto2, projectPhoto3 };
 
         for (byte[] image : imagesArray) {
@@ -154,11 +162,11 @@ public class ProjectStepFinalController implements Initializable {
                     desktop.open(outputFile);
                 }
             }
-        }
+        }*/
+
+        BlurEffectUtil.removeBlurEffect(mainPane);
         Stage stage = (Stage) printBtn.getScene().getWindow();
         stage.close();
-        projectDisplay.showTechnicianProjects(projectHbox, filterComboBox, searchBar, projectModel, mainPane, user);
-        BlurEffectUtil.removeBlurEffect(mainPane);
     }
 
     /**

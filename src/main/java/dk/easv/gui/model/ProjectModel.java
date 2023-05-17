@@ -30,7 +30,7 @@ public class ProjectModel {
         return salesmenProjects;
     }
 
-    public void loadProjects() throws Exception {
+    public void loadProjects() throws DatabaseException {
         projects.clear();
         projects.addAll(projectLogic.readAllProjects());
     }
@@ -50,23 +50,23 @@ public class ProjectModel {
         projects.add(p);
     }
 
-    public void deleteProject(Project project) throws Exception {
-        projectLogic.deleteProject(project);
-    }
-
-    public void insertImages(Project project, byte[] imageData) throws Exception {
+    public void insertImages(Project project, byte[] imageData) throws DatabaseException {
         projectLogic.insertImages(project, imageData);
     }
 
-    public void technicianProject(User user, Project project) throws Exception {
+    public void technicianProject(User user, Project project) throws DatabaseException {
         projectLogic.technicianProject(user, project);
     }
 
-    public void updateApprovalStatus(Project project) throws DatabaseException {
-        projectLogic.updateApprovalStatus(project);
+    public void deleteProject(Project project) throws DatabaseException {
+        projectLogic.deleteProject(project);
     }
 
     public void updateProject(Project project) throws DatabaseException {
         projectLogic.updateProject(project);
+    }
+
+    public void updateApprovalStatus(Project project) throws DatabaseException {
+        projectLogic.updateApprovalStatus(project);
     }
 }

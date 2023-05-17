@@ -5,7 +5,6 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
 import dk.easv.bll.exception.DatabaseException;
-import dk.easv.bll.exception.GUIException;
 import dk.easv.bll.util.PasswordSecurity;
 import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.model.UserModel;
@@ -62,7 +61,7 @@ public class CreateUserWindowController implements Initializable {
             try {
                 userModel.createUser(user);
             } catch (DatabaseException e) {
-                throw new GUIException("Failed to create users in GUI", e);
+                throw new RuntimeException("Failed to create users in GUI", e);
             }
         } else {
             PopupUtil.showAlert("Empty fields", "Please fill in all the fields", Alert.AlertType.INFORMATION);

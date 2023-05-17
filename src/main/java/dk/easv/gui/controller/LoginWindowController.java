@@ -4,7 +4,6 @@ package dk.easv.gui.controller;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
-import dk.easv.bll.exception.GUIException;
 import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.controller.users.AdminWindowController;
 import dk.easv.gui.controller.users.ProjectManagerWindowController;
@@ -114,13 +113,13 @@ public class LoginWindowController implements Initializable {
     public void loginEnter(){
         nameField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
-                try {login();} catch (IOException e) {throw new GUIException("Failed to login", e);}
+                try {login();} catch (IOException e) {throw new RuntimeException("Failed to login", e);}
             }
         });
 
         passwordField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
-                try {login();} catch (IOException e) {throw new GUIException("Failed to login", e);}
+                try {login();} catch (IOException e) {throw new RuntimeException("Failed to login", e);}
             }
         });
     }

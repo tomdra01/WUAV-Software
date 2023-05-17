@@ -1,16 +1,13 @@
 package dk.easv.dal.dao;
 
 // imports
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dk.easv.be.Project;
 import dk.easv.be.User;
-import dk.easv.bll.exception.DatabaseException;
 import dk.easv.dal.database.DatabaseConnector;
 import dk.easv.dal.dao.interfaces.IProjectDAO;
 
 // java imports
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,16 +16,16 @@ import java.util.List;
  * @author tomdra01, mrtng1
  */
 public class ProjectDAO implements IProjectDAO {
-    private DatabaseConnector databaseConnector;
+    private final DatabaseConnector databaseConnector;
     public ProjectDAO() {
         databaseConnector = new DatabaseConnector();
     }
 
     /**
      * Gets the list of all projects from the database.
-     * @throws DatabaseException to handles SQLException.
+     * @throws Exception pushes any kind of Exception upwards to the BLL.
      */
-    public List<Project> readAllProjects() throws DatabaseException {
+    public List<Project> readAllProjects() throws Exception {
         List<Project> allProjects = new ArrayList<>();
 
         try (Connection con = databaseConnector.getConnection()) {
@@ -54,17 +51,15 @@ public class ProjectDAO implements IProjectDAO {
                     allProjects.add(project);
                 }
             }
-        } catch (SQLException e) {
-            throw new DatabaseException("Failed to get all projects", e);
         }
         return allProjects;
     }
 
     /**
      * Gets the list of all projects from the database.
-     * @throws DatabaseException to handles SQLException.
+     * @throws Exception pushes any kind of Exception upwards to the BLL.
      */
-    public List<Project> readTechnicianProjects(User user) throws DatabaseException {
+    public List<Project> readTechnicianProjects(User user) throws Exception {
         List<Project> technicianProjects = new ArrayList<>();
 
         try (Connection con = databaseConnector.getConnection()) {
@@ -90,17 +85,15 @@ public class ProjectDAO implements IProjectDAO {
 
                 technicianProjects.add(project);
             }
-        } catch (SQLException e) {
-            throw new DatabaseException("Failed to get technician projects", e);
         }
         return technicianProjects;
     }
 
     /**
      * Gets the list of all projects from the database.
-     * @throws DatabaseException to handles SQLException.
+     * @throws Exception pushes any kind of Exception upwards to the BLL.
      */
-    public List<Project> readSalesmanProjects() throws DatabaseException {
+    public List<Project> readSalesmanProjects() throws Exception {
         List<Project> approvedProjects = new ArrayList<>();
 
         try (Connection con = databaseConnector.getConnection()) {
@@ -126,19 +119,16 @@ public class ProjectDAO implements IProjectDAO {
                     approvedProjects.add(project);
                 }
             }
-        } catch (SQLException e) {
-            throw new DatabaseException("Failed to get all projects", e);
         }
         return approvedProjects;
     }
 
-
     /**
      * Creates project in the database.
      * @param project sends object "Project" as a parameter.
-     * @throws DatabaseException to handles SQLException.
+     * @throws Exception pushes any kind of Exception upwards to the BLL.
      */
-    public Project createProject(Project project) throws DatabaseException {
+    public Project createProject(Project project) throws Exception {
         try (Connection con = databaseConnector.getConnection()) {
             PreparedStatement pst = con.prepareStatement("INSERT INTO Project (name, businessType, location, date, drawing, description, approved) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             pst.setString(1, project.getName());
@@ -156,19 +146,46 @@ public class ProjectDAO implements IProjectDAO {
                 return project;
             }
             throw new RuntimeException("Id not set");
-
-        } catch (SQLException e) {
-            throw new DatabaseException("Failed to create the project", e);
         }
+    }
 
+    /**
+     * Inserts images according to specific project.
+     * @param project sends object "Project" as a parameter.
+     * @param imageData sends image bytes.
+     * @throws Exception pushes any kind of Exception upwards to the BLL.
+     */
+    public void insertImages(Project project, byte[] imageData) throws Exception {
+        try (Connection con = databaseConnector.getConnection()) {
+            PreparedStatement pst = con.prepareStatement("INSERT INTO ProjectPhotos(project_id, imageData) VALUES(?, ?)", Statement.RETURN_GENERATED_KEYS);
+            pst.setInt(1, project.getId());
+            pst.setBytes(2, imageData);
+            pst.executeUpdate();
+        }
+    }
+
+    /**
+     * Assigns technician to the project.
+     * @param user sends object "User" as a parameter.
+     * @param project sends object "Project" as a parameter.
+     * @throws Exception pushes any kind of Exception upwards to the BLL.
+     */
+    public void technicianProject(User user, Project project) throws Exception {
+        try (Connection con = databaseConnector.getConnection()) {
+            PreparedStatement pst = con.prepareStatement("INSERT INTO TechnicianProject(technician_id, project_id) VALUES(?, ?)", Statement.RETURN_GENERATED_KEYS);
+            pst.setInt(1, user.getId());
+            pst.setInt(2, project.getId());
+            pst.executeUpdate();
+            con.commit();
+        }
     }
 
     /**
      * Deletes the project
      * @param project sends object "Project" as a parameter.
-     * @throws DatabaseException to handles SQLException.
+     * @throws Exception pushes any kind of Exception upwards to the BLL.
      */
-    public void deleteProject(Project project) throws DatabaseException {
+    public void deleteProject(Project project) throws Exception {
         try (Connection con = databaseConnector.getConnection()) {
             PreparedStatement pstDeleteProject = con.prepareStatement("DELETE FROM [Project] WHERE id = ?");
             pstDeleteProject.setInt(1, project.getId());
@@ -179,67 +196,15 @@ public class ProjectDAO implements IProjectDAO {
             pstDeleteTechnicianProject.executeUpdate();
 
             con.commit();
-        } catch (SQLException e) {
-            throw new DatabaseException("Failed to delete the project", e);
-        }
-    }
-
-    /**
-     * Inserts images according to specific project.
-     * @param project sends object "Project" as a parameter.
-     * @param imageData sends image bytes.
-     * @throws DatabaseException to handles SQLException.
-     */
-    public void insertImages(Project project, byte[] imageData) throws DatabaseException {
-        try (Connection con = databaseConnector.getConnection()) {
-            PreparedStatement pst = con.prepareStatement("INSERT INTO ProjectPhotos(project_id, imageData) VALUES(?, ?)", Statement.RETURN_GENERATED_KEYS);
-            pst.setInt(1, project.getId());
-            pst.setBytes(2, imageData);
-            pst.executeUpdate();
-        } catch (SQLException e) {
-            throw new DatabaseException("Failed to insert images", e);
-        }
-    }
-
-    /**
-     * Assigns technician to the project.
-     * @param user sends object "User" as a parameter.
-     * @param project sends object "Project" as a parameter.
-     * @throws DatabaseException to handles SQLException.
-     */
-    public void technicianProject(User user, Project project) throws DatabaseException {
-        try (Connection con = databaseConnector.getConnection()) {
-            PreparedStatement pst = con.prepareStatement("INSERT INTO TechnicianProject(technician_id, project_id) VALUES(?, ?)", Statement.RETURN_GENERATED_KEYS);
-            pst.setInt(1, user.getId());
-            pst.setInt(2, project.getId());
-            pst.executeUpdate();
-            con.commit();
-        } catch (SQLException e) {
-            throw new DatabaseException("Failed to assign technician to the project", e);
-        }
-    }
-
-    public void updateApprovalStatus(Project project) throws DatabaseException {
-        try (Connection con = databaseConnector.getConnection()) {
-            PreparedStatement pst = con.prepareStatement("UPDATE Project SET approved = ? WHERE id = ?");
-            pst.setBoolean(1, project.isApproved());
-            pst.setInt(2, project.getId());
-            int rowsAffected = pst.executeUpdate();
-
-            if (rowsAffected == 0) {
-                throw new RuntimeException("Project not found");
-            }
-        } catch (SQLException e) {
-            throw new DatabaseException("Failed to update the approval status", e);
         }
     }
 
     /**
      * Updates a project in the database.
      * @param project sends object "Project" as a parameter.
-     * @throws DatabaseException to handles SQLException.
+     * @throws Exception pushes any kind of Exception upwards to the BLL.
      */
-    public void updateProject(Project project) throws DatabaseException {
+    public void updateProject(Project project) throws Exception {
         try (Connection con = databaseConnector.getConnection()) {
             PreparedStatement pst = con.prepareStatement("UPDATE Project SET name = ?, businessType = ?, location = ?, date = ?, drawing = ?, description = ? WHERE id = ?");
             pst.setString(1, project.getName());
@@ -254,8 +219,24 @@ public class ProjectDAO implements IProjectDAO {
             if (rowsAffected == 0) {
                 throw new RuntimeException("Project not found");
             }
-        } catch (SQLException e) {
-            throw new DatabaseException("Failed to update the project", e);
+        }
+    }
+
+    /**
+     * Updates project approval status.
+     * @param project sends object "Project" as a parameter.
+     * @throws Exception pushes any kind of Exception upwards to the BLL.
+     */
+    public void updateApprovalStatus(Project project) throws Exception {
+        try (Connection con = databaseConnector.getConnection()) {
+            PreparedStatement pst = con.prepareStatement("UPDATE Project SET approved = ? WHERE id = ?");
+            pst.setBoolean(1, project.isApproved());
+            pst.setInt(2, project.getId());
+            int rowsAffected = pst.executeUpdate();
+
+            if (rowsAffected == 0) {
+                throw new RuntimeException("Project not found");
+            }
         }
     }
 }

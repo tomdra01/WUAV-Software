@@ -1,17 +1,14 @@
 package dk.easv.gui.controller.project;
 
 // imports
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
-import dk.easv.bll.exception.GUIException;
 import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.ViewType;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -112,7 +109,7 @@ public class ProjectStep4Controller implements Initializable {
                 Scene scene = new Scene(root);
                 window.setScene(scene);
             } catch (IOException e) {
-                throw new GUIException("Failed to change the window", e);
+                throw new RuntimeException("Failed to change the window", e);
             }
         }
 
@@ -137,7 +134,7 @@ public class ProjectStep4Controller implements Initializable {
             Scene scene = new Scene(root);
             window.setScene(scene);
         } catch (IOException e) {
-            throw new GUIException("Failed to change the window", e);
+            throw new RuntimeException("Failed to change the window", e);
         }
     }
 

@@ -5,7 +5,6 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
-import dk.easv.bll.exception.GUIException;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.model.UserModel;
 import dk.easv.gui.util.ClockUtil;
@@ -94,7 +93,7 @@ public class SalesmanWindowController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
             } catch (IOException e) {
-                throw new GUIException("Failed to logout", e);
+                throw new RuntimeException("Failed to logout", e);
             }
         });
     }

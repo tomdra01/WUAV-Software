@@ -4,7 +4,6 @@ package dk.easv.gui.controller.project;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
-import dk.easv.bll.exception.GUIException;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.ImagePosition;
 import dk.easv.gui.util.ViewType;
@@ -122,8 +121,6 @@ public class DrawInstallationController implements Initializable {
                             imagePosition.setY(mousePosition.getY() - imagePosition.getHeight() / 2);
                         }
                     }
-
-                    // Redraw the canvas and lines
                     connectImagesWithLines(gc);
                 }
             }
@@ -259,7 +256,6 @@ public class DrawInstallationController implements Initializable {
         // Redraw the canvas and lines
         connectImagesWithLines(gc);
     }
-    
 
     public void nextStep() {
         try {
@@ -278,7 +274,7 @@ public class DrawInstallationController implements Initializable {
             Scene scene = new Scene(root);
             window.setScene(scene);
         } catch (IOException e) {
-            throw new GUIException("Failed to change the window", e);
+            throw new RuntimeException("Failed to change the window", e);
         }
     }
 
@@ -298,7 +294,7 @@ public class DrawInstallationController implements Initializable {
             Scene scene = new Scene(root);
             window.setScene(scene);
         } catch (IOException e) {
-            throw new GUIException("Failed to change the window", e);
+            throw new RuntimeException("Failed to change the window", e);
         }
     }
 

@@ -2,7 +2,6 @@ package dk.easv.dal.dao;
 
 // imports
 import dk.easv.be.User;
-import dk.easv.bll.exception.DatabaseException;
 import dk.easv.dal.database.DatabaseConnector;
 import dk.easv.dal.dao.interfaces.IUserDao;
 
@@ -21,8 +20,11 @@ public class UserDAO implements IUserDao {
         databaseConnector = new DatabaseConnector();
     }
 
-
-    public List<User> readUsers() throws DatabaseException {
+    /**
+     * Gets the list of users from the database.
+     * @throws Exception pushes any kind of Exception upwards to the BLL.
+     */
+    public List<User> readUsers() throws Exception {
         List<User> allUsers = new ArrayList<>();
 
         try (Connection con = databaseConnector.getConnection()) {
@@ -44,13 +46,16 @@ public class UserDAO implements IUserDao {
                     allUsers.add(user);
                 }
             }
-        } catch (SQLException e) {
-            throw new DatabaseException("", e);
         }
         return allUsers;
     }
 
-    public User createUser(User user) throws DatabaseException {
+    /**
+     * Creates project in the database.
+     * @param user sends object "User" as a parameter.
+     * @throws Exception pushes any kind of Exception upwards to the BLL.
+     */
+    public User createUser(User user) throws Exception {
         try (Connection con = databaseConnector.getConnection()) {
             PreparedStatement pst = con.prepareStatement("INSERT INTO [User] (username, password, role) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             pst.setString(1, user.getUsername());
@@ -63,10 +68,7 @@ public class UserDAO implements IUserDao {
                 user.setId(id);
                 return user;
             }
-            throw new DatabaseException("Id not set");
-
-        } catch (SQLException e) {
-            throw new DatabaseException("Failed to create technician", e);
+            throw new RuntimeException("Id not set");
         }
     }
 }

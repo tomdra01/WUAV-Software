@@ -1,6 +1,7 @@
 package dk.easv.dal;
 
 //imports
+import dk.easv.dal.dao.CustomerDAO;
 import dk.easv.dal.dao.ProjectDAO;
 import dk.easv.dal.dao.UserDAO;
 

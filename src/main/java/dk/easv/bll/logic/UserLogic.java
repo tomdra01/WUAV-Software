@@ -18,10 +18,18 @@ public class UserLogic {
     IUserDao userDao = (IUserDao) DAOFactory.getDAO(DataAccessObjects.USER_DAO);
 
     public List<User> readUsers() throws DatabaseException {
-        return userDao.readUsers();
+        try {
+            return userDao.readUsers();
+        } catch (Exception e) {
+            throw new DatabaseException("Failed to read all of the users", e);
+        }
     }
 
     public User createUser(User user) throws DatabaseException {
-        return userDao.createUser(user);
+        try {
+            return userDao.createUser(user);
+        } catch (Exception e) {
+            throw new DatabaseException("Failed to create the user", e);
+        }
     }
 }

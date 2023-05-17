@@ -18,39 +18,75 @@ import java.util.List;
 public class ProjectLogic {
     IProjectDAO projectDAO = (IProjectDAO) DAOFactory.getDAO(DataAccessObjects.PROJECT_DAO);
 
-    public List<Project> readAllProjects() throws Exception {
-        return projectDAO.readAllProjects();
+    public List<Project> readAllProjects() throws DatabaseException {
+        try {
+            return projectDAO.readAllProjects();
+        } catch (Exception e) {
+            throw new DatabaseException("Failed to read all of the projects", e);
+        }
     }
 
     public List<Project> readTechnicianProjects(User user) throws DatabaseException {
-        return projectDAO.readTechnicianProjects(user);
+        try {
+            return projectDAO.readTechnicianProjects(user);
+        } catch (Exception e) {
+            throw new DatabaseException("Failed to read all of the technician projects", e);
+        }
     }
 
     public List<Project> readSalesmanProjects() throws DatabaseException {
-        return projectDAO.readSalesmanProjects();
+        try {
+            return projectDAO.readSalesmanProjects();
+        } catch (Exception e) {
+            throw new DatabaseException("Failed to read all of the salesman projects", e);
+        }
     }
 
     public Project createProject(Project project) throws DatabaseException {
-        return projectDAO.createProject(project);
+        try {
+            return projectDAO.createProject(project);
+        } catch (Exception e) {
+            throw new DatabaseException("Failed to create the project", e);
+        }
     }
 
-    public void deleteProject(Project project) throws Exception {
-        projectDAO.deleteProject(project);
+    public void insertImages(Project project, byte[] imageData) throws DatabaseException {
+        try {
+            projectDAO.insertImages(project, imageData);
+        } catch (Exception e) {
+            throw new DatabaseException("Failed to insert images", e);
+        }
     }
 
-    public void insertImages(Project project, byte[] imageData) throws Exception {
-        projectDAO.insertImages(project, imageData);
+    public void technicianProject(User user, Project project) throws DatabaseException {
+        try {
+            projectDAO.technicianProject(user, project);
+        } catch (Exception e) {
+            throw new DatabaseException("Failed to assign project to the technician", e);
+        }
     }
 
-    public void technicianProject(User user, Project project) throws Exception {
-        projectDAO.technicianProject(user, project);
-    }
-
-    public void updateApprovalStatus(Project project) throws DatabaseException {
-        projectDAO.updateApprovalStatus(project);
+    public void deleteProject(Project project) throws DatabaseException {
+        try {
+            projectDAO.deleteProject(project);
+        } catch (Exception e) {
+            throw new DatabaseException("Failed to delete the project", e);
+        }
     }
 
     public void updateProject(Project project) throws DatabaseException {
-        projectDAO.updateProject(project);
+        try {
+            projectDAO.updateProject(project);
+        } catch (Exception e) {
+            throw new DatabaseException("Failed to update the project", e);
+        }
+    }
+
+    public void updateApprovalStatus(Project project) throws DatabaseException {
+        try {
+            projectDAO.updateApprovalStatus(project);
+        } catch (Exception e) {
+            throw new DatabaseException("Failed to update approval status", e);
+        }
     }
 }

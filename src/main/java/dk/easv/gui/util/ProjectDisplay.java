@@ -6,7 +6,6 @@ import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.Project;
 import dk.easv.be.User;
 import dk.easv.bll.exception.DatabaseException;
-import dk.easv.bll.exception.GUIException;
 import dk.easv.gui.controller.ProjectTemplateController;
 import dk.easv.gui.model.ProjectModel;
 import javafx.fxml.FXMLLoader;
@@ -61,7 +60,7 @@ public class ProjectDisplay {
                 addProjectToProjectsHbox(projectsHbox, hbox);
                 HBox.setMargin(hbox, new Insets(0, 10, 0, 0));
             } catch (IOException e) {
-                throw new GUIException("Failed to show filtered projects", e);
+                throw new RuntimeException("Failed to show filtered projects", e);
             }
             counter++;
         }
@@ -94,7 +93,7 @@ public class ProjectDisplay {
                 addProjectToProjectsHbox(projectsHbox, hbox);
                 HBox.setMargin(hbox, new Insets(0, 10, 0, 0));
             } catch (IOException e) {
-                throw new GUIException("Failed to show filtered projects", e);
+                throw new RuntimeException("Failed to show filtered projects", e);
             }
             counter++;
         }
@@ -127,7 +126,7 @@ public class ProjectDisplay {
                 addProjectToProjectsHbox(projectsHbox, hbox);
                 HBox.setMargin(hbox, new Insets(0, 10, 0, 0));
             } catch (IOException e) {
-                throw new GUIException("Failed to show filtered projects", e);
+                throw new RuntimeException("Failed to show filtered projects", e);
             }
             counter++;
         }

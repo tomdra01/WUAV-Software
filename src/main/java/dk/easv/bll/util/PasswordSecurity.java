@@ -1,7 +1,6 @@
 package dk.easv.bll.util;
 
 // imports
-import dk.easv.bll.exception.GUIException;
 
 // java imports
 import java.nio.charset.StandardCharsets;
@@ -20,7 +19,7 @@ public class PasswordSecurity {
             byte[] hash = md.digest(password.getBytes(StandardCharsets.UTF_8));
             return Base64.getEncoder().encodeToString(hash);
         } catch (NoSuchAlgorithmException e) {
-            throw new GUIException("Failed to hash the password", e);
+            throw new RuntimeException("Failed to hash the password", e);
         }
     }
 }

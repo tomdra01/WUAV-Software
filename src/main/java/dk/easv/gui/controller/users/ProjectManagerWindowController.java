@@ -5,8 +5,6 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
-import dk.easv.bll.exception.GUIException;
-import dk.easv.gui.controller.CreateUserWindowController;
 import dk.easv.gui.controller.EditProjectPickerController;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.model.UserModel;
@@ -95,7 +93,7 @@ public class ProjectManagerWindowController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
             } catch (IOException e) {
-                throw new GUIException("Failed to logout", e);
+                throw new RuntimeException("Failed to logout", e);
             }
         });
 
@@ -119,7 +117,7 @@ public class ProjectManagerWindowController implements Initializable {
                 editProjectPickerController.setOnCloseRequestHandler(stage);
                 stage.show();
             } catch (IOException e) {
-                throw new GUIException("Failed to open the window", e);
+                throw new RuntimeException("Failed to open the window", e);
             }
         });
     }

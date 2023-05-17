@@ -5,7 +5,6 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
-import dk.easv.bll.exception.GUIException;
 import dk.easv.gui.controller.CreateUserWindowController;
 import dk.easv.gui.util.ProjectDisplay;
 import dk.easv.gui.controller.project.ProjectStep1Controller;
@@ -59,7 +58,6 @@ public class AdminWindowController implements Initializable {
 
     public void setUser(User user) {
         this.user = user;
-        System.out.println("Admin users" + user);
     }
 
     /**
@@ -142,7 +140,7 @@ public class AdminWindowController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
             } catch (IOException e) {
-                throw new GUIException("Failed to logout", e);
+                throw new RuntimeException("Failed to logout", e);
             }
         });
 
@@ -167,7 +165,7 @@ public class AdminWindowController implements Initializable {
                 createUserWindowController.setOnCloseRequestHandler(stage);
                 stage.show();
             } catch (IOException e) {
-                throw new GUIException("Failed to open the window", e);
+                throw new RuntimeException("Failed to open the window", e);
             }
         });
     }

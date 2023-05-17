@@ -4,7 +4,6 @@ package dk.easv.gui.controller.project;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
-import dk.easv.bll.exception.GUIException;
 import dk.easv.bll.util.ImageByteReader;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.ViewType;
@@ -108,7 +107,7 @@ public class ProjectStep3Controller implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (Exception e) {
-                throw new GUIException("File chooser fail", e);
+                throw new RuntimeException("File chooser fail", e);
             }
         }
     }
@@ -130,7 +129,7 @@ public class ProjectStep3Controller implements Initializable {
             Scene scene = new Scene(root);
             window.setScene(scene);
         } catch (IOException e) {
-            throw new GUIException("Failed to change the window", e);
+            throw new RuntimeException("Failed to change the window", e);
         }
     }
 
@@ -150,7 +149,7 @@ public class ProjectStep3Controller implements Initializable {
             Scene scene = new Scene(root);
             window.setScene(scene);
         } catch (IOException e) {
-            throw new GUIException("Failed to proceed to Step 2", e);
+            throw new RuntimeException("Failed to proceed to Step 2", e);
         }
     }
 

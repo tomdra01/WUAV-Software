@@ -4,7 +4,6 @@ package dk.easv.gui.controller.project;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
-import dk.easv.bll.exception.GUIException;
 import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.ViewType;
@@ -104,7 +103,7 @@ public class ProjectStep2Controller implements Initializable {
                 Scene scene = new Scene(root);
                 window.setScene(scene);
             } catch (IOException e) {
-                throw new GUIException("Failed to proceed to Step 3", e);
+                throw new RuntimeException("Failed to proceed to Step 3", e);
             }
         }
         else PopupUtil.showAlert("Fields empty", "Please fill out all the fields", Alert.AlertType.INFORMATION);
@@ -130,7 +129,7 @@ public class ProjectStep2Controller implements Initializable {
             Scene scene = new Scene(root);
             window.setScene(scene);
         } catch (IOException e) {
-            throw new GUIException("Failed to proceed to Step 1", e);
+            throw new RuntimeException("Failed to proceed to Step 1", e);
         }
     }
 

@@ -1,16 +1,12 @@
 package dk.easv.gui.controller;
 
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.Project;
-import dk.easv.bll.exception.GUIException;
-import dk.easv.gui.controller.project.ProjectStep2Controller;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.BlurEffectUtil;
 import dk.easv.gui.util.ViewType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,7 +15,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -81,7 +76,7 @@ public class EditProjectPickerController implements Initializable {
             Scene scene = new Scene(root);
             window.setScene(scene);
         } catch (IOException e) {
-            throw new GUIException("Failed to open editing for this project", e);
+            throw new RuntimeException("Failed to open editing for this project", e);
         }
     }
 }
