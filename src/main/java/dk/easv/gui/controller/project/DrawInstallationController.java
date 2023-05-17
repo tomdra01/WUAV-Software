@@ -8,6 +8,7 @@ import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.ImagePosition;
 import dk.easv.gui.util.ViewType;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,6 +20,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -26,6 +28,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 // java imports
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -259,6 +264,18 @@ public class DrawInstallationController implements Initializable {
 
     public void nextStep() {
         try {
+            // Create a snapshot of the scene
+            Scene canvasScene = canvas.getScene();
+            WritableImage fxImage = new WritableImage((int) canvasScene.getWidth(), (int) canvasScene.getHeight());
+            canvasScene.snapshot(fxImage);
+            BufferedImage image = SwingFXUtils.fromFXImage(fxImage, null);
+
+            // Convert the snapshot to a byte array
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            ImageIO.write(image, "PNG", outputStream);
+            this.projectDrawing = outputStream.toByteArray();
+
+            // Continue to the next step
             FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP4.getView()));
             Parent root = loader.load();
 
