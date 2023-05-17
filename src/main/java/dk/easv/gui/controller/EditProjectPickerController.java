@@ -12,7 +12,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -24,11 +23,8 @@ import java.util.ResourceBundle;
 
 public class EditProjectPickerController implements Initializable {
     @FXML private JFXComboBox<Project> projectComboBox;
-    @FXML private Button editBtn;
     private ProjectModel projectModel;
     private BorderPane borderPane;
-
-
 
     public void setProjectModel(ProjectModel projectModel) {
         this.projectModel = projectModel;
@@ -45,6 +41,7 @@ public class EditProjectPickerController implements Initializable {
             }
         });
         projectComboBox.setButtonCell(projectComboBox.getCellFactory().call(null));
+        editSelectedProject();
     }
 
     public void setPane(BorderPane borderPane) {
@@ -55,28 +52,29 @@ public class EditProjectPickerController implements Initializable {
         stage.setOnCloseRequest(event -> BlurEffectUtil.removeBlurEffect(borderPane));
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void editSelectedProject() {
+        projectComboBox.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.EDIT_PROJECT.getView()));
+                Parent root = loader.load();
 
+                Project selectedProject = projectComboBox.getValue();
+
+                EditProjectController editProjectController = loader.getController();
+                editProjectController.setProject(selectedProject);
+                editProjectController.setProjectModel(projectModel);
+
+                Stage window = (Stage) projectComboBox.getScene().getWindow();
+                window.setTitle("Editing");
+                Scene scene = new Scene(root);
+                window.setScene(scene);
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to open editing for this project", e);
+            }
+        });
     }
 
-    public void editAction() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.EDIT_PROJECT.getView()));
-            Parent root = loader.load();
-
-            Project selectedProject = projectComboBox.getValue();
-
-            EditProjectController editProjectController = loader.getController();
-            editProjectController.setProject(selectedProject);
-            editProjectController.setProjectModel(projectModel);
-
-            Stage window = (Stage) editBtn.getScene().getWindow();
-            window.setTitle("Editing");
-            Scene scene = new Scene(root);
-            window.setScene(scene);
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to open editing for this project", e);
-        }
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
     }
 }
