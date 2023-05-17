@@ -33,15 +33,17 @@ public class EditProjectPickerController implements Initializable {
         ObservableList<Project> observableList = FXCollections.observableArrayList(projects);
         projectComboBox.setItems(observableList);
 
-        projectComboBox.setCellFactory(lv -> new ListCell<Project>() {
-            @Override
-            protected void updateItem(Project project, boolean empty) {
-                super.updateItem(project, empty);
-                setText(empty ? "" : project.getName());
-            }
-        });
+        projectComboBox.setCellFactory(lv -> new ProjectListCell());
         projectComboBox.setButtonCell(projectComboBox.getCellFactory().call(null));
         editSelectedProject();
+    }
+
+    private class ProjectListCell extends ListCell<Project> {
+        @Override
+        protected void updateItem(Project project, boolean empty) {
+            super.updateItem(project, empty);
+            setText(empty ? "" : project.getName());
+        }
     }
 
     public void setPane(BorderPane borderPane) {
