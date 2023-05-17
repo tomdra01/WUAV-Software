@@ -58,6 +58,7 @@ public class DrawInstallationController implements Initializable {
     private BorderPane mainPane;
     private User user;
     private final List<Point2D> imagePositions = new ArrayList<>();
+    private final List<List<Point2D>> linePoints = new ArrayList<>();
     SimpleBooleanProperty isDragOperation = new SimpleBooleanProperty(false);
 
     public void setMainPage(HBox projectHbox, JFXComboBox<String> filterComboBox, JFXTextField searchBar, BorderPane borderPane){
@@ -139,13 +140,37 @@ public class DrawInstallationController implements Initializable {
                 imageHistory.push(new ImagePosition(image, x, y, width, height));
 
                 imagePositions.add(new Point2D(x + width / 2, y + height / 2));
-
-                // Connect the images with lines
-                connectImagesWithLines(gc);
+            } else if (event.getButton() == MouseButton.SECONDARY) {
+                double x = event.getX();
+                double y = event.getY();
+                Point2D clickedPoint = new Point2D(x, y);
+                ImagePosition nearestImage = findNearestImage(clickedPoint);
+                if (nearestImage != null) {
+                    if (linePoints.isEmpty() || linePoints.get(linePoints.size() - 1).size() == 2) {
+                        linePoints.add(new ArrayList<>());
+                    }
+                    linePoints.get(linePoints.size() - 1).add(new Point2D(nearestImage.getX() + nearestImage.getWidth() / 2, nearestImage.getY() + nearestImage.getHeight() / 2));
+                    connectImagesWithLines(gc);
+                }
             }
         });
 
         stepBackBtn.setOnAction(event -> stepBack(gc));
+    }
+
+    private ImagePosition findNearestImage(Point2D point) {
+        ImagePosition nearestImage = null;
+        double minDistance = Double.MAX_VALUE;
+        for (ImagePosition imagePosition : imageHistory) {
+            double centerX = imagePosition.getX() + imagePosition.getWidth() / 2;
+            double centerY = imagePosition.getY() + imagePosition.getHeight() / 2;
+            double distance = point.distance(centerX, centerY);
+            if (distance < minDistance) {
+                minDistance = distance;
+                nearestImage = imagePosition;
+            }
+        }
+        return nearestImage;
     }
 
     private void connectImagesWithLines(GraphicsContext gc) {
@@ -165,13 +190,11 @@ public class DrawInstallationController implements Initializable {
             gc.drawImage(image, x, y, width, height);
         }
 
-        if (imageHistory.size() > 1) {
-            Point2D startPoint = new Point2D(imageHistory.get(0).getX() + imageHistory.get(0).getWidth() / 2, imageHistory.get(0).getY() + imageHistory.get(0).getHeight() / 2);
-
-            for (int i = 1; i < imageHistory.size(); i++) {
-                Point2D endPoint = new Point2D(imageHistory.get(i).getX() + imageHistory.get(i).getWidth() / 2, imageHistory.get(i).getY() + imageHistory.get(i).getHeight() / 2);
+        for (List<Point2D> line : linePoints) {
+            if (line.size() == 2) {
+                Point2D startPoint = line.get(0);
+                Point2D endPoint = line.get(1);
                 gc.strokeLine(startPoint.getX(), startPoint.getY(), endPoint.getX(), endPoint.getY());
-                startPoint = endPoint;
             }
         }
     }
