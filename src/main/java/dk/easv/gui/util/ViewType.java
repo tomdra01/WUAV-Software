@@ -21,7 +21,7 @@ public enum ViewType {
     PROJECT_CARD("/views/project_template.fxml"),
     INSPECT_PROJECT("/views/inspect_project.fxml"),
     EDIT_PICK_MENU("/views/edit_project_picker.fxml"),
-    EDIT_PROJECT("views/edit_project.fxml");
+    EDIT_PROJECT("/views/edit_project.fxml");
 
     private final String path;
 

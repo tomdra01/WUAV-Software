@@ -67,14 +67,14 @@ public class EditProjectPickerController implements Initializable {
 
     public void editAction() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.INSPECT_PROJECT.getView()));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.EDIT_PROJECT.getView()));
             Parent root = loader.load();
 
             Project selectedProject = projectComboBox.getValue();
 
-            InspectProjectController inspectProjectController = loader.getController();
-            inspectProjectController.setProject(selectedProject);
-            inspectProjectController.setModel(projectModel);
+            EditProjectController editProjectController = loader.getController();
+            editProjectController.setProject(selectedProject);
+            editProjectController.setProjectModel(projectModel);
 
             Stage window = (Stage) editBtn.getScene().getWindow();
             window.setTitle("Editing");

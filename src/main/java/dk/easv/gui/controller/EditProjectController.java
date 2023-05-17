@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.Project;
 import dk.easv.bll.exception.DatabaseException;
 import dk.easv.gui.model.ProjectModel;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 
@@ -21,6 +22,15 @@ public class EditProjectController {
 
     public void setProject(Project project) {
         this.project=project;
+
+        businessType.setItems(FXCollections.observableArrayList("Consumer", "Corporate & Government"));
+
+
+        nameField.setText(project.getName());
+        locationField.setText(project.getLocation());
+        businessType.setValue(project.getBusinessType());
+        dateField.setValue(project.getDate());
+        descTextField.setText(project.getDescription());
     }
     public void setProjectModel(ProjectModel projectModel){
         this.projectModel=projectModel;
