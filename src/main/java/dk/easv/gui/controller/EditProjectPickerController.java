@@ -1,5 +1,6 @@
 package dk.easv.gui.controller;
 
+// imports
 import com.jfoenix.controls.JFXComboBox;
 import dk.easv.be.Project;
 import dk.easv.bll.util.ProjectListCell;
@@ -13,15 +14,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListCell;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+// java imports
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ *
+ * @author tomdra01, mrtng1
+ */
 public class EditProjectPickerController implements Initializable {
     @FXML private JFXComboBox<Project> projectComboBox;
     private ProjectModel projectModel;

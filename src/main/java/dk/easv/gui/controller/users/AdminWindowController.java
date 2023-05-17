@@ -42,7 +42,7 @@ public class AdminWindowController implements Initializable {
     @FXML private JFXComboBox<String> filterComboBox;
     @FXML private JFXTextField searchBar;
     private  final  Button createProjectButton = new Button("New project");
-    private final Button createUserButton = new Button("Create users");
+    private final Button createUserButton = new Button("Create user");
     private final Button logOutButton = new Button("Log out");
     private final Button showTechniciansButton = new Button("Show technicians");
     private final Button showCustomersButton = new Button("Show customers");

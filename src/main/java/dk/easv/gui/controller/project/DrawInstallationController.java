@@ -5,7 +5,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
 import dk.easv.gui.model.ProjectModel;
-import dk.easv.gui.util.ImagePosition;
+import dk.easv.gui.util.CanvasImagePosition;
 import dk.easv.gui.util.ViewType;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.embed.swing.SwingFXUtils;
@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -29,7 +30,6 @@ import javafx.stage.Stage;
 
 // java imports
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -54,7 +54,7 @@ public class DrawInstallationController implements Initializable {
     private byte[] projectPhoto1, projectPhoto2, projectPhoto3;
     private Image img1, img2, img3;
     private Image image;
-    private final Stack<ImagePosition> imageHistory = new Stack<>();
+    private final Stack<CanvasImagePosition> imageHistory = new Stack<>();
     private ProjectModel projectModel;
     private HBox projectHbox;
     private JFXComboBox<String> filterComboBox;
@@ -117,13 +117,13 @@ public class DrawInstallationController implements Initializable {
                 if (!imageHistory.isEmpty()) {
                     Point2D mousePosition = new Point2D(event.getX(), event.getY());
 
-                    for (ImagePosition imagePosition : imageHistory) {
+                    for (CanvasImagePosition canvasImagePosition : imageHistory) {
                         // If the mouse is within the bounds of the image
-                        if (mousePosition.getX() >= imagePosition.getX() && mousePosition.getX() <= imagePosition.getX() + imagePosition.getWidth()
-                                && mousePosition.getY() >= imagePosition.getY() && mousePosition.getY() <= imagePosition.getY() + imagePosition.getHeight()) {
+                        if (mousePosition.getX() >= canvasImagePosition.getX() && mousePosition.getX() <= canvasImagePosition.getX() + canvasImagePosition.getWidth()
+                                && mousePosition.getY() >= canvasImagePosition.getY() && mousePosition.getY() <= canvasImagePosition.getY() + canvasImagePosition.getHeight()) {
                             // Update the image's position to the current mouse position
-                            imagePosition.setX(mousePosition.getX() - imagePosition.getWidth() / 2);
-                            imagePosition.setY(mousePosition.getY() - imagePosition.getHeight() / 2);
+                            canvasImagePosition.setX(mousePosition.getX() - canvasImagePosition.getWidth() / 2);
+                            canvasImagePosition.setY(mousePosition.getY() - canvasImagePosition.getHeight() / 2);
                         }
                     }
                     connectImagesWithLines(gc);
@@ -140,14 +140,14 @@ public class DrawInstallationController implements Initializable {
                 double height = 25;
                 gc.drawImage(image, x, y, width, height);
 
-                imageHistory.push(new ImagePosition(image, x, y, width, height));
+                imageHistory.push(new CanvasImagePosition(image, x, y, width, height));
                 imagePositions.add(new Point2D(x + width / 2, y + height / 2));
                 actions.push("image");  // Add an "image" action
             } else if (event.getButton() == MouseButton.SECONDARY) {
                 double x = event.getX();
                 double y = event.getY();
                 Point2D clickedPoint = new Point2D(x, y);
-                ImagePosition nearestImage = findNearestImage(clickedPoint);
+                CanvasImagePosition nearestImage = findNearestImage(clickedPoint);
                 if (nearestImage != null) {
                     if (linePoints.isEmpty() || linePoints.get(linePoints.size() - 1).size() == 2) {
                         linePoints.add(new ArrayList<>());
@@ -175,16 +175,16 @@ public class DrawInstallationController implements Initializable {
         stepBackBtn.setOnAction(event -> stepBack(gc));
     }
 
-    private ImagePosition findNearestImage(Point2D point) {
-        ImagePosition nearestImage = null;
+    private CanvasImagePosition findNearestImage(Point2D point) {
+        CanvasImagePosition nearestImage = null;
         double minDistance = Double.MAX_VALUE;
-        for (ImagePosition imagePosition : imageHistory) {
-            double centerX = imagePosition.getX() + imagePosition.getWidth() / 2;
-            double centerY = imagePosition.getY() + imagePosition.getHeight() / 2;
+        for (CanvasImagePosition canvasImagePosition : imageHistory) {
+            double centerX = canvasImagePosition.getX() + canvasImagePosition.getWidth() / 2;
+            double centerY = canvasImagePosition.getY() + canvasImagePosition.getHeight() / 2;
             double distance = point.distance(centerX, centerY);
             if (distance < minDistance) {
                 minDistance = distance;
-                nearestImage = imagePosition;
+                nearestImage = canvasImagePosition;
             }
         }
         return nearestImage;
@@ -225,12 +225,12 @@ public class DrawInstallationController implements Initializable {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         // Draw lines
-        for (ImagePosition imagePosition : imageHistory) {
-            Image image = imagePosition.getImage();
-            double x = imagePosition.getX();
-            double y = imagePosition.getY();
-            double width = imagePosition.getWidth();
-            double height = imagePosition.getHeight();
+        for (CanvasImagePosition canvasImagePosition : imageHistory) {
+            Image image = canvasImagePosition.getImage();
+            double x = canvasImagePosition.getX();
+            double y = canvasImagePosition.getY();
+            double width = canvasImagePosition.getWidth();
+            double height = canvasImagePosition.getHeight();
             gc.drawImage(image, x, y, width, height);
         }
 
@@ -257,25 +257,19 @@ public class DrawInstallationController implements Initializable {
                 }
             }
         }
-
-        // Redraw the canvas and lines
         connectImagesWithLines(gc);
     }
 
     public void nextStep() {
         try {
-            // Create a snapshot of the scene
-            Scene canvasScene = canvas.getScene();
-            WritableImage fxImage = new WritableImage((int) canvasScene.getWidth(), (int) canvasScene.getHeight());
-            canvasScene.snapshot(fxImage);
-            BufferedImage image = SwingFXUtils.fromFXImage(fxImage, null);
+            SnapshotParameters parameters = new SnapshotParameters();
+            parameters.setFill(Color.TRANSPARENT);
 
-            // Convert the snapshot to a byte array
+            WritableImage fxImage = canvas.snapshot(parameters, null);
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            ImageIO.write(image, "PNG", outputStream);
-            this.projectDrawing = outputStream.toByteArray();
+            ImageIO.write(SwingFXUtils.fromFXImage(fxImage, null), "png", outputStream);
+            byte[] projectDrawing = outputStream.toByteArray();
 
-            // Continue to the next step
             FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP4.getView()));
             Parent root = loader.load();
 

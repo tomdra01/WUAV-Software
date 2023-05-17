@@ -2,14 +2,14 @@ package dk.easv.gui.util;
 
 import javafx.scene.image.Image;
 
-public class ImagePosition {
+public class CanvasImagePosition {
     private Image image;
     private double x;
     private double y;
-    private double width;
-    private double height;
+    private final double width;
+    private final double height;
 
-    public ImagePosition(Image image, double x, double y, double width, double height) {
+    public CanvasImagePosition(Image image, double x, double y, double width, double height) {
         this.image = image;
         this.x = x;
         this.y = y;

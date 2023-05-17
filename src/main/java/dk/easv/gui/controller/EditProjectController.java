@@ -1,5 +1,6 @@
 package dk.easv.gui.controller;
 
+// imports
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -10,8 +11,13 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 
+// java imports
 import java.time.LocalDate;
 
+/**
+ *
+ * @author tomdra01, mrtng1
+ */
 public class EditProjectController {
     @FXML private JFXTextField nameField, locationField;
     @FXML private JFXComboBox<String> businessType;

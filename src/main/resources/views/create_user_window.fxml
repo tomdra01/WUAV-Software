@@ -5,6 +5,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -17,66 +18,68 @@
       <HBox prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <Button mnemonicParsing="false" onAction="#createUser" text="Submit">
             <HBox.margin>
-               <Insets left="470.0" top="10.0"/>
+               <Insets left="470.0" top="10.0" />
             </HBox.margin>
          </Button>
          <Button fx:id="cancelButton" mnemonicParsing="false" text="Cancel">
             <HBox.margin>
-               <Insets left="10.0" top="10.0"/>
+               <Insets left="10.0" top="10.0" />
             </HBox.margin>
          </Button>
       </HBox>
    </bottom>
    <left>
-      <ImageView fitHeight="170.0" fitWidth="185.0" pickOnBounds="true" preserveRatio="true"
-                 BorderPane.alignment="CENTER">
+      <ImageView fitHeight="170.0" fitWidth="185.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
          <BorderPane.margin>
-            <Insets top="25.0"/>
+            <Insets top="25.0" />
          </BorderPane.margin>
-         <Image url="@../images/wuav/Videomoede_sort.png"/>
+         <Image url="@../images/wuav/Videomoede_sort.png" />
+         <effect>
+            <DropShadow />
+         </effect>
       </ImageView>
    </left>
    <center>
       <VBox prefHeight="200.0" prefWidth="351.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
-            <Insets right="60.0" top="60.0"/>
+            <Insets left="-10.0" right="60.0" top="60.0" />
          </BorderPane.margin>
          <HBox prefHeight="50.0" prefWidth="370.0">
             <VBox.margin>
-               <Insets top="25.0"/>
+               <Insets top="35.0" />
             </VBox.margin>
             <Label text="User type:" textFill="#a1a1a1">
                <HBox.margin>
-                  <Insets left="30.0" top="10.0"/>
+                  <Insets left="30.0" top="5.0" />
                </HBox.margin>
             </Label>
-            <JFXComboBox fx:id="jfxComboBox" focusColor="#e84910" unFocusColor="#333333">
+            <JFXComboBox fx:id="jfxComboBox" focusColor="#e84910" promptText="select" unFocusColor="#333333">
                <HBox.margin>
-                  <Insets left="20.0"/>
+                  <Insets left="25.0" />
                </HBox.margin>
             </JFXComboBox>
          </HBox>
          <HBox layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="370.0">
-            <Label text="Username" textFill="#a1a1a1">
+            <Label text="Username:" textFill="#a1a1a1">
                <HBox.margin>
-                  <Insets left="30.0" top="10.0"/>
+                  <Insets left="30.0" top="5.0" />
                </HBox.margin>
             </Label>
             <JFXTextField fx:id="usernameField" focusColor="#e84910" unFocusColor="#333333">
                <HBox.margin>
-                  <Insets left="19.0"/>
+                  <Insets left="22.0" />
                </HBox.margin>
             </JFXTextField>
          </HBox>
          <HBox layoutX="10.0" layoutY="110.0" prefHeight="50.0" prefWidth="370.0">
-            <Label text="Password" textFill="#a1a1a1">
+            <Label text="Password:" textFill="#a1a1a1">
                <HBox.margin>
-                  <Insets left="30.0" top="10.0"/>
+                  <Insets left="30.0" top="5.0" />
                </HBox.margin>
             </Label>
             <JFXTextField fx:id="passwordField" focusColor="#e84910" unFocusColor="#333333">
                <HBox.margin>
-                  <Insets left="22.0"/>
+                  <Insets left="25.0" />
                </HBox.margin>
             </JFXTextField>
          </HBox>
