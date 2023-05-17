@@ -1,6 +1,7 @@
 package dk.easv.gui.controller.project;
 
 // imports
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -9,6 +10,7 @@ import dk.easv.bll.exception.GUIException;
 import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.ViewType;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,8 +20,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 // java imports
@@ -33,8 +37,10 @@ import java.util.ResourceBundle;
  * @author tomdra01, mrtng1
  */
 public class ProjectStep4Controller implements Initializable {
-    @FXML private Button nextStepBtn, previousStepBtn;
+    @FXML private Button nextStepBtn, previousStepBtn, boldButton, italicButton, underlineButton;
     @FXML private JFXTextArea textArea;
+    @FXML private JFXComboBox<String> fontComboBox;
+    @FXML private JFXComboBox<Integer> fontSizeComboBox;
     private String projectName, businessType, projectLocation, projectDescription;
     private LocalDate projectDate;
     private byte[] projectDrawing;
@@ -46,6 +52,11 @@ public class ProjectStep4Controller implements Initializable {
     private JFXTextField searchBar;
     private BorderPane mainPane;
     private User user;
+
+    private boolean isBold = false;
+    private boolean isItalic = false;
+    private boolean isUnderlined = false;
+
 
     public void setMainPage(HBox projectHbox, JFXComboBox<String> filterComboBox, JFXTextField searchBar, BorderPane mainPane){
         this.projectHbox=projectHbox;
@@ -130,12 +141,64 @@ public class ProjectStep4Controller implements Initializable {
         }
     }
 
+    private void updateStyle() {
+        String style = "";
+
+        if (isBold) {
+            style += "-fx-font-weight: bold; ";
+        }
+
+        if (isItalic) {
+            style += "-fx-font-style: italic; ";
+        }
+
+        if (isUnderlined) {
+            style += "-fx-underline: true; ";
+        }
+
+        String font = fontComboBox.getValue();
+        if (font != null) {
+            style += "-fx-font-family: '" + font + "'; ";
+        }
+
+        Integer size = fontSizeComboBox.getValue();
+        if (size != null) {
+            style += "-fx-font-size: " + size + "pt; ";
+        }
+
+        textArea.setStyle(style);
+    }
+
     /**
      * Initialize method
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        boldButton.setOnAction(e -> {
+            isBold = !isBold;
+            updateStyle();
+        });
+
+        italicButton.setOnAction(e -> {
+            isItalic = !isItalic;
+            updateStyle();
+        });
+
+        underlineButton.setOnAction(e -> {
+            isUnderlined = !isUnderlined;
+            updateStyle();
+        });
+
+        fontComboBox.setItems(FXCollections.observableArrayList(Font.getFamilies().subList(0, 15)));
+        fontComboBox.setOnAction(e -> updateStyle());
+
+        fontSizeComboBox.setItems(FXCollections.observableArrayList(8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36));
+        fontSizeComboBox.setOnAction(e -> updateStyle());
+
+        textArea.addEventFilter(KeyEvent.KEY_TYPED, e -> {
+            String text = e.getCharacter();
+            textArea.appendText(text);
+            e.consume();
+        });
     }
-
-
 }
