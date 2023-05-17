@@ -6,12 +6,11 @@ import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
 import dk.easv.bll.exception.GUIException;
+import dk.easv.gui.controller.CreateUserWindowController;
+import dk.easv.gui.controller.EditProjectPickerController;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.model.UserModel;
-import dk.easv.gui.util.ClockUtil;
-import dk.easv.gui.util.HamburgerUtil;
-import dk.easv.gui.util.ProjectDisplay;
-import dk.easv.gui.util.ViewType;
+import dk.easv.gui.util.*;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 // java imports
@@ -96,6 +96,30 @@ public class ProjectManagerWindowController implements Initializable {
                 stage.show();
             } catch (IOException e) {
                 throw new GUIException("Failed to logout", e);
+            }
+        });
+
+        editButton.setOnAction(event -> {
+            try {
+                BlurEffectUtil.applyBlurEffect(mainPane,10);
+
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.EDIT_PICK_MENU.getView()));
+                Parent createEventParent = fxmlLoader.load();
+
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setTitle("Edit project");
+                stage.setResizable(false);
+                Scene scene = new Scene(createEventParent);
+                stage.setScene(scene);
+
+                EditProjectPickerController editProjectPickerController = fxmlLoader.getController();
+                editProjectPickerController.setProjectModel(projectModel);
+                editProjectPickerController.setPane(mainPane);
+                editProjectPickerController.setOnCloseRequestHandler(stage);
+                stage.show();
+            } catch (IOException e) {
+                throw new GUIException("Failed to open the window", e);
             }
         });
     }
