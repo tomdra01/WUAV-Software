@@ -3,7 +3,7 @@ package dk.easv.gui.controller;
 // imports
 import com.jfoenix.controls.JFXCheckBox;
 import dk.easv.be.Project;
-import dk.easv.be.User;
+import dk.easv.gui.controller.documentation.InternalDocumentationController;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.BlurEffectUtil;
 import dk.easv.gui.util.ViewType;
@@ -12,7 +12,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -78,11 +77,11 @@ public class ProjectTemplateController implements Initializable {
             stage.setScene(scene);
             stage.show();
 
-            InspectProjectController inspectProjectController = fxmlLoader.getController();
-            inspectProjectController.setPane(mainPane);
-            inspectProjectController.setOnCloseRequestHandler(stage);
-            inspectProjectController.setProject(project);
-            inspectProjectController.setModel(projectModel);
+            InternalDocumentationController internalDocumentationController = fxmlLoader.getController();
+            internalDocumentationController.setPane(mainPane);
+            internalDocumentationController.setOnCloseRequestHandler(stage);
+            internalDocumentationController.setProject(project);
+            internalDocumentationController.setModel(projectModel);
 
         } catch (IOException e) {
             e.printStackTrace();
