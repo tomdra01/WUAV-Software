@@ -1,13 +1,15 @@
 package bll.util;
 
+// imports
+import dk.easv.bll.util.PasswordSecurity;
+
+// JUnit imports
+import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
+
 // static imports
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-
-// imports
-import dk.easv.bll.util.PasswordSecurity;
-import org.junit.Test;
-import org.junit.jupiter.api.DisplayName;
 
 /**
  *

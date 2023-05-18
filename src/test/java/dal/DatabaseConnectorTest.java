@@ -1,10 +1,9 @@
 package dal;
 
-// static imports
-import dk.easv.dal.database.DatabaseConnector;
-import static org.junit.Assert.*;
-
 // imports
+import dk.easv.dal.database.DatabaseConnector;
+
+// JUnit imports
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -12,6 +11,9 @@ import org.junit.jupiter.api.DisplayName;
 // java imports
 import java.sql.Connection;
 import java.sql.SQLException;
+
+// static imports
+import static org.junit.Assert.*;
 
 /**
  *

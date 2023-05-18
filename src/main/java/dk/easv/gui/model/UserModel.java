@@ -24,6 +24,10 @@ public class UserModel {
         }
     }
 
+    public ObservableList<User> getUsers() {
+        return users;
+    }
+
     public void createUser(User user) throws DatabaseException {
         // Create a new users and add them to the system
         User u = userLogic.createUser(user);
