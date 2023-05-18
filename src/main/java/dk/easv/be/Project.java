@@ -2,6 +2,7 @@ package dk.easv.be;
 
 // imports
 import java.time.LocalDate;
+import java.util.Arrays;
 
 /**
  *
@@ -100,5 +101,19 @@ public class Project {
 
     public void setApproved(boolean approved) {
         this.approved = approved;
+    }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", businessType='" + businessType + '\'' +
+                ", location='" + location + '\'' +
+                ", date=" + date +
+                ", drawing=" + Arrays.toString(drawing) +
+                ", description='" + description + '\'' +
+                ", approved=" + approved +
+                '}';
     }
 }
