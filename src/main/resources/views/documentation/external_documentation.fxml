@@ -3,8 +3,10 @@
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
 <BorderPane fx:id="currentNode" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="600.0" stylesheets="@../../styles/window_style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.documentation.ExternalDocumentationController">
     <bottom>
@@ -26,11 +28,37 @@
             </Button>
         </HBox>
     </bottom>
-    <left>
-        <JFXToggleButton fx:id="externalSwitchBtn" onAction="#switchToInternalDocumentation" prefHeight="45.0" prefWidth="150.0" text="External" toggleColor="#e84910" BorderPane.alignment="CENTER">
-            <BorderPane.margin>
-                <Insets left="-20.0" top="-600.0" />
-            </BorderPane.margin>
-        </JFXToggleButton>
-    </left>
+   <top>
+      <VBox prefHeight="260.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+              <JFXToggleButton fx:id="externalSwitchBtn" onAction="#switchToInternalDocumentation" prefHeight="45.0" prefWidth="150.0" text="External" toggleColor="#e84910">
+               <VBox.margin>
+                  <Insets left="-15.0" />
+               </VBox.margin>
+              </JFXToggleButton>
+            <HBox prefHeight="200.0" prefWidth="600.0">
+               <children>
+                  <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </top>
 </BorderPane>
