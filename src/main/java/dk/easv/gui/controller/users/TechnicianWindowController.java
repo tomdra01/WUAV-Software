@@ -156,9 +156,8 @@ public class TechnicianWindowController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        projectDisplay = new ProjectDisplay();
         projectModel = new ProjectModel();
-        projectInit(); // search + filter
+        projectDisplay = new ProjectDisplay();
         ClockUtil.showWidget(hbox); //clock
         hamburgerMenu(); //hamburger
         hamburgerButtons(); //buttons in hamburger

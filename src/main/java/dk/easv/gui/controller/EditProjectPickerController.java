@@ -71,28 +71,6 @@ public class EditProjectPickerController implements Initializable {
         stage.setOnCloseRequest(event -> BlurEffectUtil.removeBlurEffect(borderPane));
     }
 
-    public void editSelectedProject() {
-        projectComboBox.setOnAction(event -> {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.EDIT_PROJECT.getView()));
-                Parent root = loader.load();
-
-                Project selectedProject = projectComboBox.getValue();
-
-                EditProjectController editProjectController = loader.getController();
-                editProjectController.setProject(selectedProject);
-                editProjectController.setProjectModel(projectModel);
-
-                Stage window = (Stage) projectComboBox.getScene().getWindow();
-                window.setTitle("Editing");
-                Scene scene = new Scene(root);
-                window.setScene(scene);
-            } catch (IOException e) {
-                throw new RuntimeException("Failed to open editing for this project", e);
-            }
-        });
-    }
-
     /**
      * Initialize method
      */
