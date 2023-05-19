@@ -57,7 +57,7 @@
             <Label fx:id="locationLabel" text="Location" />
             <Label fx:id="dateLabel" text="Date" />
             <Label fx:id="businessTypeLabel" text="Business Type" />
-            <JFXTextArea fx:id="textArea" focusColor="#e5451000" unFocusColor="#ffffff00">
+            <JFXTextArea fx:id="textArea" editable="false" focusColor="#e5451000" unFocusColor="#ffffff00">
                <VBox.margin>
                   <Insets top="15.0" />
                </VBox.margin></JFXTextArea>
