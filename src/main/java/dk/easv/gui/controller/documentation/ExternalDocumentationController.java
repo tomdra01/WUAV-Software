@@ -3,6 +3,7 @@ package dk.easv.gui.controller.documentation;
 // imports
 import com.jfoenix.controls.JFXToggleButton;
 import dk.easv.be.Project;
+import dk.easv.bll.exception.DatabaseException;
 import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.BlurEffectUtil;
@@ -14,12 +15,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 // java imports
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -31,6 +36,7 @@ public class ExternalDocumentationController implements Initializable {
     @FXML private BorderPane currentNode;
     @FXML private Button deleteButton;
     @FXML private JFXToggleButton externalSwitchBtn;
+    @FXML private ImageView image1, image2, image3;
     private BorderPane borderPane;
     private ProjectModel projectModel;
     private ProjectDisplay projectDisplay;
@@ -39,6 +45,21 @@ public class ExternalDocumentationController implements Initializable {
     public void setProject(Project project){
         this.project=project;
         externalSwitchBtn.setSelected(true);
+
+        try {
+            List<byte[]> images = projectModel.getProjectImages(project.getId());
+            if (images.size() > 0) {
+                image1.setImage(new Image(new ByteArrayInputStream(images.get(0))));
+            }
+            if (images.size() > 1) {
+                image2.setImage(new Image(new ByteArrayInputStream(images.get(1))));
+            }
+            if (images.size() > 2) {
+                image3.setImage(new Image(new ByteArrayInputStream(images.get(2))));
+            }
+        } catch (DatabaseException e) {
+            throw new RuntimeException(e);
+        }
     }
     public void setModel(ProjectModel projectModel){
         this.projectModel = projectModel;

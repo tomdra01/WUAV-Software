@@ -8,6 +8,8 @@ import dk.easv.bll.logic.ProjectLogic;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.List;
+
 /**
  *
  * @author tomdra01, mrtng1
@@ -68,5 +70,9 @@ public class ProjectModel {
 
     public void updateApprovalStatus(Project project) throws DatabaseException {
         projectLogic.updateApprovalStatus(project);
+    }
+
+    public List<byte[]> getProjectImages(int projectId) throws DatabaseException {
+        return projectLogic.getProjectImages(projectId);
     }
 }

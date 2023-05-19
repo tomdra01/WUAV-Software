@@ -15,10 +15,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 // java imports
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -32,6 +35,7 @@ public class InternalDocumentationController implements Initializable {
     @FXML private JFXToggleButton internalSwitch;
     @FXML private BorderPane currentNode;
     @FXML private Button deleteButton;
+    @FXML private ImageView projectDrawing;
     private BorderPane borderPane;
     private ProjectModel projectModel;
     private ProjectDisplay projectDisplay;
@@ -39,6 +43,10 @@ public class InternalDocumentationController implements Initializable {
 
     public void setProject(Project project){
         this.project=project;
+
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(project.getDrawing());
+        Image image = new Image(inputStream);
+        projectDrawing.setImage(image);
     }
     public void setModel(ProjectModel projectModel){
         this.projectModel = projectModel;
@@ -58,8 +66,8 @@ public class InternalDocumentationController implements Initializable {
             Parent root = loader.load();
 
             ExternalDocumentationController documentationController = loader.getController();
-            documentationController.setProject(project);
             documentationController.setModel(projectModel);
+            documentationController.setProject(project);
             documentationController.setPane(borderPane);
 
             Stage window = (Stage) internalSwitch.getScene().getWindow();

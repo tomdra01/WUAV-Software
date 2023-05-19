@@ -22,4 +22,5 @@ public interface IProjectDAO extends IDataAccess {
     void deleteProject(Project project) throws Exception;
     void updateProject(Project project) throws Exception;
     void updateApprovalStatus(Project project) throws Exception;
+    List<byte[]> getProjectImages(int projectId) throws Exception;
 }

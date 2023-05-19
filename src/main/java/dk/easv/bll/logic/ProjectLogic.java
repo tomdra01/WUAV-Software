@@ -89,4 +89,12 @@ public class ProjectLogic {
             throw new DatabaseException("Failed to update approval status", e);
         }
     }
+
+    public List<byte[]> getProjectImages(int projectId) throws DatabaseException {
+        try {
+            return projectDAO.getProjectImages(projectId);
+        } catch (Exception e) {
+            throw new DatabaseException("Failed to get project images", e);
+        }
+    }
 }

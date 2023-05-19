@@ -97,6 +97,14 @@ public class ProjectStepFinalController implements Initializable {
             e.printStackTrace();
         }
 
+        try {
+            projectModel.insertImages(project, projectPhoto1);
+            projectModel.insertImages(project, projectPhoto2);
+            projectModel.insertImages(project, projectPhoto3);
+        } catch (DatabaseException e) {
+            throw new RuntimeException(e);
+        }
+
         if (Objects.equals(user.getRole(), "Technician")){
             try {
                 projectModel.technicianProject(user, project);
