@@ -24,6 +24,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -43,6 +45,7 @@ public class AdminWindowController implements Initializable {
     @FXML private JFXHamburger jfxHamburger;
     @FXML private JFXComboBox<String> filterComboBox;
     @FXML private JFXTextField searchBar;
+    @FXML private ImageView engineerIcon;
     private  final  Button createProjectButton = new Button("New project");
     private final Button createUserButton = new Button("Create user");
     private final Button logOutButton = new Button("Log out");
@@ -190,6 +193,14 @@ public class AdminWindowController implements Initializable {
                 projectDisplay.showAllProjects(projectsHbox, filterComboBox, searchBar, projectModel, mainPane));
     }
 
+    private void changingImage() {
+        Image technicianRGB = new Image("/images/engineer_icon_rgb.jpeg");
+        Image technicianBW = new Image("/images/engineer_icon_bw.jpeg");
+
+        engineerIcon.setOnMouseEntered(event -> engineerIcon.setImage(technicianRGB));
+        engineerIcon.setOnMouseExited(event -> engineerIcon.setImage(technicianBW));
+    }
+
     /**
      * Initialize method
      */
@@ -201,5 +212,6 @@ public class AdminWindowController implements Initializable {
         hamburgerMenu(); // hamburger
         hamburgerButtons(); // buttons in hamburger
         ClockUtil.showWidget(hbox); // clock
+        changingImage();
     }
 }
