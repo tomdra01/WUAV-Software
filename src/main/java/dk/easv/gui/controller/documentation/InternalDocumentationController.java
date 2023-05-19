@@ -1,6 +1,7 @@
 package dk.easv.gui.controller.documentation;
 
 // imports
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXToggleButton;
 import dk.easv.be.Project;
 import dk.easv.gui.util.ProjectDisplay;
@@ -15,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -36,6 +38,8 @@ public class InternalDocumentationController implements Initializable {
     @FXML private BorderPane currentNode;
     @FXML private Button deleteButton;
     @FXML private ImageView projectDrawing;
+    @FXML private JFXTextArea textArea;
+    @FXML private Label nameLabel, locationLabel, dateLabel, businessTypeLabel;
     private BorderPane borderPane;
     private ProjectModel projectModel;
     private ProjectDisplay projectDisplay;
@@ -47,6 +51,12 @@ public class InternalDocumentationController implements Initializable {
         ByteArrayInputStream inputStream = new ByteArrayInputStream(project.getDrawing());
         Image image = new Image(inputStream);
         projectDrawing.setImage(image);
+
+        nameLabel.setText(project.getName());
+        locationLabel.setText(project.getLocation());
+        dateLabel.setText(String.valueOf(project.getDate()));
+        businessTypeLabel.setText(project.getBusinessType());
+        textArea.setText(project.getDescription());
     }
     public void setModel(ProjectModel projectModel){
         this.projectModel = projectModel;
