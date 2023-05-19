@@ -62,7 +62,7 @@
             </graphic></Label>
     </bottom>
     <center>
-        <ScrollPane hbarPolicy="ALWAYS" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../styles/scrollpane_style.css" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
+        <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../styles/scrollpane_style.css" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
             <BorderPane.margin>
                 <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
             </BorderPane.margin>

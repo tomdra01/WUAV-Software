@@ -9,12 +9,12 @@ import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.BlurEffectUtil;
 import dk.easv.gui.util.ViewType;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -59,16 +59,17 @@ public class InternalDocumentationController implements Initializable {
         businessTypeLabel.setText(project.getBusinessType());
         textArea.setText(project.getDescription());
     }
+
     public void setModel(ProjectModel projectModel){
         this.projectModel = projectModel;
     }
 
-    public void setOnCloseRequestHandler(Stage stage) {
-        stage.setOnCloseRequest(event -> BlurEffectUtil.removeBlurEffect(borderPane));
-    }
-
     public void setPane(BorderPane borderPane) {
         this.borderPane = borderPane;
+    }
+
+    public void setOnCloseRequestHandler(Stage stage) {
+        stage.setOnCloseRequest(event -> BlurEffectUtil.removeBlurEffect(borderPane));
     }
 
     public void switchToExternalDocumentation() {
@@ -82,11 +83,12 @@ public class InternalDocumentationController implements Initializable {
             documentationController.setPane(borderPane);
 
             Stage window = (Stage) internalSwitch.getScene().getWindow();
-            window.setTitle("External");
+            window.setTitle("External documentation window");
             Scene scene = new Scene(root);
             window.setScene(scene);
         } catch (IOException e) {
-            throw new RuntimeException("Failed to change the window", e);
+            PopupUtil.showAlert("Something went wrong", "Failed to switch to the external documentation", Alert.AlertType.ERROR);
+            e.printStackTrace();
         }
     }
 
@@ -96,7 +98,8 @@ public class InternalDocumentationController implements Initializable {
             try {
                 projectModel.deleteProject(project);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                PopupUtil.showAlert("Something went wrong", e.getMessage(), Alert.AlertType.ERROR);
+                e.printStackTrace();
             }
             Stage stage = (Stage) deleteButton.getScene().getWindow();
             stage.close();

@@ -16,7 +16,6 @@ import javafx.scene.control.DatePicker;
 
 // java imports
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 /**
@@ -31,6 +30,10 @@ public class EditProjectController implements Initializable {
     private Project project;
     private ProjectModel projectModel;
 
+    public void setProjectModel(ProjectModel projectModel){
+        this.projectModel=projectModel;
+    }
+
     public void setProject(Project project) {
         this.project = project;
         businessType.setItems(FXCollections.observableArrayList("Consumer", "Corporate & Government"));
@@ -39,9 +42,6 @@ public class EditProjectController implements Initializable {
         businessType.setValue(project.getBusinessType());
         dateField.setValue(project.getDate());
         descTextField.setText(project.getDescription());
-    }
-    public void setProjectModel(ProjectModel projectModel){
-        this.projectModel=projectModel;
     }
 
     public void editProject() {

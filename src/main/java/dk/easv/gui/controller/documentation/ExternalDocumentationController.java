@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
@@ -81,11 +82,12 @@ public class ExternalDocumentationController implements Initializable {
             documentationController.setPane(borderPane);
 
             Stage window = (Stage) externalSwitchBtn.getScene().getWindow();
-            window.setTitle("Internal");
+            window.setTitle("Internal documentation window");
             Scene scene = new Scene(root);
             window.setScene(scene);
         } catch (IOException e) {
-            throw new RuntimeException("Failed to change the window", e);
+            PopupUtil.showAlert("Something went wrong", "Failed to switch to the internal documentation", Alert.AlertType.ERROR);
+            e.printStackTrace();
         }
     }
 
@@ -94,8 +96,9 @@ public class ExternalDocumentationController implements Initializable {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
                 projectModel.deleteProject(project);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+            } catch (DatabaseException e) {
+                PopupUtil.showAlert("Something went wrong", e.getMessage(), Alert.AlertType.ERROR);
+                e.printStackTrace();
             }
             Stage stage = (Stage) deleteButton.getScene().getWindow();
             stage.close();

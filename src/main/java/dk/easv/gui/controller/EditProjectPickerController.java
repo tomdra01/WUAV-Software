@@ -3,6 +3,7 @@ package dk.easv.gui.controller;
 // imports
 import com.jfoenix.controls.JFXComboBox;
 import dk.easv.be.Project;
+import dk.easv.bll.util.PopupUtil;
 import dk.easv.bll.util.ProjectListCell;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.BlurEffectUtil;
@@ -14,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -34,7 +36,18 @@ public class EditProjectPickerController implements Initializable {
 
     public void setProjectModel(ProjectModel projectModel) {
         this.projectModel = projectModel;
+        setProjectComboBox();
+    }
 
+    public void setPane(BorderPane borderPane) {
+        this.borderPane = borderPane;
+    }
+
+    public void setOnCloseRequestHandler(Stage stage) {
+        stage.setOnCloseRequest(event -> BlurEffectUtil.removeBlurEffect(borderPane));
+    }
+
+    private void setProjectComboBox() {
         List<Project> projects = projectModel.getProjects();
         ObservableList<Project> observableList = FXCollections.observableArrayList(projects);
         projectComboBox.setItems(observableList);
@@ -54,21 +67,14 @@ public class EditProjectPickerController implements Initializable {
                 editProjectController.setProjectModel(projectModel);
 
                 Stage window = (Stage) projectComboBox.getScene().getWindow();
-                window.setTitle("Editing");
+                window.setTitle("Edit project window");
                 Scene scene = new Scene(root);
                 window.setScene(scene);
             } catch (IOException e) {
-                throw new RuntimeException("Failed to open editing for this project", e);
+                PopupUtil.showAlert("Something went wrong", "Failed to switch the scene", Alert.AlertType.ERROR);
+                e.printStackTrace();
             }
         });
-    }
-
-    public void setPane(BorderPane borderPane) {
-        this.borderPane = borderPane;
-    }
-
-    public void setOnCloseRequestHandler(Stage stage) {
-        stage.setOnCloseRequest(event -> BlurEffectUtil.removeBlurEffect(borderPane));
     }
 
     /**
