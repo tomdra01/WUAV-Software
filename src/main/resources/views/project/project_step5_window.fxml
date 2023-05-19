@@ -17,9 +17,9 @@
                     <Insets left="15.0" top="10.0" />
                 </HBox.margin>
             </Button>
-            <Button fx:id="nextStepBtn" mnemonicParsing="false" onAction="#nextStep" text="Next step">
+            <Button fx:id="finishBtn" mnemonicParsing="false" onAction="#finish" text="Finish">
                 <HBox.margin>
-                    <Insets left="455.0" top="10.0" />
+                    <Insets left="475.0" top="10.0" />
                 </HBox.margin>
             </Button>
         </HBox>

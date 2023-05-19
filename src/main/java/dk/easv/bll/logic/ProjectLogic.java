@@ -42,6 +42,14 @@ public class ProjectLogic {
         }
     }
 
+    public List<byte[]> getProjectImages(int projectId) throws DatabaseException {
+        try {
+            return projectDAO.getProjectImages(projectId);
+        } catch (Exception e) {
+            throw new DatabaseException("Failed to get project images", e);
+        }
+    }
+
     public Project createProject(Project project) throws DatabaseException {
         try {
             return projectDAO.createProject(project);
@@ -87,14 +95,6 @@ public class ProjectLogic {
             projectDAO.updateApprovalStatus(project);
         } catch (Exception e) {
             throw new DatabaseException("Failed to update approval status", e);
-        }
-    }
-
-    public List<byte[]> getProjectImages(int projectId) throws DatabaseException {
-        try {
-            return projectDAO.getProjectImages(projectId);
-        } catch (Exception e) {
-            throw new DatabaseException("Failed to get project images", e);
         }
     }
 }

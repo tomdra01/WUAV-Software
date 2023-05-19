@@ -5,12 +5,11 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
+import dk.easv.bll.util.PopupUtil;
+import dk.easv.gui.controller.AddCustomerController;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.model.UserModel;
-import dk.easv.gui.util.ClockUtil;
-import dk.easv.gui.util.HamburgerUtil;
-import dk.easv.gui.util.ProjectDisplay;
-import dk.easv.gui.util.ViewType;
+import dk.easv.gui.util.*;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,10 +17,12 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 // java imports
@@ -41,6 +42,8 @@ public class SalesmanWindowController implements Initializable {
     private BorderPane mainPane;
     @FXML private HBox hbox;
     @FXML private JFXHamburger jfxHamburger;
+    private final Button addCustomerButton = new Button("Add customer");
+    private final Button sendDocument = new Button("Send document");
     private final Button logOutButton = new Button("Log out");
     private User user;
     private UserModel userModel;
@@ -64,10 +67,14 @@ public class SalesmanWindowController implements Initializable {
         leftVBox.setPrefWidth(160);
         leftVBox.getStylesheets().add("styles/main_style.css");
 
+        addCustomerButton.setMaxWidth(200);
+        sendDocument.setMaxWidth(200);
         logOutButton.setMaxWidth(200);
 
-        leftVBox.getChildren().addAll(logOutButton);
-        VBox.setMargin(logOutButton, new Insets(440, 20, 0, 20));
+        leftVBox.getChildren().addAll(addCustomerButton, sendDocument, logOutButton);
+        VBox.setMargin(addCustomerButton, new Insets(60, 20, 0, 20));
+        VBox.setMargin(sendDocument, new Insets(20, 20, 0, 20));
+        VBox.setMargin(logOutButton, new Insets(330, 20, 0, 20));
 
         HamburgerUtil.showHamburger(jfxHamburger, leftVBox, mainPane);
     }
@@ -76,10 +83,37 @@ public class SalesmanWindowController implements Initializable {
      * Actions for buttons inside hamburger menu.
      */
     private void hamburgerButtons() {
+        // add customer functionality
+        addCustomerButton.setOnAction(event -> {
+            try {
+                BlurEffectUtil.applyBlurEffect(mainPane,10);
+
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.ADD_CUSTOMER.getView()));
+                Parent parent = fxmlLoader.load();
+
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setTitle("Add customer window");
+                stage.setResizable(false);
+                Scene scene = new Scene(parent);
+                stage.setScene(scene);
+                stage.show();
+
+                AddCustomerController addCustomerController = fxmlLoader.getController();
+                addCustomerController.setPane(mainPane);
+                addCustomerController.setOnCloseRequestHandler(stage);
+
+            } catch (IOException e) {
+                PopupUtil.showAlert("Something went wrong", "Failed to open the window", Alert.AlertType.ERROR);
+                e.printStackTrace();
+            }
+        });
+
         // log out functionality
         logOutButton.setOnAction(event -> {
-            HamburgerUtil.setDefaultHamburger();
             try {
+                HamburgerUtil.setDefaultHamburger();
+
                 Stage currentStage = (Stage) mainPane.getScene().getWindow();
                 currentStage.close();
 
@@ -93,7 +127,8 @@ public class SalesmanWindowController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
             } catch (IOException e) {
-                throw new RuntimeException("Failed to logout", e);
+                PopupUtil.showAlert("Something went wrong", "Failed to logout", Alert.AlertType.ERROR);
+                e.printStackTrace();
             }
         });
     }

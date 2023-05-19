@@ -5,7 +5,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
-import dk.easv.gui.controller.CreateUserWindowController;
+import dk.easv.gui.controller.CreateUserController;
 import dk.easv.gui.util.ProjectDisplay;
 import dk.easv.gui.controller.project.ProjectStep1Controller;
 import dk.easv.gui.model.ProjectModel;
@@ -159,10 +159,10 @@ public class AdminWindowController implements Initializable {
                 Scene scene = new Scene(createEventParent);
                 stage.setScene(scene);
 
-                CreateUserWindowController createUserWindowController = fxmlLoader.getController();
-                createUserWindowController.setModel(userModel);
-                createUserWindowController.setPane(mainPane);
-                createUserWindowController.setOnCloseRequestHandler(stage);
+                CreateUserController createUserController = fxmlLoader.getController();
+                createUserController.setModel(userModel);
+                createUserController.setPane(mainPane);
+                createUserController.setOnCloseRequestHandler(stage);
                 stage.show();
             } catch (IOException e) {
                 throw new RuntimeException("Failed to open the window", e);

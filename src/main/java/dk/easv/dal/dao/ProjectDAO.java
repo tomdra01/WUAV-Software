@@ -124,6 +124,30 @@ public class ProjectDAO implements IProjectDAO {
     }
 
     /**
+     * Gets the images associated with a specific project from the database.
+     * @param projectId The ID of the project.
+     * @return A list of byte arrays, each representing an image.
+     * @throws Exception pushes any kind of Exception upwards to the BLL.
+     */
+    public List<byte[]> getProjectImages(int projectId) throws Exception {
+        List<byte[]> projectImages = new ArrayList<>();
+
+        try (Connection con = databaseConnector.getConnection()) {
+            String sql = "SELECT imageData FROM ProjectPhotos WHERE project_id = ?";
+
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setInt(1, projectId);
+
+            ResultSet resultSet = pst.executeQuery();
+            while (resultSet.next()) {
+                byte[] imageData = resultSet.getBytes("imageData");
+                projectImages.add(imageData);
+            }
+        }
+        return projectImages;
+    }
+
+    /**
      * Creates project in the database.
      * @param project sends object "Project" as a parameter.
      * @throws Exception pushes any kind of Exception upwards to the BLL.
@@ -238,29 +262,5 @@ public class ProjectDAO implements IProjectDAO {
                 throw new RuntimeException("Project not found");
             }
         }
-    }
-
-    /**
-     * Gets the images associated with a specific project from the database.
-     * @param projectId The ID of the project.
-     * @return A list of byte arrays, each representing an image.
-     * @throws Exception pushes any kind of Exception upwards to the BLL.
-     */
-    public List<byte[]> getProjectImages(int projectId) throws Exception {
-        List<byte[]> projectImages = new ArrayList<>();
-
-        try (Connection con = databaseConnector.getConnection()) {
-            String sql = "SELECT imageData FROM ProjectPhotos WHERE project_id = ?";
-
-            PreparedStatement pst = con.prepareStatement(sql);
-            pst.setInt(1, projectId);
-
-            ResultSet resultSet = pst.executeQuery();
-            while (resultSet.next()) {
-                byte[] imageData = resultSet.getBytes("imageData");
-                projectImages.add(imageData);
-            }
-        }
-        return projectImages;
     }
 }

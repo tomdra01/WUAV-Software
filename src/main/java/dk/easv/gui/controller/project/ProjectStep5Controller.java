@@ -3,15 +3,21 @@ package dk.easv.gui.controller.project;
 // imports
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import dk.easv.be.Project;
 import dk.easv.be.User;
+import dk.easv.bll.exception.DatabaseException;
 import dk.easv.bll.util.ImageByteReader;
+import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.model.ProjectModel;
+import dk.easv.gui.util.BlurEffectUtil;
+import dk.easv.gui.util.ProjectDisplay;
 import dk.easv.gui.util.ViewType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,6 +33,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
@@ -34,7 +41,7 @@ import java.util.ResourceBundle;
  * @author tomdra01, mrtng1
  */
 public class ProjectStep5Controller implements Initializable {
-    @FXML private Button nextStepBtn, previousStepBtn, addImagesBtn;
+    @FXML private Button finishBtn, previousStepBtn, addImagesBtn;
     @FXML private ImageView imageView1, imageView2, imageView3;
     private String projectName, businessType, projectLocation, projectDescription;
     private LocalDate projectDate;
@@ -47,6 +54,7 @@ public class ProjectStep5Controller implements Initializable {
     private JFXTextField searchBar;
     private BorderPane mainPane;
     private User user;
+    private ProjectDisplay projectDisplay;
 
     public void setMainPage(HBox projectHbox, JFXComboBox<String> filterComboBox, JFXTextField searchBar, BorderPane mainPane){
         this.projectHbox=projectHbox;
@@ -138,25 +146,41 @@ public class ProjectStep5Controller implements Initializable {
         }
     }
 
-    public void nextStep(){
+    public void finish(){
+        Project project = new Project(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription, false);
+
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP6.getView()));
-            Parent root = loader.load();
-
-            ProjectStepFinalController projectStepFinalController = loader.getController();
-            projectStepFinalController.setProject(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription);
-            projectStepFinalController.setImages(projectPhoto1, projectPhoto2, projectPhoto3);
-            projectStepFinalController.setModel(projectModel);
-            projectStepFinalController.setUser(user);
-            projectStepFinalController.setMainPage(projectHbox, filterComboBox, searchBar, mainPane);
-
-            Stage window = (Stage) nextStepBtn.getScene().getWindow();
-            window.setTitle("Step 6");
-            Scene scene = new Scene(root);
-            window.setScene(scene);
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to change the window", e);
+            projectModel.createProject(project);
+        } catch (DatabaseException e) {
+            PopupUtil.showAlert("Something went wrong ", e.getMessage(), Alert.AlertType.ERROR);
+            e.printStackTrace();
         }
+
+        try {
+            projectModel.insertImages(project, projectPhoto1);
+            projectModel.insertImages(project, projectPhoto2);
+            projectModel.insertImages(project, projectPhoto3);
+        } catch (DatabaseException e) {
+            PopupUtil.showAlert("Something went wrong ", e.getMessage(), Alert.AlertType.ERROR);
+            e.printStackTrace();
+        }
+
+        if (Objects.equals(user.getRole(), "Technician")){
+            try {
+                projectModel.technicianProject(user, project);
+            } catch (DatabaseException e) {
+                PopupUtil.showAlert("Something went wrong", e.getMessage(), Alert.AlertType.ERROR);
+                e.printStackTrace();
+            }
+            projectDisplay.showTechnicianProjects(projectHbox, filterComboBox, searchBar, projectModel, mainPane, user);
+        }
+        else if (Objects.equals(user.getRole(), "Admin")){
+            projectDisplay.showAllProjects(projectHbox, filterComboBox, searchBar, projectModel, mainPane);
+        }
+
+        BlurEffectUtil.removeBlurEffect(mainPane);
+        Stage stage = (Stage) finishBtn.getScene().getWindow();
+        stage.close();
     }
 
     public void previousStep() {
@@ -184,5 +208,6 @@ public class ProjectStep5Controller implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        projectDisplay = new ProjectDisplay();
     }
 }

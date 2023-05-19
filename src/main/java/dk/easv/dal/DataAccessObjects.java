@@ -7,4 +7,5 @@ package dk.easv.dal;
 public enum DataAccessObjects {
     USER_DAO,
     PROJECT_DAO,
+    CUSTOMER_DAO,
 }

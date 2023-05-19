@@ -14,6 +14,7 @@ public class DAOFactory {
         return switch (dataAccessObjects) {
             case USER_DAO -> new UserDAO();
             case PROJECT_DAO -> new ProjectDAO();
+            case CUSTOMER_DAO -> new CustomerDAO();
         };
     }
 }

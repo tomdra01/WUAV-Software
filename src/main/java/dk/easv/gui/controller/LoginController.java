@@ -30,7 +30,7 @@ import java.util.ResourceBundle;
  *
  * @author tomdra01, mrtng1
  */
-public class LoginWindowController implements Initializable {
+public class LoginController implements Initializable {
     @FXML private BorderPane loginPane;
     @FXML private JFXTextField nameField;
     @FXML private JFXPasswordField passwordField;

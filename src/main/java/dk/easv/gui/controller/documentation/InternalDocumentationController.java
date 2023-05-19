@@ -8,6 +8,7 @@ import dk.easv.gui.util.ProjectDisplay;
 import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.BlurEffectUtil;
+import dk.easv.gui.util.ViewType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -72,7 +73,7 @@ public class InternalDocumentationController implements Initializable {
 
     public void switchToExternalDocumentation() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/documentation/external_documentation.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.EXTERNAL.getView()));
             Parent root = loader.load();
 
             ExternalDocumentationController documentationController = loader.getController();

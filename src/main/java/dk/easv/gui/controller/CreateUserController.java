@@ -14,7 +14,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -26,13 +25,11 @@ import java.util.ResourceBundle;
  *
  * @author tomdra01, mrtng1
  */
-public class CreateUserWindowController implements Initializable {
+public class CreateUserController implements Initializable {
     @FXML private BorderPane currentNode, borderPane;
     @FXML private JFXComboBox<String> jfxComboBox;
     @FXML private JFXTextField usernameField, passwordField;
-    @FXML private Button cancelButton;
     private UserModel userModel;
-    ObservableList<String> userTypes = FXCollections.observableArrayList();
 
     public void setModel(UserModel userModel) {
         this.userModel = userModel;
@@ -46,6 +43,12 @@ public class CreateUserWindowController implements Initializable {
         stage.setOnCloseRequest(event -> BlurEffectUtil.removeBlurEffect(borderPane));
     }
 
+    private void setComboBox() {
+        ObservableList<String> userTypes = FXCollections.observableArrayList();
+        userTypes.addAll("Technician", "Salesman", "Project Manager");
+        jfxComboBox.setItems(userTypes);
+    }
+
     /**
      * Creates a users.
      */
@@ -55,7 +58,7 @@ public class CreateUserWindowController implements Initializable {
         String password = passwordField.getText();
         String hashedPassword = PasswordSecurity.hashPassword(password);
 
-        if (!usernameField.getText().isEmpty()) {
+        if (!usernameField.getText().isEmpty() || !passwordField.getText().isEmpty() || !jfxComboBox.getSelectionModel().isEmpty()) {
             User user = new User(username, hashedPassword, userType);
 
             try {
@@ -68,7 +71,7 @@ public class CreateUserWindowController implements Initializable {
         }
     }
 
-    private void closeWindow() {
+    public void cancelWindow() {
         BlurEffectUtil.removeBlurEffect(borderPane);
         Stage stage = (Stage) currentNode.getScene().getWindow();
         stage.close();
@@ -79,9 +82,6 @@ public class CreateUserWindowController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        userTypes.addAll("Technician", "Salesman", "Project Manager");
-        jfxComboBox.setItems(userTypes);
-
-        cancelButton.setOnAction(event -> closeWindow());
+        setComboBox();
     }
 }

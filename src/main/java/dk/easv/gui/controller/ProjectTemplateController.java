@@ -66,7 +66,7 @@ public class ProjectTemplateController implements Initializable {
     public void openProject(){
         BlurEffectUtil.applyBlurEffect(mainPane,10);
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.INSPECT_PROJECT.getView()));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.INTERNAL.getView()));
             Parent createEventParent = fxmlLoader.load();
 
             Stage stage = new Stage();

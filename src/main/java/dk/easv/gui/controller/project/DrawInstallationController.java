@@ -263,7 +263,7 @@ public class DrawInstallationController implements Initializable {
     public void nextStep() {
         try {
             SnapshotParameters parameters = new SnapshotParameters();
-            parameters.setFill(Color.TRANSPARENT);
+            parameters.setFill(Color.rgb(250, 250, 250));
 
             WritableImage fxImage = canvas.snapshot(parameters, null);
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
