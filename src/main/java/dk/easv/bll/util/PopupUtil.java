@@ -3,8 +3,10 @@ package dk.easv.bll.util;
 // imports
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 
 // java imports
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -17,6 +19,10 @@ public class PopupUtil {
         alert.setTitle(title);
         alert.setContentText(message);
         alert.setHeaderText(null);
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(Objects.requireNonNull(PopupUtil.class.getResource("/styles/alert_style.css")).toExternalForm());
+        dialogPane.getStyleClass().add("custom-dialog-pane");
         alert.showAndWait();
     }
 

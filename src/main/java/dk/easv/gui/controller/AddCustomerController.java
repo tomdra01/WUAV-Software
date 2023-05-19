@@ -6,13 +6,10 @@ import dk.easv.be.Customer;
 import dk.easv.bll.exception.DatabaseException;
 import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.model.CustomerModel;
-import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.BlurEffectUtil;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -42,7 +39,7 @@ public class AddCustomerController implements Initializable {
         String name = nameField.getText();
         String email = emailField.getText();
 
-        if (!nameField.getText().isEmpty() || !emailField.getText().isEmpty()) {
+        if (!nameField.getText().isEmpty() && !emailField.getText().isEmpty()) {
             if (checkEmailFormat(emailField)){
                 Customer customer = new Customer(name, email);
 
@@ -52,8 +49,9 @@ public class AddCustomerController implements Initializable {
                     PopupUtil.showAlert("Something went wrong", e.getMessage(), Alert.AlertType.ERROR);
                     e.printStackTrace();
                 }
+                closeWindow();
             }else {
-                PopupUtil.showAlert("Wrong format", "Please make sure that the email has right format", Alert.AlertType.INFORMATION);
+                PopupUtil.showAlert("Wrong format", "Make sure that the email has right format", Alert.AlertType.INFORMATION);
             }
         } else {
             PopupUtil.showAlert("Empty fields", "Please fill in all the fields", Alert.AlertType.INFORMATION);
@@ -68,7 +66,7 @@ public class AddCustomerController implements Initializable {
         return Pattern.matches(emailPattern, email);
     }
 
-    public void cancelWindow() {
+    public void closeWindow() {
         BlurEffectUtil.removeBlurEffect(borderPane);
         Stage stage = (Stage) currentNode.getScene().getWindow();
         stage.close();
