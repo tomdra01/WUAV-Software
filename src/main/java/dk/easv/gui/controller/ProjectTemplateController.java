@@ -3,6 +3,7 @@ package dk.easv.gui.controller;
 // imports
 import com.jfoenix.controls.JFXCheckBox;
 import dk.easv.be.Project;
+import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.controller.documentation.InternalDocumentationController;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.BlurEffectUtil;
@@ -12,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -33,39 +35,49 @@ public class ProjectTemplateController implements Initializable {
     @FXML private Label nameLabel, dateLabel, locationLabel, textLabel;
     @FXML private JFXCheckBox approvedProject;
     @FXML private BorderPane mainPane;
-    private Project project;
+    private final Project project;
     private ProjectModel projectModel;
 
     public ImageView getProjectImg() {
         return projectImg;
     }
 
-    public Label getNameLabel() {return nameLabel;}
+    public Label getNameLabel() {
+        return nameLabel;
+    }
 
-    public Label getLocationLabel() {return locationLabel;}
+    public Label getLocationLabel() {
+        return locationLabel;
+    }
 
-    public Label getDateLabel() {return dateLabel;}
+    public Label getDateLabel() {
+        return dateLabel;
+    }
 
-    public Label getTextLabel() {return textLabel;}
+    public Label getTextLabel() {
+        return textLabel;
+    }
 
     public JFXCheckBox getApprovedProject() {
         return approvedProject;
     }
 
-    public void setMainPane(BorderPane mainPane){this.mainPane=mainPane;}
-    public void setModel(ProjectModel projectModel){
+    public void setMainPane(BorderPane mainPane) {
+        this.mainPane = mainPane;
+    }
+
+    public void setModel(ProjectModel projectModel) {
         this.projectModel=projectModel;
     }
 
-    public ProjectTemplateController(Project project){
+    public ProjectTemplateController(Project project) {
         this.project=project;
     }
 
-
-
     public void openProject(){
-        BlurEffectUtil.applyBlurEffect(mainPane,10);
         try {
+            BlurEffectUtil.applyBlurEffect(mainPane,10);
+
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.INTERNAL.getView()));
             Parent createEventParent = fxmlLoader.load();
 
@@ -84,6 +96,7 @@ public class ProjectTemplateController implements Initializable {
             internalDocumentationController.setModel(projectModel);
 
         } catch (IOException e) {
+            PopupUtil.showAlert("Something went wrong", "Failed to open the project", Alert.AlertType.ERROR);
             e.printStackTrace();
         }
     }

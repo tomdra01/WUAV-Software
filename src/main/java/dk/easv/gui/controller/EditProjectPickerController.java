@@ -93,6 +93,9 @@ public class EditProjectPickerController implements Initializable {
         });
     }
 
+    /**
+     * Initialize method
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     }

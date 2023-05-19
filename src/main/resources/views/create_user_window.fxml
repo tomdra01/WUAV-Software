@@ -20,7 +20,7 @@
                <Insets left="470.0" top="10.0" />
             </HBox.margin>
          </Button>
-         <Button mnemonicParsing="false" onAction="#cancelWindow" text="Cancel">
+         <Button mnemonicParsing="false" onAction="#closeWindow" text="Cancel">
             <HBox.margin>
                <Insets left="10.0" top="10.0" />
             </HBox.margin>

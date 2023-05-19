@@ -36,7 +36,7 @@ public class LoginController implements Initializable {
     @FXML private JFXPasswordField passwordField;
     private UserModel userModel;
 
-    public void login() throws IOException {
+    public void login() {
         String inputUsername = nameField.getText();
         String inputPassword = passwordField.getText();
 
@@ -50,61 +50,68 @@ public class LoginController implements Initializable {
             Scene scene;
             String windowTitle = "WUAV - " + userRole;
 
-            switch (userRole) {
-                case "Admin" -> {
-                    fxmlLoader.setLocation(getClass().getResource(ViewType.ADMIN.getView()));
-                    parent = fxmlLoader.load();
-                    stage = new Stage();
-                    scene = new Scene(parent);
-                    stage.setScene(scene);
-                    stage.setTitle(windowTitle);
-                    stage.show();
-                    AdminWindowController adminWindowController = fxmlLoader.getController();
-                    adminWindowController.setModel(userModel);
-                    adminWindowController.setUser(user);
+            try {
+                switch (userRole) {
+                    case "Admin" -> {
+                        fxmlLoader.setLocation(getClass().getResource(ViewType.ADMIN.getView()));
+                        parent = fxmlLoader.load();
+                        stage = new Stage();
+                        scene = new Scene(parent);
+                        stage.setScene(scene);
+                        stage.setTitle(windowTitle);
+                        stage.show();
+                        AdminWindowController adminWindowController = fxmlLoader.getController();
+                        adminWindowController.setModel(userModel);
+                        adminWindowController.setUser(user);
+                    }
+                    case "Technician" -> {
+                        fxmlLoader.setLocation(getClass().getResource(ViewType.TECHNICIAN.getView()));
+                        parent = fxmlLoader.load();
+                        stage = new Stage();
+                        scene = new Scene(parent);
+                        stage.setScene(scene);
+                        stage.setTitle(windowTitle);
+                        stage.show();
+                        TechnicianWindowController technicianWindowController = fxmlLoader.getController();
+                        technicianWindowController.setModel(userModel);
+                        technicianWindowController.setUser(user);
+                    }
+                    case "Project Manager" -> {
+                        fxmlLoader.setLocation(getClass().getResource(ViewType.PROJECT_MANAGER.getView()));
+                        parent = fxmlLoader.load();
+                        stage = new Stage();
+                        scene = new Scene(parent);
+                        stage.setScene(scene);
+                        stage.setTitle(windowTitle);
+                        stage.show();
+                        ProjectManagerWindowController projectManagerWindowController = fxmlLoader.getController();
+                        projectManagerWindowController.setModel(userModel);
+                        projectManagerWindowController.setUser(user);
+                    }
+                    case "Salesman" -> {
+                        fxmlLoader.setLocation(getClass().getResource(ViewType.SALESMAN.getView()));
+                        parent = fxmlLoader.load();
+                        stage = new Stage();
+                        scene = new Scene(parent);
+                        stage.setScene(scene);
+                        stage.setTitle(windowTitle);
+                        stage.show();
+                        SalesmanWindowController salesmanWindowController = fxmlLoader.getController();
+                        salesmanWindowController.setModel(userModel);
+                        salesmanWindowController.setUser(user);
+                    }
                 }
-                case "Technician" -> {
-                    fxmlLoader.setLocation(getClass().getResource(ViewType.TECHNICIAN.getView()));
-                    parent = fxmlLoader.load();
-                    stage = new Stage();
-                    scene = new Scene(parent);
-                    stage.setScene(scene);
-                    stage.setTitle(windowTitle);
-                    stage.show();
-                    TechnicianWindowController technicianWindowController = fxmlLoader.getController();
-                    technicianWindowController.setModel(userModel);
-                    technicianWindowController.setUser(user);
-                }
-                case "Project Manager" -> {
-                    fxmlLoader.setLocation(getClass().getResource(ViewType.PROJECT_MANAGER.getView()));
-                    parent = fxmlLoader.load();
-                    stage = new Stage();
-                    scene = new Scene(parent);
-                    stage.setScene(scene);
-                    stage.setTitle(windowTitle);
-                    stage.show();
-                    ProjectManagerWindowController projectManagerWindowController = fxmlLoader.getController();
-                    projectManagerWindowController.setModel(userModel);
-                    projectManagerWindowController.setUser(user);
-                }
-                case "Salesman" -> {
-                    fxmlLoader.setLocation(getClass().getResource(ViewType.SALESMAN.getView()));
-                    parent = fxmlLoader.load();
-                    stage = new Stage();
-                    scene = new Scene(parent);
-                    stage.setScene(scene);
-                    stage.setTitle(windowTitle);
-                    stage.show();
-                    SalesmanWindowController salesmanWindowController = fxmlLoader.getController();
-                    salesmanWindowController.setModel(userModel);
-                    salesmanWindowController.setUser(user);
-                }
+                Stage currentStage = (Stage) loginPane.getScene().getWindow();
+                currentStage.close();
+
+            } catch (IOException e) {
+                PopupUtil.showAlert("Something went wrong", "Failed to login", Alert.AlertType.ERROR);
+                e.printStackTrace();
             }
-            Stage currentStage = (Stage) loginPane.getScene().getWindow();
-            currentStage.close();
-        } else {
-            PopupUtil.showAlert("Incorrect login", "Incorrect username or password", Alert.AlertType.WARNING);
         }
+        else {
+                PopupUtil.showAlert("Incorrect login", "Incorrect username or password", Alert.AlertType.WARNING);
+            }
     }
 
     /**
@@ -113,13 +120,13 @@ public class LoginController implements Initializable {
     public void loginEnter(){
         nameField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
-                try {login();} catch (IOException e) {throw new RuntimeException("Failed to login", e);}
+                login();
             }
         });
 
         passwordField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
-                try {login();} catch (IOException e) {throw new RuntimeException("Failed to login", e);}
+                login();
             }
         });
     }
@@ -130,6 +137,6 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         userModel = new UserModel();
-        loginEnter();
+        loginEnter(); // login by enter
     }
 }

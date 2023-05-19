@@ -58,20 +58,22 @@ public class CreateUserController implements Initializable {
         String password = passwordField.getText();
         String hashedPassword = PasswordSecurity.hashPassword(password);
 
-        if (!usernameField.getText().isEmpty() || !passwordField.getText().isEmpty() || !jfxComboBox.getSelectionModel().isEmpty()) {
+        if (!usernameField.getText().isEmpty() && !passwordField.getText().isEmpty() && !jfxComboBox.getSelectionModel().isEmpty()) {
             User user = new User(username, hashedPassword, userType);
 
             try {
                 userModel.createUser(user);
             } catch (DatabaseException e) {
-                throw new RuntimeException("Failed to create users in GUI", e);
+                PopupUtil.showAlert("Something went wrong", e.getMessage(), Alert.AlertType.ERROR);
+                e.printStackTrace();
             }
+            closeWindow();
         } else {
             PopupUtil.showAlert("Empty fields", "Please fill in all the fields", Alert.AlertType.INFORMATION);
         }
     }
 
-    public void cancelWindow() {
+    public void closeWindow() {
         BlurEffectUtil.removeBlurEffect(borderPane);
         Stage stage = (Stage) currentNode.getScene().getWindow();
         stage.close();

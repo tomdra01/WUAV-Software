@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
+import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.util.ProjectDisplay;
 import dk.easv.gui.controller.project.ProjectStep1Controller;
 import dk.easv.gui.model.ProjectModel;
@@ -20,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
@@ -84,8 +86,9 @@ public class TechnicianWindowController implements Initializable {
     private void hamburgerButtons() {
         // create new project
         createProjectButton.setOnAction(event -> {
-            BlurEffectUtil.applyBlurEffect(mainPane,10);
             try {
+                BlurEffectUtil.applyBlurEffect(mainPane,10);
+
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP1.getView()));
                 Parent createEventParent = fxmlLoader.load();
 
@@ -105,14 +108,16 @@ public class TechnicianWindowController implements Initializable {
                 projectStep1.setMainPage(projectsHbox, filterComboBox, searchBar, mainPane);
 
             } catch (IOException e) {
+                PopupUtil.showAlert("Something went wrong", "Failed to open the window", Alert.AlertType.ERROR);
                 e.printStackTrace();
             }
         });
 
         // log out functionality
         logOutButton.setOnAction(event -> {
-            HamburgerUtil.setDefaultHamburger();
             try {
+                HamburgerUtil.setDefaultHamburger();
+
                 Stage currentStage = (Stage) mainPane.getScene().getWindow();
                 currentStage.close();
 
@@ -126,11 +131,11 @@ public class TechnicianWindowController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
             } catch (IOException e) {
-                throw new RuntimeException("Failed to logout", e);
+                PopupUtil.showAlert("Something went wrong", "Failed to logout", Alert.AlertType.ERROR);
+                e.printStackTrace();
             }
         });
     }
-
 
     private void projectInit() {
         filterComboBox.setItems(FXCollections.observableArrayList("All", "Consumer", "Corporate & Government"));
@@ -142,11 +147,9 @@ public class TechnicianWindowController implements Initializable {
         filterComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)
                 -> projectDisplay.showTechnicianProjects(projectsHbox, filterComboBox, searchBar, projectModel, mainPane , user));
 
-
         searchBar.textProperty().addListener((observable, oldValue, newValue)
                 -> projectDisplay.showTechnicianProjects(projectsHbox, filterComboBox, searchBar, projectModel, mainPane , user));
     }
-
 
     /**
      * Initialize method
@@ -155,7 +158,7 @@ public class TechnicianWindowController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         projectDisplay = new ProjectDisplay();
         projectModel = new ProjectModel();
-        //searchFilter(); // search + filter
+        projectInit(); // search + filter
         ClockUtil.showWidget(hbox); //clock
         hamburgerMenu(); //hamburger
         hamburgerButtons(); //buttons in hamburger

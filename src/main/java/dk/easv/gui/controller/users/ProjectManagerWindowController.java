@@ -5,7 +5,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
-import dk.easv.gui.controller.EditProjectPickerController;
+import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.model.UserModel;
 import dk.easv.gui.util.*;
@@ -16,11 +16,11 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 // java imports
@@ -38,7 +38,6 @@ public class ProjectManagerWindowController implements Initializable {
     @FXML private JFXHamburger jfxHamburger;
     @FXML private JFXComboBox<String> filterComboBox;
     @FXML private JFXTextField searchBar;
-    private final Button editButton = new Button("Edit project");
     private final Button logOutButton = new Button("Log out");
     private User user;
     private UserModel userModel;
@@ -62,12 +61,10 @@ public class ProjectManagerWindowController implements Initializable {
         leftVBox.setPrefWidth(160);
         leftVBox.getStylesheets().add("styles/main_style.css");
 
-        editButton.setMaxWidth(200);
         logOutButton.setMaxWidth(200);
 
-        leftVBox.getChildren().addAll(editButton, logOutButton);
-        VBox.setMargin(editButton, new Insets(60, 20, 0, 20));
-        VBox.setMargin(logOutButton, new Insets(380, 20, 0, 20));
+        leftVBox.getChildren().addAll(logOutButton);
+        VBox.setMargin(logOutButton, new Insets(460, 20, 0, 20));
 
         HamburgerUtil.showHamburger(jfxHamburger, leftVBox, mainPane);
     }
@@ -78,8 +75,9 @@ public class ProjectManagerWindowController implements Initializable {
     private void hamburgerButtons() {
         // log out functionality
         logOutButton.setOnAction(event -> {
-            HamburgerUtil.setDefaultHamburger();
             try {
+                HamburgerUtil.setDefaultHamburger();
+
                 Stage currentStage = (Stage) mainPane.getScene().getWindow();
                 currentStage.close();
 
@@ -93,31 +91,8 @@ public class ProjectManagerWindowController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
             } catch (IOException e) {
-                throw new RuntimeException("Failed to logout", e);
-            }
-        });
-
-        editButton.setOnAction(event -> {
-            try {
-                BlurEffectUtil.applyBlurEffect(mainPane,10);
-
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.EDIT_PICK_MENU.getView()));
-                Parent createEventParent = fxmlLoader.load();
-
-                Stage stage = new Stage();
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.setTitle("Edit project");
-                stage.setResizable(false);
-                Scene scene = new Scene(createEventParent);
-                stage.setScene(scene);
-
-                EditProjectPickerController editProjectPickerController = fxmlLoader.getController();
-                editProjectPickerController.setProjectModel(projectModel);
-                editProjectPickerController.setPane(mainPane);
-                editProjectPickerController.setOnCloseRequestHandler(stage);
-                stage.show();
-            } catch (IOException e) {
-                throw new RuntimeException("Failed to open the window", e);
+                PopupUtil.showAlert("Something went wrong", "Failed to logout", Alert.AlertType.ERROR);
+                e.printStackTrace();
             }
         });
     }

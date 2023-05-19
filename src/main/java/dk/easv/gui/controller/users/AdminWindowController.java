@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
+import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.controller.CreateUserController;
 import dk.easv.gui.util.ProjectDisplay;
 import dk.easv.gui.controller.project.ProjectStep1Controller;
@@ -21,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
@@ -92,16 +94,17 @@ public class AdminWindowController implements Initializable {
     private void hamburgerButtons() {
         // create new project
         createProjectButton.setOnAction(event -> {
-            BlurEffectUtil.applyBlurEffect(mainPane,10);
             try {
+                BlurEffectUtil.applyBlurEffect(mainPane,10);
+
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.PROJECT_STEP1.getView()));
-                Parent createEventParent = fxmlLoader.load();
+                Parent parent = fxmlLoader.load();
 
                 Stage stage = new Stage();
                 stage.initModality(Modality.APPLICATION_MODAL);
-                stage.setTitle("Step 1");
+                stage.setTitle("Step 1 window");
                 stage.setResizable(false);
-                Scene scene = new Scene(createEventParent);
+                Scene scene = new Scene(parent);
                 stage.setScene(scene);
                 stage.show();
 
@@ -113,34 +116,8 @@ public class AdminWindowController implements Initializable {
                 projectStep1.setMainPage(projectsHbox, filterComboBox, searchBar, mainPane);
 
             } catch (IOException e) {
+                PopupUtil.showAlert("Something went wrong", "Failed to open the window", Alert.AlertType.ERROR);
                 e.printStackTrace();
-            }
-        });
-
-        // technician listView
-        showTechniciansButton.setOnAction(event -> {
-
-        });
-
-        // log out functionality
-        logOutButton.setOnAction(event -> {
-            HamburgerUtil.setDefaultHamburger();
-
-            try {
-                Stage currentStage = (Stage) mainPane.getScene().getWindow();
-                currentStage.close();
-
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.LOGIN.getView()));
-                Parent parent = fxmlLoader.load();
-
-                Stage stage = new Stage();
-                stage.setTitle("Login");
-                stage.setResizable(false);
-                Scene scene = new Scene(parent);
-                stage.setScene(scene);
-                stage.show();
-            } catch (IOException e) {
-                throw new RuntimeException("Failed to logout", e);
             }
         });
 
@@ -154,7 +131,7 @@ public class AdminWindowController implements Initializable {
 
                 Stage stage = new Stage();
                 stage.initModality(Modality.APPLICATION_MODAL);
-                stage.setTitle("Create User");
+                stage.setTitle("Create user window");
                 stage.setResizable(false);
                 Scene scene = new Scene(createEventParent);
                 stage.setScene(scene);
@@ -165,7 +142,36 @@ public class AdminWindowController implements Initializable {
                 createUserController.setOnCloseRequestHandler(stage);
                 stage.show();
             } catch (IOException e) {
-                throw new RuntimeException("Failed to open the window", e);
+                PopupUtil.showAlert("Something went wrong", "Failed to open the window", Alert.AlertType.ERROR);
+                e.printStackTrace();
+            }
+        });
+
+        // technician listView
+        showTechniciansButton.setOnAction(event -> {
+
+        });
+
+        // log out functionality
+        logOutButton.setOnAction(event -> {
+            try {
+                HamburgerUtil.setDefaultHamburger();
+
+                Stage currentStage = (Stage) mainPane.getScene().getWindow();
+                currentStage.close();
+
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.LOGIN.getView()));
+                Parent parent = fxmlLoader.load();
+
+                Stage stage = new Stage();
+                stage.setTitle("Login window");
+                stage.setResizable(false);
+                Scene scene = new Scene(parent);
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                PopupUtil.showAlert("Something went wrong", "Failed to logout", Alert.AlertType.ERROR);
+                e.printStackTrace();
             }
         });
     }
