@@ -50,17 +50,41 @@
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="nameLabel" text="Name">
+            <Label fx:id="nameLabel" alignment="CENTER" contentDisplay="CENTER" text="Name">
                <font>
-                  <Font name="System Bold" size="15.0" />
-               </font></Label>
-            <Label fx:id="locationLabel" text="Location" />
-            <Label fx:id="dateLabel" text="Date" />
-            <Label fx:id="businessTypeLabel" text="Business Type" />
-            <JFXTextArea fx:id="textArea" editable="false" focusColor="#e5451000" unFocusColor="#ffffff00">
+                  <Font name="Arial Italic" size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="265.0" top="10.0" />
+               </VBox.margin></Label>
+            <Label fx:id="businessTypeLabel" alignment="CENTER" contentDisplay="CENTER" text="Business Type">
+               <font>
+                  <Font name="Arial Italic" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="236.0" top="10.0" />
+               </VBox.margin></Label>
+            <Label fx:id="locationLabel" alignment="CENTER" contentDisplay="CENTER" text="Location">
+               <font>
+                  <Font name="Arial Italic" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="260.0" top="10.0" />
+               </VBox.margin></Label>
+            <Label fx:id="dateLabel" alignment="CENTER" contentDisplay="CENTER" text="Date">
+               <font>
+                  <Font name="Arial Italic" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="275.0" top="10.0" />
+               </VBox.margin></Label>
+            <JFXTextArea fx:id="textArea" editable="false" focusColor="#ffffff00" unFocusColor="#ffffff00" wrapText="true">
                <VBox.margin>
                   <Insets top="15.0" />
-               </VBox.margin></JFXTextArea>
+               </VBox.margin>
+               <font>
+                  <Font name="Arial" size="10.0" />
+               </font></JFXTextArea>
          </children>
       </VBox>
    </center>

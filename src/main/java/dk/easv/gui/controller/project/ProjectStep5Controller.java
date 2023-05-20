@@ -114,7 +114,6 @@ public class ProjectStep5Controller implements Initializable {
         if (!selectedFiles.isEmpty()) {
             for (int i = 0; i < selectedFiles.size(); i++) {
                 File file = selectedFiles.get(i);
-                long filesize;
 
                 Image image = new Image(file.toURI().toString());
                 switch (i) {
@@ -122,22 +121,16 @@ public class ProjectStep5Controller implements Initializable {
                         imageView1.setImage(image);
                         img1 = image;
                         projectPhoto1 = ImageByteReader.readImage(file);
-                        filesize = projectPhoto1.length;
-                        System.out.println(filesize);
                     }
                     case 1 -> {
                         imageView2.setImage(image);
                         img2 = image;
                         projectPhoto2 = ImageByteReader.readImage(file);
-                        filesize = projectPhoto2.length;
-                        System.out.println(filesize);
                     }
                     case 2 -> {
                         imageView3.setImage(image);
                         img3 = image;
                         projectPhoto3 = ImageByteReader.readImage(file);
-                        filesize = projectPhoto3.length;
-                        System.out.println(filesize);
                     }
                 }
             }
@@ -156,13 +149,15 @@ public class ProjectStep5Controller implements Initializable {
             e.printStackTrace();
         }
 
-        try {
-            projectModel.insertImages(project, projectPhoto1);
-            projectModel.insertImages(project, projectPhoto2);
-            projectModel.insertImages(project, projectPhoto3);
-        } catch (DatabaseException e) {
-            PopupUtil.showAlert("Something went wrong ", e.getMessage(), Alert.AlertType.ERROR);
-            e.printStackTrace();
+        byte[][] imagesArray = { projectPhoto1, projectPhoto2, projectPhoto3 };
+
+        for (byte[] image : imagesArray) {
+            try {
+                projectModel.insertImages(project, image);
+            } catch (Exception e) {
+                PopupUtil.showAlert("Something went wrong ", e.getMessage(), Alert.AlertType.ERROR);
+                e.printStackTrace();
+            }
         }
 
         if (Objects.equals(user.getRole(), "Technician")){

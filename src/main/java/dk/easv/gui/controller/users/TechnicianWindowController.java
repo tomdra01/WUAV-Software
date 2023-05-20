@@ -6,14 +6,10 @@ import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
 import dk.easv.bll.util.PopupUtil;
-import dk.easv.gui.util.ProjectDisplay;
+import dk.easv.gui.util.*;
 import dk.easv.gui.controller.project.ProjectStep1Controller;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.model.UserModel;
-import dk.easv.gui.util.BlurEffectUtil;
-import dk.easv.gui.util.ClockUtil;
-import dk.easv.gui.util.HamburgerUtil;
-import dk.easv.gui.util.ViewType;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +19,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -38,11 +35,11 @@ import java.util.ResourceBundle;
  */
 public class TechnicianWindowController implements Initializable {
     @FXML private BorderPane mainPane;
-    @FXML private HBox hbox;
-    @FXML private HBox projectsHbox;
+    @FXML private HBox hbox, projectsHbox;;
     @FXML private JFXHamburger jfxHamburger;
     @FXML private JFXComboBox<String> filterComboBox;
     @FXML private JFXTextField searchBar;
+    @FXML private ImageView engineerIcon;
     private final Button createProjectButton = new Button("New project");
     private final Button logOutButton = new Button("Log out");
     private User user;
@@ -161,5 +158,6 @@ public class TechnicianWindowController implements Initializable {
         ClockUtil.showWidget(hbox); //clock
         hamburgerMenu(); //hamburger
         hamburgerButtons(); //buttons in hamburger
+        ImageUtil.iconAnimation(engineerIcon);
     }
 }

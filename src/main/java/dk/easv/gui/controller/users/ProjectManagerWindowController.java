@@ -19,6 +19,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -40,6 +41,7 @@ public class ProjectManagerWindowController implements Initializable {
     @FXML private JFXHamburger jfxHamburger;
     @FXML private JFXComboBox<String> filterComboBox;
     @FXML private JFXTextField searchBar;
+    @FXML private ImageView engineerIcon;
     private final Button editButton = new Button("Edit project");
     private final Button logOutButton = new Button("Log out");
     private User user;
@@ -153,5 +155,6 @@ public class ProjectManagerWindowController implements Initializable {
         hamburgerMenu(); //hamburger
         hamburgerButtons(); //buttons in hamburger
         searchFilter();
+        ImageUtil.iconAnimation(engineerIcon);
     }
 }

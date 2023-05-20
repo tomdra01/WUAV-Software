@@ -19,6 +19,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -35,13 +36,12 @@ import java.util.ResourceBundle;
  * @author tomdra01, mrtng1
  */
 public class SalesmanWindowController implements Initializable {
+    @FXML private BorderPane mainPane;
+    @FXML private HBox hbox, projectsHbox;
+    @FXML private JFXHamburger jfxHamburger;
     @FXML private JFXComboBox<String> filterComboBox;
     @FXML private JFXTextField searchBar;
-    @FXML private HBox projectsHbox;
-    @FXML
-    private BorderPane mainPane;
-    @FXML private HBox hbox;
-    @FXML private JFXHamburger jfxHamburger;
+    @FXML private ImageView engineerIcon;
     private final Button addCustomerButton = new Button("Add customer");
     private final Button sendDocument = new Button("Send document");
     private final Button logOutButton = new Button("Log out");
@@ -158,5 +158,6 @@ public class SalesmanWindowController implements Initializable {
         hamburgerMenu(); // hamburger
         hamburgerButtons(); // buttons in hamburger
         ClockUtil.showWidget(hbox); // clock
+        ImageUtil.iconAnimation(engineerIcon);
     }
 }

@@ -7,14 +7,10 @@ import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
 import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.controller.CreateUserController;
-import dk.easv.gui.util.ProjectDisplay;
+import dk.easv.gui.util.*;
 import dk.easv.gui.controller.project.ProjectStep1Controller;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.model.UserModel;
-import dk.easv.gui.util.BlurEffectUtil;
-import dk.easv.gui.util.ClockUtil;
-import dk.easv.gui.util.HamburgerUtil;
-import dk.easv.gui.util.ViewType;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -212,6 +208,6 @@ public class AdminWindowController implements Initializable {
         hamburgerMenu(); // hamburger
         hamburgerButtons(); // buttons in hamburger
         ClockUtil.showWidget(hbox); // clock
-        changingImage();
+        ImageUtil.iconAnimation(engineerIcon);
     }
 }

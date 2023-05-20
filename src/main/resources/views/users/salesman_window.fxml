@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.effect.DropShadow?>
@@ -32,9 +33,18 @@
                         <Insets left="25.0" />
                     </HBox.margin>
                 </JFXHamburger>
+                <ImageView fx:id="engineerIcon" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
+                    <HBox.margin>
+                        <Insets left="530.0" top="10.0"/>
+                    </HBox.margin>
+                    <cursor>
+                        <Cursor fx:constant="HAND"/>
+                    </cursor>
+                    <Image url="@../../images/engineer_icon_bw.jpeg"/>
+                </ImageView>
                 <Label prefHeight="17.0" prefWidth="85.0" text="Customer type:">
                     <HBox.margin>
-                        <Insets left="610.0" top="30.0" />
+                        <Insets left="30.0" top="30.0" />
                     </HBox.margin>
                 </Label>
                 <JFXComboBox fx:id="filterComboBox" focusColor="#e84910" labelFloat="true" prefHeight="26.0" prefWidth="190.0">
@@ -42,9 +52,9 @@
                         <Insets left="10.0" top="25.0" />
                     </HBox.margin>
                 </JFXComboBox>
-                <JFXTextField fx:id="searchBar" focusColor="#e84910" minWidth="150.0" prefHeight="25.0" prefWidth="136.0" promptText="Search">
+                <JFXTextField fx:id="searchBar" focusColor="#e84910" minWidth="150.0" prefHeight="25.0" prefWidth="135.0" promptText="Search">
                     <HBox.margin>
-                        <Insets left="50.0" top="25.0" />
+                        <Insets left="55.0" top="25.0" />
                     </HBox.margin>
                 </JFXTextField>
             </HBox>
@@ -62,7 +72,7 @@
             </graphic></Label>
     </bottom>
     <center>
-        <ScrollPane hbarPolicy="ALWAYS" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../styles/scrollpane_style.css" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
+        <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../styles/scroll-pane_style.css" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
             <BorderPane.margin>
                 <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
             </BorderPane.margin>
