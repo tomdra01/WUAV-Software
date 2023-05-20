@@ -9,6 +9,7 @@ import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.BlurEffectUtil;
 import dk.easv.gui.util.ViewType;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,11 +21,23 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 // java imports
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -37,7 +50,7 @@ import java.util.ResourceBundle;
 public class InternalDocumentationController implements Initializable {
     @FXML private JFXToggleButton internalSwitch;
     @FXML private BorderPane currentNode;
-    @FXML private Button deleteButton;
+    @FXML private Button printBtn, deleteBtn, closeBtn;
     @FXML private ImageView projectDrawing;
     @FXML private JFXTextArea textArea;
     @FXML private Label nameLabel, locationLabel, dateLabel, businessTypeLabel;
@@ -72,6 +85,54 @@ public class InternalDocumentationController implements Initializable {
         stage.setOnCloseRequest(event -> BlurEffectUtil.removeBlurEffect(borderPane));
     }
 
+    public void printDocumentation() throws IOException {
+        internalSwitch.setVisible(false);
+        printBtn.setVisible(false);
+        deleteBtn.setVisible(false);
+        closeBtn.setVisible(false);
+
+        Scene scene = currentNode.getScene();
+        float aspectRatio = (float) scene.getWidth() / (float) scene.getHeight();
+        float pdfWidth = 595;
+        float pdfHeight = pdfWidth / aspectRatio;
+
+        PDDocument document = new PDDocument();
+        PDPage page = new PDPage(new PDRectangle(pdfWidth, pdfHeight));
+        document.addPage(page);
+
+        WritableImage fxImage = new WritableImage((int) scene.getWidth(), (int) scene.getHeight());
+        scene.snapshot(fxImage);
+        BufferedImage image = SwingFXUtils.fromFXImage(fxImage, null);
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        ImageIO.write(image, "PNG", outputStream);
+        byte[] imageBytes = outputStream.toByteArray();
+
+        PDImageXObject xImage = PDImageXObject.createFromByteArray(document, imageBytes, "ticket");
+        PDPageContentStream contentStream = new PDPageContentStream(document, page);
+        contentStream.drawImage(xImage, 0, 0, pdfWidth, pdfHeight);
+        contentStream.close();
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialFileName("project_"+ project.getName());
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF files (*.pdf)", "*.pdf");
+        fileChooser.getExtensionFilters().add(extFilter);
+        Stage primaryStage = (Stage) currentNode.getScene().getWindow();
+        File outputFile = fileChooser.showSaveDialog(primaryStage);
+
+        if (outputFile != null) {
+            document.save(outputFile);
+            document.close();
+
+            if (Desktop.isDesktopSupported()) {
+                Desktop desktop = Desktop.getDesktop();
+                if (desktop.isSupported(Desktop.Action.OPEN)) {
+                    desktop.open(outputFile);
+                }
+            }
+        }
+    }
+
     public void switchToExternalDocumentation() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.EXTERNAL.getView()));
@@ -101,7 +162,7 @@ public class InternalDocumentationController implements Initializable {
                 PopupUtil.showAlert("Something went wrong", e.getMessage(), Alert.AlertType.ERROR);
                 e.printStackTrace();
             }
-            Stage stage = (Stage) deleteButton.getScene().getWindow();
+            Stage stage = (Stage) deleteBtn.getScene().getWindow();
             stage.close();
             BlurEffectUtil.removeBlurEffect(borderPane);
         }
