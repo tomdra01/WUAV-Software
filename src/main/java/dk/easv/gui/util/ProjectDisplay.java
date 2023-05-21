@@ -197,7 +197,7 @@ public class ProjectDisplay {
         projectTemplateController.getApprovedProject().setOnAction(event -> {
             project.setApproved(projectTemplateController.getApprovedProject().isSelected());
             try {
-                Log log = new Log("Approved project: "+project.getId(), LocalDateTime.now(), 1);  // user_id -> user.getId()
+                Log log = new Log("Approved project: "+project.getName(), LocalDateTime.now(), "admin");  // > user.getUsername()
                 projectModel.updateApprovalStatus(project);
                 projectModel.createLogEntry(log);
             } catch (DatabaseException e) {

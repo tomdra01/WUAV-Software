@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
 
-<ScrollPane prefHeight="402.0" prefWidth="405.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="dk.easv.gui.controller.LogWindowController">
+<ScrollPane prefHeight="402.0" prefWidth="405.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.LogWindowController">
     <content>
         <TableView fx:id="logTable" prefHeight="400.0" prefWidth="405.0">
             <columns>
-                <TableColumn fx:id="userColumn" text="User ID">
+                <TableColumn fx:id="userColumn" text="Username">
                     <cellValueFactory>
                         <PropertyValueFactory property="user" />
                     </cellValueFactory>

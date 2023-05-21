@@ -2,6 +2,7 @@ package dk.easv.gui.controller;
 
 // imports
 import com.jfoenix.controls.JFXComboBox;
+import dk.easv.be.Log;
 import dk.easv.be.Project;
 import dk.easv.be.User;
 import dk.easv.bll.exception.DatabaseException;
@@ -21,6 +22,7 @@ import javafx.stage.Stage;
 
 // java imports
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -54,7 +56,9 @@ public class AssignNewTechnicianController implements Initializable {
     public void assignNewTechnician() {
         if (!projectComboBox.getSelectionModel().isEmpty() && !technicianComboBox.getSelectionModel().isEmpty()){
             try {
+                Log log = new Log(technicianComboBox.getValue()+" assigned to "+ projectComboBox.getValue(), LocalDateTime.now(),"admin");
                 projectModel.technicianProject(technicianComboBox.getValue(), projectComboBox.getValue());
+                projectModel.createLogEntry(log);
             } catch (DatabaseException e) {
                 PopupUtil.showAlert("Something went wrong", e.getMessage(), Alert.AlertType.ERROR);
                 e.printStackTrace();

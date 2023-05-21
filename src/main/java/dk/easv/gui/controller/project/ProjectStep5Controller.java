@@ -143,7 +143,7 @@ public class ProjectStep5Controller implements Initializable {
 
     public void finish(){
         Project project = new Project(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription, false);
-        Log log = new Log("Created Project: "+projectName, LocalDateTime.now(), user.getId());
+        Log log = new Log("Created Project: "+projectName+"(id: "+ project.getId()+")", LocalDateTime.now(), user.getUsername());
 
         try {
             projectModel.createProject(project);

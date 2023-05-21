@@ -26,7 +26,7 @@ public class LogWindowController implements Initializable {
     @FXML
     private TableView<Log> logTable;
     @FXML
-    private TableColumn<Log, Integer> userColumn;
+    private TableColumn<Log, String> userColumn;
     @FXML
     private TableColumn<Log, String> actionColumn;
     @FXML
@@ -35,7 +35,7 @@ public class LogWindowController implements Initializable {
     public void setProjectModel(ProjectModel projectModel) {
         this.projectModel = projectModel;
 
-        userColumn.setCellValueFactory(new PropertyValueFactory<>("user_id"));
+        userColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
         actionColumn.setCellValueFactory(new PropertyValueFactory<>("logAction"));
         timestampColumn.setCellValueFactory(new PropertyValueFactory<>("actionTime"));
 

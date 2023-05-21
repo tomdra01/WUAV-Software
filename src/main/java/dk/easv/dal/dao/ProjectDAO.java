@@ -267,14 +267,14 @@ public class ProjectDAO implements IProjectDAO {
     }
 
     public void createLogEntry(Log log) throws Exception {
-        String sql = "INSERT INTO [Log] (logAction, actionTime, user_id) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO [Log] (logAction, actionTime, username) VALUES (?, ?, ?)";
 
         try (Connection con = databaseConnector.getConnection();
              PreparedStatement stmt = con.prepareStatement(sql)) {
 
             stmt.setString(1, log.getLogAction());
             stmt.setTimestamp(2, Timestamp.valueOf(log.getActionTime()));
-            stmt.setInt(3, log.getUser_id());
+            stmt.setString(3, log.getUsername());
 
             stmt.executeUpdate();
         }
@@ -291,9 +291,9 @@ public class ProjectDAO implements IProjectDAO {
                 int id = rs.getInt("id");
                 String logAction = rs.getString("logAction");
                 LocalDateTime actionTime = rs.getTimestamp("actionTime").toLocalDateTime();
-                int user_id = rs.getInt("user_id");
+                String username = rs.getString("username");
 
-                Log log = new Log(id, logAction, actionTime, user_id);
+                Log log = new Log(id, logAction, actionTime, username);
                 logs.add(log);
             }
         }

@@ -107,10 +107,10 @@ public class ExternalDocumentationController implements Initializable {
     }
 
     public void deleteProject() {
-        Log log = new Log("Deleted project with id: "+ project.getId(), LocalDateTime.now(), 1);
         Optional<ButtonType> result = PopupUtil.showConfirmationAlert("Confirm deletion", "Are you sure you want to delete this project?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
+                Log log = new Log("Deleted project with id: "+ project.getId(), LocalDateTime.now(), "user");
                 projectModel.deleteProject(project);
                 projectModel.createLogEntry(log);
             } catch (DatabaseException e) {
