@@ -215,6 +215,7 @@ public class AdminWindowController implements Initializable {
 
                 AssignNewTechnicianController assignNewTechnicianController = fxmlLoader.getController();
                 assignNewTechnicianController.setModel(userModel, projectModel);
+                assignNewTechnicianController.setUser(user);
                 assignNewTechnicianController.setPane(mainPane);
                 assignNewTechnicianController.setOnCloseRequestHandler(stage);
                 stage.show();

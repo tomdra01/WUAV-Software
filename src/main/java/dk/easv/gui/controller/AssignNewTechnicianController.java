@@ -36,6 +36,7 @@ public class AssignNewTechnicianController implements Initializable {
     @FXML private JFXComboBox<User> technicianComboBox;
     @FXML private Button cancelBtn;
     private UserModel userModel;
+    private User user;
     private ProjectModel projectModel;
     private BorderPane mainPane;
 
@@ -45,6 +46,9 @@ public class AssignNewTechnicianController implements Initializable {
         setProjectComboBoxes();
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
     public void setPane(BorderPane mainPane) {
         this.mainPane = mainPane;
     }
@@ -56,7 +60,7 @@ public class AssignNewTechnicianController implements Initializable {
     public void assignNewTechnician() {
         if (!projectComboBox.getSelectionModel().isEmpty() && !technicianComboBox.getSelectionModel().isEmpty()){
             try {
-                Log log = new Log(technicianComboBox.getValue()+" assigned to "+ projectComboBox.getValue(), LocalDateTime.now(),"admin");
+                Log log = new Log(technicianComboBox.getValue()+" assigned to "+ projectComboBox.getValue(), LocalDateTime.now(),user.getUsername());
                 projectModel.technicianProject(technicianComboBox.getValue(), projectComboBox.getValue());
                 projectModel.createLogEntry(log);
             } catch (DatabaseException e) {
