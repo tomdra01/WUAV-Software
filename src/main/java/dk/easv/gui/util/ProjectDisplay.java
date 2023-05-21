@@ -3,6 +3,7 @@ package dk.easv.gui.util;
 // imports
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import dk.easv.be.Log;
 import dk.easv.be.Project;
 import dk.easv.be.User;
 import dk.easv.bll.exception.DatabaseException;
@@ -19,6 +20,7 @@ import javafx.scene.layout.HBox;
 // java imports
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -192,7 +194,10 @@ public class ProjectDisplay {
 
         projectTemplateController.getApprovedProject().setOnAction(event -> {
             project.setApproved(projectTemplateController.getApprovedProject().isSelected());
-            try {projectModel.updateApprovalStatus(project);} catch (DatabaseException e) {throw new RuntimeException(e);}
+            try {
+                Log log = new Log("Update approval status for: "+project.getId(), LocalDateTime.now(), 1);  // user_id -> user.getId()
+                projectModel.updateApprovalStatus(project);
+                projectModel.createLogEntry(log);} catch (DatabaseException e) {throw new RuntimeException(e);}
         });
 
         projectTemplateController.setMainPane(mainPane);

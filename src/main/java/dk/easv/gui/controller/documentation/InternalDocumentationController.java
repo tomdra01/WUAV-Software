@@ -3,6 +3,7 @@ package dk.easv.gui.controller.documentation;
 // imports
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXToggleButton;
+import dk.easv.be.Log;
 import dk.easv.be.Project;
 import dk.easv.gui.util.ProjectDisplay;
 import dk.easv.bll.util.PopupUtil;
@@ -40,6 +41,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -154,10 +156,12 @@ public class InternalDocumentationController implements Initializable {
     }
 
     public void deleteProject(){
+        Log log = new Log("Deleted project with id: "+ project.getId(), LocalDateTime.now(), 1);
         Optional<ButtonType> result = PopupUtil.showConfirmationAlert("Confirm deletion", "Are you sure you want to delete this project?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
                 projectModel.deleteProject(project);
+                projectModel.createLogEntry(log);
             } catch (Exception e) {
                 PopupUtil.showAlert("Something went wrong", e.getMessage(), Alert.AlertType.ERROR);
                 e.printStackTrace();
