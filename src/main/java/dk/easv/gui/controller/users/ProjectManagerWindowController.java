@@ -6,7 +6,8 @@ import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
 import dk.easv.bll.util.PopupUtil;
-import dk.easv.gui.controller.EditProjectPickerController;
+import dk.easv.gui.controller.AssignNewTechnicianController;
+import dk.easv.gui.controller.SelectProjectController;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.model.UserModel;
 import dk.easv.gui.util.*;
@@ -85,7 +86,7 @@ public class ProjectManagerWindowController implements Initializable {
             try {
                 BlurEffectUtil.applyBlurEffect(mainPane,10);
 
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.EDIT_PICK_MENU.getView()));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.SELECT_PROJECT.getView()));
                 Parent createEventParent = fxmlLoader.load();
 
                 Stage stage = new Stage();
@@ -95,18 +96,44 @@ public class ProjectManagerWindowController implements Initializable {
                 Scene scene = new Scene(createEventParent);
                 stage.setScene(scene);
 
-                EditProjectPickerController editProjectPickerController = fxmlLoader.getController();
-                editProjectPickerController.setUser(user);
-                editProjectPickerController.setProjectModel(projectModel);
-                editProjectPickerController.setPane(mainPane);
-                editProjectPickerController.setOnCloseRequestHandler(stage);
+                SelectProjectController selectProjectController = fxmlLoader.getController();
+                selectProjectController.setUser(user);
+                selectProjectController.setProjectModel(projectModel);
+                selectProjectController.setPane(mainPane);
+                selectProjectController.setOnCloseRequestHandler(stage);
                 stage.show();
             } catch (IOException e) {
                 PopupUtil.showAlert("Something went wrong", "Failed to open the window", Alert.AlertType.ERROR);
                 e.printStackTrace();
             }
-
         });
+
+        // assign new technician
+        engineerIcon.setOnMouseClicked(event -> {
+            try {
+                BlurEffectUtil.applyBlurEffect(mainPane,10);
+
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.ASSIGN_NEW_TECHNICIAN.getView()));
+                Parent createEventParent = fxmlLoader.load();
+
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setTitle("Assign technician window");
+                stage.setResizable(false);
+                Scene scene = new Scene(createEventParent);
+                stage.setScene(scene);
+
+                AssignNewTechnicianController assignNewTechnicianController = fxmlLoader.getController();
+                assignNewTechnicianController.setModel(userModel, projectModel);
+                assignNewTechnicianController.setPane(mainPane);
+                assignNewTechnicianController.setOnCloseRequestHandler(stage);
+                stage.show();
+            } catch (IOException e) {
+                PopupUtil.showAlert("Something went wrong", "Failed to open the window", Alert.AlertType.ERROR);
+                e.printStackTrace();
+            }
+        });
+
         // log out functionality
         logOutButton.setOnAction(event -> {
             try {

@@ -158,6 +158,5 @@ public class SalesmanWindowController implements Initializable {
         hamburgerMenu(); // hamburger
         hamburgerButtons(); // buttons in hamburger
         ClockUtil.showWidget(hbox); // clock
-        ImageUtil.iconAnimation(engineerIcon);
     }
 }

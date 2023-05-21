@@ -59,8 +59,8 @@ public class UserTest {
     @DisplayName("Test user to string")
     @Test
     public void testUserToString() {
-        User user = new User(1, "testUser", "testPassword", "Admin");
-        String expectedToString = "User{id=1, username='testUser', password='testPassword', role='Admin'}";
+        User user = new User("testUser", "testPassword", "Admin");
+        String expectedToString = "testUser";
         Assertions.assertEquals(expectedToString, user.toString());
     }
 }

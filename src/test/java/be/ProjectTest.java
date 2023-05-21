@@ -84,7 +84,7 @@ public class ProjectTest {
     @Test
     public void testProjectToString() {
         Project project = new Project(1, "Test Project", "Business Type", "Location", LocalDate.now(), new byte[0], "Description", true);
-        String expectedToString = "Project{id=1, name='Test Project', businessType='Business Type', location='Location', date=" + LocalDate.now() + ", drawing=" + Arrays.toString(new byte[0]) + ", description='Description', approved=true}";
+        String expectedToString = "Test Project";
         Assertions.assertEquals(expectedToString, project.toString());
     }
 }

@@ -30,7 +30,7 @@ import java.util.ResourceBundle;
  *
  * @author tomdra01, mrtng1
  */
-public class EditProjectPickerController implements Initializable {
+public class SelectProjectController implements Initializable {
     @FXML private JFXComboBox<Project> projectComboBox;
     private ProjectModel projectModel;
     private BorderPane borderPane;
@@ -51,12 +51,9 @@ public class EditProjectPickerController implements Initializable {
     }
 
     private void setProjectComboBox() {
-        List<Project> projects = projectModel.getProjects();
-        ObservableList<Project> observableList = FXCollections.observableArrayList(projects);
+        ObservableList<Project> observableList = FXCollections.observableArrayList(projectModel.getProjects());
         projectComboBox.setItems(observableList);
-
-        projectComboBox.setCellFactory(lv -> new ProjectListCell());
-        projectComboBox.setButtonCell(projectComboBox.getCellFactory().call(null));
+        projectComboBox.setPromptText("Select project");
 
         projectComboBox.setOnAction(event -> {
             try {
@@ -69,6 +66,7 @@ public class EditProjectPickerController implements Initializable {
                 editProjectController.setUser(user);
                 editProjectController.setProject(selectedProject);
                 editProjectController.setProjectModel(projectModel);
+                editProjectController.setPane(borderPane);
 
                 Stage window = (Stage) projectComboBox.getScene().getWindow();
                 window.setTitle("Edit project window");

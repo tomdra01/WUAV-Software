@@ -4,7 +4,6 @@
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.effect.DropShadow?>
@@ -33,18 +32,9 @@
                   <Insets left="25.0" />
                </HBox.margin>
             </JFXHamburger>
-            <ImageView fx:id="engineerIcon" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
-               <HBox.margin>
-                  <Insets left="530.0" top="10.0"/>
-               </HBox.margin>
-               <cursor>
-                  <Cursor fx:constant="HAND"/>
-               </cursor>
-               <Image url="@../../images/engineer_icon_bw.jpeg"/>
-            </ImageView>
             <Label prefHeight="17.0" prefWidth="85.0" text="Customer type:">
                <HBox.margin>
-                  <Insets left="30.0" top="30.0" />
+                  <Insets left="610.0" top="30.0" />
                </HBox.margin>
             </Label>
             <JFXComboBox fx:id="filterComboBox" focusColor="#e84910" labelFloat="true" prefHeight="26.0" prefWidth="190.0">

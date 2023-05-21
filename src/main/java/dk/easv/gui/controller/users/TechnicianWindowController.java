@@ -158,6 +158,5 @@ public class TechnicianWindowController implements Initializable {
         ClockUtil.showWidget(hbox); //clock
         hamburgerMenu(); //hamburger
         hamburgerButtons(); //buttons in hamburger
-        ImageUtil.iconAnimation(engineerIcon);
     }
 }

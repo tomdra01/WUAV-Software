@@ -10,11 +10,14 @@ import dk.easv.be.User;
 import dk.easv.bll.exception.DatabaseException;
 import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.model.ProjectModel;
+import dk.easv.gui.util.BlurEffectUtil;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 // java imports
 import java.net.URL;
@@ -30,6 +33,7 @@ public class EditProjectController implements Initializable {
     @FXML private JFXComboBox<String> businessType;
     @FXML private DatePicker dateField;
     @FXML private JFXTextArea descTextField;
+    private BorderPane mainPane;
     private Project project;
     private ProjectModel projectModel;
     private User user;
@@ -38,6 +42,10 @@ public class EditProjectController implements Initializable {
         this.projectModel=projectModel;
     }
     public void setUser(User user) {this.user = user;}
+
+    public void setPane(BorderPane borderPane) {
+        this.mainPane = borderPane;
+    }
 
     public void setProject(Project project) {
         this.project = project;
@@ -64,6 +72,13 @@ public class EditProjectController implements Initializable {
             PopupUtil.showAlert("Something went wrong", e.getMessage(), Alert.AlertType.ERROR);
             e.printStackTrace();
         }
+        closeWindow();
+    }
+
+    private void closeWindow() {
+        BlurEffectUtil.removeBlurEffect(mainPane);
+        Stage stage = (Stage) nameField.getScene().getWindow();
+        stage.close();
     }
 
     /**
