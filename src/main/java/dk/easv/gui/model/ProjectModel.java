@@ -80,4 +80,8 @@ public class ProjectModel {
     public void createLogEntry(Log log) throws DatabaseException {
         projectLogic.createLogEntry(log);
     }
+
+    public List<Log> getAllLogs() throws DatabaseException {
+        return projectLogic.getAllLogs();
+    }
 }

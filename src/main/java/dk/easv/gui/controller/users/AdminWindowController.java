@@ -190,7 +190,7 @@ public class AdminWindowController implements Initializable {
                 stage.setScene(scene);
 
                 LogWindowController logWindowController = fxmlLoader.getController();
-                //createUserController.setModel(userModel);
+                logWindowController.setProjectModel(projectModel);
                 logWindowController.setPane(mainPane);
                 logWindowController.setOnCloseRequestHandler(stage);
                 stage.show();

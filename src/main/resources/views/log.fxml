@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<ScrollPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.LogWindowController">
+
+<ScrollPane prefHeight="402.0" prefWidth="405.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="dk.easv.gui.controller.LogWindowController">
     <content>
-        <TableView fx:id="logTable">
+        <TableView fx:id="logTable" prefHeight="400.0" prefWidth="405.0">
             <columns>
-                <TableColumn fx:id="userColumn" text="User">
+                <TableColumn fx:id="userColumn" text="User ID">
                     <cellValueFactory>
                         <PropertyValueFactory property="user" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="actionColumn" text="Action">
+                <TableColumn fx:id="actionColumn" prefWidth="180.0" text="Action">
                     <cellValueFactory>
                         <PropertyValueFactory property="action" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="timestampColumn" text="Timestamp">
+                <TableColumn fx:id="timestampColumn" prefWidth="129.0" text="Timestamp">
                     <cellValueFactory>
                         <PropertyValueFactory property="timestamp" />
                     </cellValueFactory>

@@ -103,7 +103,15 @@ public class ProjectLogic {
         try {
             projectDAO.createLogEntry(log);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Failed to create a log entry", e);
+        }
+    }
+
+    public List<Log> getAllLogs() throws DatabaseException {
+        try {
+            return projectDAO.getAllLogs();
+        } catch (Exception e) {
+            throw new DatabaseException("Failed to fetch all logs from the database", e);
         }
     }
 }

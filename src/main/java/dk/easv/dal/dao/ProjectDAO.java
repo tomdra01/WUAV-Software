@@ -9,6 +9,7 @@ import dk.easv.dal.dao.interfaces.IProjectDAO;
 
 // java imports
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -278,4 +279,26 @@ public class ProjectDAO implements IProjectDAO {
             pstmt.executeUpdate();
         }
     }
+    public List<Log> getAllLogs() throws SQLException {
+        List<Log> logs = new ArrayList<>();
+        String sql = "SELECT * FROM Log";
+
+        try (Connection con = databaseConnector.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String logAction = rs.getString("logAction");
+                LocalDateTime actionTime = rs.getTimestamp("actionTime").toLocalDateTime();
+                int user_id = rs.getInt("user_id");
+
+                Log log = new Log(id, logAction, actionTime, user_id);
+                logs.add(log);
+            }
+        }
+
+        return logs;
+    }
+
 }

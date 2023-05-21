@@ -25,4 +25,5 @@ public interface IProjectDAO extends IDataAccess {
     void updateProject(Project project) throws Exception;
     void updateApprovalStatus(Project project) throws Exception;
     void createLogEntry(Log log) throws Exception;
+    List<Log> getAllLogs() throws Exception;
 }
