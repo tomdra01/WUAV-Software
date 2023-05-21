@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -9,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styles/window_style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.project.ProjectStep4Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styles/window_style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.project.ProjectStep4Controller">
     <bottom>
         <HBox prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <Button fx:id="previousStepBtn" mnemonicParsing="false" onAction="#previousStep" text="Back">
@@ -17,29 +16,9 @@
                     <Insets left="15.0" top="10.0" />
                 </HBox.margin>
             </Button>
-         <HBox prefHeight="50.0" prefWidth="229.0">
-            <HBox.margin>
-               <Insets left="145.0" />
-            </HBox.margin>
-            <children>
-               <Button fx:id="boldButton" layoutX="168.0" layoutY="10.0" mnemonicParsing="false" text="B">
-                  <font>
-                     <Font name="System Bold" size="12.0" />
-                  </font>
-               </Button>
-               <Button fx:id="italicButton" mnemonicParsing="false" text="I">
-                  <font>
-                     <Font name="System Italic" size="12.0" />
-                  </font>
-               </Button>
-               <Button fx:id="underlineButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="U" />
-               <JFXComboBox fx:id="fontComboBox" />
-               <JFXComboBox fx:id="fontSizeComboBox" promptText="size" />
-            </children>
-         </HBox>
             <Button fx:id="nextStepBtn" mnemonicParsing="false" onAction="#nextStep" text="Next step">
                 <HBox.margin>
-                    <Insets left="80.0" top="10.0" />
+                    <Insets left="455.0" top="10.0" />
                 </HBox.margin>
             </Button>
         </HBox>
