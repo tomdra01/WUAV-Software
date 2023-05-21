@@ -50,6 +50,7 @@ public class LogWindowController implements Initializable {
 
         try {
             logTable.getItems().setAll(projectModel.getAllLogs());
+            System.out.println(projectModel.getAllLogs());
         } catch (SQLException e) {
             e.printStackTrace();
         }

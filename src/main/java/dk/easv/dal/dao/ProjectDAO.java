@@ -266,26 +266,26 @@ public class ProjectDAO implements IProjectDAO {
         }
     }
 
-    public void createLogEntry(Log log) throws SQLException {
-        String sql = "INSERT INTO Log (logAction, actionTime, user_id) VALUES (?, ?, ?)";
+    public void createLogEntry(Log log) throws Exception {
+        String sql = "INSERT INTO [Log] (logAction, actionTime, user_id) VALUES (?, ?, ?)";
 
         try (Connection con = databaseConnector.getConnection();
-             PreparedStatement pstmt = con.prepareStatement(sql)) {
+             PreparedStatement stmt = con.prepareStatement(sql)) {
 
-            pstmt.setString(1, log.getLogAction());
-            pstmt.setTimestamp(2, Timestamp.valueOf(log.getActionTime()));
-            pstmt.setInt(3, log.getUser_id());
+            stmt.setString(1, log.getLogAction());
+            stmt.setTimestamp(2, Timestamp.valueOf(log.getActionTime()));
+            stmt.setInt(3, log.getUser_id());
 
-            pstmt.executeUpdate();
+            stmt.executeUpdate();
         }
     }
-    public List<Log> getAllLogs() throws SQLException {
+    public List<Log> getAllLogs() throws Exception {
         List<Log> logs = new ArrayList<>();
-        String sql = "SELECT * FROM Log";
+        String sql = "SELECT * FROM [Log]";
 
         try (Connection con = databaseConnector.getConnection();
-             PreparedStatement pstmt = con.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+             PreparedStatement stmt = con.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -297,8 +297,6 @@ public class ProjectDAO implements IProjectDAO {
                 logs.add(log);
             }
         }
-
         return logs;
     }
-
 }

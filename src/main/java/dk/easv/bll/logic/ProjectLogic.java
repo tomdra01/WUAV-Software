@@ -111,7 +111,7 @@ public class ProjectLogic {
         try {
             return projectDAO.getAllLogs();
         } catch (Exception e) {
-            throw new DatabaseException("Failed to fetch all logs from the database", e);
+            throw new DatabaseException("Failed to get all logs from the database", e);
         }
     }
 }

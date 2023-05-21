@@ -8,6 +8,8 @@ import dk.easv.bll.util.PasswordSecurity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.List;
+
 /**
  *
  * @author tomdra01, mrtng1
@@ -26,6 +28,14 @@ public class UserModel {
 
     public ObservableList<User> getUsers() {
         return users;
+    }
+
+    public ObservableList<User> getTechnicians() {
+        List<User> technicians = users.stream()
+                .filter(user -> user.getRole().equals("Technician"))
+                .toList();
+
+        return FXCollections.observableArrayList(technicians);
     }
 
     public void createUser(User user) throws DatabaseException {

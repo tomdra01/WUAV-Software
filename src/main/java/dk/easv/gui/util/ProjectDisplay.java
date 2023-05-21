@@ -7,10 +7,12 @@ import dk.easv.be.Log;
 import dk.easv.be.Project;
 import dk.easv.be.User;
 import dk.easv.bll.exception.DatabaseException;
+import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.controller.ProjectTemplateController;
 import dk.easv.gui.model.ProjectModel;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -195,9 +197,13 @@ public class ProjectDisplay {
         projectTemplateController.getApprovedProject().setOnAction(event -> {
             project.setApproved(projectTemplateController.getApprovedProject().isSelected());
             try {
-                Log log = new Log("Update approval status for: "+project.getId(), LocalDateTime.now(), 1);  // user_id -> user.getId()
+                Log log = new Log("Approved project: "+project.getId(), LocalDateTime.now(), 1);  // user_id -> user.getId()
                 projectModel.updateApprovalStatus(project);
-                projectModel.createLogEntry(log);} catch (DatabaseException e) {throw new RuntimeException(e);}
+                projectModel.createLogEntry(log);
+            } catch (DatabaseException e) {
+                PopupUtil.showAlert("Something went wrong", e.getMessage(), Alert.AlertType.ERROR);
+                e.printStackTrace();
+            }
         });
 
         projectTemplateController.setMainPane(mainPane);

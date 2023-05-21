@@ -67,17 +67,10 @@ public class AssignNewTechnicianController implements Initializable {
 
     private void setProjectComboBoxes() {
         projectComboBox.setPromptText("Select project");
-        ObservableList<Project> projectList = FXCollections.observableArrayList(projectModel.getProjects());
-        projectComboBox.setItems(projectList);
-
-        List<User> users = userModel.getUsers();
-        List<User> technicians = users.stream()
-                .filter(user -> user.getRole().equals("Technician"))
-                .toList();
+        projectComboBox.setItems(projectModel.getProjects());
 
         technicianComboBox.setPromptText("Select technician");
-        ObservableList<User> technicianList = FXCollections.observableArrayList(technicians);
-        technicianComboBox.setItems(technicianList);
+        technicianComboBox.setItems(userModel.getTechnicians());
     }
 
     public void closeWindow() {

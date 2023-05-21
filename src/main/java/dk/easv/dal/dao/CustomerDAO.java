@@ -2,13 +2,17 @@ package dk.easv.dal.dao;
 
 // imports
 import dk.easv.be.Customer;
+import dk.easv.be.User;
 import dk.easv.dal.dao.interfaces.ICustomerDAO;
 import dk.easv.dal.database.DatabaseConnector;
 
 // java imports
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -18,6 +22,35 @@ public class CustomerDAO implements ICustomerDAO {
     private DatabaseConnector databaseConnector;
     public CustomerDAO() {
         databaseConnector = new DatabaseConnector();
+    }
+
+    /**
+     * Gets the list of customers from the database.
+     * @throws Exception pushes any kind of Exception upwards to the BLL.
+     */
+    public List<Customer> readCustomers() throws Exception {
+        List<Customer> allCustomers = new ArrayList<>();
+
+        try (Connection con = databaseConnector.getConnection()) {
+            String sql = "SELECT * FROM [Customer]";
+            Statement statement = con.createStatement();
+
+            if (statement.execute(sql)) {
+                ResultSet resultSet = statement.getResultSet();
+
+                while (resultSet.next()) {
+
+                    Customer customer = new Customer(
+                            resultSet.getInt("id"),
+                            resultSet.getString("name"),
+                            resultSet.getString("email")
+                    );
+
+                    allCustomers.add(customer);
+                }
+            }
+        }
+        return allCustomers;
     }
 
     /**

@@ -7,12 +7,22 @@ import dk.easv.dal.DAOFactory;
 import dk.easv.dal.DataAccessObjects;
 import dk.easv.dal.dao.interfaces.ICustomerDAO;
 
+import java.util.List;
+
 /**
  *
  * @author tomdra01, mrtng1
  */
 public class CustomerLogic {
     ICustomerDAO customerDAO = (ICustomerDAO) DAOFactory.getDAO(DataAccessObjects.CUSTOMER_DAO);
+
+    public List<Customer> readCustomers() throws DatabaseException {
+        try {
+            return customerDAO.readCustomers();
+        } catch (Exception e) {
+            throw new DatabaseException("Failed to read all customers", e);
+        }
+    }
 
     public Customer createCustomer(Customer customer) throws DatabaseException {
         try {

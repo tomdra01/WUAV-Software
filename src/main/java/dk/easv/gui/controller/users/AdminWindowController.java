@@ -6,9 +6,8 @@ import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
 import dk.easv.bll.util.PopupUtil;
-import dk.easv.gui.controller.AssignNewTechnicianController;
-import dk.easv.gui.controller.CreateUserController;
-import dk.easv.gui.controller.LogWindowController;
+import dk.easv.gui.controller.*;
+import dk.easv.gui.model.CustomerModel;
 import dk.easv.gui.util.*;
 import dk.easv.gui.controller.project.ProjectStep1Controller;
 import dk.easv.gui.model.ProjectModel;
@@ -52,6 +51,7 @@ public class AdminWindowController implements Initializable {
     private User user;
     private UserModel userModel;
     private ProjectModel projectModel;
+    private CustomerModel customerModel;
     private ProjectDisplay projectDisplay;
 
     public void setModel(UserModel userModel) {
@@ -149,7 +149,53 @@ public class AdminWindowController implements Initializable {
 
         // technician listView
         showTechniciansButton.setOnAction(event -> {
+            try {
+                BlurEffectUtil.applyBlurEffect(mainPane,10);
 
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.SHOW_TECHNICIANS.getView()));
+                Parent createEventParent = fxmlLoader.load();
+
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setTitle("Assign technician window");
+                stage.setResizable(false);
+                Scene scene = new Scene(createEventParent);
+                stage.setScene(scene);
+
+                ShowTechniciansController showTechniciansController = fxmlLoader.getController();
+                showTechniciansController.setModel(userModel);
+                showTechniciansController.setPane(mainPane);
+                showTechniciansController.setOnCloseRequestHandler(stage);
+                stage.show();
+            } catch (IOException e) {
+                PopupUtil.showAlert("Something went wrong", "Failed to open the window", Alert.AlertType.ERROR);
+                e.printStackTrace();
+            }
+        });
+
+        showCustomersButton.setOnAction(event -> {
+            try {
+                BlurEffectUtil.applyBlurEffect(mainPane,10);
+
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.SHOW_CUSTOMERS.getView()));
+                Parent createEventParent = fxmlLoader.load();
+
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setTitle("Assign technician window");
+                stage.setResizable(false);
+                Scene scene = new Scene(createEventParent);
+                stage.setScene(scene);
+
+                ShowCustomersController showCustomersController = fxmlLoader.getController();
+                showCustomersController.setModel(customerModel);
+                showCustomersController.setPane(mainPane);
+                showCustomersController.setOnCloseRequestHandler(stage);
+                stage.show();
+            } catch (IOException e) {
+                PopupUtil.showAlert("Something went wrong", "Failed to open the window", Alert.AlertType.ERROR);
+                e.printStackTrace();
+            }
         });
 
         // assign new technician
@@ -248,6 +294,7 @@ public class AdminWindowController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         projectDisplay = new ProjectDisplay();
         projectModel = new ProjectModel();
+        customerModel = new CustomerModel();
         searchFilter(); // search + filter
         hamburgerMenu(); // hamburger
         hamburgerButtons(); // buttons in hamburger

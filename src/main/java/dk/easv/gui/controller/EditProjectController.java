@@ -59,7 +59,7 @@ public class EditProjectController implements Initializable {
 
     public void editProject() {
         try {
-            Log log = new Log("Project edited with id: " +project.getId(), LocalDateTime.now(), user.getId());
+            Log log = new Log("Edited project: " +project.getId(), LocalDateTime.now(), user.getId());
             project.setName(nameField.getText());
             project.setLocation(locationField.getText());
             project.setBusinessType(businessType.getValue());
