@@ -1,6 +1,7 @@
 package dk.easv.dal.dao;
 
 // imports
+import dk.easv.be.Log;
 import dk.easv.be.Project;
 import dk.easv.be.User;
 import dk.easv.dal.database.DatabaseConnector;
@@ -261,6 +262,20 @@ public class ProjectDAO implements IProjectDAO {
             if (rowsAffected == 0) {
                 throw new RuntimeException("Project not found");
             }
+        }
+    }
+
+    public void createLogEntry(Log log) throws SQLException {
+        String sql = "INSERT INTO Log (logAction, actionTime, user_id) VALUES (?, ?, ?)";
+
+        try (Connection con = databaseConnector.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setString(1, log.getLogAction());
+            pstmt.setTimestamp(2, Timestamp.valueOf(log.getActionTime()));
+            pstmt.setInt(3, log.getUser_id());
+
+            pstmt.executeUpdate();
         }
     }
 }

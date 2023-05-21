@@ -3,6 +3,7 @@ package dk.easv.gui.controller.project;
 // imports
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import dk.easv.be.Log;
 import dk.easv.be.Project;
 import dk.easv.be.User;
 import dk.easv.bll.exception.DatabaseException;
@@ -31,6 +32,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -141,9 +143,11 @@ public class ProjectStep5Controller implements Initializable {
 
     public void finish(){
         Project project = new Project(projectName, businessType, projectLocation, projectDate, projectDrawing, projectDescription, false);
+        Log log = new Log("Create Project: "+projectName, LocalDateTime.now(), user.getId());
 
         try {
             projectModel.createProject(project);
+            projectModel.createLogEntry(log);
         } catch (DatabaseException e) {
             PopupUtil.showAlert("Something went wrong ", e.getMessage(), Alert.AlertType.ERROR);
             e.printStackTrace();

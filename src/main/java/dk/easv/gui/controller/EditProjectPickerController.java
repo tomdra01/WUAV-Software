@@ -3,6 +3,7 @@ package dk.easv.gui.controller;
 // imports
 import com.jfoenix.controls.JFXComboBox;
 import dk.easv.be.Project;
+import dk.easv.be.User;
 import dk.easv.bll.util.PopupUtil;
 import dk.easv.bll.util.ProjectListCell;
 import dk.easv.gui.model.ProjectModel;
@@ -33,11 +34,13 @@ public class EditProjectPickerController implements Initializable {
     @FXML private JFXComboBox<Project> projectComboBox;
     private ProjectModel projectModel;
     private BorderPane borderPane;
+    private User user;
 
     public void setProjectModel(ProjectModel projectModel) {
         this.projectModel = projectModel;
         setProjectComboBox();
     }
+    public void setUser(User user) {this.user = user;}
 
     public void setPane(BorderPane borderPane) {
         this.borderPane = borderPane;
@@ -63,6 +66,7 @@ public class EditProjectPickerController implements Initializable {
                 Project selectedProject = projectComboBox.getValue();
 
                 EditProjectController editProjectController = loader.getController();
+                editProjectController.setUser(user);
                 editProjectController.setProject(selectedProject);
                 editProjectController.setProjectModel(projectModel);
 

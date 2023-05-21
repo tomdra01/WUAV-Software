@@ -1,6 +1,7 @@
 package dk.easv.gui.model;
 
 // imports
+import dk.easv.be.Log;
 import dk.easv.be.Project;
 import dk.easv.be.User;
 import dk.easv.bll.exception.DatabaseException;
@@ -74,5 +75,9 @@ public class ProjectModel {
 
     public List<byte[]> getProjectImages(int projectId) throws DatabaseException {
         return projectLogic.getProjectImages(projectId);
+    }
+
+    public void createLogEntry(Log log) throws DatabaseException {
+        projectLogic.createLogEntry(log);
     }
 }

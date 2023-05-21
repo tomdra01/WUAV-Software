@@ -1,6 +1,7 @@
 package dk.easv.bll.logic;
 
 // imports
+import dk.easv.be.Log;
 import dk.easv.be.Project;
 import dk.easv.be.User;
 import dk.easv.bll.exception.DatabaseException;
@@ -95,6 +96,14 @@ public class ProjectLogic {
             projectDAO.updateApprovalStatus(project);
         } catch (Exception e) {
             throw new DatabaseException("Failed to update approval status", e);
+        }
+    }
+
+    public void createLogEntry(Log log) throws DatabaseException {
+        try {
+            projectDAO.createLogEntry(log);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }

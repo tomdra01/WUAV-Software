@@ -1,6 +1,7 @@
 package dk.easv.dal.dao.interfaces;
 
 // imports
+import dk.easv.be.Log;
 import dk.easv.be.Project;
 import dk.easv.be.User;
 import dk.easv.dal.IDataAccess;
@@ -23,4 +24,5 @@ public interface IProjectDAO extends IDataAccess {
     void deleteProject(Project project) throws Exception;
     void updateProject(Project project) throws Exception;
     void updateApprovalStatus(Project project) throws Exception;
+    void createLogEntry(Log log) throws Exception;
 }

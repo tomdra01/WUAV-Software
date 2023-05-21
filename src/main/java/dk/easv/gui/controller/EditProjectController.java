@@ -4,7 +4,9 @@ package dk.easv.gui.controller;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import dk.easv.be.Log;
 import dk.easv.be.Project;
+import dk.easv.be.User;
 import dk.easv.bll.exception.DatabaseException;
 import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.model.ProjectModel;
@@ -16,6 +18,7 @@ import javafx.scene.control.DatePicker;
 
 // java imports
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 /**
@@ -29,10 +32,12 @@ public class EditProjectController implements Initializable {
     @FXML private JFXTextArea descTextField;
     private Project project;
     private ProjectModel projectModel;
+    private User user;
 
     public void setProjectModel(ProjectModel projectModel){
         this.projectModel=projectModel;
     }
+    public void setUser(User user) {this.user = user;}
 
     public void setProject(Project project) {
         this.project = project;
@@ -46,6 +51,7 @@ public class EditProjectController implements Initializable {
 
     public void editProject() {
         try {
+            Log log = new Log("Project edited with id: " +project.getId(), LocalDateTime.now(), user.getId());
             project.setName(nameField.getText());
             project.setLocation(locationField.getText());
             project.setBusinessType(businessType.getValue());
@@ -53,6 +59,7 @@ public class EditProjectController implements Initializable {
             project.setDescription(descTextField.getText());
 
             projectModel.updateProject(project);
+            projectModel.createLogEntry(log);
         } catch (DatabaseException e) {
             PopupUtil.showAlert("Something went wrong", e.getMessage(), Alert.AlertType.ERROR);
             e.printStackTrace();

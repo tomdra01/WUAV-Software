@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<ScrollPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.LogWindowController">
+    <content>
+        <TableView fx:id="logTable">
+            <columns>
+                <TableColumn fx:id="userColumn" text="User">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="user" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="actionColumn" text="Action">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="action" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="timestampColumn" text="Timestamp">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="timestamp" />
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+    </content>
+</ScrollPane>

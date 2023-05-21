@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
 import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.controller.CreateUserController;
+import dk.easv.gui.controller.LogWindowController;
 import dk.easv.gui.util.*;
 import dk.easv.gui.controller.project.ProjectStep1Controller;
 import dk.easv.gui.model.ProjectModel;
@@ -170,6 +171,31 @@ public class AdminWindowController implements Initializable {
                 stage.show();
             } catch (IOException e) {
                 PopupUtil.showAlert("Something went wrong", "Failed to logout", Alert.AlertType.ERROR);
+                e.printStackTrace();
+            }
+        });
+
+        showLogButton.setOnAction(event -> {
+            try {
+                BlurEffectUtil.applyBlurEffect(mainPane,10);
+
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ViewType.LOG.getView()));
+                Parent createEventParent = fxmlLoader.load();
+
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setTitle("Log");
+                stage.setResizable(false);
+                Scene scene = new Scene(createEventParent);
+                stage.setScene(scene);
+
+                LogWindowController logWindowController = fxmlLoader.getController();
+                //createUserController.setModel(userModel);
+                logWindowController.setPane(mainPane);
+                logWindowController.setOnCloseRequestHandler(stage);
+                stage.show();
+            } catch (IOException e) {
+                PopupUtil.showAlert("Something went wrong", "Failed to open the window", Alert.AlertType.ERROR);
                 e.printStackTrace();
             }
         });

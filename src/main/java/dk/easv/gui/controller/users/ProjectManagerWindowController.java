@@ -96,6 +96,7 @@ public class ProjectManagerWindowController implements Initializable {
                 stage.setScene(scene);
 
                 EditProjectPickerController editProjectPickerController = fxmlLoader.getController();
+                editProjectPickerController.setUser(user);
                 editProjectPickerController.setProjectModel(projectModel);
                 editProjectPickerController.setPane(mainPane);
                 editProjectPickerController.setOnCloseRequestHandler(stage);

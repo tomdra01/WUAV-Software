@@ -23,7 +23,8 @@ public enum ViewType {
     EDIT_PICK_MENU("/views/edit_project_picker.fxml"),
     EDIT_PROJECT("/views/edit_project.fxml"),
     INTERNAL("/views/documentation/internal_documentation.fxml"),
-    EXTERNAL("/views/documentation/external_documentation.fxml");
+    EXTERNAL("/views/documentation/external_documentation.fxml"),
+    LOG("/views/log.fxml");
 
     private final String path;
 
