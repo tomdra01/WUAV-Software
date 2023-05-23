@@ -4,6 +4,7 @@ package dk.easv.gui.controller.users;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
 import dk.easv.be.User;
 import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.controller.*;
@@ -42,6 +43,7 @@ public class AdminWindowController implements Initializable {
     @FXML private JFXComboBox<String> filterComboBox;
     @FXML private JFXTextField searchBar;
     @FXML private ImageView engineerIcon;
+    @FXML private JFXToggleButton toggleButton;
     private  final  Button createProjectButton = new Button("New project");
     private final Button createUserButton = new Button("Create user");
     private final Button logOutButton = new Button("Log out");
@@ -274,19 +276,30 @@ public class AdminWindowController implements Initializable {
         });
     }
 
+    private void displayProjects() {
+        projectDisplay.showAllProjects(projectsHbox, filterComboBox, searchBar, projectModel, mainPane);
+    }
+
+    private void showTableView() {
+        projectDisplay.setModel(projectModel);
+       projectDisplay.showTableView(projectsHbox);
+    }
+
+
     private void searchFilter(){
         filterComboBox.setItems(FXCollections.observableArrayList("All", "Consumer", "Corporate & Government"));
         filterComboBox.setValue("All");
 
         // showcase of all projects based on the filter
-        projectDisplay.showAllProjects(projectsHbox, filterComboBox, searchBar, projectModel, mainPane);
+        displayProjects();
 
         filterComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)
-                -> projectDisplay.showAllProjects(projectsHbox, filterComboBox, searchBar, projectModel, mainPane));
+                -> displayProjects());
 
         searchBar.textProperty().addListener((observable, oldValue, newValue) ->
-                projectDisplay.showAllProjects(projectsHbox, filterComboBox, searchBar, projectModel, mainPane));
+                displayProjects());
     }
+
 
     /**
      * Initialize method
@@ -301,5 +314,13 @@ public class AdminWindowController implements Initializable {
         hamburgerButtons(); // buttons in hamburger
         ClockUtil.showWidget(hbox); // clock
         ImageUtil.iconAnimation(engineerIcon);
+
+        toggleButton.setOnAction(event -> {
+            if (toggleButton.isSelected()) {
+                showTableView();
+            } else {
+                displayProjects();
+            }
+        });
     }
 }

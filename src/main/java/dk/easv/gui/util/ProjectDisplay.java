@@ -10,9 +10,13 @@ import dk.easv.bll.exception.DatabaseException;
 import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.controller.ProjectTemplateController;
 import dk.easv.gui.model.ProjectModel;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -32,10 +36,12 @@ import java.util.List;
 public class ProjectDisplay {
     private List<Project> projects;
     private User user;
+    private ProjectModel projectModel;
 
     public void setUser(User user) {
         this.user = user;
     }
+    public void setModel(ProjectModel projectModel) {this.projectModel = projectModel;}
 
     public void showAllProjects(HBox projectsHbox, JFXComboBox<String> filterComboBox, JFXTextField searchBar, ProjectModel projectModel, BorderPane mainPane) {
         clearProjectsHbox(projectsHbox);
@@ -208,6 +214,37 @@ public class ProjectDisplay {
 
         projectTemplateController.setMainPane(mainPane);
         projectTemplateController.setModel(projectModel);
+    }
+
+    public void showTableView(HBox hbox) {
+        TableView<Project> tableView = new TableView<>();
+
+        tableView.setPrefWidth(1200);
+
+        TableColumn<Project, String> nameColumn = new TableColumn<>("Name");
+        TableColumn<Project, String> locationColumn = new TableColumn<>("Location");
+        TableColumn<Project, String> dateColumn = new TableColumn<>("Date");
+        TableColumn<Project, String> descriptionColumn = new TableColumn<>("Description");
+
+        nameColumn.setPrefWidth(150);
+        locationColumn.setPrefWidth(150);
+        dateColumn.setPrefWidth(150);
+        descriptionColumn.setPrefWidth(300);
+
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+
+        tableView.getColumns().add(nameColumn);
+        tableView.getColumns().add(locationColumn);
+        tableView.getColumns().add(dateColumn);
+        tableView.getColumns().add(descriptionColumn);
+
+        tableView.setItems(FXCollections.observableArrayList(projectModel.getProjects()));
+
+        hbox.getChildren().clear();
+        hbox.getChildren().add(tableView);
     }
 
     private void addProjectToProjectsHbox(HBox projectsHbox, HBox hbox) {
