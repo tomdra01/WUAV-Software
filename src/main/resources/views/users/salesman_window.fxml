@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXHamburger?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.effect.InnerShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.users.SalesmanWindowController">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.users.SalesmanWindowController">
     <top>
         <VBox prefHeight="140.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
             <HBox fx:id="hbox" prefHeight="100.0" prefWidth="1200.0" style="-fx-background-color: #2a2a2a;" />
@@ -31,10 +25,26 @@
                     <HBox.margin>
                         <Insets left="25.0" />
                     </HBox.margin>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
                 </JFXHamburger>
+                <JFXToggleButton fx:id="toggleButton" text="Switch View" toggleColor="#e84910" toggleLineColor="#e84910">
+                    <HBox.margin>
+                        <Insets left="400.0" top="10.0" />
+                    </HBox.margin></JFXToggleButton>
+                <ImageView fx:id="engineerIcon" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
+                    <HBox.margin>
+                        <Insets top="10.0" />
+                    </HBox.margin>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                    <Image url="@../../images/engineer_icon_bw.jpeg" />
+                </ImageView>
                 <Label prefHeight="17.0" prefWidth="85.0" text="Customer type:">
                     <HBox.margin>
-                        <Insets left="610.0" top="30.0" />
+                        <Insets left="30.0" top="30.0" />
                     </HBox.margin>
                 </Label>
                 <JFXComboBox fx:id="filterComboBox" focusColor="#e84910" labelFloat="true" prefHeight="26.0" prefWidth="190.0">

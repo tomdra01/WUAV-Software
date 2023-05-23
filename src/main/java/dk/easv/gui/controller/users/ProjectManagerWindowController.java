@@ -4,6 +4,7 @@ package dk.easv.gui.controller.users;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
 import dk.easv.be.User;
 import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.controller.AssignNewTechnicianController;
@@ -43,6 +44,7 @@ public class ProjectManagerWindowController implements Initializable {
     @FXML private JFXComboBox<String> filterComboBox;
     @FXML private JFXTextField searchBar;
     @FXML private ImageView engineerIcon;
+    @FXML private JFXToggleButton toggleButton;
     private final Button editButton = new Button("Edit project");
     private final Button logOutButton = new Button("Log out");
     private User user;
@@ -185,5 +187,14 @@ public class ProjectManagerWindowController implements Initializable {
         hamburgerButtons(); //buttons in hamburger
         searchFilter();
         ImageUtil.iconAnimation(engineerIcon);
+
+        toggleButton.setOnAction(event -> {
+            if (toggleButton.isSelected()) {
+                projectDisplay.setModel(projectModel);
+                projectDisplay.showTableView(projectsHbox, "Project Manager");
+            } else {
+                projectDisplay.showAllProjects(projectsHbox, filterComboBox, searchBar, projectModel, mainPane);
+            }
+        });
     }
 }

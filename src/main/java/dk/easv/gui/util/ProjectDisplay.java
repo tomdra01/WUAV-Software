@@ -216,7 +216,7 @@ public class ProjectDisplay {
         projectTemplateController.setModel(projectModel);
     }
 
-    public void showTableView(HBox hbox) {
+    public void showTableView(HBox hbox, String userRole) {
         TableView<Project> tableView = new TableView<>();
 
         tableView.setPrefWidth(1200);
@@ -241,7 +241,10 @@ public class ProjectDisplay {
         tableView.getColumns().add(dateColumn);
         tableView.getColumns().add(descriptionColumn);
 
-        tableView.setItems(FXCollections.observableArrayList(projectModel.getProjects()));
+        if(userRole=="Admin") tableView.setItems(FXCollections.observableArrayList(projectModel.getProjects()));
+        else if(userRole=="Project Manager")  tableView.setItems(FXCollections.observableArrayList(projectModel.getProjects()));
+        else if(userRole=="Salesman") tableView.setItems(FXCollections.observableArrayList(projectModel.getSalesmenProjects()));
+        else if(userRole=="Technician") tableView.setItems(FXCollections.observableArrayList(projectModel.getTechnicianProjects()));
 
         hbox.getChildren().clear();
         hbox.getChildren().add(tableView);

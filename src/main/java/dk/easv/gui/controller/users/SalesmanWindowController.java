@@ -4,6 +4,7 @@ package dk.easv.gui.controller.users;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
 import dk.easv.be.User;
 import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.controller.AddCustomerController;
@@ -42,6 +43,7 @@ public class SalesmanWindowController implements Initializable {
     @FXML private JFXComboBox<String> filterComboBox;
     @FXML private JFXTextField searchBar;
     @FXML private ImageView engineerIcon;
+    @FXML private JFXToggleButton toggleButton;
     private final Button addCustomerButton = new Button("Add customer");
     private final Button sendDocument = new Button("Send document");
     private final Button logOutButton = new Button("Log out");
@@ -158,5 +160,14 @@ public class SalesmanWindowController implements Initializable {
         hamburgerMenu(); // hamburger
         hamburgerButtons(); // buttons in hamburger
         ClockUtil.showWidget(hbox); // clock
+
+        toggleButton.setOnAction(event -> {
+            if (toggleButton.isSelected()) {
+                projectDisplay.setModel(projectModel);
+                projectDisplay.showTableView(projectsHbox, "Salesman");
+            } else {
+                projectDisplay.showSalesmanProjects(projectsHbox, filterComboBox, searchBar, projectModel, mainPane);
+            }
+        });
     }
 }
