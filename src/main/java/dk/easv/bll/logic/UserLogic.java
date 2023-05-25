@@ -32,4 +32,12 @@ public class UserLogic {
             throw new DatabaseException("Failed to create the user", e);
         }
     }
+
+    public void editUser(User user) throws DatabaseException {
+        try {
+            userDao.editUser(user);
+        } catch (Exception e) {
+            throw new DatabaseException("Failed to edit the user",e);
+        }
+    }
 }

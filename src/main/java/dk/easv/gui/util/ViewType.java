@@ -27,7 +27,8 @@ public enum ViewType {
     EXTERNAL("/views/documentation/external_documentation.fxml"),
     SHOW_TECHNICIANS("/views/show_technicians_window.fxml"),
     SHOW_CUSTOMERS("/views/show_customers_window.fxml"),
-    LOG("/views/log_window.fxml");
+    LOG("/views/log_window.fxml"),
+    EDIT_USER("/views/edit_user_window.fxml");
 
     private final String path;
 

@@ -66,4 +66,12 @@ public class UserModel {
         }
         return null; // No users with the given username found
     }
+
+    public void editUser(User user) {
+        try {
+            userLogic.editUser(user);
+        } catch (DatabaseException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

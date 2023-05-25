@@ -241,10 +241,21 @@ public class ProjectDisplay {
         tableView.getColumns().add(dateColumn);
         tableView.getColumns().add(descriptionColumn);
 
-        if(userRole=="Admin") tableView.setItems(FXCollections.observableArrayList(projectModel.getProjects()));
-        else if(userRole=="Project Manager")  tableView.setItems(FXCollections.observableArrayList(projectModel.getProjects()));
-        else if(userRole=="Salesman") tableView.setItems(FXCollections.observableArrayList(projectModel.getSalesmenProjects()));
-        else if(userRole=="Technician") tableView.setItems(FXCollections.observableArrayList(projectModel.getTechnicianProjects()));
+        switch(userRole) {
+            case "Admin":
+            case "Project Manager":
+                tableView.setItems(FXCollections.observableArrayList(projectModel.getProjects()));
+                break;
+            case "Salesman":
+                tableView.setItems(FXCollections.observableArrayList(projectModel.getSalesmenProjects()));
+                break;
+            case "Technician":
+                tableView.setItems(FXCollections.observableArrayList(projectModel.getTechnicianProjects()));
+                break;
+            default:
+                PopupUtil.showAlert("Unable to show projects", "Unable to show projects for the current user", Alert.AlertType.INFORMATION);
+                break;
+        }
 
         hbox.getChildren().clear();
         hbox.getChildren().add(tableView);

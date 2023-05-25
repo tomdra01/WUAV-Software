@@ -14,4 +14,5 @@ import java.util.List;
 public interface IUserDao extends IDataAccess {
     List<User> readUsers() throws Exception;
     User createUser(User user) throws Exception;
+    void editUser(User user) throws Exception;
 }

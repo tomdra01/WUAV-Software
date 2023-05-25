@@ -71,4 +71,25 @@ public class UserDAO implements IUserDao {
             throw new RuntimeException("Id not set");
         }
     }
+
+    /**
+     * Updates a user in the database.
+     * @param user sends object "User" as a parameter.
+     * @throws Exception pushes any kind of Exception upwards to the BLL.
+     */
+    public void editUser(User user) throws Exception {
+        try (Connection con = databaseConnector.getConnection()) {
+            String sql = "UPDATE [User] SET username = ?, password = ?, role = ? WHERE id = ?";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, user.getUsername());
+            pst.setString(2, user.getPassword());
+            pst.setString(3, user.getRole());
+            pst.setInt(4, user.getId());
+            int updatedRows = pst.executeUpdate();
+
+            if (updatedRows <= 0) {
+                throw new RuntimeException("User not found with id: " + user.getId());
+            }
+        }
+    }
 }

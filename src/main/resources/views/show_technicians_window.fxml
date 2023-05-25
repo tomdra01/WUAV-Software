@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXListView?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.BorderPane?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.ShowTechniciansController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.ShowTechniciansController">
     <center>
         <JFXListView fx:id="techniciansList" BorderPane.alignment="CENTER">
             <BorderPane.margin>
-                <Insets bottom="10.0" left="200.0" right="200.0" top="10.0" />
+                <Insets bottom="10.0" left="200.0" right="150.0" top="10.0" />
             </BorderPane.margin>
         </JFXListView>
     </center>
+   <right>
+      <Button fx:id="editButton" mnemonicParsing="false" onAction="#editUserButton" text="Edit" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets right="15.0" />
+         </BorderPane.margin>
+      </Button>
+   </right>
 </BorderPane>
