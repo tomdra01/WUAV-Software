@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="currentNode" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="600.0" stylesheets="@../../styles/window_style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.documentation.InternalDocumentationController">
+<BorderPane fx:id="currentNode" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="600.0" stylesheets="@../../styles/window_style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.documentation.InternalDocumentationController">
    <bottom>
       <HBox prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <Button fx:id="printBtn" mnemonicParsing="false" onAction="#printDocumentation" text="Print">
@@ -24,9 +24,14 @@
                <Insets left="10.0" top="10.0" />
             </HBox.margin>
          </Button>
+         <Button fx:id="editButton" layoutX="76.0" layoutY="20.0" mnemonicParsing="false" onAction="#editProject" text="Edit" visible="false">
+            <HBox.margin>
+               <Insets left="10.0" top="10.0" />
+            </HBox.margin>
+         </Button>
          <Button fx:id="closeBtn" layoutX="77.0" layoutY="20.0" mnemonicParsing="false" onAction="#closeWindow" text="Close">
             <HBox.margin>
-               <Insets left="415.0" top="10.0" />
+               <Insets left="350.0" top="10.0" />
             </HBox.margin>
          </Button>
       </HBox>

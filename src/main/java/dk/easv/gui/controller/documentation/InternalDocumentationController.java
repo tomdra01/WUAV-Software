@@ -7,6 +7,7 @@ import dk.easv.be.Log;
 import dk.easv.be.Project;
 import dk.easv.be.User;
 import dk.easv.bll.util.UserSingleton;
+import dk.easv.gui.controller.EditProjectController;
 import dk.easv.gui.util.ProjectDisplay;
 import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.model.ProjectModel;
@@ -54,7 +55,7 @@ import java.util.ResourceBundle;
 public class InternalDocumentationController implements Initializable {
     @FXML private JFXToggleButton internalSwitch;
     @FXML private BorderPane currentNode;
-    @FXML private Button printBtn, deleteBtn, closeBtn;
+    @FXML private Button printBtn, deleteBtn, closeBtn, editButton;
     @FXML private ImageView projectDrawing;
     @FXML private JFXTextArea textArea;
     @FXML private Label nameLabel, locationLabel, dateLabel, businessTypeLabel;
@@ -174,6 +175,27 @@ public class InternalDocumentationController implements Initializable {
         }
     }
 
+    public void editProject() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(ViewType.EDIT_PROJECT.getView()));
+            Parent root = loader.load();
+
+            EditProjectController editProjectController = loader.getController();
+            //editProjectController.setUser(user);
+            editProjectController.setProject(project);
+            editProjectController.setProjectModel(projectModel);
+            editProjectController.setPane(borderPane);
+
+            Stage window = (Stage) editButton.getScene().getWindow();
+            window.setTitle("Edit project window");
+            Scene scene = new Scene(root);
+            window.setScene(scene);
+        } catch (IOException e) {
+            PopupUtil.showAlert("Something went wrong", "Failed to switch the scene", Alert.AlertType.ERROR);
+            e.printStackTrace();
+        }
+    }
+
     public void closeWindow() {
         BlurEffectUtil.removeBlurEffect(borderPane);
         Stage stage = (Stage) currentNode.getScene().getWindow();
@@ -186,5 +208,6 @@ public class InternalDocumentationController implements Initializable {
         User user = UserSingleton.getInstance().getUser();
         if(user.getRole().equals("Technician")) deleteBtn.setVisible(false);
         else if (user.getRole().equals("Salesman")) deleteBtn.setVisible(false);
+        else if(user.getRole().equals("Project Manager")) editButton.setVisible(true);
     }
 }
