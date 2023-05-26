@@ -45,13 +45,13 @@ public class UserModel {
     }
 
     public User isValidUser(String inputUsername, String inputPassword, String inputRole) {
-        String inputPasswordHash = PasswordSecurity.hashPassword(inputPassword);
-
         for (User user : users) {
-            if (user.getUsername().equals(inputUsername)
-                    && user.getPassword().equals(inputPasswordHash)
-                    && user.getRole().equals(inputRole)) {
-                return user;
+            if (user.getUsername().equals(inputUsername) && user.getRole().equals(inputRole)) {
+                if (user.getPassword().startsWith("$2a$")) {
+                    if (PasswordSecurity.checkPassword(inputPassword, user.getPassword())) {
+                        return user;
+                    }
+                }
             }
         }
         return null;

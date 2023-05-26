@@ -1,25 +1,27 @@
 package dk.easv.bll.util;
 
-// imports
+import org.mindrot.jbcrypt.BCrypt;
 
-// java imports
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
-
-/**
- *
- * @author tomdra01, mrtng1
- */
 public class PasswordSecurity {
+
+    /**
+     * Hashes a password using bcrypt.
+     *
+     * @param password the password to hash
+     * @return the hashed password
+     */
     public static String hashPassword(String password) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] hash = md.digest(password.getBytes(StandardCharsets.UTF_8));
-            return Base64.getEncoder().encodeToString(hash);
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("Failed to hash the password", e);
-        }
+        return BCrypt.hashpw(password, BCrypt.gensalt());
+    }
+
+    /**
+     * Checks a plaintext password against a hashed password to see if they match.
+     *
+     * @param plaintext the plaintext password to check
+     * @param hashed    the hashed password to check against
+     * @return true if the passwords match, false otherwise
+     */
+    public static boolean checkPassword(String plaintext, String hashed) {
+        return BCrypt.checkpw(plaintext, hashed);
     }
 }
