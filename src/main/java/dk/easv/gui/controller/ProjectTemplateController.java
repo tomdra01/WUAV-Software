@@ -3,7 +3,9 @@ package dk.easv.gui.controller;
 // imports
 import com.jfoenix.controls.JFXCheckBox;
 import dk.easv.be.Project;
+import dk.easv.be.User;
 import dk.easv.bll.util.PopupUtil;
+import dk.easv.bll.util.UserSingleton;
 import dk.easv.gui.controller.documentation.InternalDocumentationController;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.BlurEffectUtil;
@@ -94,6 +96,8 @@ public class ProjectTemplateController implements Initializable {
             internalDocumentationController.setOnCloseRequestHandler(stage);
             internalDocumentationController.setProject(project);
             internalDocumentationController.setModel(projectModel);
+            User user = UserSingleton.getInstance().getUser();
+            System.out.println("template card user: "+user);
 
         } catch (IOException e) {
             PopupUtil.showAlert("Something went wrong", "Failed to open the project", Alert.AlertType.ERROR);

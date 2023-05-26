@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
 import dk.easv.bll.util.PopupUtil;
+import dk.easv.bll.util.UserSingleton;
 import dk.easv.gui.controller.users.AdminWindowController;
 import dk.easv.gui.controller.users.ProjectManagerWindowController;
 import dk.easv.gui.controller.users.SalesmanWindowController;
@@ -60,6 +61,7 @@ public class LoginController implements Initializable {
                         stage.setScene(scene);
                         stage.setTitle(windowTitle);
                         stage.show();
+                        UserSingleton.getInstance().setUser(user);
                         AdminWindowController adminWindowController = fxmlLoader.getController();
                         adminWindowController.setModel(userModel);
                         adminWindowController.setUser(user);
@@ -72,6 +74,7 @@ public class LoginController implements Initializable {
                         stage.setScene(scene);
                         stage.setTitle(windowTitle);
                         stage.show();
+                        UserSingleton.getInstance().setUser(user);
                         TechnicianWindowController technicianWindowController = fxmlLoader.getController();
                         technicianWindowController.setModel(userModel);
                         technicianWindowController.setUser(user);
@@ -84,6 +87,7 @@ public class LoginController implements Initializable {
                         stage.setScene(scene);
                         stage.setTitle(windowTitle);
                         stage.show();
+                        UserSingleton.getInstance().setUser(user);
                         ProjectManagerWindowController projectManagerWindowController = fxmlLoader.getController();
                         projectManagerWindowController.setModel(userModel);
                         projectManagerWindowController.setUser(user);
@@ -96,6 +100,7 @@ public class LoginController implements Initializable {
                         stage.setScene(scene);
                         stage.setTitle(windowTitle);
                         stage.show();
+                        UserSingleton.getInstance().setUser(user);
                         SalesmanWindowController salesmanWindowController = fxmlLoader.getController();
                         salesmanWindowController.setModel(userModel);
                         salesmanWindowController.setUser(user);

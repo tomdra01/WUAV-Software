@@ -5,6 +5,8 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXToggleButton;
 import dk.easv.be.Log;
 import dk.easv.be.Project;
+import dk.easv.be.User;
+import dk.easv.bll.util.UserSingleton;
 import dk.easv.gui.util.ProjectDisplay;
 import dk.easv.bll.util.PopupUtil;
 import dk.easv.gui.model.ProjectModel;
@@ -181,5 +183,7 @@ public class InternalDocumentationController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         projectDisplay = new ProjectDisplay();
+        User user = UserSingleton.getInstance().getUser();
+        if(user.getRole().equals("Technician")) deleteBtn.setVisible(false);
     }
 }
