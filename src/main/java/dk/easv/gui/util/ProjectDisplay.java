@@ -216,7 +216,7 @@ public class ProjectDisplay {
         projectTemplateController.setModel(projectModel);
     }
 
-    public void showTableView(HBox hbox, String userRole) {
+    public void showTableView(HBox hbox, User user) {
         TableView<Project> tableView = new TableView<>();
 
         tableView.setPrefWidth(1200);
@@ -241,20 +241,14 @@ public class ProjectDisplay {
         tableView.getColumns().add(dateColumn);
         tableView.getColumns().add(descriptionColumn);
 
-        switch(userRole) {
-            case "Admin":
-            case "Project Manager":
-                tableView.setItems(FXCollections.observableArrayList(projectModel.getProjects()));
-                break;
-            case "Salesman":
-                tableView.setItems(FXCollections.observableArrayList(projectModel.getSalesmenProjects()));
-                break;
-            case "Technician":
-                tableView.setItems(FXCollections.observableArrayList(projectModel.getTechnicianProjects()));
-                break;
-            default:
-                PopupUtil.showAlert("Unable to show projects", "Unable to show projects for the current user", Alert.AlertType.INFORMATION);
-                break;
+        if (user.getRole().equals("Admin") || user.getRole().equals("Project Manager")) {
+            tableView.setItems(FXCollections.observableArrayList(projectModel.getProjects()));
+        } else if (user.getRole().equals("Salesman")) {
+            tableView.setItems(FXCollections.observableArrayList(projectModel.getSalesmenProjects()));
+        } else if (user.getRole().equals("Technician")) {
+            tableView.setItems(FXCollections.observableArrayList(projectModel.getTechnicianProjects()));
+        } else {
+            PopupUtil.showAlert("Unable to show projects", "Unable to show projects for the current user", Alert.AlertType.INFORMATION);
         }
 
         hbox.getChildren().clear();

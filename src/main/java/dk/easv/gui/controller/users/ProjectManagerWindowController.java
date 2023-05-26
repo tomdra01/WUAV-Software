@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import dk.easv.be.User;
 import dk.easv.bll.util.PopupUtil;
+import dk.easv.bll.util.UserSingleton;
 import dk.easv.gui.controller.AssignNewTechnicianController;
 import dk.easv.gui.controller.SelectProjectController;
 import dk.easv.gui.model.ProjectModel;
@@ -57,8 +58,8 @@ public class ProjectManagerWindowController implements Initializable {
     }
 
     public void setUser(User user) {
-        this.user = user;
-    }
+        this.user = user;}
+
 
     /**
      * Initializing hamburger menu.
@@ -180,6 +181,7 @@ public class ProjectManagerWindowController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        user = UserSingleton.getInstance().getUser();
         projectDisplay = new ProjectDisplay();
         projectModel = new ProjectModel();
         ClockUtil.showWidget(hbox);//clock
@@ -191,7 +193,7 @@ public class ProjectManagerWindowController implements Initializable {
         toggleButton.setOnAction(event -> {
             if (toggleButton.isSelected()) {
                 projectDisplay.setModel(projectModel);
-                projectDisplay.showTableView(projectsHbox, "Project Manager");
+                projectDisplay.showTableView(projectsHbox, user);
             } else {
                 projectDisplay.showAllProjects(projectsHbox, filterComboBox, searchBar, projectModel, mainPane);
             }

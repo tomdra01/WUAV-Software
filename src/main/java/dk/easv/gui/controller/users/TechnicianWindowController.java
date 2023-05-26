@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import dk.easv.be.User;
 import dk.easv.bll.util.PopupUtil;
+import dk.easv.bll.util.UserSingleton;
 import dk.easv.gui.util.*;
 import dk.easv.gui.controller.project.ProjectStep1Controller;
 import dk.easv.gui.model.ProjectModel;
@@ -155,6 +156,7 @@ public class TechnicianWindowController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        user = UserSingleton.getInstance().getUser();
         projectModel = new ProjectModel();
         projectDisplay = new ProjectDisplay();
         ClockUtil.showWidget(hbox); //clock
@@ -164,7 +166,7 @@ public class TechnicianWindowController implements Initializable {
         toggleButton.setOnAction(event -> {
             if (toggleButton.isSelected()) {
                 projectDisplay.setModel(projectModel);
-                projectDisplay.showTableView(projectsHbox, "Technician");
+                projectDisplay.showTableView(projectsHbox, user);
             } else {
                 projectDisplay.showTechnicianProjects(projectsHbox, filterComboBox, searchBar, projectModel, mainPane, user);
             }

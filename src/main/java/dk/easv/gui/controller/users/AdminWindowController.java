@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import dk.easv.be.User;
 import dk.easv.bll.util.PopupUtil;
+import dk.easv.bll.util.UserSingleton;
 import dk.easv.gui.controller.*;
 import dk.easv.gui.model.CustomerModel;
 import dk.easv.gui.util.*;
@@ -282,7 +283,7 @@ public class AdminWindowController implements Initializable {
 
     private void showTableView() {
         projectDisplay.setModel(projectModel);
-       projectDisplay.showTableView(projectsHbox, "Admin");
+       projectDisplay.showTableView(projectsHbox, user);
     }
 
 
@@ -306,6 +307,8 @@ public class AdminWindowController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        user = UserSingleton.getInstance().getUser();
+
         projectDisplay = new ProjectDisplay();
         projectModel = new ProjectModel();
         customerModel = new CustomerModel();

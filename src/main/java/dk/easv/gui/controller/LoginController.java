@@ -62,6 +62,7 @@ public class LoginController implements Initializable {
                         stage.setTitle(windowTitle);
                         stage.show();
                         UserSingleton.getInstance().setUser(user);
+                        System.out.println(user);
                         AdminWindowController adminWindowController = fxmlLoader.getController();
                         adminWindowController.setModel(userModel);
                         adminWindowController.setUser(user);

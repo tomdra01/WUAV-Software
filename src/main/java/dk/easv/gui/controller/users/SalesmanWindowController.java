@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import dk.easv.be.User;
 import dk.easv.bll.util.PopupUtil;
+import dk.easv.bll.util.UserSingleton;
 import dk.easv.gui.controller.AddCustomerController;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.model.UserModel;
@@ -59,7 +60,6 @@ public class SalesmanWindowController implements Initializable {
     public void setUser(User user) {
         this.user = user;
     }
-
     /**
      * Initializing hamburger menu.
      */
@@ -154,6 +154,7 @@ public class SalesmanWindowController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        user = UserSingleton.getInstance().getUser();
         projectDisplay = new ProjectDisplay();
         projectModel = new ProjectModel();
         searchFilter(); // search + filter
@@ -164,7 +165,7 @@ public class SalesmanWindowController implements Initializable {
         toggleButton.setOnAction(event -> {
             if (toggleButton.isSelected()) {
                 projectDisplay.setModel(projectModel);
-                projectDisplay.showTableView(projectsHbox, "Salesman");
+                projectDisplay.showTableView(projectsHbox, user);
             } else {
                 projectDisplay.showSalesmanProjects(projectsHbox, filterComboBox, searchBar, projectModel, mainPane);
             }
