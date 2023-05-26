@@ -185,5 +185,6 @@ public class InternalDocumentationController implements Initializable {
         projectDisplay = new ProjectDisplay();
         User user = UserSingleton.getInstance().getUser();
         if(user.getRole().equals("Technician")) deleteBtn.setVisible(false);
+        else if (user.getRole().equals("Salesman")) deleteBtn.setVisible(false);
     }
 }
