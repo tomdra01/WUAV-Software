@@ -1,18 +1,17 @@
 package dk.easv.gui.controller.documentation;
 
 // imports
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import dk.easv.be.Log;
 import dk.easv.be.Project;
 import dk.easv.be.User;
 import dk.easv.be.UserSingleton;
 import dk.easv.gui.controller.EditProjectController;
-import dk.easv.gui.util.ProjectDisplay;
-import dk.easv.gui.util.PopupUtil;
+import dk.easv.gui.util.*;
 import dk.easv.gui.model.ProjectModel;
-import dk.easv.gui.util.BlurEffectUtil;
-import dk.easv.gui.util.ViewType;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +26,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -60,6 +60,9 @@ public class InternalDocumentationController implements Initializable {
     @FXML private JFXTextArea textArea;
     @FXML private Label nameLabel, locationLabel, dateLabel, businessTypeLabel;
     private BorderPane borderPane;
+    private HBox projectsHbox = RefreshPropertiesSingleton.getInstance().getProjectsHbox();
+    private JFXTextField searchBar = RefreshPropertiesSingleton.getInstance().getSearchBar();
+    private JFXComboBox<String> filter = RefreshPropertiesSingleton.getInstance().getFilterComboBox();
     private ProjectModel projectModel;
     private ProjectDisplay projectDisplay;
     private Project project;
@@ -173,6 +176,7 @@ public class InternalDocumentationController implements Initializable {
             stage.close();
             BlurEffectUtil.removeBlurEffect(borderPane);
         }
+        projectDisplay.showAllProjects(projectsHbox, filter, searchBar, projectModel, borderPane);
     }
 
     public void editProject() {
