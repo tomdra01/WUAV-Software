@@ -31,6 +31,9 @@ public class PopupUtil {
         alert.setTitle(title);
         alert.setContentText(message);
         alert.setHeaderText(null);
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(Objects.requireNonNull(PopupUtil.class.getResource("/styles/alert_style.css")).toExternalForm());
+        dialogPane.getStyleClass().add("custom-dialog-pane");
         return alert.showAndWait();
     }
 }
