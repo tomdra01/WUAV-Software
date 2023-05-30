@@ -105,7 +105,6 @@ public class TechnicianWindowController implements Initializable {
                 projectStep1.setOnCloseRequestHandler(stage);
                 projectStep1.setModel(projectModel);
                 projectStep1.setUser(user);
-                projectStep1.setMainPage(projectsHbox, filterComboBox, searchBar, mainPane);
 
             } catch (IOException e) {
                 PopupUtil.showAlert("Something went wrong", "Failed to open the window", Alert.AlertType.ERROR);

@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
 import dk.easv.bll.util.ImageByteReader;
 import dk.easv.gui.model.ProjectModel;
+import dk.easv.gui.util.RefreshPropertiesSingleton;
 import dk.easv.gui.util.ViewType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,18 +38,9 @@ public class ProjectStep3Controller implements Initializable {
     private byte[] projectPhoto1, projectPhoto2, projectPhoto3;
     private Image img1, img2, img3;
     private ProjectModel projectModel;
-    private HBox projectHbox;
-    private JFXComboBox<String> filterComboBox;
-    private JFXTextField searchBar;
-    private BorderPane mainPane;
+    private BorderPane mainPane = RefreshPropertiesSingleton.getInstance().getMainPane();
     private User user;
 
-    public void setMainPage(HBox projectHbox, JFXComboBox<String> filterComboBox, JFXTextField searchBar, BorderPane mainPane){
-        this.projectHbox=projectHbox;
-        this.filterComboBox=filterComboBox;
-        this.searchBar=searchBar;
-        this.mainPane=mainPane;
-    }
 
     public void setModel(ProjectModel projectModel) {
         this.projectModel = projectModel;
@@ -98,7 +90,6 @@ public class ProjectStep3Controller implements Initializable {
                 projectStep4.setImages(img1, img2, img3, projectPhoto1, projectPhoto2, projectPhoto3);
                 projectStep4.setModel(projectModel);
                 projectStep4.setUser(user);
-                projectStep4.setMainPage(projectHbox, filterComboBox, searchBar, mainPane);
 
                 Stage window = (Stage) importBtn.getScene().getWindow();
                 window.setTitle("Step 4");
@@ -122,7 +113,6 @@ public class ProjectStep3Controller implements Initializable {
             drawInstallationController.setImages(img1, img2, img3, projectPhoto1, projectPhoto2, projectPhoto3);
             drawInstallationController.setModel(projectModel);
             drawInstallationController.setUser(user);
-            drawInstallationController.setMainPage(projectHbox, filterComboBox, searchBar, mainPane);
 
             Stage window = (Stage) previousStepBtn.getScene().getWindow();
             window.setTitle("Drawing");

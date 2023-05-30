@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
 import dk.easv.gui.util.PopupUtil;
 import dk.easv.gui.model.ProjectModel;
+import dk.easv.gui.util.RefreshPropertiesSingleton;
 import dk.easv.gui.util.ViewType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -40,18 +41,8 @@ public class ProjectStep2Controller implements Initializable {
     private byte[] projectPhoto1, projectPhoto2, projectPhoto3;
     private Image img1, img2, img3;
     private ProjectModel projectModel;
-    private HBox projectHbox;
-    private JFXComboBox<String> filterComboBox;
-    private JFXTextField searchBar;
-    private BorderPane mainPane;
+    private BorderPane mainPane = RefreshPropertiesSingleton.getInstance().getMainPane();
     private User user;
-
-    public void setMainPage(HBox projectHbox, JFXComboBox<String> filterComboBox, JFXTextField searchBar, BorderPane mainPane){
-        this.projectHbox=projectHbox;
-        this.filterComboBox=filterComboBox;
-        this.searchBar=searchBar;
-        this.mainPane=mainPane;
-    }
 
     public void setModel(ProjectModel projectModel) {
         this.projectModel = projectModel;
@@ -96,7 +87,6 @@ public class ProjectStep2Controller implements Initializable {
                 projectStep3.setImages(img1, img2, img3, projectPhoto1, projectPhoto2, projectPhoto3);
                 projectStep3.setModel(projectModel);
                 projectStep3.setUser(user);
-                projectStep3.setMainPage(projectHbox, filterComboBox, searchBar, mainPane);
 
                 Stage window = (Stage) nextStepBtn.getScene().getWindow();
                 window.setTitle("Step 3");
@@ -122,7 +112,6 @@ public class ProjectStep2Controller implements Initializable {
             projectStep1.setImages(img1, img2, img3, projectPhoto1, projectPhoto2, projectPhoto3);
             projectStep1.setModel(projectModel);
             projectStep1.setUser(user);
-            projectStep1.setMainPage(projectHbox, filterComboBox, searchBar, mainPane);
 
             Stage window = (Stage) previousStepBtn.getScene().getWindow();
             window.setTitle("Step 1");

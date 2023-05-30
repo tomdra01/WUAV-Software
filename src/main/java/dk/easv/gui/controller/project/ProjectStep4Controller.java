@@ -39,18 +39,9 @@ public class ProjectStep4Controller implements Initializable {
     private byte[] projectPhoto1, projectPhoto2, projectPhoto3;
     private Image img1, img2, img3;
     private ProjectModel projectModel;
-    private HBox projectHbox;
-    private JFXComboBox<String> filterComboBox;
-    private JFXTextField searchBar;
     private BorderPane mainPane;
     private User user;
 
-    public void setMainPage(HBox projectHbox, JFXComboBox<String> filterComboBox, JFXTextField searchBar, BorderPane mainPane){
-        this.projectHbox=projectHbox;
-        this.filterComboBox=filterComboBox;
-        this.searchBar=searchBar;
-        this.mainPane=mainPane;
-    }
 
     public void setModel(ProjectModel projectModel) {
         this.projectModel = projectModel;
@@ -92,7 +83,6 @@ public class ProjectStep4Controller implements Initializable {
                 projectStep5.setImages(img1, img2, img3, projectPhoto1, projectPhoto2, projectPhoto3);
                 projectStep5.setModel(projectModel);
                 projectStep5.setUser(user);
-                projectStep5.setMainPage(projectHbox, filterComboBox, searchBar, mainPane);
 
                 Stage window = (Stage) nextStepBtn.getScene().getWindow();
                 window.setTitle("Step 5");

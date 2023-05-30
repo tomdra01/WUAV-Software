@@ -8,11 +8,8 @@ import dk.easv.be.Project;
 import dk.easv.be.User;
 import dk.easv.bll.exception.DatabaseException;
 import dk.easv.bll.util.ImageByteReader;
-import dk.easv.gui.util.PopupUtil;
+import dk.easv.gui.util.*;
 import dk.easv.gui.model.ProjectModel;
-import dk.easv.gui.util.BlurEffectUtil;
-import dk.easv.gui.util.ProjectDisplay;
-import dk.easv.gui.util.ViewType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -46,24 +43,17 @@ public class ProjectStep5Controller implements Initializable {
     @FXML private Button finishBtn, previousStepBtn, addImagesBtn;
     @FXML private ImageView imageView1, imageView2, imageView3;
     private String projectName, businessType, projectLocation, projectDescription;
+    private HBox projectsHbox = RefreshPropertiesSingleton.getInstance().getProjectsHbox();
+    private JFXTextField searchBar = RefreshPropertiesSingleton.getInstance().getSearchBar();
+    private JFXComboBox<String> filter = RefreshPropertiesSingleton.getInstance().getFilterComboBox();
     private LocalDate projectDate;
     private byte[] projectDrawing;
     private byte[] projectPhoto1, projectPhoto2, projectPhoto3;
     private Image img1, img2, img3;
     private ProjectModel projectModel;
-    private HBox projectHbox;
-    private JFXComboBox<String> filterComboBox;
-    private JFXTextField searchBar;
-    private BorderPane mainPane;
+    private BorderPane mainPane = RefreshPropertiesSingleton.getInstance().getMainPane();
     private User user;
     private ProjectDisplay projectDisplay;
-
-    public void setMainPage(HBox projectHbox, JFXComboBox<String> filterComboBox, JFXTextField searchBar, BorderPane mainPane){
-        this.projectHbox=projectHbox;
-        this.filterComboBox=filterComboBox;
-        this.searchBar=searchBar;
-        this.mainPane=mainPane;
-    }
 
     public void setModel(ProjectModel projectModel) {
         this.projectModel = projectModel;
@@ -171,10 +161,10 @@ public class ProjectStep5Controller implements Initializable {
                 PopupUtil.showAlert("Something went wrong", e.getMessage(), Alert.AlertType.ERROR);
                 e.printStackTrace();
             }
-            projectDisplay.showTechnicianProjects(projectHbox, filterComboBox, searchBar, projectModel, mainPane, user);
+            projectDisplay.showTechnicianProjects(projectsHbox, filter, searchBar, projectModel, mainPane, user);
         }
         else if (Objects.equals(user.getRole(), "Admin")){
-            projectDisplay.showAllProjects(projectHbox, filterComboBox, searchBar, projectModel, mainPane);
+            projectDisplay.showAllProjects(projectsHbox, filter, searchBar, projectModel, mainPane);
         }
 
         BlurEffectUtil.removeBlurEffect(mainPane);

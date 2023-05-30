@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.CanvasImagePosition;
+import dk.easv.gui.util.RefreshPropertiesSingleton;
 import dk.easv.gui.util.ViewType;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.embed.swing.SwingFXUtils;
@@ -56,22 +57,13 @@ public class DrawInstallationController implements Initializable {
     private Image image;
     private final Stack<CanvasImagePosition> imageHistory = new Stack<>();
     private ProjectModel projectModel;
-    private HBox projectHbox;
-    private JFXComboBox<String> filterComboBox;
-    private JFXTextField searchBar;
-    private BorderPane mainPane;
+    private BorderPane mainPane = RefreshPropertiesSingleton.getInstance().getMainPane();
     private User user;
     private final List<Point2D> imagePositions = new ArrayList<>();
     private final List<List<Point2D>> linePoints = new ArrayList<>();
     private final Stack<String> actions = new Stack<>();
     SimpleBooleanProperty isDragOperation = new SimpleBooleanProperty(false);
 
-    public void setMainPage(HBox projectHbox, JFXComboBox<String> filterComboBox, JFXTextField searchBar, BorderPane borderPane){
-        this.projectHbox=projectHbox;
-        this.filterComboBox=filterComboBox;
-        this.searchBar = searchBar;
-        this.mainPane = borderPane;
-    }
 
     public void setModel(ProjectModel projectModel) {
         this.projectModel = projectModel;
@@ -278,7 +270,6 @@ public class DrawInstallationController implements Initializable {
             projectStep4.setImages(img1, img2, img3, projectPhoto1, projectPhoto2, projectPhoto3);
             projectStep4.setModel(projectModel);
             projectStep4.setUser(user);
-            projectStep4.setMainPage(projectHbox, filterComboBox, searchBar, mainPane);
 
             Stage window = (Stage) nextStepBtn.getScene().getWindow();
             window.setTitle("Step 4");
