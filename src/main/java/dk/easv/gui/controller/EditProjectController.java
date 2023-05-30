@@ -7,16 +7,20 @@ import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.Log;
 import dk.easv.be.Project;
 import dk.easv.be.User;
+import dk.easv.be.UserSingleton;
 import dk.easv.bll.exception.DatabaseException;
 import dk.easv.gui.util.PopupUtil;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.BlurEffectUtil;
+import dk.easv.gui.util.ProjectDisplay;
+import dk.easv.gui.util.RefreshPropertiesSingleton;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 // java imports
@@ -33,10 +37,14 @@ public class EditProjectController implements Initializable {
     @FXML private JFXComboBox<String> businessType;
     @FXML private DatePicker dateField;
     @FXML private JFXTextArea descTextField;
+    private HBox projectsHbox = RefreshPropertiesSingleton.getInstance().getProjectsHbox();
+    private JFXTextField searchBar = RefreshPropertiesSingleton.getInstance().getSearchBar();
+    private JFXComboBox<String> filter = RefreshPropertiesSingleton.getInstance().getFilterComboBox();
     private BorderPane mainPane;
     private Project project;
     private ProjectModel projectModel;
     private User user;
+    private ProjectDisplay projectDisplay;
 
     public void setProjectModel(ProjectModel projectModel){
         this.projectModel=projectModel;
@@ -59,6 +67,7 @@ public class EditProjectController implements Initializable {
 
     public void editProject() {
         try {
+            user = UserSingleton.getInstance().getUser();
             Log log = new Log("Edited project: " +project.getId(), LocalDateTime.now(), user.getUsername());
             project.setName(nameField.getText());
             project.setLocation(locationField.getText());
@@ -73,6 +82,7 @@ public class EditProjectController implements Initializable {
             e.printStackTrace();
         }
         closeWindow();
+        projectDisplay.showAllProjects(projectsHbox, filter, searchBar, projectModel, mainPane);
     }
 
     private void closeWindow() {
@@ -86,5 +96,6 @@ public class EditProjectController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        projectDisplay = new ProjectDisplay();
     }
 }

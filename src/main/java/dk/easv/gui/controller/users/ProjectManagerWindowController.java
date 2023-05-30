@@ -181,6 +181,10 @@ public class ProjectManagerWindowController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        RefreshPropertiesSingleton.getInstance().setMainPane(mainPane);
+        RefreshPropertiesSingleton.getInstance().setProjectsHbox(projectsHbox);
+        RefreshPropertiesSingleton.getInstance().setSearchBar(searchBar);
+        RefreshPropertiesSingleton.getInstance().setFilterComboBox(filterComboBox);
         user = UserSingleton.getInstance().getUser();
         projectDisplay = new ProjectDisplay();
         projectModel = new ProjectModel();
