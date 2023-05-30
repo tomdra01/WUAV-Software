@@ -3,26 +3,25 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.control.cell.*?>
 
-<ScrollPane prefHeight="402.0" prefWidth="405.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.LogWindowController">
-    <content>
-        <TableView fx:id="logTable" prefHeight="400.0" prefWidth="405.0">
-            <columns>
-                <TableColumn fx:id="userColumn" text="Username">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="user" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn fx:id="actionColumn" prefWidth="180.0" text="Action">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="action" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn fx:id="timestampColumn" prefWidth="129.0" text="Timestamp">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="timestamp" />
-                    </cellValueFactory>
-                </TableColumn>
-            </columns>
-        </TableView>
-    </content>
+<ScrollPane prefHeight="402.0" prefWidth="405.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.LogWindowController">
+    <TableView fx:id="logTable" prefHeight="400.0" prefWidth="405.0">
+        <columns>
+            <TableColumn fx:id="userColumn" text="Username">
+                <cellValueFactory>
+                    <PropertyValueFactory property="user"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="actionColumn" prefWidth="180.0" text="Action">
+                <cellValueFactory>
+                    <PropertyValueFactory property="action"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="timestampColumn" prefWidth="129.0" text="Timestamp">
+                <cellValueFactory>
+                    <PropertyValueFactory property="timestamp"/>
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
 </ScrollPane>

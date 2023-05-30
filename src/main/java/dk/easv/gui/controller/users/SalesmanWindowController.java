@@ -10,7 +10,6 @@ import dk.easv.gui.util.PopupUtil;
 import dk.easv.be.UserSingleton;
 import dk.easv.gui.controller.AddCustomerController;
 import dk.easv.gui.model.ProjectModel;
-import dk.easv.gui.model.UserModel;
 import dk.easv.gui.util.*;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -21,7 +20,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -43,23 +41,18 @@ public class SalesmanWindowController implements Initializable {
     @FXML private JFXHamburger jfxHamburger;
     @FXML private JFXComboBox<String> filterComboBox;
     @FXML private JFXTextField searchBar;
-    @FXML private ImageView engineerIcon;
     @FXML private JFXToggleButton toggleButton;
     private final Button addCustomerButton = new Button("Add customer");
     private final Button sendDocument = new Button("Send document");
     private final Button logOutButton = new Button("Log out");
     private User user;
-    private UserModel userModel;
     private ProjectModel projectModel;
     private ProjectDisplay projectDisplay;
-
-    public void setModel(UserModel userModel) {
-        this.userModel = userModel;
-    }
 
     public void setUser(User user) {
         this.user = user;
     }
+
     /**
      * Initializing hamburger menu.
      */

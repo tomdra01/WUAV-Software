@@ -8,10 +8,10 @@ import com.jfoenix.controls.JFXToggleButton;
 import dk.easv.be.Log;
 import dk.easv.be.Project;
 import dk.easv.be.User;
-import dk.easv.bll.exception.DatabaseException;
-import dk.easv.gui.util.*;
 import dk.easv.be.UserSingleton;
+import dk.easv.bll.exception.DatabaseException;
 import dk.easv.gui.model.ProjectModel;
+import dk.easv.gui.util.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,7 +31,6 @@ import javafx.stage.Stage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Ref;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -48,9 +47,9 @@ public class ExternalDocumentationController implements Initializable {
     @FXML private Button deleteButton;
     @FXML private JFXToggleButton externalSwitchBtn;
     @FXML private ImageView image1, image2, image3;
-    private HBox projectsHbox = RefreshPropertiesSingleton.getInstance().getProjectsHbox();
-    private JFXTextField searchBar = RefreshPropertiesSingleton.getInstance().getSearchBar();
-    private JFXComboBox<String> filter = RefreshPropertiesSingleton.getInstance().getFilterComboBox();
+    private final HBox projectsHbox = RefreshPropertiesSingleton.getInstance().getProjectsHbox();
+    private final JFXTextField searchBar = RefreshPropertiesSingleton.getInstance().getSearchBar();
+    private final JFXComboBox<String> filter = RefreshPropertiesSingleton.getInstance().getFilterComboBox();
     private BorderPane borderPane;
     private ProjectModel projectModel;
     private ProjectDisplay projectDisplay;
@@ -81,10 +80,10 @@ public class ExternalDocumentationController implements Initializable {
         businessTypeLabel.setText(project.getBusinessType());
         textArea.setText(project.getDescription());
     }
+
     public void setModel(ProjectModel projectModel){
         this.projectModel = projectModel;
     }
-
     public void setPane(BorderPane borderPane) {
         this.borderPane = borderPane;
     }
@@ -133,6 +132,9 @@ public class ExternalDocumentationController implements Initializable {
         stage.close();
     }
 
+    /**
+     * Initialize method
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         projectDisplay = new ProjectDisplay();

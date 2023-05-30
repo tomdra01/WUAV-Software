@@ -37,9 +37,9 @@ public class EditProjectController implements Initializable {
     @FXML private JFXComboBox<String> businessType;
     @FXML private DatePicker dateField;
     @FXML private JFXTextArea descTextField;
-    private HBox projectsHbox = RefreshPropertiesSingleton.getInstance().getProjectsHbox();
-    private JFXTextField searchBar = RefreshPropertiesSingleton.getInstance().getSearchBar();
-    private JFXComboBox<String> filter = RefreshPropertiesSingleton.getInstance().getFilterComboBox();
+    private final HBox projectsHbox = RefreshPropertiesSingleton.getInstance().getProjectsHbox();
+    private final JFXTextField searchBar = RefreshPropertiesSingleton.getInstance().getSearchBar();
+    private final JFXComboBox<String> filter = RefreshPropertiesSingleton.getInstance().getFilterComboBox();
     private BorderPane mainPane;
     private Project project;
     private ProjectModel projectModel;

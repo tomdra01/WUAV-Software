@@ -14,7 +14,7 @@
         </JFXListView>
     </center>
    <right>
-      <Button fx:id="editButton" mnemonicParsing="false" onAction="#editUserButton" text="Edit" BorderPane.alignment="CENTER">
+      <Button mnemonicParsing="false" onAction="#editUserButton" text="Edit" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets right="15.0" />
          </BorderPane.margin>

@@ -37,7 +37,6 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 // java imports
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -60,9 +59,9 @@ public class InternalDocumentationController implements Initializable {
     @FXML private JFXTextArea textArea;
     @FXML private Label nameLabel, locationLabel, dateLabel, businessTypeLabel;
     private BorderPane borderPane;
-    private HBox projectsHbox = RefreshPropertiesSingleton.getInstance().getProjectsHbox();
-    private JFXTextField searchBar = RefreshPropertiesSingleton.getInstance().getSearchBar();
-    private JFXComboBox<String> filter = RefreshPropertiesSingleton.getInstance().getFilterComboBox();
+    private final HBox projectsHbox = RefreshPropertiesSingleton.getInstance().getProjectsHbox();
+    private final JFXTextField searchBar = RefreshPropertiesSingleton.getInstance().getSearchBar();
+    private final JFXComboBox<String> filter = RefreshPropertiesSingleton.getInstance().getFilterComboBox();
     private ProjectModel projectModel;
     private ProjectDisplay projectDisplay;
     private Project project;
@@ -84,7 +83,6 @@ public class InternalDocumentationController implements Initializable {
     public void setModel(ProjectModel projectModel){
         this.projectModel = projectModel;
     }
-
     public void setPane(BorderPane borderPane) {
         this.borderPane = borderPane;
     }
@@ -131,13 +129,6 @@ public class InternalDocumentationController implements Initializable {
         if (outputFile != null) {
             document.save(outputFile);
             document.close();
-
-            if (Desktop.isDesktopSupported()) {
-                Desktop desktop = Desktop.getDesktop();
-                if (desktop.isSupported(Desktop.Action.OPEN)) {
-                    desktop.open(outputFile);
-                }
-            }
         }
     }
 
@@ -185,7 +176,6 @@ public class InternalDocumentationController implements Initializable {
             Parent root = loader.load();
 
             EditProjectController editProjectController = loader.getController();
-            //editProjectController.setUser(user);
             editProjectController.setProject(project);
             editProjectController.setProjectModel(projectModel);
             editProjectController.setPane(borderPane);
@@ -206,12 +196,16 @@ public class InternalDocumentationController implements Initializable {
         stage.close();
     }
 
+    /**
+     * Initialize method
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         projectDisplay = new ProjectDisplay();
         User user = UserSingleton.getInstance().getUser();
-        if(user.getRole().equals("Technician")) deleteBtn.setVisible(false);
-        else if (user.getRole().equals("Salesman")) deleteBtn.setVisible(false);
-        else if(user.getRole().equals("Project Manager")) editButton.setVisible(true);
+        switch (user.getRole()) {
+            case "Technician", "Salesman" -> deleteBtn.setVisible(false);
+            case "Project Manager" -> editButton.setVisible(true);
+        }
     }
 }

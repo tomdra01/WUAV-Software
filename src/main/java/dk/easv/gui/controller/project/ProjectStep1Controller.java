@@ -7,7 +7,6 @@ import dk.easv.be.User;
 import dk.easv.gui.util.PopupUtil;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.BlurEffectUtil;
-import dk.easv.gui.util.RefreshPropertiesSingleton;
 import dk.easv.gui.util.ViewType;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -19,7 +18,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 // java imports
@@ -43,20 +41,16 @@ public class ProjectStep1Controller implements Initializable {
     private byte[] projectPhoto1, projectPhoto2, projectPhoto3;
     private Image img1, img2, img3;
     private ProjectModel projectModel;
-    private BorderPane mainPane = RefreshPropertiesSingleton.getInstance().getMainPane();
     private User user;
-
 
     public void setModel(ProjectModel projectModel) {
         this.projectModel = projectModel;
     }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public void setPane(BorderPane borderPane) {
         this.borderPane = borderPane;
+    }
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void setOnCloseRequestHandler(Stage stage) {
@@ -105,7 +99,8 @@ public class ProjectStep1Controller implements Initializable {
                 Scene scene = new Scene(root);
                 window.setScene(scene);
             } catch (IOException e) {
-                throw new RuntimeException("Failed to proceed to Step 2", e);
+                PopupUtil.showAlert("Something went wrong", "Failed to proceed to step 2", Alert.AlertType.ERROR);
+                e.printStackTrace();
             }
         }
         else PopupUtil.showAlert("Fields empty", "Please fill out all the fields", Alert.AlertType.INFORMATION);

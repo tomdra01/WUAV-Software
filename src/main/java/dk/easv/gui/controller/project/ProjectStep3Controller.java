@@ -1,22 +1,19 @@
 package dk.easv.gui.controller.project;
 
 // imports
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
 import dk.easv.bll.util.ImageByteReader;
 import dk.easv.gui.model.ProjectModel;
-import dk.easv.gui.util.RefreshPropertiesSingleton;
+import dk.easv.gui.util.PopupUtil;
 import dk.easv.gui.util.ViewType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -38,14 +35,11 @@ public class ProjectStep3Controller implements Initializable {
     private byte[] projectPhoto1, projectPhoto2, projectPhoto3;
     private Image img1, img2, img3;
     private ProjectModel projectModel;
-    private BorderPane mainPane = RefreshPropertiesSingleton.getInstance().getMainPane();
     private User user;
-
 
     public void setModel(ProjectModel projectModel) {
         this.projectModel = projectModel;
     }
-
     public void setUser(User user) {
         this.user = user;
     }
@@ -96,9 +90,11 @@ public class ProjectStep3Controller implements Initializable {
                 Scene scene = new Scene(root);
                 window.setScene(scene);
             } catch (IOException e) {
+                PopupUtil.showAlert("Something went wrong", "Failed to proceed to step 4", Alert.AlertType.ERROR);
                 e.printStackTrace();
             } catch (Exception e) {
-                throw new RuntimeException("File chooser fail", e);
+                PopupUtil.showAlert("Something went wrong", "Failed to open the file chooser", Alert.AlertType.ERROR);
+                e.printStackTrace();
             }
         }
     }
@@ -119,7 +115,8 @@ public class ProjectStep3Controller implements Initializable {
             Scene scene = new Scene(root);
             window.setScene(scene);
         } catch (IOException e) {
-            throw new RuntimeException("Failed to change the window", e);
+            PopupUtil.showAlert("Something went wrong", "Failed to proceed to drawing", Alert.AlertType.ERROR);
+            e.printStackTrace();
         }
     }
 
@@ -139,7 +136,8 @@ public class ProjectStep3Controller implements Initializable {
             Scene scene = new Scene(root);
             window.setScene(scene);
         } catch (IOException e) {
-            throw new RuntimeException("Failed to proceed to Step 2", e);
+            PopupUtil.showAlert("Something went wrong", "Failed to proceed to step 2", Alert.AlertType.ERROR);
+            e.printStackTrace();
         }
     }
 

@@ -1,5 +1,6 @@
 package dk.easv.gui.controller;
 
+// imports
 import dk.easv.be.Log;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.BlurEffectUtil;
@@ -11,17 +12,19 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.util.converter.LocalDateTimeStringConverter;
 
+// java imports
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ *
+ * @author tomdra01, mrtng1
+ */
 public class LogWindowController implements Initializable {
-    private ProjectModel projectModel;
     private BorderPane borderPane;
     @FXML
     private TableView<Log> logTable;
@@ -33,7 +36,6 @@ public class LogWindowController implements Initializable {
     private TableColumn<Log, LocalDateTime> timestampColumn;
 
     public void setProjectModel(ProjectModel projectModel) {
-        this.projectModel = projectModel;
 
         userColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
         actionColumn.setCellValueFactory(new PropertyValueFactory<>("logAction"));
@@ -56,7 +58,6 @@ public class LogWindowController implements Initializable {
         }
     }
 
-
     public void setPane(BorderPane mainPane) {
         this.borderPane = mainPane;
     }
@@ -67,6 +68,5 @@ public class LogWindowController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
     }
 }

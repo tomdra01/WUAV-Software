@@ -43,22 +43,21 @@ public class ProjectStep5Controller implements Initializable {
     @FXML private Button finishBtn, previousStepBtn, addImagesBtn;
     @FXML private ImageView imageView1, imageView2, imageView3;
     private String projectName, businessType, projectLocation, projectDescription;
-    private HBox projectsHbox = RefreshPropertiesSingleton.getInstance().getProjectsHbox();
-    private JFXTextField searchBar = RefreshPropertiesSingleton.getInstance().getSearchBar();
-    private JFXComboBox<String> filter = RefreshPropertiesSingleton.getInstance().getFilterComboBox();
+    private final HBox projectsHbox = RefreshPropertiesSingleton.getInstance().getProjectsHbox();
+    private final JFXTextField searchBar = RefreshPropertiesSingleton.getInstance().getSearchBar();
+    private final JFXComboBox<String> filter = RefreshPropertiesSingleton.getInstance().getFilterComboBox();
+    private final BorderPane mainPane = RefreshPropertiesSingleton.getInstance().getMainPane();
     private LocalDate projectDate;
     private byte[] projectDrawing;
     private byte[] projectPhoto1, projectPhoto2, projectPhoto3;
     private Image img1, img2, img3;
     private ProjectModel projectModel;
-    private BorderPane mainPane = RefreshPropertiesSingleton.getInstance().getMainPane();
     private User user;
     private ProjectDisplay projectDisplay;
 
     public void setModel(ProjectModel projectModel) {
         this.projectModel = projectModel;
     }
-
     public void setUser(User user) {
         this.user = user;
     }
@@ -188,7 +187,8 @@ public class ProjectStep5Controller implements Initializable {
             Scene scene = new Scene(root);
             window.setScene(scene);
         } catch (IOException e) {
-            throw new RuntimeException("Failed to change the window", e);
+            PopupUtil.showAlert("Something went wrong", "Failed to proceed to step 4", Alert.AlertType.ERROR);
+            e.printStackTrace();
         }
     }
 

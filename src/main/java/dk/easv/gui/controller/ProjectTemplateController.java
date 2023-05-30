@@ -32,7 +32,6 @@ import java.util.ResourceBundle;
  * @author tomdra01, mrtng1
  */
 public class ProjectTemplateController implements Initializable {
-
     @FXML private ImageView projectImg;
     @FXML private Label nameLabel, dateLabel, locationLabel, textLabel;
     @FXML private JFXCheckBox approvedProject;

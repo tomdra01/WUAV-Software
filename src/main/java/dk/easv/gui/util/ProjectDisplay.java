@@ -34,12 +34,8 @@ import java.util.List;
  */
 public class ProjectDisplay {
     private List<Project> projects;
-    private User user;
     private ProjectModel projectModel;
 
-    public void setUser(User user) {
-        this.user = user;
-    }
     public void setModel(ProjectModel projectModel) {this.projectModel = projectModel;}
 
     public void showAllProjects(HBox projectsHbox, JFXComboBox<String> filterComboBox, JFXTextField searchBar, ProjectModel projectModel, BorderPane mainPane) {
@@ -240,14 +236,15 @@ public class ProjectDisplay {
         tableView.getColumns().add(dateColumn);
         tableView.getColumns().add(descriptionColumn);
 
-        if (user.getRole().equals("Admin") || user.getRole().equals("Project Manager")) {
-            tableView.setItems(FXCollections.observableArrayList(projectModel.getProjects()));
-        } else if (user.getRole().equals("Salesman")) {
-            tableView.setItems(FXCollections.observableArrayList(projectModel.getSalesmenProjects()));
-        } else if (user.getRole().equals("Technician")) {
-            tableView.setItems(FXCollections.observableArrayList(projectModel.getTechnicianProjects()));
-        } else {
-            PopupUtil.showAlert("Unable to show projects", "Unable to show projects for the current user", Alert.AlertType.INFORMATION);
+        switch (user.getRole()) {
+            case "Admin", "Project Manager" ->
+                    tableView.setItems(FXCollections.observableArrayList(projectModel.getProjects()));
+            case "Salesman" ->
+                    tableView.setItems(FXCollections.observableArrayList(projectModel.getSalesmenProjects()));
+            case "Technician" ->
+                    tableView.setItems(FXCollections.observableArrayList(projectModel.getTechnicianProjects()));
+            default ->
+                    PopupUtil.showAlert("Unable to show projects", "Unable to show projects for the current user", Alert.AlertType.INFORMATION);
         }
 
         hbox.getChildren().clear();

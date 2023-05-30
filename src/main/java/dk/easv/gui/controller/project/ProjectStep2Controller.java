@@ -1,12 +1,10 @@
 package dk.easv.gui.controller.project;
 
 // imports
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
 import dk.easv.gui.util.PopupUtil;
 import dk.easv.gui.model.ProjectModel;
-import dk.easv.gui.util.RefreshPropertiesSingleton;
 import dk.easv.gui.util.ViewType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,8 +15,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 // java imports
@@ -41,13 +37,11 @@ public class ProjectStep2Controller implements Initializable {
     private byte[] projectPhoto1, projectPhoto2, projectPhoto3;
     private Image img1, img2, img3;
     private ProjectModel projectModel;
-    private BorderPane mainPane = RefreshPropertiesSingleton.getInstance().getMainPane();
     private User user;
 
     public void setModel(ProjectModel projectModel) {
         this.projectModel = projectModel;
     }
-
     public void setUser(User user) {
         this.user = user;
     }
@@ -60,6 +54,7 @@ public class ProjectStep2Controller implements Initializable {
         this.projectDrawing = projectDrawing;
         this.ProjectDescription = projectDescription;
 
+        // holding items when you go step back
         pLocationField.setText(projectLocation);
         pDatePicker.setValue(projectDate);
     }
@@ -93,7 +88,8 @@ public class ProjectStep2Controller implements Initializable {
                 Scene scene = new Scene(root);
                 window.setScene(scene);
             } catch (IOException e) {
-                throw new RuntimeException("Failed to proceed to Step 3", e);
+                PopupUtil.showAlert("Something went wrong", "Failed to proceed to step 3", Alert.AlertType.ERROR);
+                e.printStackTrace();
             }
         }
         else PopupUtil.showAlert("Fields empty", "Please fill out all the fields", Alert.AlertType.INFORMATION);
@@ -118,7 +114,8 @@ public class ProjectStep2Controller implements Initializable {
             Scene scene = new Scene(root);
             window.setScene(scene);
         } catch (IOException e) {
-            throw new RuntimeException("Failed to proceed to Step 1", e);
+            PopupUtil.showAlert("Something went wrong", "Failed to proceed to step 1", Alert.AlertType.ERROR);
+            e.printStackTrace();
         }
     }
 

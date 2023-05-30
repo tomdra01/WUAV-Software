@@ -32,7 +32,7 @@ public enum ViewType {
 
     private final String path;
 
-    private ViewType(String path) {
+    ViewType(String path) {
         this.path = path;
     }
 

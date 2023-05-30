@@ -33,7 +33,7 @@
                     <HBox.margin>
                         <Insets left="400.0" top="10.0" />
                     </HBox.margin></JFXToggleButton>
-                <ImageView fx:id="engineerIcon" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
+                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
                     <HBox.margin>
                         <Insets top="10.0" />
                     </HBox.margin>

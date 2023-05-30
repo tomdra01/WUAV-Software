@@ -1,5 +1,6 @@
 package dk.easv.gui.controller;
 
+// imports
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
 import dk.easv.bll.util.PasswordSecurity;
@@ -11,6 +12,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+/**
+ *
+ * @author tomdra01, mrtng1
+ */
 public class EditUserWindowController {
     @FXML private JFXTextField usernameField, passwordField, passwordConfirmField;
     private User user;

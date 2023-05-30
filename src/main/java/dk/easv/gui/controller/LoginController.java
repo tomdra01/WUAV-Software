@@ -77,7 +77,6 @@ public class LoginController implements Initializable {
                         stage.show();
                         UserSingleton.getInstance().setUser(user);
                         TechnicianWindowController technicianWindowController = fxmlLoader.getController();
-                        technicianWindowController.setModel(userModel);
                         technicianWindowController.setUser(user);
                     }
                     case "Project Manager" -> {
@@ -103,7 +102,6 @@ public class LoginController implements Initializable {
                         stage.show();
                         UserSingleton.getInstance().setUser(user);
                         SalesmanWindowController salesmanWindowController = fxmlLoader.getController();
-                        salesmanWindowController.setModel(userModel);
                         salesmanWindowController.setUser(user);
                     }
                 }

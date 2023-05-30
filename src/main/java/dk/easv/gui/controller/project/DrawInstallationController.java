@@ -1,12 +1,10 @@
 package dk.easv.gui.controller.project;
 
 // imports
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.CanvasImagePosition;
-import dk.easv.gui.util.RefreshPropertiesSingleton;
+import dk.easv.gui.util.PopupUtil;
 import dk.easv.gui.util.ViewType;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.embed.swing.SwingFXUtils;
@@ -19,13 +17,11 @@ import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -45,8 +41,6 @@ import java.util.Stack;
  * @author tomdra01, mrtng1
  */
 public class DrawInstallationController implements Initializable {
-    @FXML private BorderPane currentPane;
-    @FXML private ScrollPane scrollPane;
     @FXML private Canvas canvas;
     @FXML private Button projectorButton, screenButton, tabletButton, speakersButton, nextStepBtn, previousStepBtn, stepBackBtn;
     private String projectName, businessType, projectLocation, projectDescription;
@@ -57,18 +51,15 @@ public class DrawInstallationController implements Initializable {
     private Image image;
     private final Stack<CanvasImagePosition> imageHistory = new Stack<>();
     private ProjectModel projectModel;
-    private BorderPane mainPane = RefreshPropertiesSingleton.getInstance().getMainPane();
     private User user;
     private final List<Point2D> imagePositions = new ArrayList<>();
     private final List<List<Point2D>> linePoints = new ArrayList<>();
     private final Stack<String> actions = new Stack<>();
     SimpleBooleanProperty isDragOperation = new SimpleBooleanProperty(false);
 
-
     public void setModel(ProjectModel projectModel) {
         this.projectModel = projectModel;
     }
-
     public void setUser(User user) {
         this.user = user;
     }
@@ -94,14 +85,12 @@ public class DrawInstallationController implements Initializable {
     private void drawCanvas() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        projectorButton.setOnAction(event -> {image = new Image("/images/icons/projector.png");});
-        screenButton.setOnAction(event -> {image = new Image("/images/icons/screen.png");});
-        tabletButton.setOnAction(event -> {image = new Image("/images/icons/tablet.png");});
-        speakersButton.setOnAction(event -> {image = new Image("/images/icons/speakers.png");});
+        projectorButton.setOnAction(event -> image = new Image("/images/icons/projector.png"));
+        screenButton.setOnAction(event -> image = new Image("/images/icons/screen.png"));
+        tabletButton.setOnAction(event -> image = new Image("/images/icons/tablet.png"));
+        speakersButton.setOnAction(event -> image = new Image("/images/icons/speakers.png"));
 
-        canvas.setOnMousePressed(event -> {
-            isDragOperation.set(false);
-        });
+        canvas.setOnMousePressed(event -> isDragOperation.set(false));
 
         canvas.setOnMouseDragged(event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
@@ -276,8 +265,8 @@ public class DrawInstallationController implements Initializable {
             Scene scene = new Scene(root);
             window.setScene(scene);
         } catch (IOException e) {
-            throw new RuntimeException("Failed to change the window", e);
-        }
+            PopupUtil.showAlert("Something went wrong", "Failed to proceed to step 4", Alert.AlertType.ERROR);
+            e.printStackTrace();        }
     }
 
     public void previousStep() {
@@ -296,8 +285,8 @@ public class DrawInstallationController implements Initializable {
             Scene scene = new Scene(root);
             window.setScene(scene);
         } catch (IOException e) {
-            throw new RuntimeException("Failed to change the window", e);
-        }
+            PopupUtil.showAlert("Something went wrong", "Failed to proceed to step 3", Alert.AlertType.ERROR);
+            e.printStackTrace();        }
     }
 
     /**

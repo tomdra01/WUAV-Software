@@ -11,7 +11,6 @@ import dk.easv.be.UserSingleton;
 import dk.easv.gui.util.*;
 import dk.easv.gui.controller.project.ProjectStep1Controller;
 import dk.easv.gui.model.ProjectModel;
-import dk.easv.gui.model.UserModel;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +20,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -37,23 +35,16 @@ import java.util.ResourceBundle;
  */
 public class TechnicianWindowController implements Initializable {
     @FXML private BorderPane mainPane;
-    @FXML private HBox hbox, projectsHbox;;
+    @FXML private HBox hbox, projectsHbox;
     @FXML private JFXHamburger jfxHamburger;
     @FXML private JFXComboBox<String> filterComboBox;
     @FXML private JFXTextField searchBar;
-    @FXML private ImageView engineerIcon;
     @FXML private JFXToggleButton toggleButton;
     private final Button createProjectButton = new Button("New project");
     private final Button logOutButton = new Button("Log out");
     private User user;
-    private UserModel userModel;
     private ProjectModel projectModel;
     private ProjectDisplay projectDisplay;
-
-    // set model
-    public void setModel(UserModel userModel) {
-        this.userModel= userModel;
-    }
 
     // set users
     public void setUser(User user) {

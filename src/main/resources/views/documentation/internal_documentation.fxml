@@ -38,62 +38,68 @@
    </bottom>
    <top>
       <VBox prefHeight="270.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <children>
-            <JFXToggleButton fx:id="internalSwitch" onAction="#switchToExternalDocumentation" prefHeight="45.0" prefWidth="150.0" text="Internal" toggleColor="#e84910">
-               <VBox.margin>
-                  <Insets left="-15.0" />
-               </VBox.margin>
-            </JFXToggleButton>
-            <ImageView fx:id="projectDrawing" fitHeight="300.0" fitWidth="580.0" pickOnBounds="true">
-               <VBox.margin>
-                  <Insets left="10.0" right="10.0" />
-               </VBox.margin>
-            </ImageView>
-         </children>
+         <JFXToggleButton fx:id="internalSwitch" onAction="#switchToExternalDocumentation" prefHeight="45.0"
+                          prefWidth="150.0" text="Internal" toggleColor="#e84910">
+            <VBox.margin>
+               <Insets left="-15.0"/>
+            </VBox.margin>
+         </JFXToggleButton>
+         <ImageView fx:id="projectDrawing" fitHeight="300.0" fitWidth="580.0" pickOnBounds="true">
+            <VBox.margin>
+               <Insets left="10.0" right="10.0"/>
+            </VBox.margin>
+         </ImageView>
       </VBox>
    </top>
    <center>
       <VBox prefHeight="280.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label fx:id="nameLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="500.0" text="Name">
-               <font>
-                  <Font name="Arial Italic" size="24.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" top="20.0" />
-               </VBox.margin></Label>
-            <Label fx:id="businessTypeLabel" alignment="CENTER" contentDisplay="CENTER" prefWidth="500.0" text="Business Type">
-               <font>
-                  <Font name="Arial Italic" size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" top="10.0" />
-               </VBox.margin></Label>
-            <Label fx:id="locationLabel" alignment="CENTER" contentDisplay="CENTER" prefWidth="500.0" text="Location">
-               <font>
-                  <Font name="Arial Italic" size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" top="10.0" />
-               </VBox.margin></Label>
-            <Label fx:id="dateLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="500.0" text="Date">
-               <font>
-                  <Font name="Arial Italic" size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" top="10.0" />
-               </VBox.margin></Label>
-            <JFXTextArea fx:id="textArea" editable="false" focusColor="#ffffff00" prefWidth="500.0" unFocusColor="#ffffff00" wrapText="true">
-               <VBox.margin>
-                  <Insets left="20.0" right="20.0" top="15.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="Arial" size="10.0" />
-               </font></JFXTextArea>
-         </children>
          <BorderPane.margin>
-            <Insets left="50.0" right="50.0" />
+            <Insets left="50.0" right="50.0"/>
          </BorderPane.margin>
+         <Label fx:id="nameLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="500.0"
+                text="Name">
+            <font>
+               <Font name="Arial Italic" size="24.0"/>
+            </font>
+            <VBox.margin>
+               <Insets bottom="10.0" top="20.0"/>
+            </VBox.margin>
+         </Label>
+         <Label fx:id="businessTypeLabel" alignment="CENTER" contentDisplay="CENTER" prefWidth="500.0"
+                text="Business Type">
+            <font>
+               <Font name="Arial Italic" size="18.0"/>
+            </font>
+            <VBox.margin>
+               <Insets bottom="10.0" top="10.0"/>
+            </VBox.margin>
+         </Label>
+         <Label fx:id="locationLabel" alignment="CENTER" contentDisplay="CENTER" prefWidth="500.0" text="Location">
+            <font>
+               <Font name="Arial Italic" size="18.0"/>
+            </font>
+            <VBox.margin>
+               <Insets bottom="10.0" top="10.0"/>
+            </VBox.margin>
+         </Label>
+         <Label fx:id="dateLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="500.0"
+                text="Date">
+            <font>
+               <Font name="Arial Italic" size="18.0"/>
+            </font>
+            <VBox.margin>
+               <Insets bottom="10.0" top="10.0"/>
+            </VBox.margin>
+         </Label>
+         <JFXTextArea fx:id="textArea" editable="false" focusColor="#ffffff00" prefWidth="500.0"
+                      unFocusColor="#ffffff00" wrapText="true">
+            <VBox.margin>
+               <Insets left="20.0" right="20.0" top="15.0"/>
+            </VBox.margin>
+            <font>
+               <Font name="Arial" size="10.0"/>
+            </font>
+         </JFXTextArea>
       </VBox>
    </center>
 </BorderPane>

@@ -24,10 +24,8 @@ import java.util.ResourceBundle;
 public class ShowCustomersController implements Initializable {
     @FXML private JFXListView<Customer> customersList;
     private BorderPane mainPane;
-    private CustomerModel customerModel;
 
     public void setModel(CustomerModel customerModel) {
-        this.customerModel = customerModel;
 
         try {
             customerModel.loadCustomers();
