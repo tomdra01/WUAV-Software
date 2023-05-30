@@ -57,7 +57,7 @@ public class CustomerTest {
     @Test
     public void testCustomerToString() {
         Customer customer = new Customer(1, "testCustomer", "testcustomer@example.com");
-        String expectedToString = "Customer{id=1, name='testCustomer', email='testcustomer@example.com'}";
+        String expectedToString = "testCustomer";
         Assertions.assertEquals(expectedToString, customer.toString());
     }
 }

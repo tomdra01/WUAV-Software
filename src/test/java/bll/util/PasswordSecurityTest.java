@@ -5,6 +5,7 @@ import dk.easv.bll.util.PasswordSecurity;
 
 // JUnit imports
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 
 // static imports
@@ -16,17 +17,22 @@ import static org.junit.Assert.assertNotNull;
  * @author tomdra01, mrtng1
  */
 public class PasswordSecurityTest {
+    private static final String PASSWORD = "password";
 
-    @DisplayName("Test password hash")
+    @DisplayName("Test password hashing")
     @Test
     public void testHashPassword() {
-        String password = "myPassword123";
+        String hashedPassword = PasswordSecurity.hashPassword(PASSWORD);
 
-        String hashedPassword1 = PasswordSecurity.hashPassword(password);
-        String hashedPassword2 = PasswordSecurity.hashPassword(password);
+        Assertions.assertNotNull(hashedPassword);
+        Assertions.assertNotEquals(PASSWORD, hashedPassword);
+    }
 
-        assertNotNull(hashedPassword1);
-        assertNotNull(hashedPassword2);
-        assertEquals(hashedPassword1, hashedPassword2);
+    @DisplayName("Test password matching")
+    @Test
+    public void testCheckPassword() {
+        String hashedPassword = PasswordSecurity.hashPassword(PASSWORD);
+
+        Assertions.assertTrue(PasswordSecurity.checkPassword(PASSWORD, hashedPassword));
     }
 }

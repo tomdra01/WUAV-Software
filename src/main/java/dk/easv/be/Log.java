@@ -2,6 +2,10 @@ package dk.easv.be;
 
 import java.time.LocalDateTime;
 
+/**
+ *
+ * @author tomdra01, mrtng1
+ */
 public class Log {
     private int id;
     private String logAction;
