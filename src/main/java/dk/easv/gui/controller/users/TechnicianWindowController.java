@@ -7,7 +7,7 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import dk.easv.be.User;
 import dk.easv.bll.util.PopupUtil;
-import dk.easv.bll.util.UserSingleton;
+import dk.easv.be.UserSingleton;
 import dk.easv.gui.util.*;
 import dk.easv.gui.controller.project.ProjectStep1Controller;
 import dk.easv.gui.model.ProjectModel;

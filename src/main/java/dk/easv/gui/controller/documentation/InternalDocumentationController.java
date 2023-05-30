@@ -6,7 +6,7 @@ import com.jfoenix.controls.JFXToggleButton;
 import dk.easv.be.Log;
 import dk.easv.be.Project;
 import dk.easv.be.User;
-import dk.easv.bll.util.UserSingleton;
+import dk.easv.be.UserSingleton;
 import dk.easv.gui.controller.EditProjectController;
 import dk.easv.gui.util.ProjectDisplay;
 import dk.easv.bll.util.PopupUtil;
