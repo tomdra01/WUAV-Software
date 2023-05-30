@@ -1,4 +1,4 @@
-package dk.easv.bll.util;
+package dk.easv.gui.util;
 
 // imports
 import javafx.scene.control.Alert;

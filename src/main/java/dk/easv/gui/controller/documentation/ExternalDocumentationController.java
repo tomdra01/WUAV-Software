@@ -7,13 +7,12 @@ import dk.easv.be.Log;
 import dk.easv.be.Project;
 import dk.easv.be.User;
 import dk.easv.bll.exception.DatabaseException;
-import dk.easv.bll.util.PopupUtil;
-import dk.easv.bll.util.UserSingleton;
+import dk.easv.gui.util.PopupUtil;
+import dk.easv.be.UserSingleton;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.BlurEffectUtil;
 import dk.easv.gui.util.ProjectDisplay;
 import dk.easv.gui.util.ViewType;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -25,23 +24,11 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 // java imports
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -55,11 +42,11 @@ import java.util.ResourceBundle;
  */
 public class ExternalDocumentationController implements Initializable {
     @FXML private BorderPane currentNode;
+    @FXML private JFXTextArea textArea;
+    @FXML private Label nameLabel, locationLabel, dateLabel, businessTypeLabel;
     @FXML private Button deleteButton;
     @FXML private JFXToggleButton externalSwitchBtn;
     @FXML private ImageView image1, image2, image3;
-    @FXML private JFXTextArea textArea;
-    @FXML private Label nameLabel, locationLabel, dateLabel, businessTypeLabel;
     private BorderPane borderPane;
     private ProjectModel projectModel;
     private ProjectDisplay projectDisplay;
@@ -83,6 +70,7 @@ public class ExternalDocumentationController implements Initializable {
         } catch (DatabaseException e) {
             throw new RuntimeException(e);
         }
+
         nameLabel.setText(project.getName());
         locationLabel.setText(project.getLocation());
         dateLabel.setText(String.valueOf(project.getDate()));

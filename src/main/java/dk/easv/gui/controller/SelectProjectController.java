@@ -4,8 +4,7 @@ package dk.easv.gui.controller;
 import com.jfoenix.controls.JFXComboBox;
 import dk.easv.be.Project;
 import dk.easv.be.User;
-import dk.easv.bll.util.PopupUtil;
-import dk.easv.bll.util.ProjectListCell;
+import dk.easv.gui.util.PopupUtil;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.BlurEffectUtil;
 import dk.easv.gui.util.ViewType;
@@ -23,7 +22,6 @@ import javafx.stage.Stage;
 // java imports
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 /**

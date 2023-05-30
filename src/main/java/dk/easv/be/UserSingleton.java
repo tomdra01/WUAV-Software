@@ -1,6 +1,4 @@
-package dk.easv.bll.util;
-
-import dk.easv.be.User;
+package dk.easv.be;
 
 public class UserSingleton {
     private static UserSingleton instance = null;

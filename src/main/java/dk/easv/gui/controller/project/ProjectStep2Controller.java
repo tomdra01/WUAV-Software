@@ -4,7 +4,7 @@ package dk.easv.gui.controller.project;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
-import dk.easv.bll.util.PopupUtil;
+import dk.easv.gui.util.PopupUtil;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.ViewType;
 import javafx.fxml.FXML;
