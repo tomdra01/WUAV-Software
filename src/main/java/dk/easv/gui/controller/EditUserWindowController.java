@@ -2,13 +2,10 @@ package dk.easv.gui.controller;
 
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
-import dk.easv.bll.exception.DatabaseException;
-import dk.easv.bll.logic.UserLogic;
 import dk.easv.bll.util.PasswordSecurity;
-import dk.easv.bll.util.PopupUtil;
+import dk.easv.gui.util.PopupUtil;
 import dk.easv.gui.model.UserModel;
 import dk.easv.gui.util.BlurEffectUtil;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;

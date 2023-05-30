@@ -4,7 +4,7 @@ package dk.easv.gui.controller;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import dk.easv.be.User;
-import dk.easv.bll.util.PopupUtil;
+import dk.easv.gui.util.PopupUtil;
 import dk.easv.be.UserSingleton;
 import dk.easv.gui.controller.users.AdminWindowController;
 import dk.easv.gui.controller.users.ProjectManagerWindowController;

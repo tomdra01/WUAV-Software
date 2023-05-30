@@ -9,7 +9,7 @@ import dk.easv.be.User;
 import dk.easv.be.UserSingleton;
 import dk.easv.gui.controller.EditProjectController;
 import dk.easv.gui.util.ProjectDisplay;
-import dk.easv.bll.util.PopupUtil;
+import dk.easv.gui.util.PopupUtil;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.util.BlurEffectUtil;
 import dk.easv.gui.util.ViewType;

@@ -6,13 +6,10 @@ import dk.easv.be.Log;
 import dk.easv.be.Project;
 import dk.easv.be.User;
 import dk.easv.bll.exception.DatabaseException;
-import dk.easv.bll.util.PopupUtil;
+import dk.easv.gui.util.PopupUtil;
 import dk.easv.gui.model.ProjectModel;
 import dk.easv.gui.model.UserModel;
 import dk.easv.gui.util.BlurEffectUtil;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -23,9 +20,7 @@ import javafx.stage.Stage;
 // java imports
 import java.net.URL;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 /**
  *

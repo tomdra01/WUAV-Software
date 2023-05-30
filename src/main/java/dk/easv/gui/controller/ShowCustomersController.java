@@ -4,7 +4,7 @@ package dk.easv.gui.controller;
 import com.jfoenix.controls.JFXListView;
 import dk.easv.be.Customer;
 import dk.easv.bll.exception.DatabaseException;
-import dk.easv.bll.util.PopupUtil;
+import dk.easv.gui.util.PopupUtil;
 import dk.easv.gui.model.CustomerModel;
 import dk.easv.gui.util.BlurEffectUtil;
 import javafx.fxml.FXML;

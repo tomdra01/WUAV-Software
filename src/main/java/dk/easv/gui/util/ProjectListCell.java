@@ -1,4 +1,4 @@
-package dk.easv.bll.util;
+package dk.easv.gui.util;
 
 import javafx.scene.control.ListCell;
 import dk.easv.be.Project;

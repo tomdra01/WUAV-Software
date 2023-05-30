@@ -2,13 +2,11 @@ package dk.easv.gui.controller;
 
 // imports
 import com.jfoenix.controls.JFXListView;
-import dk.easv.be.Project;
 import dk.easv.be.User;
-import dk.easv.bll.util.PopupUtil;
+import dk.easv.gui.util.PopupUtil;
 import dk.easv.gui.model.UserModel;
 import dk.easv.gui.util.BlurEffectUtil;
 import dk.easv.gui.util.ViewType;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
