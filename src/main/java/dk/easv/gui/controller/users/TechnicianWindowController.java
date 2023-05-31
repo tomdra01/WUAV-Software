@@ -20,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -39,6 +40,7 @@ public class TechnicianWindowController implements Initializable {
     @FXML private JFXHamburger jfxHamburger;
     @FXML private JFXComboBox<String> filterComboBox;
     @FXML private JFXTextField searchBar;
+    @FXML private Label wuavLabel;
     @FXML private JFXToggleButton toggleButton;
     private final Button createProjectButton = new Button("New project");
     private final Button logOutButton = new Button("Log out");
@@ -141,17 +143,29 @@ public class TechnicianWindowController implements Initializable {
                 -> projectDisplay.showTechnicianProjects(projectsHbox, filterComboBox, searchBar, projectModel, mainPane , user));
     }
 
+    private void setInstances() {
+        RefreshPropertiesSingleton.getInstance().setMainPane(mainPane);
+        RefreshPropertiesSingleton.getInstance().setProjectsHbox(projectsHbox);
+        RefreshPropertiesSingleton.getInstance().setSearchBar(searchBar);
+        RefreshPropertiesSingleton.getInstance().setFilterComboBox(filterComboBox);
+    }
+
     /**
      * Initialize method
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         user = UserSingleton.getInstance().getUser();
+        setInstances();
+
         projectModel = new ProjectModel();
         projectDisplay = new ProjectDisplay();
-        ClockUtil.showWidget(hbox); //clock
+
         hamburgerMenu(); //hamburger
         hamburgerButtons(); //buttons in hamburger
+
+        ClockUtil.showWidget(hbox); //clock
+        ImageUtil.openBrowser(wuavLabel);
 
         toggleButton.setOnAction(event -> {
             if (toggleButton.isSelected()) {

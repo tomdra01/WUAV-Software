@@ -22,6 +22,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -45,6 +46,7 @@ public class ProjectManagerWindowController implements Initializable {
     @FXML private JFXComboBox<String> filterComboBox;
     @FXML private JFXTextField searchBar;
     @FXML private ImageView engineerIcon;
+    @FXML private Label wuavLabel;
     @FXML private JFXToggleButton toggleButton;
     private final Button editButton = new Button("Edit project");
     private final Button logOutButton = new Button("Log out");
@@ -176,23 +178,31 @@ public class ProjectManagerWindowController implements Initializable {
                 projectDisplay.showAllProjects(projectsHbox, filterComboBox, searchBar, projectModel, mainPane));
     }
 
+    private void setInstances() {
+        RefreshPropertiesSingleton.getInstance().setMainPane(mainPane);
+        RefreshPropertiesSingleton.getInstance().setProjectsHbox(projectsHbox);
+        RefreshPropertiesSingleton.getInstance().setSearchBar(searchBar);
+        RefreshPropertiesSingleton.getInstance().setFilterComboBox(filterComboBox);
+    }
+
     /**
      * Initialize method
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        RefreshPropertiesSingleton.getInstance().setMainPane(mainPane);
-        RefreshPropertiesSingleton.getInstance().setProjectsHbox(projectsHbox);
-        RefreshPropertiesSingleton.getInstance().setSearchBar(searchBar);
-        RefreshPropertiesSingleton.getInstance().setFilterComboBox(filterComboBox);
         user = UserSingleton.getInstance().getUser();
+        setInstances();
+
         projectDisplay = new ProjectDisplay();
         projectModel = new ProjectModel();
-        ClockUtil.showWidget(hbox);//clock
+
+        searchFilter(); // search & filter
         hamburgerMenu(); //hamburger
         hamburgerButtons(); //buttons in hamburger
-        searchFilter();
-        ImageUtil.iconAnimation(engineerIcon);
+
+        ClockUtil.showWidget(hbox);//clock
+        ImageUtil.iconAnimation(engineerIcon); // engineer icon
+        ImageUtil.openBrowser(wuavLabel);
 
         toggleButton.setOnAction(event -> {
             if (toggleButton.isSelected()) {

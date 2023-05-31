@@ -20,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -41,6 +42,7 @@ public class SalesmanWindowController implements Initializable {
     @FXML private JFXHamburger jfxHamburger;
     @FXML private JFXComboBox<String> filterComboBox;
     @FXML private JFXTextField searchBar;
+    @FXML private Label wuavLabel;
     @FXML private JFXToggleButton toggleButton;
     private final Button addCustomerButton = new Button("Add customer");
     private final Button sendDocument = new Button("Send document");
@@ -148,12 +150,16 @@ public class SalesmanWindowController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         user = UserSingleton.getInstance().getUser();
+
         projectDisplay = new ProjectDisplay();
         projectModel = new ProjectModel();
+
         searchFilter(); // search + filter
         hamburgerMenu(); // hamburger
         hamburgerButtons(); // buttons in hamburger
+
         ClockUtil.showWidget(hbox); // clock
+        ImageUtil.openBrowser(wuavLabel);
 
         toggleButton.setOnAction(event -> {
             if (toggleButton.isSelected()) {

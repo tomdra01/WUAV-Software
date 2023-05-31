@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.users.SalesmanWindowController">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.gui.controller.users.SalesmanWindowController">
     <top>
         <VBox prefHeight="140.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
             <HBox fx:id="hbox" prefHeight="100.0" prefWidth="1200.0" style="-fx-background-color: #2a2a2a;" />
@@ -31,17 +39,8 @@
                 </JFXHamburger>
                 <JFXToggleButton fx:id="toggleButton" text="Switch View" toggleColor="#e84910" toggleLineColor="#e84910">
                     <HBox.margin>
-                        <Insets left="400.0" top="10.0" />
+                        <Insets left="440.0" top="10.0" />
                     </HBox.margin></JFXToggleButton>
-                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
-                    <HBox.margin>
-                        <Insets top="10.0" />
-                    </HBox.margin>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                    <Image url="@../../images/engineer_icon_bw.jpeg" />
-                </ImageView>
                 <Label prefHeight="17.0" prefWidth="85.0" text="Customer type:">
                     <HBox.margin>
                         <Insets left="30.0" top="30.0" />
@@ -61,7 +60,7 @@
         </VBox>
     </top>
     <bottom>
-        <Label text="      © 2023 WUAV a/s. All rights reserved" textFill="#a1a1a1" BorderPane.alignment="CENTER">
+        <Label fx:id="wuavLabel" text="      © 2023 WUAV a/s. All rights reserved" textFill="#a1a1a1" BorderPane.alignment="CENTER">
             <BorderPane.margin>
                 <Insets bottom="5.0" />
             </BorderPane.margin>
@@ -69,7 +68,10 @@
                 <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                     <Image url="@../../images/wuav/wuav_logo.png" />
                 </ImageView>
-            </graphic></Label>
+            </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Label>
     </bottom>
     <center>
         <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../styles/scroll-pane_style.css" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
