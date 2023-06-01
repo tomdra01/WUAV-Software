@@ -27,6 +27,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -165,7 +166,6 @@ public class ProjectDisplay {
         }
     }
 
-
     private List<Project> filterProjects(JFXComboBox<String> filterComboBox, JFXTextField searchBar, List<Project> projects) {
         String selectedFilter = String.valueOf(filterComboBox.getValue());
         String searchText = searchBar.getText().toLowerCase();
@@ -214,6 +214,7 @@ public class ProjectDisplay {
     public void showTableView(HBox hbox, User user) {
         TableView<Project> tableView = new TableView<>();
 
+        tableView.getStylesheets().add(Objects.requireNonNull(PopupUtil.class.getResource("/styles/tableview_style.css")).toExternalForm());
         tableView.setPrefWidth(1200);
 
         TableColumn<Project, String> nameColumn = new TableColumn<>("Name");

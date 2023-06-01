@@ -8,6 +8,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
@@ -37,9 +38,9 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                 </JFXHamburger>
-                <JFXToggleButton fx:id="toggleButton" text="Switch View" toggleColor="#e84910">
+                <JFXToggleButton fx:id="toggleButton" text="Toggle Table View" toggleColor="#2a2a2a" toggleLineColor="#979797">
                <HBox.margin>
-                  <Insets left="370.0" top="10.0" />
+                  <Insets left="338.0" top="10.0" />
                </HBox.margin></JFXToggleButton>
                 <ImageView fx:id="engineerIcon" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
                     <HBox.margin>
@@ -49,6 +50,9 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                     <Image url="@../../images/engineer_icon_bw.jpeg" />
+               <effect>
+                  <ColorAdjust />
+               </effect>
                 </ImageView>
                 <Label prefHeight="17.0" prefWidth="85.0" text="Customer type:">
                     <HBox.margin>

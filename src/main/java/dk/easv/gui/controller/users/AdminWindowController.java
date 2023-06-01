@@ -284,7 +284,7 @@ public class AdminWindowController implements Initializable {
 
     private void showTableView() {
         projectDisplay.setModel(projectModel);
-       projectDisplay.showTableView(projectsHbox, user);
+        projectDisplay.showTableView(projectsHbox, user);
     }
 
 
