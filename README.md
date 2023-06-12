@@ -20,6 +20,9 @@ Centralized data storage: All relevant installation data is persistently stored 
 Usability-focused user interface: The application prioritizes usability, considering the technical nature of the users, and offers advanced functionality while maintaining an intuitive user experience.
 Data validation: The system includes input checks and validation to ensure accurate and reliable data entry, reducing errors and inconsistencies.
 
+## Award
+The WUAV Documentation System has been recognized as the winner of the "Best software for computer science CSe2022" award. This prestigious accolade highlights the exceptional quality and innovative approach of the project. We are proud of this achievement and it serves as a testament to the hard work and dedication of the development team.
+
 ## Installation
 Clone the repository to your local machine.
 Open the project in IntelliJ or your preferred Java IDE.
