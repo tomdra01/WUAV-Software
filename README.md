@@ -38,4 +38,4 @@ Ensure to save your progress and log out when finished.
 Contributions to the WUAV Documentation System project are welcome. Please follow the guidelines outlined in CONTRIBUTING.md to contribute to the project.
 
 ## License
-The WUAV Documentation System project is licensed under the MIT License.
+The WUAV Software is licensed under the MIT License.
